@@ -1,399 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ORVÉN JEWELS — Premium Jewellery</title>
-<meta name="description" content="ORVÉN JEWELS — premium jewellery, custom designs and enquiries.">
-
-<style>
-:root{
- --black:#080808;
- --soft:#111;
- --gold:#d7b56d;
- --gold2:#f0d89b;
- --white:#f7f5ef;
- --muted:#aaa69d;
- --line:#292722;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
- margin:0;background:var(--black);color:var(--white);
- font-family:Arial,Helvetica,sans-serif;
-}
-a{color:inherit;text-decoration:none}
-.container{width:min(1120px,92%);margin:auto}
-header{
- position:sticky;top:0;z-index:10;
- background:rgba(8,8,8,.94);
- backdrop-filter:blur(12px);
- border-bottom:1px solid var(--line)
-}
-nav{
- min-height:70px;display:flex;align-items:center;
- justify-content:space-between;gap:20px
-}
-.logo{
- font-family:Georgia,serif;font-size:22px;
- letter-spacing:.15em;color:var(--gold2)
-}
-nav .links{display:flex;gap:22px;font-size:13px}
-nav a:hover{color:var(--gold2)}
-.hero{
- min-height:70vh;display:grid;place-items:center;
- text-align:center;padding:80px 0;
- background:
- radial-gradient(circle at 50% 40%,rgba(215,181,109,.18),transparent 35%),
- linear-gradient(180deg,#0b0b0b,#080808)
-}
-.eyebrow{
- color:var(--gold);letter-spacing:.25em;
- text-transform:uppercase;font-size:11px
-}
-h1,h2,h3{font-family:Georgia,serif;font-weight:400}
-h1{font-size:clamp(42px,8vw,82px);margin:18px 0 10px}
-h2{font-size:38px;margin:10px 0}
-.hero p,.section-head p{
- color:var(--muted);line-height:1.7;max-width:650px;margin:15px auto
-}
-.btn{
- display:inline-block;padding:12px 18px;
- border:1px solid var(--line);margin:6px;
- cursor:pointer
-}
-.btn.primary{background:var(--gold);color:#111;border-color:var(--gold)}
-section{padding:75px 0;border-top:1px solid var(--line)}
-.section-head{text-align:center;margin-bottom:35px}
-.catalogue-grid{
- display:grid;grid-template-columns:repeat(3,1fr);gap:18px
-}
-.card{
- background:var(--soft);border:1px solid var(--line);
- overflow:hidden
-}
-.visual{
- height:230px;display:grid;place-items:center;text-align:center;
- background:
- radial-gradient(circle,rgba(215,181,109,.2),transparent 42%),
- #090909
-}
-.visual span{
- color:var(--gold2);font-family:Georgia,serif;
- letter-spacing:.1em;font-size:18px
-}
-.card-body{padding:20px}
-.card h3{font-size:22px;margin:0 0 8px}
-.card p{color:var(--muted);font-size:13px;line-height:1.6}
-.actions{display:flex;flex-wrap:wrap}
-.builder{
- display:grid;grid-template-columns:1fr 1fr;
- gap:25px
-}
-.panel{
- background:var(--soft);border:1px solid var(--line);padding:25px
-}
-label{
- display:block;color:#ccc;font-size:12px;
- text-transform:uppercase;letter-spacing:.08em;
- margin:0 0 8px
-}
-select,input{
- width:100%;padding:13px;margin-bottom:18px;
- background:#080808;color:var(--white);
- border:1px solid var(--line)
-}
-.preview{
- min-height:360px;display:grid;place-items:center;
- background:radial-gradient(circle,rgba(215,181,109,.2),transparent 45%),#080808
-}
-.ring{
- width:170px;height:170px;border:18px solid var(--gold);
- border-radius:50%;box-shadow:0 0 35px rgba(215,181,109,.25);
- position:relative
-}
-.ring:after{
- content:"";position:absolute;width:38px;height:38px;
- background:var(--gold2);border-radius:50%;
- top:-28px;left:48px;box-shadow:0 0 18px var(--gold2)
-}
-.summary{
- margin-top:18px;padding:16px;
- border-top:1px solid var(--line);color:var(--muted);
- font-size:13px;line-height:1.7
-}
-footer{
- padding:35px 0;color:var(--muted);
- text-align:center;border-top:1px solid var(--line)
-}
-@media(max-width:800px){
- nav .links{gap:10px;font-size:11px}
- .catalogue-grid{grid-template-columns:1fr 1fr}
- .builder{grid-template-columns:1fr}
-}
-@media(max-width:550px){
- .catalogue-grid{grid-template-columns:1fr}
- nav{flex-wrap:wrap;padding:15px 0}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORVÉN JEWELS | Fine Jewellery</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Playfair Display', Georgia, serif; }
+        body { background-color: #0f0f0f; color: #f5f5f5; text-align: center; }
+        header { padding: 40px 20px; background: linear-gradient(180deg, #000000, #181818); border-bottom: 1px solid #d4af37; }
+        h1 { font-size: 2.5rem; letter-spacing: 4px; color: #d4af37; text-transform: uppercase; }
+        p.subtitle { font-size: 0.9rem; color: #aaa; letter-spacing: 2px; margin-top: 5px; }
+        .gallery-container { padding: 30px 15px; max-width: 1200px; margin: auto; }
+        .category-title { font-size: 1.8rem; color: #d4af37; margin: 40px 0 20px 0; border-bottom: 1px solid #333; padding-bottom: 10px; text-align: left; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        .card { background: #1a1a1a; border-radius: 8px; border: 1px solid #2a2a2a; overflow: hidden; padding: 10px; transition: 0.3s; }
+        .card:hover { border-color: #d4af37; transform: translateY(-3px); }
+        .card img { width: 100%; height: 220px; object-fit: cover; border-radius: 5px; }
+        .card-title { color: #ccc; margin-top: 10px; font-size: 0.85rem; letter-spacing: 1px; }
+    </style>
 </head>
-
 <body>
 
-<header>
-<div class="container">
-<nav>
-<div class="logo">ORVÉN JEWELS</div>
-<div class="links">
-<a href="#catalogue">Catalogue</a>
-<a href="#custom">Custom Ring</a>
-<a href="#contact">Contact</a>
-</div>
-</nav>
-</div>
-</header>
+    <header>
+        <h1>ORVÉN JEWELS</h1>
+        <p class="subtitle">PREMIUM JEWELLERY • CUSTOM DESIGNS</p>
+    </header>
 
-<section class="hero">
-<div class="container">
-<div class="eyebrow">Premium Jewellery • Custom Designs</div>
-<h1>ORVÉN JEWELS</h1>
-<p>
-Discover refined jewellery and create a design made around your
-style, size and preferences.
-</p>
-<a class="btn primary" href="#catalogue">Explore Catalogue</a>
-<a class="btn" href="#custom">Design Your Ring</a>
-</div>
-</section>
+    <div class="gallery-container">
+        
+        <!-- Category: Necklaces -->
+        <h2 class="category-title">Necklaces</h2>
+        <div class="grid">
+            <div class="card"><img src="./necklaces/IMG-20260812-WA0013.jpg"><p class="card-title">Necklace Design</p></div>
+            <div class="card"><img src="./necklaces/IMG-20260812-WA0024.jpg"><p class="card-title">Necklace Design</p></div>
+            <div class="card"><img src="./necklaces/IMG-20260812-WA0025.jpg"><p class="card-title">Necklace Design</p></div>
+            <div class="card"><img src="./necklaces/IMG-20260812-WA0026.jpg"><p class="card-title">Necklace Design</p></div>
+        </div>
 
-<section id="catalogue">
-<div class="container">
-<div class="section-head">
-<div class="eyebrow">Shop</div>
-<h2>Jewellery Catalogue</h2>
-<p>Choose a collection and enquire directly on WhatsApp.</p>
-</div>
+        <!-- Category: Cocktail Rings -->
+        <h2 class="category-title">Cocktail Rings</h2>
+        <div class="grid">
+            <div class="card"><img src="./Cocktail-Ring/README.md"><p class="card-title">Cocktail Ring</p></div>
+        </div>
 
-<div class="catalogue-grid">
+        <!-- Category: Bracelets -->
+        <h2 class="category-title">Bracelets</h2>
+        <div class="grid">
+            <div class="card"><img src="./bracelet/README.md"><p class="card-title">Bracelet</p></div>
+            <div class="card"><img src="./tennis-bracelet/README.md"><p class="card-title">Tennis Bracelet</p></div>
+        </div>
 
-<div class="card">
-<div class="visual"><span>MEN'S<br>DIAMOND RING</span></div>
-<div class="card-body">
-<h3>Men's Diamond Ring</h3>
-<p>Premium men's diamond ring designs.</p>
-<div class="actions">
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Men%27s%20Diamond%20Ring.">WhatsApp</a>
-<a class="btn" href="#custom">Custom</a>
-</div>
-</div>
-</div>
+        <!-- Category: Mangalsutra -->
+        <h2 class="category-title">Mangalsutra</h2>
+        <div class="grid">
+            <div class="card"><img src="./mangalsutra/README.md"><p class="card-title">Mangalsutra Design</p></div>
+        </div>
 
-<div class="card">
-<div class="visual"><span>TEETH<br>GRILLZ</span></div>
-<div class="card-body">
-<h3>Teeth Grillz</h3>
-<p>Custom design enquiry.</p>
-<div class="actions">
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Teeth%20Grillz.">Enquire</a>
-</div>
-</div>
-</div>
+        <!-- Category: Nosepin -->
+        <h2 class="category-title">Nosepin</h2>
+        <div class="grid">
+            <div class="card"><img src="./nosepin/README.md"><p class="card-title">Nosepin Design</p></div>
+        </div>
 
-<div class="card">
-<div class="visual"><span>MEN'S<br>RING</span></div>
-<div class="card-body">
-<h3>Men's Ring</h3>
-<p>Contemporary men's ring collection.</p>
-<div class="actions">
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Men%27s%20Ring.">Enquire</a>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="visual"><span>DIAMOND<br>STUDS</span></div>
-<div class="card-body">
-<h3>Diamond Studs for Girls</h3>
-<p>Elegant diamond stud designs.</p>
-<div class="actions">
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Diamond%20Studs%20for%20Girls.">Enquire</a>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="visual"><span>COCKTAIL<br>RING</span></div>
-<div class="card-body">
-<h3>Cocktail Ring</h3>
-<p>Bold statement ring designs.</p>
-<div class="actions">
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Cocktail%20Ring.">Enquire</a>
-<a class="btn" href="#custom">Custom</a>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="visual"><span>LIGHT WEIGHT<br>EARRINGS</span></div>
-<div class="card-body">
-<h3>Light Weight Earrings</h3>
-<p>Lightweight everyday jewellery.</p>
-<div class="actions">
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Light%20Weight%20Earrings.">Enquire</a>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="visual"><span>LIGHT WEIGHT<br>RING</span></div>
-<div class="card-body">
-<h3>Light Weight Ring</h3>
-<p>Minimal lightweight ring designs.</p>
-<div class="actions">
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Light%20Weight%20Ring.">Enquire</a>
-<a class="btn" href="#custom">Custom</a>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<section id="custom">
-<div class="container">
-<div class="section-head">
-<div class="eyebrow">Personalised</div>
-<h2>Design Your Ring</h2>
-<p>Select your preferred options and preview the design.</p>
-</div>
-
-<div class="builder">
-
-<div class="panel">
-
-<label>Ring Style</label>
-<select id="style">
-<option>Classic</option>
-<option>Modern</option>
-<option>Statement</option>
-<option>Minimal</option>
-</select>
-
-<label>Metal</label>
-<select id="metal">
-<option>Yellow Gold</option>
-<option>White Gold</option>
-<option>Rose Gold</option>
-<option>Silver</option>
-</select>
-
-<label>Stone</label>
-<select id="stone">
-<option>Diamond</option>
-<option>Moissanite</option>
-<option>Ruby</option>
-<option>Sapphire</option>
-</select>
-
-<label>Finish</label>
-<select id="finish">
-<option>Polished</option>
-<option>Matte</option>
-<option>Brushed</option>
-</select>
-
-<label>Ring Size</label>
-<select id="size">
-<option>8</option><option>9</option><option>10</option>
-<option>11</option><option>12</option><option>13</option>
-<option>14</option><option>15</option>
-</select>
-
-<label>Engraving</label>
-<input id="engraving" placeholder="Optional engraving">
-
-<button class="btn primary" onclick="updatePreview()">Update Preview</button>
-<button class="btn" onclick="sendDesign()">Send Design on WhatsApp</button>
-
-</div>
-
-<div class="panel">
-<div class="preview">
-<div class="ring" id="ring"></div>
-</div>
-
-<div class="summary" id="summary">
-Your design will appear here.
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<section id="contact">
-<div class="container">
-<div class="section-head">
-<div class="eyebrow">Contact</div>
-<h2>ORVÉN JEWELS</h2>
-<p>For product enquiries, custom designs and quotations.</p>
-<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%20want%20to%20make%20an%20enquiry.">
-WhatsApp Us
-</a>
-</div>
-</div>
-</section>
-
-<footer>
-© 2026 ORVÉN JEWELS • Premium Jewellery & Custom Designs
-</footer>
-
-<script>
-function updatePreview(){
- const style=document.getElementById("style").value;
- const metal=document.getElementById("metal").value;
- const stone=document.getElementById("stone").value;
- const finish=document.getElementById("finish").value;
- const size=document.getElementById("size").value;
- const engraving=document.getElementById("engraving").value;
-
- let color="#d7b56d";
- if(metal==="White Gold"||metal==="Silver") color="#d8d8d8";
- if(metal==="Rose Gold") color="#d79a87";
-
- document.getElementById("ring").style.borderColor=color;
- document.getElementById("ring").style.boxShadow="0 0 35px "+color+"55";
-
- document.getElementById("summary").innerHTML=
- "<b>Your Design</b><br>"+
- style+" • "+metal+" • "+stone+"<br>"+
- finish+" finish • Size "+size+
- (engraving ? "<br>Engraving: "+engraving : "");
-}
-
-function sendDesign(){
- const style=document.getElementById("style").value;
- const metal=document.getElementById("metal").value;
- const stone=document.getElementById("stone").value;
- const finish=document.getElementById("finish").value;
- const size=document.getElementById("size").value;
- const engraving=document.getElementById("engraving").value||"None";
-
- const msg=
- "Hello ORVÉN JEWELS, I want to enquire about a custom ring.%0A%0A"+
- "Style: "+style+"%0A"+
- "Metal: "+metal+"%0A"+
- "Stone: "+stone+"%0A"+
- "Finish: "+finish+"%0A"+
- "Size: "+size+"%0A"+
- "Engraving: "+engraving;
-
- window.open("https://wa.me/918401715116?text="+msg,"_blank");
-}
-
-updatePreview();
-</script>
+    </div>
 
 </body>
 </html>
