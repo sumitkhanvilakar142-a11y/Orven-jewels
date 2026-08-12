@@ -5,14 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORVÉN JEWELS | Fine Jewellery</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Playfair Display', Georgia, serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Playfair Display', Georgia, serif; scroll-behavior: smooth; }
         body { background-color: #0f0f0f; color: #f5f5f5; text-align: center; }
-        header { padding: 40px 20px; background: linear-gradient(180deg, #000000, #181818); border-bottom: 1px solid #d4af37; }
-        h1 { font-size: 2.5rem; letter-spacing: 4px; color: #d4af37; text-transform: uppercase; }
-        p.subtitle { font-size: 0.9rem; color: #aaa; letter-spacing: 2px; margin-top: 5px; }
+        
+        /* Header & Logo */
+        header { padding: 30px 20px 15px 20px; background: linear-gradient(180deg, #000000, #181818); border-bottom: 1px solid #333; }
+        h1 { font-size: 2.2rem; letter-spacing: 4px; color: #d4af37; text-transform: uppercase; }
+        p.subtitle { font-size: 0.85rem; color: #aaa; letter-spacing: 2px; margin-top: 5px; }
+
+        /* Search Bar */
+        .search-container {
+            padding: 15px;
+            background: #141414;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #222;
+        }
+        .search-box {
+            width: 90%;
+            max-width: 500px;
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: 1px solid #d4af37;
+            background: #000;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            text-align: center;
+        }
+
+        /* Main Container */
         .gallery-container { padding: 30px 15px; max-width: 1200px; margin: auto; }
-        .category-title { font-size: 1.8rem; color: #d4af37; margin: 40px 0 20px 0; border-bottom: 1px solid #333; padding-bottom: 10px; text-align: left; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        .category-block { margin-bottom: 30px; }
+        .category-title { font-size: 1.6rem; color: #d4af37; margin: 20px 0; border-bottom: 1px solid #333; padding-bottom: 10px; text-align: left; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        
+        /* Product Cards */
         .card { background: #1a1a1a; border-radius: 8px; border: 1px solid #2a2a2a; overflow: hidden; padding: 10px; transition: 0.3s; }
         .card:hover { border-color: #d4af37; transform: translateY(-3px); }
         .card img { width: 100%; height: 220px; object-fit: cover; border-radius: 5px; }
@@ -26,49 +55,86 @@
         <p class="subtitle">PREMIUM JEWELLERY • CUSTOM DESIGNS</p>
     </header>
 
+    <!-- Interactive Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-box" onkeyup="searchJewellery()" placeholder="🔍 Search Ring, Bracelet, Necklace, Mangalsutra...">
+    </div>
+
     <div class="gallery-container">
         
         <!-- Necklaces -->
-        <h2 class="category-title">Necklaces</h2>
-        <div class="grid">
-            <div class="card"><img src="./necklaces/IMG-20260812-WA0013.jpg"><p class="card-title">Necklace Design</p></div>
-            <div class="card"><img src="./necklaces/IMG-20260812-WA0024.jpg"><p class="card-title">Necklace Design</p></div>
-            <div class="card"><img src="./necklaces/IMG-20260812-WA0025.jpg"><p class="card-title">Necklace Design</p></div>
-            <div class="card"><img src="./necklaces/IMG-20260812-WA0026.jpg"><p class="card-title">Necklace Design</p></div>
+        <div class="category-block" data-category="necklace necklaces">
+            <h2 class="category-title">Necklaces</h2>
+            <div class="grid">
+                <div class="card"><img src="./necklaces/IMG-20260812-WA0013.jpg"><p class="card-title">Necklace Design</p></div>
+                <div class="card"><img src="./necklaces/IMG-20260812-WA0024.jpg"><p class="card-title">Necklace Design</p></div>
+                <div class="card"><img src="./necklaces/IMG-20260812-WA0025.jpg"><p class="card-title">Necklace Design</p></div>
+                <div class="card"><img src="./necklaces/IMG-20260812-WA0026.jpg"><p class="card-title">Necklace Design</p></div>
+            </div>
         </div>
 
         <!-- Cocktail Rings -->
-        <h2 class="category-title">Cocktail Rings</h2>
-        <div class="grid">
-            <div class="card"><img src="./Cocktail-Ring/cocktail-ring.jpg"><p class="card-title">Cocktail Ring</p></div>
+        <div class="category-block" data-category="ring rings cocktail">
+            <h2 class="category-title">Cocktail Rings</h2>
+            <div class="grid">
+                <div class="card"><img src="./Cocktail-Ring/IMG-20260812-WA0220.jpg"><p class="card-title">Cocktail Ring</p></div>
+                <div class="card"><img src="./Cocktail-Ring/IMG-20260812-WA0221.jpg"><p class="card-title">Cocktail Ring</p></div>
+                <div class="card"><img src="./Cocktail-Ring/IMG-20260812-WA0222.jpg"><p class="card-title">Cocktail Ring</p></div>
+                <div class="card"><img src="./Cocktail-Ring/IMG-20260812-WA0223.jpg"><p class="card-title">Cocktail Ring</p></div>
+            </div>
         </div>
 
         <!-- Solitaire Diamond Rings -->
-        <h2 class="category-title">Solitaire Diamond Rings</h2>
-        <div class="grid">
-            <div class="card"><img src="./solitaire-diamond-ring/solitaire-diamond.jpg"><p class="card-title">Solitaire Ring</p></div>
+        <div class="category-block" data-category="ring rings solitaire diamond">
+            <h2 class="category-title">Solitaire Diamond Rings</h2>
+            <div class="grid">
+                <div class="card"><img src="./solitaire-diamond-ring/PHOTO_NAME.jpg"><p class="card-title">Solitaire Ring</p></div>
+            </div>
         </div>
 
         <!-- Bracelets -->
-        <h2 class="category-title">Bracelets</h2>
-        <div class="grid">
-            <div class="card"><img src="./bracelet/bracelet.jpg"><p class="card-title">Bracelet</p></div>
-            <div class="card"><img src="./tennis-bracelet/Tennis bracelet.jpg"><p class="card-title">Tennis Bracelet</p></div>
+        <div class="category-block" data-category="bracelet bracelets tennis">
+            <h2 class="category-title">Bracelets</h2>
+            <div class="grid">
+                <div class="card"><img src="./bracelet/PHOTO_NAME.jpg"><p class="card-title">Bracelet</p></div>
+                <div class="card"><img src="./tennis-bracelet/PHOTO_NAME.jpg"><p class="card-title">Tennis Bracelet</p></div>
+            </div>
         </div>
 
         <!-- Mangalsutra -->
-        <h2 class="category-title">Mangalsutra</h2>
-        <div class="grid">
-            <div class="card"><img src="./mangalsutra/mangalsurta.jpg"><p class="card-title">Mangalsutra</p></div>
+        <div class="category-block" data-category="mangalsutra mangalsutras">
+            <h2 class="category-title">Mangalsutra</h2>
+            <div class="grid">
+                <div class="card"><img src="./mangalsutra/PHOTO_NAME.jpg"><p class="card-title">Mangalsutra</p></div>
+            </div>
         </div>
 
         <!-- Nosepin -->
-        <h2 class="category-title">Nosepin</h2>
-        <div class="grid">
-            <div class="card"><img src="./nosepin/nosepin.jpg"><p class="card-title">Nosepin</p></div>
+        <div class="category-block" data-category="nosepin nosepin">
+            <h2 class="category-title">Nosepin</h2>
+            <div class="grid">
+                <div class="card"><img src="./nosepin/PHOTO_NAME.jpg"><p class="card-title">Nosepin</p></div>
+            </div>
         </div>
 
     </div>
+
+    <!-- Search JavaScript Function -->
+    <script>
+        function searchJewellery() {
+            let input = document.getElementById('searchInput').value.toLowerCase().trim();
+            let blocks = document.getElementsByClassName('category-block');
+
+            for (let i = 0; i < blocks.length; i++) {
+                let categoryData = blocks[i].getAttribute('data-category');
+                if (categoryData.includes(input)) {
+                    blocks[i].style.display = "";
+                } else {
+                    blocks[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
