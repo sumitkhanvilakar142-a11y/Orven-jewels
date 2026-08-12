@@ -2,447 +2,397 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ORVÉN JEWELS — Premium Jewellery</title>
-<meta name="description" content="ORVÉN JEWELS — premium jewellery, wholesale and custom designs.">
+<meta name="description" content="ORVÉN JEWELS — premium jewellery, custom designs and enquiries.">
+
 <style>
 :root{
-  --black:#0a0a0a;
-  --soft:#111111;
-  --gold:#d7b56d;
-  --gold2:#f0d89b;
-  --white:#f7f5ef;
-  --muted:#aaa69d;
-  --line:#292722;
+ --black:#080808;
+ --soft:#111;
+ --gold:#d7b56d;
+ --gold2:#f0d89b;
+ --white:#f7f5ef;
+ --muted:#aaa69d;
+ --line:#292722;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--black);color:var(--white);font-family:Arial,Helvetica,sans-serif}
+body{
+ margin:0;background:var(--black);color:var(--white);
+ font-family:Arial,Helvetica,sans-serif;
+}
 a{color:inherit;text-decoration:none}
 .container{width:min(1120px,92%);margin:auto}
-header{position:sticky;top:0;z-index:10;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav{height:72px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:Georgia,serif;letter-spacing:.16em;font-size:20px}
-.logo span{color:var(--gold)}
-nav{display:flex;gap:26px;font-size:13px;color:#ddd}
+header{
+ position:sticky;top:0;z-index:10;
+ background:rgba(8,8,8,.94);
+ backdrop-filter:blur(12px);
+ border-bottom:1px solid var(--line)
+}
+nav{
+ min-height:70px;display:flex;align-items:center;
+ justify-content:space-between;gap:20px
+}
+.logo{
+ font-family:Georgia,serif;font-size:22px;
+ letter-spacing:.15em;color:var(--gold2)
+}
+nav .links{display:flex;gap:22px;font-size:13px}
 nav a:hover{color:var(--gold2)}
-.hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:90px 0;background:
-radial-gradient(circle at 50% 35%,rgba(215,181,109,.16),transparent 28%),
-linear-gradient(180deg,#0b0b0b,#080808)}
-.eyebrow{color:var(--gold);letter-spacing:.28em;text-transform:uppercase;font-size:11px}
-h1{font-family:Georgia,serif;font-size:clamp(48px,9vw,92px);font-weight:400;letter-spacing:.12em;margin:18px 0 12px}
-.hero p{max-width:620px;margin:0 auto;color:var(--muted);line-height:1.8}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
-.btn{padding:13px 23px;border:1px solid var(--gold);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
-.btn.primary{background:var(--gold);color:#111}
-section{padding:78px 0;border-top:1px solid var(--line)}
-.section-head{text-align:center;margin-bottom:38px}
-.section-head h2{font-family:Georgia,serif;font-weight:400;font-size:38px;margin:10px 0}
-.section-head p{color:var(--muted);font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:var(--soft);border:1px solid var(--line);min-height:300px;padding:18px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
-.card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(215,181,109,.18),transparent 35%)}
-.icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:66px;opacity:.9}
-.card h3,.card p{position:relative;margin:0}
-.card h3{font-family:Georgia,serif;font-size:23px;font-weight:400}
-.card p{color:var(--muted);font-size:12px;margin-top:6px}
-.products .card{min-height:360px}
-.price{color:var(--gold2)!important;margin-top:12px!important}
-.about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
-.about h2{font-family:Georgia,serif;font-weight:400;font-size:42px;margin:0 0 18px}
-.about p{color:var(--muted);line-height:1.9}
-.feature{border-left:1px solid var(--gold);padding-left:20px;margin-top:24px;color:#ddd}
-.cta{text-align:center;background:linear-gradient(120deg,#0b0b0b,#15120d)}
-footer{padding:35px 0;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
-.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-
-
-.configurator{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
-.preview-box{min-height:520px;background:radial-gradient(circle at 50% 45%,rgba(215,181,109,.12),transparent 38%),#080808;border:1px solid var(--line);display:grid;place-items:center;position:relative;overflow:hidden}
-.preview-label{position:absolute;top:18px;left:20px;color:var(--muted);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
-.ring-svg{width:min(420px,85%);height:auto}
-.config-panel{background:var(--soft);border:1px solid var(--line);padding:24px}
-.option-group{margin-bottom:22px}
-.option-group label{display:block;color:#ddd;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:9px}
-.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.option-btn{background:#0b0b0b;color:#ddd;border:1px solid var(--line);padding:11px 9px;cursor:pointer;font-size:12px}
-.option-btn.active{border-color:var(--gold);color:var(--gold2);box-shadow:inset 0 0 0 1px var(--gold)}
-.config-summary{border-top:1px solid var(--line);padding-top:18px;margin-top:18px;color:var(--muted);font-size:13px;line-height:1.8}
-.config-summary strong{color:var(--white)}
-@media(max-width:760px){.configurator{grid-template-columns:1fr}.preview-box{min-height:390px}}
-
-.custom-form{background:var(--soft);border:1px solid var(--line);padding:25px;display:grid;gap:12px}
-.custom-form input,.custom-form textarea{width:100%;background:#0b0b0b;border:1px solid var(--line);color:var(--white);padding:14px;font:inherit;outline:none}
-.custom-form input:focus,.custom-form textarea:focus{border-color:var(--gold)}
-.custom-form textarea{resize:vertical}
-.custom-form button{cursor:pointer}
-
-@media(max-width:760px){
-  nav{display:none}
-  .grid,.about{grid-template-columns:1fr}
-  .hero{min-height:65vh}
-  section{padding:60px 0}
+.hero{
+ min-height:70vh;display:grid;place-items:center;
+ text-align:center;padding:80px 0;
+ background:
+ radial-gradient(circle at 50% 40%,rgba(215,181,109,.18),transparent 35%),
+ linear-gradient(180deg,#0b0b0b,#080808)
+}
+.eyebrow{
+ color:var(--gold);letter-spacing:.25em;
+ text-transform:uppercase;font-size:11px
+}
+h1,h2,h3{font-family:Georgia,serif;font-weight:400}
+h1{font-size:clamp(42px,8vw,82px);margin:18px 0 10px}
+h2{font-size:38px;margin:10px 0}
+.hero p,.section-head p{
+ color:var(--muted);line-height:1.7;max-width:650px;margin:15px auto
+}
+.btn{
+ display:inline-block;padding:12px 18px;
+ border:1px solid var(--line);margin:6px;
+ cursor:pointer
+}
+.btn.primary{background:var(--gold);color:#111;border-color:var(--gold)}
+section{padding:75px 0;border-top:1px solid var(--line)}
+.section-head{text-align:center;margin-bottom:35px}
+.catalogue-grid{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+}
+.card{
+ background:var(--soft);border:1px solid var(--line);
+ overflow:hidden
+}
+.visual{
+ height:230px;display:grid;place-items:center;text-align:center;
+ background:
+ radial-gradient(circle,rgba(215,181,109,.2),transparent 42%),
+ #090909
+}
+.visual span{
+ color:var(--gold2);font-family:Georgia,serif;
+ letter-spacing:.1em;font-size:18px
+}
+.card-body{padding:20px}
+.card h3{font-size:22px;margin:0 0 8px}
+.card p{color:var(--muted);font-size:13px;line-height:1.6}
+.actions{display:flex;flex-wrap:wrap}
+.builder{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:25px
+}
+.panel{
+ background:var(--soft);border:1px solid var(--line);padding:25px
+}
+label{
+ display:block;color:#ccc;font-size:12px;
+ text-transform:uppercase;letter-spacing:.08em;
+ margin:0 0 8px
+}
+select,input{
+ width:100%;padding:13px;margin-bottom:18px;
+ background:#080808;color:var(--white);
+ border:1px solid var(--line)
+}
+.preview{
+ min-height:360px;display:grid;place-items:center;
+ background:radial-gradient(circle,rgba(215,181,109,.2),transparent 45%),#080808
+}
+.ring{
+ width:170px;height:170px;border:18px solid var(--gold);
+ border-radius:50%;box-shadow:0 0 35px rgba(215,181,109,.25);
+ position:relative
+}
+.ring:after{
+ content:"";position:absolute;width:38px;height:38px;
+ background:var(--gold2);border-radius:50%;
+ top:-28px;left:48px;box-shadow:0 0 18px var(--gold2)
+}
+.summary{
+ margin-top:18px;padding:16px;
+ border-top:1px solid var(--line);color:var(--muted);
+ font-size:13px;line-height:1.7
+}
+footer{
+ padding:35px 0;color:var(--muted);
+ text-align:center;border-top:1px solid var(--line)
+}
+@media(max-width:800px){
+ nav .links{gap:10px;font-size:11px}
+ .catalogue-grid{grid-template-columns:1fr 1fr}
+ .builder{grid-template-columns:1fr}
+}
+@media(max-width:550px){
+ .catalogue-grid{grid-template-columns:1fr}
+ nav{flex-wrap:wrap;padding:15px 0}
 }
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="container nav">
-    <a class="logo" href="#">ORVÉN <span>JEWELS</span></a>
-    <nav>
-      <a href="#collections">Collections</a>
-      <a href="#wholesale">Wholesale</a>
-      <a href="#builder">Design Your Ring</a>
-      <a href="#custom">Custom</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
+<div class="container">
+<nav>
+<div class="logo">ORVÉN JEWELS</div>
+<div class="links">
+<a href="#catalogue">Catalogue</a>
+<a href="#custom">Custom Ring</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+</div>
 </header>
 
-<main>
 <section class="hero">
-  <div class="container">
-    <div class="eyebrow">Timeless Luxury • Modern Craft</div>
-    <h1>ORVÉN</h1>
-    <p>Premium jewellery designed for those who value refined details, lasting style and exceptional presentation.</p>
-    <div class="btns">
-      <a class="btn primary" href="#collections">Explore Collection</a>
-      <a class="btn" href="#wholesale">Wholesale Enquiry</a>
-    </div>
-  </div>
+<div class="container">
+<div class="eyebrow">Premium Jewellery • Custom Designs</div>
+<h1>ORVÉN JEWELS</h1>
+<p>
+Discover refined jewellery and create a design made around your
+style, size and preferences.
+</p>
+<a class="btn primary" href="#catalogue">Explore Catalogue</a>
+<a class="btn" href="#custom">Design Your Ring</a>
+</div>
 </section>
 
-<section id="collections">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">Discover</div>
-      <h2>Our Collections</h2>
-      <p>Elegant essentials for every occasion.</p>
-    </div>
-    <div class="grid">
-      <a class="card" href="#contact"><div class="icon">💍</div><h3>Rings</h3><p>Statement & everyday pieces</p></a>
-      <a class="card" href="#contact"><div class="icon">✦</div><h3>Earrings</h3><p>Refined silhouettes & sparkle</p></a>
-      <a class="card" href="#contact"><div class="icon">◇</div><h3>Necklaces</h3><p>Chains, pendants & layers</p></a>
-      <a class="card" href="#contact"><div class="icon">◈</div><h3>Bracelets</h3><p>Classic and contemporary styles</p></a>
-      <a class="card" href="#contact"><div class="icon">✧</div><h3>New Arrivals</h3><p>Fresh pieces added regularly</p></a>
-      <a class="card" href="#contact"><div class="icon">∞</div><h3>Custom</h3><p>Made to your design</p></a>
-    </div>
-  </div>
-</section>
+<section id="catalogue">
+<div class="container">
+<div class="section-head">
+<div class="eyebrow">Shop</div>
+<h2>Jewellery Catalogue</h2>
+<p>Choose a collection and enquire directly on WhatsApp.</p>
+</div>
 
-<section id="wholesale">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">For Businesses</div>
-      <h2>Wholesale Jewellery</h2>
-      <p>For retailers, boutiques and resellers.</p>
-    </div>
-    <div class="grid products">
-      <div class="card"><div class="icon">01</div><h3>Choose</h3><p>Select products from our catalogue.</p></div>
-      <div class="card"><div class="icon">02</div><h3>Enquire</h3><p>Send us your quantity and requirements.</p></div>
-      <div class="card"><div class="icon">03</div><h3>Order</h3><p>Confirm your order and delivery details.</p></div>
-    </div>
-  </div>
-</section>
+<div class="catalogue-grid">
 
+<div class="card">
+<div class="visual"><span>MEN'S<br>DIAMOND RING</span></div>
+<div class="card-body">
+<h3>Men's Diamond Ring</h3>
+<p>Premium men's diamond ring designs.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Men%27s%20Diamond%20Ring.">WhatsApp</a>
+<a class="btn" href="#custom">Custom</a>
+</div>
+</div>
+</div>
 
+<div class="card">
+<div class="visual"><span>TEETH<br>GRILLZ</span></div>
+<div class="card-body">
+<h3>Teeth Grillz</h3>
+<p>Custom design enquiry.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Teeth%20Grillz.">Enquire</a>
+</div>
+</div>
+</div>
 
-<section id="builder">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">Design Your Own</div>
-      <h2>Build Your Custom Ring</h2>
-      <p>Select the main parts you like. The preview updates instantly before you send the enquiry.</p>
-    </div>
+<div class="card">
+<div class="visual"><span>MEN'S<br>RING</span></div>
+<div class="card-body">
+<h3>Men's Ring</h3>
+<p>Contemporary men's ring collection.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Men%27s%20Ring.">Enquire</a>
+</div>
+</div>
+</div>
 
-    <div class="configurator">
-      <div class="preview-box">
-        <div class="preview-label">Live Preview</div>
-        <svg id="ringPreview" class="ring-svg" viewBox="0 0 500 500" aria-label="Custom ring preview">
-          <defs>
-            <linearGradient id="metalGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop id="metalStop1" offset="0%" stop-color="#f0d89b"/>
-              <stop id="metalStop2" offset="55%" stop-color="#b88936"/>
-              <stop id="metalStop3" offset="100%" stop-color="#f0d89b"/>
-            </linearGradient>
-            <radialGradient id="stoneGrad">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="35%" stop-color="#dff4ff"/>
-              <stop offset="70%" stop-color="#9eb4c2"/>
-              <stop offset="100%" stop-color="#4f626d"/>
-            </radialGradient>
-          </defs>
-          <ellipse id="ringBand" cx="250" cy="320" rx="118" ry="82" fill="none" stroke="url(#metalGrad)" stroke-width="28"/>
-          <path id="shoulderLeft" d="M150 315 Q175 245 215 215" fill="none" stroke="url(#metalGrad)" stroke-width="26" stroke-linecap="round"/>
-          <path id="shoulderRight" d="M350 315 Q325 245 285 215" fill="none" stroke="url(#metalGrad)" stroke-width="26" stroke-linecap="round"/>
-          <polygon id="setting" points="250,180 286,215 250,250 214,215" fill="url(#metalGrad)"/>
-          <circle id="mainStone" cx="250" cy="205" r="31" fill="url(#stoneGrad)" stroke="#fff" stroke-width="3"/>
-          <circle id="stoneHighlight" cx="239" cy="194" r="8" fill="#fff" opacity=".65"/>
-          <text id="engravingPreview" x="250" y="395" text-anchor="middle" fill="#c9b88f" font-size="12" letter-spacing="3"></text>
-        </svg>
-      </div>
+<div class="card">
+<div class="visual"><span>DIAMOND<br>STUDS</span></div>
+<div class="card-body">
+<h3>Diamond Studs for Girls</h3>
+<p>Elegant diamond stud designs.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Diamond%20Studs%20for%20Girls.">Enquire</a>
+</div>
+</div>
+</div>
 
-      <div class="config-panel">
-        <div class="option-group">
-          <label>Ring Style</label>
-          <div class="option-grid" id="styleOptions">
-            <button class="option-btn active" data-value="Classic">Classic</button>
-            <button class="option-btn" data-value="Halo">Halo</button>
-            <button class="option-btn" data-value="Solitaire">Solitaire</button>
-            <button class="option-btn" data-value="Modern">Modern</button>
-          </div>
-        </div>
+<div class="card">
+<div class="visual"><span>COCKTAIL<br>RING</span></div>
+<div class="card-body">
+<h3>Cocktail Ring</h3>
+<p>Bold statement ring designs.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Cocktail%20Ring.">Enquire</a>
+<a class="btn" href="#custom">Custom</a>
+</div>
+</div>
+</div>
 
-        <div class="option-group">
-          <label>Metal</label>
-          <div class="option-grid" id="metalOptions">
-            <button class="option-btn active" data-value="Gold">Gold</button>
-            <button class="option-btn" data-value="White Gold">White Gold</button>
-            <button class="option-btn" data-value="Rose Gold">Rose Gold</button>
-            <button class="option-btn" data-value="Silver">Silver</button>
-          </div>
-        </div>
+<div class="card">
+<div class="visual"><span>LIGHT WEIGHT<br>EARRINGS</span></div>
+<div class="card-body">
+<h3>Light Weight Earrings</h3>
+<p>Lightweight everyday jewellery.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Light%20Weight%20Earrings.">Enquire</a>
+</div>
+</div>
+</div>
 
-        <div class="option-group">
-          <label>Stone</label>
-          <div class="option-grid" id="stoneOptions">
-            <button class="option-btn active" data-value="Diamond">Diamond</button>
-            <button class="option-btn" data-value="Ruby">Ruby</button>
-            <button class="option-btn" data-value="Sapphire">Sapphire</button>
-            <button class="option-btn" data-value="Emerald">Emerald</button>
-          </div>
-        </div>
+<div class="card">
+<div class="visual"><span>LIGHT WEIGHT<br>RING</span></div>
+<div class="card-body">
+<h3>Light Weight Ring</h3>
+<p>Minimal lightweight ring designs.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%27m%20interested%20in%20Light%20Weight%20Ring.">Enquire</a>
+<a class="btn" href="#custom">Custom</a>
+</div>
+</div>
+</div>
 
-        <div class="option-group">
-          <label>Band Finish</label>
-          <div class="option-grid" id="finishOptions">
-            <button class="option-btn active" data-value="Polished">Polished</button>
-            <button class="option-btn" data-value="Matte">Matte</button>
-          </div>
-        </div>
-
-        <div class="option-group">
-          <label>Ring Size</label>
-          <select id="ringSize" style="width:100%;background:#0b0b0b;color:#ddd;border:1px solid var(--line);padding:12px">
-            <option>6</option><option>7</option><option selected>8</option><option>9</option><option>10</option><option>11</option><option>12</option>
-          </select>
-        </div>
-
-        <div class="option-group">
-          <label>Engraving (optional)</label>
-          <input id="engraving" maxlength="12" placeholder="e.g. A ♡ R" style="width:100%;background:#0b0b0b;color:#ddd;border:1px solid var(--line);padding:12px">
-        </div>
-
-        <div class="config-summary" id="configSummary"></div>
-        <div class="btns" style="justify-content:flex-start;margin-top:20px">
-          <button class="btn primary" type="button" onclick="sendRingDesign()">Send My Design</button>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+</div>
 </section>
 
 <section id="custom">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">Made For You</div>
-      <h2>Custom Jewellery</h2>
-      <p>Tell us what you want to create and our team can discuss your design.</p>
-    </div>
+<div class="container">
+<div class="section-head">
+<div class="eyebrow">Personalised</div>
+<h2>Design Your Ring</h2>
+<p>Select your preferred options and preview the design.</p>
+</div>
 
-    <div class="about">
-      <div>
-        <div class="feature">
-          <strong>Custom Rings</strong><br>
-          Choose your style, metal, stone and size.
-        </div>
-        <div class="feature">
-          <strong>Custom Necklaces & Earrings</strong><br>
-          Share your idea, reference image or sketch.
-        </div>
-        <div class="feature">
-          <strong>Custom Orders</strong><br>
-          We will review your requirements before confirming the order.
-        </div>
-      </div>
+<div class="builder">
 
-      <form class="custom-form" onsubmit="sendCustomEnquiry(event)">
-        <input id="customName" required placeholder="Your name">
-        <input id="customType" required placeholder="What do you want? e.g. Ring">
-        <input id="customSize" placeholder="Size (optional)">
-        <input id="customMaterial" placeholder="Metal/material (optional)">
-        <textarea id="customDesign" required rows="5" placeholder="Describe your design or requirements"></textarea>
-        <input id="customReference" type="url" placeholder="Reference image URL (optional)">
-        <button class="btn primary" type="submit">Send Custom Enquiry</button>
-      </form>
-    </div>
-  </div>
+<div class="panel">
+
+<label>Ring Style</label>
+<select id="style">
+<option>Classic</option>
+<option>Modern</option>
+<option>Statement</option>
+<option>Minimal</option>
+</select>
+
+<label>Metal</label>
+<select id="metal">
+<option>Yellow Gold</option>
+<option>White Gold</option>
+<option>Rose Gold</option>
+<option>Silver</option>
+</select>
+
+<label>Stone</label>
+<select id="stone">
+<option>Diamond</option>
+<option>Moissanite</option>
+<option>Ruby</option>
+<option>Sapphire</option>
+</select>
+
+<label>Finish</label>
+<select id="finish">
+<option>Polished</option>
+<option>Matte</option>
+<option>Brushed</option>
+</select>
+
+<label>Ring Size</label>
+<select id="size">
+<option>8</option><option>9</option><option>10</option>
+<option>11</option><option>12</option><option>13</option>
+<option>14</option><option>15</option>
+</select>
+
+<label>Engraving</label>
+<input id="engraving" placeholder="Optional engraving">
+
+<button class="btn primary" onclick="updatePreview()">Update Preview</button>
+<button class="btn" onclick="sendDesign()">Send Design on WhatsApp</button>
+
+</div>
+
+<div class="panel">
+<div class="preview">
+<div class="ring" id="ring"></div>
+</div>
+
+<div class="summary" id="summary">
+Your design will appear here.
+</div>
+</div>
+
+</div>
+</div>
 </section>
 
-<section id="about">
-  <div class="container about">
-    <div>
-      <div class="eyebrow">The Brand</div>
-      <h2>Quiet luxury.<br>Distinctive detail.</h2>
-      <p>ORVÉN JEWELS brings a clean, premium aesthetic to modern jewellery. Our focus is on presentation, craftsmanship and pieces that feel special without being overdone.</p>
-      <div class="feature">Wholesale and custom enquiries are welcome.</div>
-    </div>
-    <div class="card" style="min-height:360px"><div class="icon">ORVÉN</div><h3>Jewellery, elevated.</h3><p>Premium presentation from product to packaging.</p></div>
-  </div>
+<section id="contact">
+<div class="container">
+<div class="section-head">
+<div class="eyebrow">Contact</div>
+<h2>ORVÉN JEWELS</h2>
+<p>For product enquiries, custom designs and quotations.</p>
+<a class="btn primary" href="https://wa.me/918401715116?text=Hello%20ORV%C3%89N%20JEWELS%2C%20I%20want%20to%20make%20an%20enquiry.">
+WhatsApp Us
+</a>
+</div>
+</div>
 </section>
-
-<section id="contact" class="cta">
-  <div class="container">
-    <div class="eyebrow">Get in touch</div>
-    <div class="section-head">
-      <h2>Start an Enquiry</h2>
-      <p>Replace the contact details below with your real WhatsApp, Instagram and email before launch.</p>
-    </div>
-    <div class="btns">
-      <a class="btn primary" href="https://wa.me/7405393841">WhatsApp</a>
-      <a class="btn" href="https://instagram.com/">Instagram</a>
-      <a class="btn" href="mailto:hello@example.com">Email</a>
-    </div>
-  </div>
-</section>
-</main>
 
 <footer>
-  <div class="container footer-row">
-    <div>© 2026 ORVÉN JEWELS</div>
-    <div>Premium Jewellery • Wholesale • Custom</div>
-  </div>
+© 2026 ORVÉN JEWELS • Premium Jewellery & Custom Designs
 </footer>
 
 <script>
-function sendCustomEnquiry(event){
-  event.preventDefault();
-  const name = document.getElementById('customName').value;
-  const type = document.getElementById('customType').value;
-  const size = document.getElementById('customSize').value;
-  const material = document.getElementById('customMaterial').value;
-  const design = document.getElementById('customDesign').value;
-  const reference = document.getElementById('customReference').value;
+function updatePreview(){
+ const style=document.getElementById("style").value;
+ const metal=document.getElementById("metal").value;
+ const stone=document.getElementById("stone").value;
+ const finish=document.getElementById("finish").value;
+ const size=document.getElementById("size").value;
+ const engraving=document.getElementById("engraving").value;
 
-  const message =
-`Hello ORVÉN JEWELS, I want a custom jewellery enquiry.
+ let color="#d7b56d";
+ if(metal==="White Gold"||metal==="Silver") color="#d8d8d8";
+ if(metal==="Rose Gold") color="#d79a87";
 
-Name: ${name}
-Item: ${type}
-Size: ${size || 'Not specified'}
-Material: ${material || 'Not specified'}
-Design/Requirements: ${design}
-Reference: ${reference || 'None'}`;
+ document.getElementById("ring").style.borderColor=color;
+ document.getElementById("ring").style.boxShadow="0 0 35px "+color+"55";
 
-  // Replace 0000000000 with your real WhatsApp number in international format.
-  const whatsappNumber = '0000000000';
-  window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message), '_blank');
+ document.getElementById("summary").innerHTML=
+ "<b>Your Design</b><br>"+
+ style+" • "+metal+" • "+stone+"<br>"+
+ finish+" finish • Size "+size+
+ (engraving ? "<br>Engraving: "+engraving : "");
 }
-</script>
 
+function sendDesign(){
+ const style=document.getElementById("style").value;
+ const metal=document.getElementById("metal").value;
+ const stone=document.getElementById("stone").value;
+ const finish=document.getElementById("finish").value;
+ const size=document.getElementById("size").value;
+ const engraving=document.getElementById("engraving").value||"None";
 
-<script>
-const ringConfig = {
-  style: 'Classic',
-  metal: 'Gold',
-  stone: 'Diamond',
-  finish: 'Polished',
-  size: '8',
-  engraving: ''
-};
+ const msg=
+ "Hello ORVÉN JEWELS, I want to enquire about a custom ring.%0A%0A"+
+ "Style: "+style+"%0A"+
+ "Metal: "+metal+"%0A"+
+ "Stone: "+stone+"%0A"+
+ "Finish: "+finish+"%0A"+
+ "Size: "+size+"%0A"+
+ "Engraving: "+engraving;
 
-const metalColors = {
-  'Gold': ['#f0d89b','#b88936','#f0d89b'],
-  'White Gold': ['#f5f5f5','#9da2a5','#ffffff'],
-  'Rose Gold': ['#f5c4b2','#b97862','#f5d3c6'],
-  'Silver': ['#f1f1f1','#8f959a','#e8e8e8']
-};
-
-const stoneColors = {
-  'Diamond': ['#ffffff','#9eb4c2'],
-  'Ruby': ['#ff6b73','#8d1520'],
-  'Sapphire': ['#7fc7ff','#173a91'],
-  'Emerald': ['#77e3ad','#147344']
-};
-
-function bindOptions(id, key){
-  document.querySelectorAll('#'+id+' .option-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('#'+id+' .option-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      ringConfig[key] = btn.dataset.value;
-      updateRingPreview();
-    });
-  });
+ window.open("https://wa.me/918401715116?text="+msg,"_blank");
 }
-bindOptions('styleOptions','style');
-bindOptions('metalOptions','metal');
-bindOptions('stoneOptions','stone');
-bindOptions('finishOptions','finish');
 
-document.getElementById('ringSize').addEventListener('change', e=>{
-  ringConfig.size=e.target.value; updateRingPreview();
-});
-document.getElementById('engraving').addEventListener('input', e=>{
-  ringConfig.engraving=e.target.value; updateRingPreview();
-});
-
-function updateRingPreview(){
-  const m = metalColors[ringConfig.metal];
-  document.getElementById('metalStop1').setAttribute('stop-color',m[0]);
-  document.getElementById('metalStop2').setAttribute('stop-color',m[1]);
-  document.getElementById('metalStop3').setAttribute('stop-color',m[2]);
-
-  const s = stoneColors[ringConfig.stone];
-  const stone = document.getElementById('mainStone');
-  stone.setAttribute('fill', `radial-gradient(${s[0]},${s[1]})`);
-  // SVG radialGradient is updated directly for reliable browser rendering.
-  document.querySelector('#stoneGrad stop:nth-child(1)').setAttribute('stop-color',s[0]);
-  document.querySelector('#stoneGrad stop:nth-child(2)').setAttribute('stop-color',s[0]);
-  document.querySelector('#stoneGrad stop:nth-child(3)').setAttribute('stop-color',s[1]);
-
-  const band = document.getElementById('ringBand');
-  band.setAttribute('stroke-width', ringConfig.finish === 'Matte' ? '31' : '28');
-
-  const setting = document.getElementById('setting');
-  if(ringConfig.style === 'Halo'){
-    setting.setAttribute('points','250,168 300,205 250,255 200,205');
-    stone.setAttribute('r','27');
-  } else if(ringConfig.style === 'Solitaire'){
-    setting.setAttribute('points','250,170 276,215 250,248 224,215');
-    stone.setAttribute('r','34');
-  } else if(ringConfig.style === 'Modern'){
-    setting.setAttribute('points','250,175 292,210 250,245 208,210');
-    stone.setAttribute('r','29');
-  } else {
-    setting.setAttribute('points','250,180 286,215 250,250 214,215');
-    stone.setAttribute('r','31');
-  }
-
-  document.getElementById('engravingPreview').textContent = ringConfig.engraving || '';
-  document.getElementById('configSummary').innerHTML =
-    `<strong>Your design</strong><br>${ringConfig.style} • ${ringConfig.metal} • ${ringConfig.stone}<br>${ringConfig.finish} finish • Size ${ringConfig.size}` +
-    (ringConfig.engraving ? `<br>Engraving: ${ringConfig.engraving}` : '');
-}
-updateRingPreview();
-
-function sendRingDesign(){
-  const message =
-`Hello ORVÉN JEWELS, I want to enquire about this custom ring design.
-
-Style: ${ringConfig.style}
-Metal: ${ringConfig.metal}
-Stone: ${ringConfig.stone}
-Finish: ${ringConfig.finish}
-Size: ${ringConfig.size}
-Engraving: ${ringConfig.engraving || 'None'}
-
-Please confirm availability, final design and quotation.`;
-
-  const whatsappNumber = '0000000000'; // Replace with your real business WhatsApp number.
-  window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message), '_blank');
-}
+updatePreview();
 </script>
 
 </body>
