@@ -10,6 +10,7 @@ body {
   background-color: #0b0b0b;
   color: #ffffff;
   text-align: center;
+  overflow-x: hidden;
 }
 
 a {
@@ -17,38 +18,38 @@ a {
   color: inherit;
 }
 
-/* NAVIGATION */
+/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 15px 20px;
   background-color: #000;
   border-bottom: 1px solid #222;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 3px;
   color: #d4af37;
 }
 
 .logo span {
   display: block;
-  font-size: 10px;
-  letter-spacing: 5px;
+  font-size: 9px;
+  letter-spacing: 4px;
   color: #fff;
 }
 
 .nav-links a {
-  margin: 0 15px;
-  font-size: 12px;
-  letter-spacing: 2px;
+  margin: 0 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
   color: #ccc;
 }
 
 .nav-icons a {
-  margin-left: 15px;
+  margin-left: 10px;
   font-size: 16px;
   color: #d4af37;
 }
@@ -57,33 +58,33 @@ a {
 .hero {
   background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
               url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1200') center/cover no-repeat;
-  padding: 120px 20px;
+  padding: 80px 20px;
 }
 
 .hero h1 {
-  font-size: 48px;
-  letter-spacing: 6px;
+  font-size: 32px;
+  letter-spacing: 4px;
   color: #fff;
 }
 
 .hero h1 span {
   display: block;
-  font-size: 20px;
-  letter-spacing: 10px;
+  font-size: 16px;
+  letter-spacing: 6px;
   color: #d4af37;
 }
 
 .tagline {
-  margin-top: 15px;
-  font-size: 14px;
-  letter-spacing: 3px;
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 2px;
   color: #d4af37;
 }
 
 .sub-text {
-  font-size: 13px;
+  font-size: 12px;
   color: #aaa;
-  margin: 15px 0 30px;
+  margin: 15px 0 25px;
 }
 
 /* BUTTONS */
@@ -95,8 +96,8 @@ a {
 }
 
 .btn {
-  padding: 12px 25px;
-  font-size: 12px;
+  padding: 12px 20px;
+  font-size: 11px;
   letter-spacing: 2px;
   display: inline-block;
   transition: 0.3s;
@@ -124,11 +125,11 @@ a {
 .collection-section {
   background-color: #f9f8f6;
   color: #111;
-  padding: 60px 20px;
+  padding: 50px 15px;
 }
 
 .sub-heading {
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 3px;
   color: #c5a059;
   display: block;
@@ -136,22 +137,22 @@ a {
 }
 
 .section-title {
-  font-size: 26px;
-  letter-spacing: 4px;
-  margin-bottom: 40px;
+  font-size: 22px;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
 }
 
 .collection-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .card {
   background: #fff;
-  padding: 15px;
+  padding: 12px;
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;
@@ -160,12 +161,9 @@ a {
 
 .card-img {
   width: 100%;
-  height: 140px;
+  height: 150px;
   overflow: hidden;
-  background-color: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #f0f0f0;
 }
 
 .card-img img {
@@ -175,8 +173,8 @@ a {
 }
 
 .card h3 {
-  font-size: 13px;
-  margin: 15px 0 5px;
+  font-size: 12px;
+  margin: 12px 0 5px;
   letter-spacing: 1px;
 }
 
@@ -192,18 +190,18 @@ a {
   background-color: #f9f8f6;
   color: #111;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px 20px 80px;
-  gap: 40px;
-  text-align: left;
+  padding: 20px 20px 60px;
+  gap: 30px;
+  text-align: center;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .story-img {
   width: 100%;
-  max-width: 450px;
+  max-width: 400px;
 }
 
 .story-img img {
@@ -216,13 +214,13 @@ a {
 }
 
 .story-content h2 {
-  font-size: 24px;
+  font-size: 20px;
   letter-spacing: 2px;
-  margin: 10px 0 20px;
+  margin: 10px 0 15px;
 }
 
 .story-content p {
-  font-size: 13px;
+  font-size: 12px;
   color: #555;
   margin-bottom: 15px;
   line-height: 1.6;
@@ -232,52 +230,52 @@ a {
 .features-section {
   background-color: #fff;
   color: #111;
-  padding: 60px 20px;
+  padding: 50px 15px;
   border-top: 1px solid #eee;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   max-width: 1100px;
-  margin: 30px auto 0;
+  margin: 25px auto 0;
 }
 
 .feature-item i {
-  font-size: 24px;
+  font-size: 22px;
   color: #c5a059;
-  margin-bottom: 10px;
-}
-
-.feature-item h4 {
-  font-size: 12px;
-  letter-spacing: 1px;
   margin-bottom: 8px;
 }
 
-.feature-item p {
+.feature-item h4 {
   font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.feature-item p {
+  font-size: 10px;
   color: #666;
 }
 
 /* CUSTOM BANNER */
 .custom-banner {
   background-color: #111;
-  padding: 60px 20px;
+  padding: 50px 20px;
   border-top: 1px solid #222;
 }
 
 .custom-banner h2 {
-  font-size: 24px;
-  letter-spacing: 3px;
+  font-size: 20px;
+  letter-spacing: 2px;
   margin: 10px 0;
 }
 
 .custom-banner p {
-  font-size: 12px;
+  font-size: 11px;
   color: #aaa;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 /* INSTAGRAM SECTION */
@@ -285,59 +283,62 @@ a {
   background-color: #f9f8f6;
   color: #111;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 60px 20px;
-  gap: 30px;
-  justify-content: center;
+  padding: 50px 15px;
+  gap: 25px;
 }
 
 .insta-text {
-  text-align: left;
+  text-align: center;
 }
 
 .insta-text h2 {
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 2px;
   margin: 5px 0;
 }
 
 .insta-text p {
-  font-size: 12px;
+  font-size: 11px;
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .insta-grid {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .insta-grid img {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100px;
   object-fit: cover;
 }
 
 /* BOTTOM CTA */
 .bottom-cta {
-  padding: 60px 20px;
+  padding: 50px 20px;
   background-color: #000;
 }
 
 .bottom-cta h2 {
-  font-size: 24px;
-  letter-spacing: 3px;
+  font-size: 20px;
+  letter-spacing: 2px;
 }
 
 .bottom-cta p {
-  font-size: 12px;
+  font-size: 11px;
   color: #888;
-  margin: 10px 0 25px;
+  margin: 10px 0 20px;
 }
 
 /* FOOTER */
 .footer {
-  padding: 30px 20px;
+  padding: 30px 15px;
   background-color: #050505;
   border-top: 1px solid #151515;
 }
@@ -355,11 +356,14 @@ a {
 
 .footer-links {
   margin: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 .footer-links a {
-  font-size: 11px;
-  margin: 0 10px;
+  font-size: 10px;
   color: #888;
 }
 
@@ -369,81 +373,20 @@ a {
 }
 
 .copyright {
-  font-size: 10px;
+  font-size: 9px;
   color: #444;
   margin-top: 15px;
 }
 
-/* ===========================================
-   RESPONSIVE MEDIA QUERIES (FOR MOBILE SCREEN)
-   =========================================== */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .hero h1 {
-    font-size: 32px;
-  }
-
-  /* Collection 2 Columns on Mobile */
-  .collection-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .card-img {
-    height: 120px;
-  }
-
-  /* Story Stack Vertically */
-  .story-section {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  /* Features 2 Columns on Mobile */
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Insta Section Responsive */
-  .insta-section {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .insta-text {
-    text-align: center;
-  }
-
-  .insta-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-
-  .insta-grid img {
-    width: 100%;
-    height: 100px;
-  }
-
-  /* Full Width Buttons on Mobile */
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .btn {
-    width: 100%;
-    max-width: 280px;
-  }
+/* DESKTOP STYLES (SCREEN LARGER THAN 768px) */
+@media (min-width: 769px) {
+  .hero h1 { font-size: 48px; }
+  .collection-grid { grid-template-columns: repeat(6, 1fr); }
+  .story-section { flex-direction: row; text-align: left; }
+  .features-grid { grid-template-columns: repeat(5, 1fr); }
+  .insta-section { flex-direction: row; }
+  .insta-grid { display: flex; max-width: none; }
+  .insta-grid img { width: 120px; height: 120px; }
+  .hero-buttons { flex-direction: row; }
+  .btn { width: auto; }
 }
