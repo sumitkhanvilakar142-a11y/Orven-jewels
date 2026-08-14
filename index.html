@@ -179,5 +179,29 @@
 
   </main>
 
+</body>  <!-- JavaScript for Mobile Menu -->
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    const navLinks = document.querySelectorAll('.nav a');
+
+    // Button click karne par menu toggle hoga
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      const isExpanded = nav.classList.contains('active');
+      menuToggle.setAttribute('aria-expanded', isExpanded);
+    });
+
+    // Kisi bhi link par click karne par menu auto-close ho jayega
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
 </body>
+</html>
+
 </html>
