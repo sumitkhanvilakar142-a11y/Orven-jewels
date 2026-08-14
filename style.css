@@ -53,9 +53,9 @@ a {
   color: #d4af37;
 }
 
-/* HERO SECTION */
+/* HERO SECTION - Updated Background Image */
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1200x600') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1200') center/cover no-repeat;
   padding: 120px 20px;
 }
 
@@ -99,6 +99,7 @@ a {
   letter-spacing: 2px;
   display: inline-block;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .btn-gold {
@@ -151,11 +152,26 @@ a {
   background: #fff;
   padding: 15px;
   border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* NEW: Image crop and fit logic */
+.card-img {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card h3 {
@@ -185,9 +201,14 @@ a {
   margin: 0 auto;
 }
 
-.story-img img {
+.story-img {
   width: 100%;
   max-width: 450px;
+}
+
+.story-img img {
+  width: 100%;
+  border-radius: 4px;
 }
 
 .story-content {
@@ -377,6 +398,11 @@ a {
   .collection-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+
+  /* Adjust Card Image Height for Mobile */
+  .card-img {
+    height: 120px;
   }
 
   /* Story Stack Vertically */
