@@ -26,3 +26,43 @@ footer{background:#080808;color:#aaa;padding:45px 5%;display:grid;grid-template-
  .site-header{padding:0 5%}.menu-toggle{display:block;margin-left:auto}.header-actions{display:none}.nav{display:none;position:absolute;top:66px;left:0;right:0;background:#090909;padding:20px;flex-direction:column;gap:20px;text-align:center}.nav.open{display:flex}.hero{grid-template-columns:1fr;min-height:auto}.hero-copy{padding:70px 8%}.hero-art{height:300px}.section{padding:60px 6%}.category-grid,.product-grid{grid-template-columns:1fr 1fr}.category .jewel{height:120px}.story{grid-template-columns:1fr}.story-image{height:280px}.story-copy{padding:55px 8%}.features{grid-template-columns:1fr 1fr}.features article{border-right:1px solid #ddd4c6}.features article:nth-child(2n){border-right:0}.custom{padding:60px 8%;}.sketch{display:none}.social-grid{grid-template-columns:repeat(3,1fr)}.social-grid div{height:120px}.social-grid div:nth-child(4),.social-grid div:nth-child(5){display:none}.final-cta{padding:65px 15px}.final-cta h2{font-size:40px}.brand span{font-size:26px}
 }
 @media(max-width:420px){.category-grid,.product-grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}.features article{border-right:0}.hero h1{font-size:48px}}
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block; /* Hamburger button dikhane ke liye */
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  .nav {
+    display: none; /* Default me hidden rahega */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; /* Aapke theme ka background color */
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Jab menu ACTIVE hoga tab dikhega */
+  .nav.active {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 10px 0;
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop screen par hamburger button hide rahega */
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+}
