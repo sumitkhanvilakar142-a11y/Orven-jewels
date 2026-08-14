@@ -1,185 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="logo">ORVÉN <span>JEWELS</span></div>
-    <nav class="nav-links">
-      <a href="#">HOME</a>
-      <a href="#">COLLECTION</a>
-      <a href="#">CUSTOM JEWELRY</a>
-      <a href="#">ABOUT</a>
-      <a href="#">CONTACT</a>
-    </nav>
-    <div class="nav-icons">
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-    </div>
-  </header>
-
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>ORVÉN <span>JEWELS</span></h1>
-      <p class="tagline">TIMELESS ELEGANCE. DISTINCTLY YOURS.</p>
-      <p class="sub-text">Premium jewelry designed for moments that deserve to be remembered.</p>
-      <div class="hero-buttons">
-        <a href="#" class="btn btn-gold">EXPLORE COLLECTION</a>
-        <a href="#" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> SHOP ON WHATSAPP</a>
-      </div>
-    </div>
-  </section>
-
   <!-- COLLECTION SECTION -->
-  <section class="collection-section">
-    <span class="sub-heading">DISCOVER ORVÉN</span>
-    <h2 class="section-title">OUR COLLECTION</h2>
+  <section class="collection-section" id="collection">
+    <span class="sub-heading">EXPLORE ORVÉN</span>
+    <h2 class="section-title">OUR EXCLUSIVE COLLECTION</h2>
+
+    <!-- Category Filter Tabs -->
+    <div class="filter-container">
+      <button class="filter-btn active">ALL</button>
+      <button class="filter-btn">RINGS</button>
+      <button class="filter-btn">EARRINGS</button>
+      <button class="filter-btn">PENDANTS</button>
+      <button class="filter-btn">BRACELETS</button>
+      <button class="filter-btn">CUSTOM</button>
+    </div>
     
     <div class="collection-grid">
-      <!-- Men's Rings -->
+      <!-- Item 1: Men's Ring -->
       <div class="card">
-        <div class="card-img"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Men's Rings"></div>
-        <h3>MEN'S RINGS</h3>
-        <a href="#">VIEW COLLECTION</a>
+        <div class="card-img">
+          <img src="images/ring1.jpg" alt="Men's Gold Ring" onerror="this.src='https://via.placeholder.com/300x300?text=Orven+Jewels'">
+          <span class="badge">POPULAR</span>
+        </div>
+        <h3>MEN'S SIGNET RING</h3>
+        <p class="price">₹14,999</p>
+        <a href="https://wa.me/?text=Hi%2C%20I%20am%20interested%20in%20Men%27s%20Signet%20Ring" class="card-btn"><i class="fa-brands fa-whatsapp"></i> ENQUIRE NOW</a>
       </div>
-      <!-- Women's Rings -->
+
+      <!-- Item 2: Women's Diamond Ring -->
       <div class="card">
-        <div class="card-img"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Women's Rings"></div>
-        <h3>WOMEN'S RINGS</h3>
-        <a href="#">VIEW COLLECTION</a>
+        <div class="card-img">
+          <img src="images/ring2.jpg" alt="Diamond Ring" onerror="this.src='https://via.placeholder.com/300x300?text=Orven+Jewels'">
+        </div>
+        <h3>SOLITAIRE DIAMOND RING</h3>
+        <p class="price">₹24,500</p>
+        <a href="https://wa.me/?text=Hi%2C%20I%20am%20interested%20in%20Solitaire%20Diamond%20Ring" class="card-btn"><i class="fa-brands fa-whatsapp"></i> ENQUIRE NOW</a>
       </div>
-      <!-- Earrings -->
+
+      <!-- Item 3: Earrings -->
       <div class="card">
-        <div class="card-img"><img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=400" alt="Earrings"></div>
-        <h3>EARRINGS</h3>
-        <a href="#">VIEW COLLECTION</a>
+        <div class="card-img">
+          <img src="images/earring1.jpg" alt="Sapphire Earrings" onerror="this.src='https://via.placeholder.com/300x300?text=Orven+Jewels'">
+          <span class="badge">NEW</span>
+        </div>
+        <h3>SAPPHIRE EARRINGS</h3>
+        <p class="price">₹9,800</p>
+        <a href="https://wa.me/?text=Hi%2C%20I%20am%20interested%20in%20Sapphire%20Earrings" class="card-btn"><i class="fa-brands fa-whatsapp"></i> ENQUIRE NOW</a>
       </div>
-      <!-- Pendants -->
+
+      <!-- Item 4: Pendant -->
       <div class="card">
-        <div class="card-img"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=400" alt="Pendants"></div>
-        <h3>PENDANTS</h3>
-        <a href="#">VIEW COLLECTION</a>
+        <div class="card-img">
+          <img src="images/pendant1.jpg" alt="Gold Pendant" onerror="this.src='https://via.placeholder.com/300x300?text=Orven+Jewels'">
+        </div>
+        <h3>EMERALD GOLD PENDANT</h3>
+        <p class="price">₹18,200</p>
+        <a href="https://wa.me/?text=Hi%2C%20I%20am%20interested%20in%20Emerald%20Gold%20Pendant" class="card-btn"><i class="fa-brands fa-whatsapp"></i> ENQUIRE NOW</a>
       </div>
-      <!-- Bracelets -->
+
+      <!-- Item 5: Bracelet -->
       <div class="card">
-        <div class="card-img"><img src="https://images.unsplash.com/photo-1611591475281-6d28f326c8c1?q=80&w=400" alt="Bracelets"></div>
-        <h3>BRACELETS</h3>
-        <a href="#">VIEW COLLECTION</a>
+        <div class="card-img">
+          <img src="images/bracelet1.jpg" alt="Gold Bracelet" onerror="this.src='https://via.placeholder.com/300x300?text=Orven+Jewels'">
+        </div>
+        <h3>CLASSIC GOLD BRACELET</h3>
+        <p class="price">₹21,000</p>
+        <a href="https://wa.me/?text=Hi%2C%20I%20am%20interested%20in%20Classic%20Gold%20Bracelet" class="card-btn"><i class="fa-brands fa-whatsapp"></i> ENQUIRE NOW</a>
       </div>
-      <!-- Custom Jewelry -->
+
+      <!-- Item 6: Custom Jewelry -->
       <div class="card">
-        <div class="card-img"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400" alt="Custom Jewelry"></div>
-        <h3>CUSTOM JEWELRY</h3>
-        <a href="#">VIEW COLLECTION</a>
+        <div class="card-img">
+          <img src="images/custom1.jpg" alt="Custom Piece" onerror="this.src='https://via.placeholder.com/300x300?text=Orven+Jewels'">
+        </div>
+        <h3>CUSTOM GEMSTONE PIECE</h3>
+        <p class="price">PRICE ON REQUEST</p>
+        <a href="https://wa.me/?text=Hi%2C%20I%20am%20interested%20in%20Custom%20Gemstone%20Piece" class="card-btn"><i class="fa-brands fa-whatsapp"></i> ENQUIRE NOW</a>
       </div>
     </div>
   </section>
-
-  <!-- STORY SECTION -->
-  <section class="story-section">
-    <div class="story-img">
-      <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=500" alt="Orven Jewels Packaging">
-    </div>
-    <div class="story-content">
-      <span class="sub-heading">THE ORVÉN STORY</span>
-      <h2>CRAFTED FOR MEANINGFUL MOMENTS</h2>
-      <p>ORVÉN JEWELS is built around refined design, timeless elegance and jewelry that feels distinctly personal.</p>
-      <p>Our focus is simple: exceptional-looking pieces, thoughtful design and a premium customer experience.</p>
-      <a href="#" class="btn btn-outline-dark">LEARN MORE ABOUT ORVÉN</a>
-    </div>
-  </section>
-
-  <!-- FEATURES SECTION -->
-  <section class="features-section">
-    <span class="sub-heading">WHY CHOOSE ORVÉN</span>
-    <div class="features-grid">
-      <div class="feature-item">
-        <i class="fa-regular fa-gem"></i>
-        <h4>REFINED DESIGNS</h4>
-        <p>Thoughtfully designed pieces that stand out.</p>
-      </div>
-      <div class="feature-item">
-        <i class="fa-solid fa-ribbon"></i>
-        <h4>QUALITY-FOCUSED</h4>
-        <p>Carefully selected for quality and craftsmanship.</p>
-      </div>
-      <div class="feature-item">
-        <i class="fa-regular fa-user"></i>
-        <h4>PERSONALIZED SERVICE</h4>
-        <p>We help you find or create what's just right for you.</p>
-      </div>
-      <div class="feature-item">
-        <i class="fa-solid fa-shield-halved"></i>
-        <h4>SECURE ORDERING</h4>
-        <p>Safe ordering experience you can trust.</p>
-      </div>
-      <div class="feature-item">
-        <i class="fa-regular fa-heart"></i>
-        <h4>MADE FOR MOMENTS</h4>
-        <p>Jewelry for the moments that matter most.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CUSTOM DESIGN BANNER -->
-  <section class="custom-banner">
-    <span class="sub-heading">MADE FOR YOU</span>
-    <h2>HAVE A DESIGN IN MIND?</h2>
-    <p>Tell us what you're looking for and our team can help you explore a personalized jewelry option.</p>
-    <a href="#" class="btn btn-outline"><i class="fa-regular fa-comments"></i> REQUEST A CUSTOM DESIGN</a>
-  </section>
-
-  <!-- INSTAGRAM SECTION -->
-  <section class="insta-section">
-    <div class="insta-text">
-      <span class="sub-heading">FOLLOW ORVÉN</span>
-      <h2>JEWELRY. DETAILS. INSPIRATION.</h2>
-      <p>@ORVENJEWELS</p>
-      <a href="#" class="btn btn-outline-dark"><i class="fa-brands fa-instagram"></i> FOLLOW ON INSTAGRAM</a>
-    </div>
-    <div class="insta-grid">
-      <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=200" alt="Insta Post 1">
-      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=200" alt="Insta Post 2">
-      <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=200" alt="Insta Post 3">
-      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=200" alt="Insta Post 4">
-      <img src="https://images.unsplash.com/photo-1611591475281-6d28f326c8c1?q=80&w=200" alt="Insta Post 5">
-    </div>
-  </section>
-
-  <!-- CTA FOOTER BANNER -->
-  <section class="bottom-cta">
-    <h2>FIND YOUR SIGNATURE PIECE.</h2>
-    <p>Discover jewelry designed to become part of your story.</p>
-    <div class="hero-buttons">
-      <a href="#" class="btn btn-gold">EXPLORE COLLECTION</a>
-      <a href="#" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> SHOP ON WHATSAPP</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-logo">ORVÉN <span>JEWELS</span></div>
-    <nav class="footer-links">
-      <a href="#">HOME</a>
-      <a href="#">COLLECTION</a>
-      <a href="#">CUSTOM JEWELRY</a>
-      <a href="#">ABOUT</a>
-      <a href="#">CONTACT</a>
-    </nav>
-    <div class="footer-icons">
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-    </div>
-    <p class="copyright">&copy; 2026 ORVÉN JEWELS. ALL RIGHTS RESERVED.</p>
-  </footer>
-
-</body>
-</html>
