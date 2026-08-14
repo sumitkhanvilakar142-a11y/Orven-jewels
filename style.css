@@ -53,9 +53,10 @@ a {
   color: #d4af37;
 }
 
-/* HERO SECTION - Updated Background Image */
+/* HERO SECTION */
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1200') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
+              url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1200') center/cover no-repeat;
   padding: 120px 20px;
 }
 
@@ -157,7 +158,6 @@ a {
   align-items: center;
 }
 
-/* NEW: Image crop and fit logic */
 .card-img {
   width: 100%;
   height: 140px;
@@ -400,7 +400,6 @@ a {
     gap: 10px;
   }
 
-  /* Adjust Card Image Height for Mobile */
   .card-img {
     height: 120px;
   }
