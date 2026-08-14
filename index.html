@@ -3,19 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ORVÉN JEWELS — Timeless elegance. Distinctly yours.">
+  <meta name="description" content="ORVÉN JEWELS – Timeless elegance. Distinctly yours.">
   <title>ORVÉN JEWELS | Timeless Elegance</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- HEADER SECTION -->
   <header class="site-header">
     <a class="brand" href="#home" aria-label="ORVÉN JEWELS home">
       <span>ORVÉN</span><small>JEWELS</small>
     </a>
+    
     <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    
     <nav class="nav" id="nav">
       <a href="#home">Home</a>
       <a href="#collection">Collection</a>
@@ -23,39 +28,79 @@
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+    
     <div class="header-actions">
-      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
-      <a href="#contact" aria-label="WhatsApp">◉</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+      <a href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
     </div>
   </header>
 
+  <!-- MAIN CONTENT -->
   <main>
+    
+    <!-- HERO SECTION -->
     <section class="hero" id="home">
       <div class="hero-copy">
         <p class="eyebrow">ORVÉN JEWELS</p>
         <h1>Timeless Elegance.<br><em>Distinctly Yours.</em></h1>
         <p>Premium jewelry designed for moments that deserve to be remembered.</p>
+        
         <div class="buttons">
           <a class="btn gold" href="#collection">Explore Collection</a>
           <a class="btn outline" href="#contact">Shop on WhatsApp</a>
         </div>
       </div>
+      
       <div class="hero-art" role="img" aria-label="Luxury jewelry product image"></div>
     </section>
 
+    <!-- COLLECTION SECTION -->
     <section class="collection section" id="collection">
       <p class="eyebrow">Discover ORVÉN</p>
       <h2>Our Collection</h2>
+      
       <div class="category-grid">
-        <a class="category" href="#products"><div class="jewel jewel-ring"><img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="ORVÉN Men's Ring"></div><h3>Men's Rings</h3><span>View Collection</span></a>
-        <a class="category" href="#products"><div class="jewel jewel-ring">◉</div><h3>Women's Rings</h3><span>View Collection</span></a>
-        <a class="category" href="#products"><div class="jewel">✦</div><h3>Earrings</h3><span>View Collection</span></a>
-        <a class="category" href="#products"><div class="jewel">◇</div><h3>Pendants</h3><span>View Collection</span></a>
-        <a class="category" href="#products"><div class="jewel">∞</div><h3>Bracelets</h3><span>View Collection</span></a>
-        <a class="category" href="#custom"><div class="jewel">♢</div><h3>Custom Jewelry</h3><span>View Collection</span></a>
+        <a class="category" href="#products">
+          <div class="jewel jewel-ring">
+            <img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="ORVÉN Men's Ring" loading="lazy">
+          </div>
+          <h3>Men's Rings</h3>
+          <span>View Collection</span>
+        </a>
+
+        <a class="category" href="#products">
+          <div class="jewel jewel-ring"></div>
+          <h3>Women's Rings</h3>
+          <span>View Collection</span>
+        </a>
+
+        <a class="category" href="#products">
+          <div class="jewel">✦</div>
+          <h3>Earrings</h3>
+          <span>View Collection</span>
+        </a>
+
+        <a class="category" href="#products">
+          <div class="jewel">❖</div>
+          <h3>Pendants</h3>
+          <span>View Collection</span>
+        </a>
+
+        <a class="category" href="#products">
+          <div class="jewel">===</div>
+          <h3>Bracelets</h3>
+          <span>View Collection</span>
+        </a>
+
+        <a class="category" href="#custom">
+          <div class="jewel">◈</div>
+          <h3>Custom Jewelry</h3>
+          <span>View Collection</span>
+        </a>
       </div>
     </section>
 
+    <!-- ABOUT / STORY SECTION -->
     <section class="story" id="about">
       <div class="story-image"></div>
       <div class="story-copy">
@@ -67,85 +112,72 @@
       </div>
     </section>
 
+    <!-- WHY CHOOSE SECTION -->
     <section class="why section">
       <p class="eyebrow">Why Choose ORVÉN</p>
       <div class="features">
-        <article><strong>◇</strong><h3>Refined Designs</h3><p>Thoughtfully designed pieces that stand out.</p></article>
-        <article><strong>♔</strong><h3>Quality-Focused</h3><p>Carefully selected for quality and craftsmanship.</p></article>
-        <article><strong>♙</strong><h3>Personalized Service</h3><p>We help you find or create what’s just right for you.</p></article>
-        <article><strong>♢</strong><h3>Secure Ordering</h3><p>A safe ordering experience you can trust.</p></article>
-        <article><strong>♡</strong><h3>Made for Moments</h3><p>Jewelry for the moments that matter most.</p></article>
+        <article class="feature-card">
+          <div class="icon">✦</div>
+          <h3>Refined Designs</h3>
+          <p>Thoughtfully designed pieces that stand out.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="icon">❖</div>
+          <h3>Quality-Focused</h3>
+          <p>Carefully selected for quality and craftsmanship.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="icon">Δ</div>
+          <h3>Personalized Service</h3>
+          <p>We help you find or create what's just right for you.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="icon">◇</div>
+          <h3>Secure Ordering</h3>
+          <p>A safe ordering experience you can trust.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="icon">∇</div>
+          <h3>Made for Moments</h3>
+          <p>Jewelry for the moments that matter most.</p>
+        </article>
       </div>
     </section>
 
+    <!-- PRODUCTS SECTION -->
     <section class="products section" id="products">
       <p class="eyebrow">Selected Pieces</p>
       <h2>Signature Jewelry</h2>
+      
       <div class="product-grid">
-        <article class="product-card"><div class="product-image p1"></div><h3>Élan Ring</h3><p>From ₹—</p><button data-product="Élan Ring">Enquire on WhatsApp</button></article>
-        <article class="product-card"><div class="product-image p2"></div><h3>Noir Pendant</h3><p>From ₹—</p><button data-product="Noir Pendant">Enquire on WhatsApp</button></article>
-        <article class="product-card"><div class="product-image p3"></div><h3>Auréa Earrings</h3><p>From ₹—</p><button data-product="Auréa Earrings">Enquire on WhatsApp</button></article>
-      </div>
-      <p class="note">Replace the placeholder product images, names and prices with your actual inventory.</p>
-    </section>
+        <article class="product-card">
+          <div class="product-image p1"></div>
+          <h3>Élan Ring</h3>
+          <p>From ₹—</p>
+          <button data-product="Élan Ring" class="btn outline">Inquire</button>
+        </article>
 
-    <section class="custom" id="custom">
-      <div>
-        <p class="eyebrow">Made For You</p>
-        <h2>Have a design in mind?</h2>
-        <p>Tell us what you're looking for and we'll help you explore a personalized jewelry option.</p>
-        <a class="btn outline" href="#contact">Request a Custom Design</a>
-      </div>
-      <div class="sketch" aria-hidden="true">◇<br>⌁</div>
-    </section>
+        <article class="product-card">
+          <div class="product-image p2"></div>
+          <h3>Noir Pendant</h3>
+          <p>From ₹—</p>
+          <button data-product="Noir Pendant" class="btn outline">Inquire</button>
+        </article>
 
-    <section class="social section">
-      <div class="social-copy">
-        <p class="eyebrow">Follow ORVÉN</p>
-        <h2>Jewelry. Details. Inspiration.</h2>
-        <p>@ORVENJEWELS</p>
-        <a class="btn dark" href="https://instagram.com/" target="_blank" rel="noopener">Follow on Instagram</a>
-      </div>
-      <div class="social-grid">
-        <div></div><div></div><div></div><div></div><div></div>
+        <article class="product-card">
+          <div class="product-image p3"></div>
+          <h3>Auréa Earrings</h3>
+          <p>From ₹—</p>
+          <button data-product="Auréa Earrings" class="btn outline">Inquire</button>
+        </article>
       </div>
     </section>
 
-    <section class="final-cta">
-      <p class="eyebrow">ORVÉN JEWELS</p>
-      <h2>Find Your Signature Piece.</h2>
-      <p>Discover jewelry designed to become part of your story.</p>
-      <div class="buttons">
-        <a class="btn gold" href="#collection">Explore Collection</a>
-        <a class="btn outline" href="#contact">Shop on WhatsApp</a>
-      </div>
-    </section>
-
-    <section class="contact section" id="contact">
-      <p class="eyebrow">Contact ORVÉN</p>
-      <h2>Let's find your piece.</h2>
-      <form id="contactForm">
-        <input id="name" type="text" placeholder="Your name" required>
-        <input id="phone" type="tel" placeholder="Phone / WhatsApp" required>
-        <select id="interest">
-          <option>I'm interested in a ring</option>
-          <option>I'm interested in earrings</option>
-          <option>I'm interested in a pendant</option>
-          <option>I'm interested in a bracelet</option>
-          <option>I want custom jewelry</option>
-        </select>
-        <textarea id="message" rows="4" placeholder="Tell us what you're looking for"></textarea>
-        <button class="btn gold" type="submit">Send Enquiry</button>
-      </form>
-    </section>
   </main>
 
-  <footer>
-    <a class="brand" href="#home"><span>ORVÉN</span><small>JEWELS</small></a>
-    <div class="footer-links"><a href="#home">Home</a><a href="#collection">Collection</a><a href="#custom">Custom Jewelry</a><a href="#about">About</a><a href="#contact">Contact</a></div>
-    <p>© 2026 ORVÉN JEWELS. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
