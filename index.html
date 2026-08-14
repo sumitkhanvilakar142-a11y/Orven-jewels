@@ -5,22 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="ORVÉN JEWELS – Timeless elegance. Distinctly yours.">
   <title>ORVÉN JEWELS | Timeless Elegance</title>
-  
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS Link -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER / NAVIGATION -->
   <header class="site-header">
     <a class="brand" href="#home" aria-label="ORVÉN JEWELS home">
       <span class="brand-title">ORVÉN</span>
       <span class="brand-sub">JEWELS</span>
     </a>
     
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
     
     <nav class="nav" id="nav">
       <a href="#home" class="active">HOME</a>
@@ -43,7 +46,6 @@
   <main>
     <!-- HERO SECTION -->
     <section class="hero" id="home">
-      <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-brand-logo">
           <h1>ORVÉN</h1>
@@ -53,7 +55,7 @@
         <p class="hero-desc">Premium jewelry designed for<br>moments that deserve to be remembered.</p>
         <div class="hero-buttons">
           <a class="btn btn-gold" href="#collection">EXPLORE COLLECTION</a>
-          <a class="btn btn-outline" href="#contact">
+          <a class="btn btn-outline" href="https://wa.me/" target="_blank">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
             SHOP ON WHATSAPP
           </a>
@@ -72,43 +74,43 @@
       </div>
       
       <div class="collection-grid">
-        <a class="collection-card" href="#products">
+        <div class="collection-card">
           <div class="img-box">
             <img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="Men's Rings">
           </div>
           <h3>MEN'S RINGS</h3>
-          <span class="view-link">VIEW COLLECTION</span>
-        </a>
+          <a class="view-link" href="#products">VIEW COLLECTION</a>
+        </div>
 
-        <a class="collection-card" href="#products">
+        <div class="collection-card">
           <div class="img-box placeholder-img"></div>
           <h3>WOMEN'S RINGS</h3>
-          <span class="view-link">VIEW COLLECTION</span>
-        </a>
+          <a class="view-link" href="#products">VIEW COLLECTION</a>
+        </div>
 
-        <a class="collection-card" href="#products">
+        <div class="collection-card">
           <div class="img-box placeholder-img"></div>
           <h3>EARRINGS</h3>
-          <span class="view-link">VIEW COLLECTION</span>
-        </a>
+          <a class="view-link" href="#products">VIEW COLLECTION</a>
+        </div>
 
-        <a class="collection-card" href="#products">
+        <div class="collection-card">
           <div class="img-box placeholder-img"></div>
           <h3>PENDANTS</h3>
-          <span class="view-link">VIEW COLLECTION</span>
-        </a>
+          <a class="view-link" href="#products">VIEW COLLECTION</a>
+        </div>
 
-        <a class="collection-card" href="#products">
+        <div class="collection-card">
           <div class="img-box placeholder-img"></div>
           <h3>BRACELETS</h3>
-          <span class="view-link">VIEW COLLECTION</span>
-        </a>
+          <a class="view-link" href="#products">VIEW COLLECTION</a>
+        </div>
 
-        <a class="collection-card" href="#custom">
+        <div class="collection-card">
           <div class="img-box placeholder-img"></div>
           <h3>CUSTOM JEWELRY</h3>
-          <span class="view-link">VIEW COLLECTION</span>
-        </a>
+          <a class="view-link" href="#custom">VIEW COLLECTION</a>
+        </div>
       </div>
     </section>
 
@@ -161,23 +163,23 @@
       </div>
     </section>
 
-    <!-- CUSTOM DESIGN BANNER (NEW) -->
+    <!-- CUSTOM DESIGN BANNER -->
     <section class="custom-banner" id="custom">
       <div class="custom-banner-content">
         <p class="eyebrow">MADE FOR YOU</p>
         <h2>HAVE A DESIGN IN MIND?</h2>
         <p>Tell us what you're looking for and our team can help you explore a personalized jewelry option.</p>
-        <a class="btn btn-outline gold-border" href="#contact">
+        <a class="btn btn-outline gold-border" href="https://wa.me/" target="_blank">
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
           REQUEST A CUSTOM DESIGN
         </a>
       </div>
-      <div class="custom-banner-sketch">
-        <!-- Sketch pad illustration area -->
+      <div class="custom-banner-art">
+        <div class="sketch-placeholder">✏️ Custom Sketches</div>
       </div>
     </section>
 
-    <!-- INSTAGRAM GALLERY SECTION (NEW) -->
+    <!-- INSTAGRAM GALLERY SECTION -->
     <section class="insta-section">
       <div class="insta-header">
         <div class="insta-text">
@@ -199,19 +201,18 @@
       </div>
     </section>
 
-    <!-- BOTTOM CTA BANNER (NEW) -->
+    <!-- FOOTER CTA BANNER -->
     <section class="footer-cta">
       <h2>FIND YOUR SIGNATURE PIECE.</h2>
       <p>Discover jewelry designed to become part of your story.</p>
       <div class="hero-buttons">
         <a class="btn btn-gold" href="#collection">EXPLORE COLLECTION</a>
-        <a class="btn btn-outline" href="#contact">
+        <a class="btn btn-outline" href="https://wa.me/" target="_blank">
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
           SHOP ON WHATSAPP
         </a>
       </div>
     </section>
-
   </main>
 
   <!-- FOOTER -->
@@ -226,10 +227,6 @@
       <a href="#custom">CUSTOM JEWELRY</a>
       <a href="#about">ABOUT</a>
       <a href="#contact">CONTACT</a>
-    </div>
-    <div class="footer-socials">
-      <a href="https://instagram.com" class="icon-btn">📷</a>
-      <a href="https://wa.me/" class="icon-btn">💬</a>
     </div>
     <p class="copyright">© 2026 ORVÉN JEWELS. ALL RIGHTS RESERVED.</p>
   </footer>
