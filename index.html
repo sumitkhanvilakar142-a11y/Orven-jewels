@@ -8,198 +8,238 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HEADER SECTION -->
+  <!-- HEADER -->
   <header class="site-header">
     <a class="brand" href="#home" aria-label="ORVÉN JEWELS home">
-      <span>ORVÉN</span><small>JEWELS</small>
+      <span class="brand-title">ORVÉN</span>
+      <span class="brand-sub">JEWELS</span>
     </a>
     
     <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
     
     <nav class="nav" id="nav">
-      <a href="#home">Home</a>
-      <a href="#collection">Collection</a>
-      <a href="#custom">Custom Jewelry</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#home" class="active">HOME</a>
+      <a href="#collection">COLLECTION</a>
+      <a href="#custom">CUSTOM JEWELRY</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
     </nav>
     
     <div class="header-actions">
-      <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
-      <a href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="icon-btn" aria-label="Instagram">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://wa.me/" target="_blank" rel="noopener" class="icon-btn" aria-label="WhatsApp">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+      </a>
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main>
-    
     <!-- HERO SECTION -->
     <section class="hero" id="home">
-      <div class="hero-copy">
-        <p class="eyebrow">ORVÉN JEWELS</p>
-        <h1>Timeless Elegance.<br><em>Distinctly Yours.</em></h1>
-        <p>Premium jewelry designed for moments that deserve to be remembered.</p>
-        
-        <div class="buttons">
-          <a class="btn gold" href="#collection">Explore Collection</a>
-          <a class="btn outline" href="#contact">Shop on WhatsApp</a>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-brand-logo">
+          <h1>ORVÉN</h1>
+          <div class="divider-line"><span>JEWELS</span></div>
+        </div>
+        <p class="hero-tagline">TIMELESS ELEGANCE.<br>DISTINCTLY YOURS.</p>
+        <p class="hero-desc">Premium jewelry designed for<br>moments that deserve to be remembered.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-gold" href="#collection">EXPLORE COLLECTION</a>
+          <a class="btn btn-outline" href="#contact">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+            SHOP ON WHATSAPP
+          </a>
         </div>
       </div>
-      
-      <div class="hero-art" role="img" aria-label="Luxury jewelry product image"></div>
+      <div class="hero-bg-art">
+        <img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="Luxury Ring" class="hero-ring-img">
+      </div>
     </section>
 
-    <!-- COLLECTION SECTION -->
-    <section class="collection section" id="collection">
-      <p class="eyebrow">Discover ORVÉN</p>
-      <h2>Our Collection</h2>
+    <!-- OUR COLLECTION -->
+    <section class="collection-section" id="collection">
+      <div class="section-header">
+        <p class="eyebrow">DISCOVER ORVÉN</p>
+        <h2>OUR COLLECTION</h2>
+      </div>
       
-      <div class="category-grid">
-        <a class="category" href="#products">
-          <div class="jewel jewel-ring">
-            <img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="ORVÉN Men's Ring" loading="lazy">
+      <div class="collection-grid">
+        <a class="collection-card" href="#products">
+          <div class="img-box">
+            <img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="Men's Rings">
           </div>
-          <h3>Men's Rings</h3>
-          <span>View Collection</span>
+          <h3>MEN'S RINGS</h3>
+          <span class="view-link">VIEW COLLECTION</span>
         </a>
 
-        <a class="category" href="#products">
-          <div class="jewel jewel-ring"></div>
-          <h3>Women's Rings</h3>
-          <span>View Collection</span>
+        <a class="collection-card" href="#products">
+          <div class="img-box placeholder-img"></div>
+          <h3>WOMEN'S RINGS</h3>
+          <span class="view-link">VIEW COLLECTION</span>
         </a>
 
-        <a class="category" href="#products">
-          <div class="jewel">✦</div>
-          <h3>Earrings</h3>
-          <span>View Collection</span>
+        <a class="collection-card" href="#products">
+          <div class="img-box placeholder-img"></div>
+          <h3>EARRINGS</h3>
+          <span class="view-link">VIEW COLLECTION</span>
         </a>
 
-        <a class="category" href="#products">
-          <div class="jewel">❖</div>
-          <h3>Pendants</h3>
-          <span>View Collection</span>
+        <a class="collection-card" href="#products">
+          <div class="img-box placeholder-img"></div>
+          <h3>PENDANTS</h3>
+          <span class="view-link">VIEW COLLECTION</span>
         </a>
 
-        <a class="category" href="#products">
-          <div class="jewel">===</div>
-          <h3>Bracelets</h3>
-          <span>View Collection</span>
+        <a class="collection-card" href="#products">
+          <div class="img-box placeholder-img"></div>
+          <h3>BRACELETS</h3>
+          <span class="view-link">VIEW COLLECTION</span>
         </a>
 
-        <a class="category" href="#custom">
-          <div class="jewel">◈</div>
-          <h3>Custom Jewelry</h3>
-          <span>View Collection</span>
+        <a class="collection-card" href="#custom">
+          <div class="img-box placeholder-img"></div>
+          <h3>CUSTOM JEWELRY</h3>
+          <span class="view-link">VIEW COLLECTION</span>
         </a>
       </div>
     </section>
 
-    <!-- ABOUT / STORY SECTION -->
-    <section class="story" id="about">
-      <div class="story-image"></div>
-      <div class="story-copy">
-        <p class="eyebrow">The ORVÉN Story</p>
-        <h2>Crafted for meaningful moments.</h2>
+    <!-- STORY SECTION -->
+    <section class="story-section" id="about">
+      <div class="story-img-box">
+        <div class="dark-box-mockup">
+          <span class="box-logo">ORVÉN</span>
+          <span class="box-sub">JEWELS</span>
+        </div>
+      </div>
+      <div class="story-content">
+        <p class="eyebrow">THE ORVÉN STORY</p>
+        <h2>CRAFTED FOR MEANINGFUL MOMENTS</h2>
         <p>ORVÉN JEWELS is built around refined design, timeless elegance and jewelry that feels distinctly personal.</p>
         <p>Our focus is simple: exceptional-looking pieces, thoughtful design and a premium customer experience.</p>
-        <a class="text-link" href="#contact">Learn more about ORVÉN</a>
+        <a class="btn-text-outline" href="#contact">LEARN MORE ABOUT ORVÉN</a>
       </div>
     </section>
 
-    <!-- WHY CHOOSE SECTION -->
-    <section class="why section">
-      <p class="eyebrow">Why Choose ORVÉN</p>
-      <div class="features">
-        <article class="feature-card">
-          <div class="icon">✦</div>
-          <h3>Refined Designs</h3>
+    <!-- WHY CHOOSE ORVEN -->
+    <section class="why-section">
+      <p class="eyebrow center">WHY CHOOSE ORVÉN</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="icon">💎</div>
+          <h3>REFINED DESIGNS</h3>
           <p>Thoughtfully designed pieces that stand out.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="icon">❖</div>
-          <h3>Quality-Focused</h3>
+        </div>
+        <div class="why-card">
+          <div class="icon">🎖️</div>
+          <h3>QUALITY-FOCUSED</h3>
           <p>Carefully selected for quality and craftsmanship.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="icon">Δ</div>
-          <h3>Personalized Service</h3>
+        </div>
+        <div class="why-card">
+          <div class="icon">👤</div>
+          <h3>PERSONALIZED SERVICE</h3>
           <p>We help you find or create what's just right for you.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="icon">◇</div>
-          <h3>Secure Ordering</h3>
-          <p>A safe ordering experience you can trust.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="icon">∇</div>
-          <h3>Made for Moments</h3>
+        </div>
+        <div class="why-card">
+          <div class="icon">🛡️</div>
+          <h3>SECURE ORDERING</h3>
+          <p>Safe ordering experience you can trust.</p>
+        </div>
+        <div class="why-card">
+          <div class="icon">🖤</div>
+          <h3>MADE FOR MOMENTS</h3>
           <p>Jewelry for the moments that matter most.</p>
-        </article>
+        </div>
       </div>
     </section>
 
-    <!-- PRODUCTS SECTION -->
-    <section class="products section" id="products">
-      <p class="eyebrow">Selected Pieces</p>
-      <h2>Signature Jewelry</h2>
-      
-      <div class="product-grid">
-        <article class="product-card">
-          <div class="product-image p1"></div>
-          <h3>Élan Ring</h3>
-          <p>From ₹—</p>
-          <button data-product="Élan Ring" class="btn outline">Inquire</button>
-        </article>
+    <!-- CUSTOM DESIGN BANNER (NEW) -->
+    <section class="custom-banner" id="custom">
+      <div class="custom-banner-content">
+        <p class="eyebrow">MADE FOR YOU</p>
+        <h2>HAVE A DESIGN IN MIND?</h2>
+        <p>Tell us what you're looking for and our team can help you explore a personalized jewelry option.</p>
+        <a class="btn btn-outline gold-border" href="#contact">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+          REQUEST A CUSTOM DESIGN
+        </a>
+      </div>
+      <div class="custom-banner-sketch">
+        <!-- Sketch pad illustration area -->
+      </div>
+    </section>
 
-        <article class="product-card">
-          <div class="product-image p2"></div>
-          <h3>Noir Pendant</h3>
-          <p>From ₹—</p>
-          <button data-product="Noir Pendant" class="btn outline">Inquire</button>
-        </article>
+    <!-- INSTAGRAM GALLERY SECTION (NEW) -->
+    <section class="insta-section">
+      <div class="insta-header">
+        <div class="insta-text">
+          <p class="eyebrow">FOLLOW ORVÉN</p>
+          <h2>JEWELRY. DETAILS. INSPIRATION.</h2>
+          <p class="insta-handle">@ORVENJEWELS</p>
+          <a class="btn btn-outline dark-btn" href="https://instagram.com" target="_blank">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+            FOLLOW ON INSTAGRAM
+          </a>
+        </div>
+        <div class="insta-grid">
+          <div class="insta-card img1"></div>
+          <div class="insta-card img2"></div>
+          <div class="insta-card img3"></div>
+          <div class="insta-card img4"></div>
+          <div class="insta-card img5"></div>
+        </div>
+      </div>
+    </section>
 
-        <article class="product-card">
-          <div class="product-image p3"></div>
-          <h3>Auréa Earrings</h3>
-          <p>From ₹—</p>
-          <button data-product="Auréa Earrings" class="btn outline">Inquire</button>
-        </article>
+    <!-- BOTTOM CTA BANNER (NEW) -->
+    <section class="footer-cta">
+      <h2>FIND YOUR SIGNATURE PIECE.</h2>
+      <p>Discover jewelry designed to become part of your story.</p>
+      <div class="hero-buttons">
+        <a class="btn btn-gold" href="#collection">EXPLORE COLLECTION</a>
+        <a class="btn btn-outline" href="#contact">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+          SHOP ON WHATSAPP
+        </a>
       </div>
     </section>
 
   </main>
 
-  <!-- JAVASCRIPT FOR MOBILE MENU -->
+  <!-- FOOTER -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-brand">
+      <span class="brand-title">ORVÉN</span>
+      <span class="brand-sub">JEWELS</span>
+    </div>
+    <div class="footer-nav">
+      <a href="#home">HOME</a>
+      <a href="#collection">COLLECTION</a>
+      <a href="#custom">CUSTOM JEWELRY</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+    <div class="footer-socials">
+      <a href="https://instagram.com" class="icon-btn">📷</a>
+      <a href="https://wa.me/" class="icon-btn">💬</a>
+    </div>
+    <p class="copyright">© 2026 ORVÉN JEWELS. ALL RIGHTS RESERVED.</p>
+  </footer>
+
   <script>
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('.nav');
-    const navLinks = document.querySelectorAll('.nav a');
-
-    // Button click karne par menu toggle hoga
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('active');
-      const isExpanded = nav.classList.contains('active');
-      menuToggle.setAttribute('aria-expanded', isExpanded);
-    });
-
-    // Kisi bhi link par click karne par menu auto-close ho jayega
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
     });
   </script>
-
 </body>
 </html>
