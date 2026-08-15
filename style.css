@@ -1,7 +1,5 @@
-/* Google Fonts Import */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
-/* Base Setup */
 :root {
   --bg-black: #050505;
   --bg-dark-card: #0c0c0e;
@@ -10,7 +8,6 @@
   --gold-accent: #d4af37;
   --gold-muted: #c5a059;
   --text-white: #fcfcfc;
-  --text-dark: #18181b;
 }
 
 * {
@@ -27,26 +24,24 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography Classes */
 .font-heading {
   font-family: 'Cinzel', serif;
 }
 
-/* Metallic Gold Gradient Text */
 .gold-gradient-text {
   background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom Buttons Styling */
 .btn-gold {
   background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
   color: #000;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 12px 28px;
+  padding: 14px 30px;
   border: none;
   transition: all 0.3s ease;
   display: inline-block;
@@ -60,10 +55,11 @@ body {
 .btn-outline-gold {
   border: 1px solid var(--gold-accent);
   color: var(--gold-accent);
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 12px 28px;
+  padding: 14px 30px;
   background: transparent;
   transition: all 0.3s ease;
   display: inline-flex;
@@ -77,7 +73,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Luxury Category Cards */
 .category-card {
   background-color: var(--bg-cream-card);
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -89,7 +84,6 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Scroll Animation Helper */
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(30px);
