@@ -1,6 +1,18 @@
-/* ==========================================================================
-   1. BASE & RESET STYLES
-   ========================================================================== */
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+/* Base Setup */
+:root {
+  --bg-black: #050505;
+  --bg-dark-card: #0c0c0e;
+  --bg-cream: #fbf9f5;
+  --bg-cream-card: #f4f0ea;
+  --gold-accent: #d4af37;
+  --gold-muted: #c5a059;
+  --text-white: #fcfcfc;
+  --text-dark: #18181b;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,583 +20,83 @@
 }
 
 body {
+  background-color: var(--bg-black);
+  color: var(--text-white);
   font-family: 'Montserrat', sans-serif;
-  background-color: #080706;
-  color: #e5e0d8;
-  line-height: 1.5;
+  scroll-behavior: smooth;
   overflow-x: hidden;
 }
 
-h1, h2, h3 {
-  font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 1.5px;
-  font-weight: 500;
+/* Typography Classes */
+.font-heading {
+  font-family: 'Cinzel', serif;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+/* Metallic Gold Gradient Text */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.eyebrow {
-  color: #c49a55;
-  font-size: 0.7rem;
+/* Custom Buttons Styling */
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+  color: #000;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.eyebrow.center {
-  text-align: center;
-}
-
-/* ==========================================================================
-   2. HEADER & NAVIGATION
-   ========================================================================== */
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 5%;
-  background-color: #080706;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid #1a1815;
-}
-
-.brand {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.brand-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  letter-spacing: 4px;
-  color: #e5e0d8;
-  line-height: 1;
-}
-
-.brand-sub {
-  font-size: 0.55rem;
-  letter-spacing: 5px;
-  color: #c49a55;
-}
-
-.nav {
-  display: flex;
-  gap: 20px;
-}
-
-.nav a {
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  color: #a09a90;
-  transition: color 0.3s;
-}
-
-.nav a:hover, .nav a.active {
-  color: #e5e0d8;
-  border-bottom: 1px solid #c49a55;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.icon-btn {
-  color: #e5e0d8;
-  display: flex;
-  align-items: center;
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
+  padding: 12px 28px;
   border: none;
-  color: #e5e0d8;
-  font-size: 1.5rem;
-  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-/* ==========================================================================
-   3. HERO SECTION
-   ========================================================================== */
-.hero {
-  position: relative;
-  display: flex;
-  min-height: 80vh;
-  align-items: center;
-  justify-content: space-between;
-  padding: 40px 6%;
-  background: radial-gradient(circle at 70% 50%, #1c1915 0%, #080706 70%);
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
 }
 
-.hero-content {
-  max-width: 420px;
-  z-index: 2;
-}
-
-.hero-brand-logo h1 {
-  font-size: 3.5rem;
-  letter-spacing: 6px;
-  line-height: 1;
-}
-
-.divider-line {
-  border-bottom: 1px solid #c49a55;
-  width: 180px;
-  margin: 10px 0 25px 0;
-  position: relative;
-}
-
-.divider-line span {
-  font-size: 0.6rem;
-  letter-spacing: 6px;
-  color: #c49a55;
-  display: block;
-  text-align: center;
-  transform: translateY(7px);
-  background: #080706;
-  width: fit-content;
-  margin: 0 auto;
-  padding: 0 10px;
-}
-
-.hero-tagline {
-  font-size: 0.9rem;
-  letter-spacing: 3px;
-  margin-bottom: 15px;
-  color: #f0ece3;
-}
-
-.hero-desc {
-  font-size: 0.8rem;
-  color: #9e978e;
-  margin-bottom: 30px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 12px 22px;
-  font-size: 0.7rem;
+.btn-outline-gold {
+  border: 1px solid var(--gold-accent);
+  color: var(--gold-accent);
+  font-weight: 500;
   letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  background: transparent;
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.btn-gold {
-  background-color: #c49a55;
-  color: #080706;
-  font-weight: 600;
-  border: 1px solid #c49a55;
+.btn-outline-gold:hover {
+  background-color: var(--gold-accent);
+  color: #000;
+  transform: translateY(-2px);
 }
 
-.btn-outline {
-  border: 1px solid #3a342c;
-  color: #e5e0d8;
-  background: transparent;
+/* Luxury Category Cards */
+.category-card {
+  background-color: var(--bg-cream-card);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.hero-bg-art {
-  width: 45%;
-  max-width: 500px;
+.category-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.hero-ring-img {
-  width: 100%;
-  border-radius: 4px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+/* Scroll Animation Helper */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
 }
 
-/* ==========================================================================
-   4. COLLECTION SECTION
-   ========================================================================== */
-.collection-section {
-  background-color: #f6f3ee;
-  color: #1a1815;
-  padding: 60px 5%;
-  text-align: center;
-}
-
-.collection-section h2 {
-  font-size: 2.2rem;
-  margin-bottom: 35px;
-}
-
-.collection-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
-}
-
-.collection-card {
-  background: #ffffff;
-  padding: 15px;
-  border: 1px solid #e8e2d8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.img-box {
-  width: 100%;
-  height: 150px;
-  margin-bottom: 12px;
-  overflow: hidden;
-  background-color: #f2ece3;
-}
-
-.img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.collection-card h3 {
-  font-size: 0.8rem;
-  margin-bottom: 6px;
-  color: #1a1815;
-}
-
-.view-link {
-  font-size: 0.6rem;
-  letter-spacing: 1px;
-  color: #8c857b;
-  border-bottom: 1px solid #d0c8bd;
-}
-
-/* ==========================================================================
-   5. STORY SECTION
-   ========================================================================== */
-.story-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #ffffff;
-  color: #1a1815;
-}
-
-.story-img-box {
-  background: #0d0c0a;
-  min-height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dark-box-mockup {
-  border: 1px solid #2a251e;
-  padding: 35px;
-  text-align: center;
-  color: #c49a55;
-  display: flex;
-  flex-direction: column;
-}
-
-.box-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-  letter-spacing: 4px;
-}
-
-.box-sub {
-  font-size: 0.55rem;
-  letter-spacing: 5px;
-}
-
-.story-content {
-  padding: 50px 8%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.story-content h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-}
-
-.story-content p {
-  font-size: 0.8rem;
-  color: #555;
-  margin-bottom: 12px;
-}
-
-.btn-text-outline {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 18px;
-  border: 1px solid #ccc;
-  font-size: 0.65rem;
-  letter-spacing: 1.5px;
-  width: fit-content;
-}
-
-/* ==========================================================================
-   6. WHY CHOOSE SECTION
-   ========================================================================== */
-.why-section {
-  background: #f6f3ee;
-  color: #1a1815;
-  padding: 50px 5%;
-}
-
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.why-card {
-  text-align: center;
-  padding: 15px 10px;
-  border-right: 1px solid #e2dad0;
-}
-
-.why-card:last-child {
-  border-right: none;
-}
-
-.why-card .icon {
-  font-size: 1.4rem;
-  margin-bottom: 8px;
-}
-
-.why-card h3 {
-  font-size: 0.75rem;
-  margin-bottom: 6px;
-}
-
-.why-card p {
-  font-size: 0.68rem;
-  color: #666;
-}
-
-/* ==========================================================================
-   7. CUSTOM BANNER & INSTAGRAM
-   ========================================================================== */
-.custom-banner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #0d0c0a;
-  padding: 50px 6%;
-  align-items: center;
-  border-top: 1px solid #1f1c18;
-}
-
-.custom-banner h2 {
-  font-size: 2rem;
-  margin-bottom: 15px;
-}
-
-.custom-banner p {
-  font-size: 0.8rem;
-  color: #999;
-  margin-bottom: 20px;
-}
-
-.gold-border {
-  border-color: #c49a55;
-}
-
-.custom-banner-art {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255,255,255,0.02);
-  height: 180px;
-  border: 1px dashed #2a251e;
-}
-
-.sketch-placeholder {
-  color: #777;
-  font-size: 0.75rem;
-}
-
-.insta-section {
-  background: #f6f3ee;
-  color: #1a1815;
-  padding: 50px 6%;
-}
-
-.insta-header {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 30px;
-}
-
-.insta-handle {
-  font-size: 0.75rem;
-  color: #777;
-  margin: 8px 0 18px 0;
-}
-
-.dark-btn {
-  border-color: #1a1815;
-  color: #1a1815;
-}
-
-.insta-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-}
-
-.insta-card {
-  height: 160px;
-  background: #e5ded4;
-}
-
-/* ==========================================================================
-   8. FOOTER CTA & FOOTER
-   ========================================================================== */
-.footer-cta {
-  background: #080706;
-  text-align: center;
-  padding: 60px 6%;
-  border-top: 1px solid #1a1815;
-}
-
-.footer-cta h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.footer-cta p {
-  font-size: 0.8rem;
-  color: #888;
-  margin-bottom: 25px;
-}
-
-.footer-cta .hero-buttons {
-  justify-content: center;
-}
-
-.site-footer {
-  background: #050404;
-  padding: 35px 5%;
-  text-align: center;
-  border-top: 1px solid #141210;
-}
-
-.footer-brand {
-  margin-bottom: 18px;
-}
-
-.footer-nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 18px;
-  flex-wrap: wrap;
-}
-
-.footer-nav a {
-  font-size: 0.68rem;
-  letter-spacing: 2px;
-  color: #777;
-}
-
-.copyright {
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  color: #555;
-}
-
-/* ==========================================================================
-   9. MOBILE RESPONSIVE MEDIA QUERIES
-   ========================================================================== */
-@media (max-width: 900px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-    padding-top: 50px;
-  }
-  .hero-content {
-    margin-bottom: 30px;
-  }
-  .divider-line {
-    margin: 10px auto 25px auto;
-  }
-  .hero-buttons {
-    justify-content: center;
-  }
-  .hero-bg-art {
-    width: 100%;
-    max-width: 350px;
-  }
-  .collection-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .story-section {
-    grid-template-columns: 1fr;
-  }
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .why-card {
-    border-right: none;
-    border-bottom: 1px solid #e2dad0;
-  }
-  .custom-banner {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    text-align: center;
-  }
-  .custom-banner p {
-    margin: 0 auto 20px auto;
-  }
-  .insta-header {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .insta-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .collection-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .insta-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .menu-toggle {
-    display: block;
-  }
-  .nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #080706;
-    flex-direction: column;
-    padding: 20px;
-    gap: 15px;
-    text-align: center;
-    border-bottom: 1px solid #1a1815;
-  }
-  .nav.active {
-    display: flex;
-  }
+.reveal-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
 }
