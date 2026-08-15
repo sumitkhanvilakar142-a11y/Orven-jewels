@@ -1,51 +1,24 @@
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav");
+const username = "sumitkhanvilakar142-a11y";
+const repo = "Orven-jewels";
 
-menuToggle?.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", open);
-});
+async function loadFolderImages(folderName) {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = '<p>Loading images...</p>';
 
-document.querySelectorAll(".nav a").forEach(link => {
-  link.addEventListener("click", () => nav.classList.remove("open"));
-});
+  try {
+    const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${folderName}`);
+    const files = await response.json();
 
-// Replace this number with ORVÉN's real WhatsApp number in international format.
-// Example for India: 919876543210 (no +, spaces or dashes).
-const WHATSAPP_NUMBER = "91XXXXXXXXXX";
-
-function openWhatsApp(product = "") {
-  const text = product
-    ? `Hello ORVÉN JEWELS, I'm interested in the ${product}. Please share the details.`
-    : `Hello ORVÉN JEWELS, I'd like to explore your jewelry collection.`;
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-  if (!WHATSAPP_NUMBER.includes("X")) window.open(url, "_blank", "noopener");
-  else alert("Please add ORVÉN's WhatsApp number in script.js first.");
-}
-
-document.querySelectorAll("[data-product]").forEach(button => {
-  button.addEventListener("click", () => openWhatsApp(button.dataset.product));
-});
-
-document.getElementById("contactForm")?.addEventListener("submit", event => {
-  event.preventDefault();
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const interest = document.getElementById("interest").value;
-  const message = document.getElementById("message").value.trim();
-
-  if (WHATSAPP_NUMBER.includes("X")) {
-    alert("Please add ORVÉN's WhatsApp number in script.js first.");
-    return;
+    gallery.innerHTML = '';
+    files.forEach(file => {
+      if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
+        const img = document.createElement('img');
+        img.src = file.download_url;
+        img.loading = "lazy";
+        gallery.appendChild(img);
+      }
+    });
+  } catch (error) {
+    gallery.innerHTML = '<p>Images load karne me error aaya.</p>';
   }
-
-  const text =
-`Hello ORVÉN JEWELS,
-
-Name: ${name}
-Phone: ${phone}
-Interest: ${interest}
-Message: ${message || "I'd like to know more."}`;
-
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
-});
+}
