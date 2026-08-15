@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Sticky Navbar Background Blur on Scroll
+    // Header Scroll Shadow
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            header.classList.add('bg-pure-black/95', 'shadow-lg');
+            header.classList.add('shadow-xl', 'border-white/20');
         } else {
-            header.classList.remove('bg-pure-black/95', 'shadow-lg');
+            header.classList.remove('shadow-xl', 'border-white/20');
         }
     });
 
-    // 2. Scroll Reveal Animation for Luxury Sections
+    // Scroll Reveal Animation
     const observerOptions = {
         root: null,
-        threshold: 0.15
+        threshold: 0.1
     };
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -29,14 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(element);
     });
 
-    // 3. Dynamic WhatsApp Order Handler
+    // WhatsApp Dynamic Link Routing
     const whatsappButtons = document.querySelectorAll('a[href*="wa.me"]');
-    const phoneNumber = "919876543210"; // Apna WhatsApp Number yahan dalein
+    const phoneNumber = "919876543210"; // Aapka Phone Number
 
     whatsappButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
-            const message = encodeURIComponent("Hello ORVÉN JEWELS team, I would like to inquire about your custom jewelry collection.");
+            const message = encodeURIComponent("Hello ORVÉN JEWELS, I would like to inquire about your custom jewelry collection.");
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         });
     });
