@@ -1,44 +1,36 @@
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // Header Scroll Shadow
-    const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('shadow-xl', 'border-white/20');
-        } else {
-            header.classList.remove('shadow-xl', 'border-white/20');
-        }
-    });
+class RingCustomizer {
+  constructor() {
+    this.ringBand = document.getElementById('ringBand');
+    this.ringStone = document.getElementById('ringStone');
+    this.engravingDisplay = document.getElementById('engravingDisplay');
+  }
 
-    // Scroll Reveal Animation
-    const observerOptions = {
-        root: null,
-        threshold: 0.1
-    };
+  setMetal(color, targetBtn) {
+    this.ringBand.style.borderColor = color;
+    this.toggleActive(targetBtn);
+  }
 
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+  setStone(color, rotation, targetBtn) {
+    this.ringStone.style.backgroundColor = color;
+    this.ringStone.style.transform = `rotate(${rotation})`;
+    this.toggleActive(targetBtn);
+  }
 
-    document.querySelectorAll('.reveal-on-scroll').forEach(element => {
-        revealObserver.observe(element);
-    });
+  setBandThickness(width, targetBtn) {
+    this.ringBand.style.borderWidth = width;
+    this.toggleActive(targetBtn);
+  }
 
-    // WhatsApp Dynamic Link Routing
-    const whatsappButtons = document.querySelectorAll('a[href*="wa.me"]');
-    const phoneNumber = "919876543210"; // Aapka Phone Number
+  updateEngraving(text) {
+    this.engravingDisplay.innerText = text.toUpperCase();
+  }
 
-    whatsappButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const message = encodeURIComponent("Hello ORVÉN JEWELS, I would like to inquire about your custom jewelry collection.");
-            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-        });
-    });
+  toggleActive(element) {
+    const siblings = element.parentElement.querySelectorAll('.opt-btn');
+    siblings.forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+  }
+}
 
-});
+// Initialize Customizer
+const customizer = new RingCustomizer();
