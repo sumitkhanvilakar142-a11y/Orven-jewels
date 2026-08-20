@@ -2,179 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom Jewelry Configurator - ORVÉN JEWELS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>3D Real Ring Customizer</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: #0b0b0b; color: #f5f5f5; font-family: 'Montserrat', sans-serif; padding: 40px 20px; }
-    
-    .customizer-container {
-      max-width: 1200px; margin: 0 auto; background: #121212;
-      border: 1px solid #2a2a2a; border-radius: 4px;
-      display: flex; flex-wrap: wrap; overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    }
-
-    /* Left Side: Preview Area */
-    .preview-panel {
-      flex: 1.2; min-width: 320px; background: radial-gradient(circle, #1a1a1a 0%, #080808 100%);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 60px 20px; border-right: 1px solid #2a2a2a; position: relative;
-    }
-
-    .brand-tag {
-      position: absolute; top: 20px; left: 25px;
-      font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px; color: #c5a059;
-    }
-
-    .ring-stage {
-      width: 220px; height: 220px; border-radius: 50%;
-      border: 20px solid #d4af37; position: relative;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5); transition: all 0.4s ease;
-    }
-
-    .gemstone {
-      width: 45px; height: 45px; background: #000;
-      position: absolute; top: -32px; transform: rotate(45deg);
-      border-radius: 4px; border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 0 15px rgba(0,0,0,0.8); transition: all 0.4s ease;
-    }
-
-    .engraving-text {
-      position: absolute; bottom: 20px; font-size: 11px;
-      color: rgba(255,255,255,0.7); font-family: 'Cinzel', serif;
-      letter-spacing: 2px; text-transform: uppercase;
-    }
-
-    /* Right Side: Control Options */
-    .control-panel { flex: 1; min-width: 320px; padding: 40px 30px; }
-    
-    .title { font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 2px; margin-bottom: 8px; color: #fff; }
-    .subtitle { font-size: 12px; color: #888; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
-
-    .option-group { margin-bottom: 25px; }
-    .label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: #c5a059; margin-bottom: 12px; display: block; }
-
-    .btn-grid { display: flex; gap: 10px; flex-wrap: wrap; }
-    
-    .opt-btn {
-      background: transparent; border: 1px solid #333; color: #ccc;
-      padding: 10px 18px; font-size: 12px; font-family: 'Montserrat', sans-serif;
-      cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
-    }
-    .opt-btn:hover, .opt-btn.active { border-color: #c5a059; color: #fff; background: rgba(197, 160, 89, 0.1); }
-
-    input[type="text"], select {
-      width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff;
-      padding: 12px; font-size: 13px; font-family: 'Montserrat', sans-serif; outline: none;
-    }
-    input[type="text"]:focus, select:focus { border-color: #c5a059; }
-
-    .cta-btn {
-      width: 100%; background: #c5a059; color: #000; border: none;
-      padding: 15px; font-family: 'Cinzel', serif; font-weight: 600;
-      letter-spacing: 2px; cursor: pointer; margin-top: 20px; transition: 0.3s;
-    }
-    .cta-btn:hover { background: #e5be75; }
+    body { margin: 0; background: #0b0b0b; color: #fff; font-family: sans-serif; display: flex; height: 100vh; }
+    #canvas-container { flex: 1; height: 100%; }
+    .ui-panel { width: 320px; background: #121212; padding: 20px; box-sizing: border-box; border-left: 1px solid #2a2a2a; }
+    .btn { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; margin: 5px 0; width: 100%; cursor: pointer; }
+    .btn:hover { border-color: #c5a059; }
   </style>
+  <!-- Three.js Library CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
-  <div class="customizer-container">
-    <!-- Left: Luxury Live Preview -->
-    <div class="preview-panel">
-      <span class="brand-tag">ORVÉN JEWELS • CUSTOM STUDIO</span>
-      <div class="ring-stage" id="ringBand">
-        <div class="gemstone" id="ringStone"></div>
-        <span class="engraving-text" id="engravingDisplay"></span>
-      </div>
-    </div>
+  <div id="canvas-container"></div>
 
-    <!-- Right: Customization Controls -->
-    <div class="control-panel">
-      <h1 class="title">DESIGN YOUR RING</h1>
-      <p class="subtitle">Personalized Perfection</p>
+  <div class="ui-panel">
+    <h3>Metal Type</h3>
+    <button class="btn" onclick="changeMetal('#ffd700', 0.9, 0.1)">Yellow Gold</button>
+    <button class="btn" onclick="changeMetal('#e5e4e2', 0.95, 0.05)">Platinum</button>
+    <button class="btn" onclick="changeMetal('#b76e79', 0.85, 0.15)">Rose Gold</button>
 
-      <!-- 1. Metal Selection -->
-      <div class="option-group">
-        <span class="label">1. Select Metal</span>
-        <div class="btn-grid">
-          <button class="opt-btn active" onclick="setMetal('#d4af37', this)">Yellow Gold</button>
-          <button class="opt-btn" onclick="setMetal('#e5e4e2', this)">Platinum</button>
-          <button class="opt-btn" onclick="setMetal('#b76e79', this)">Rose Gold</button>
-        </div>
-      </div>
-
-      <!-- 2. Gemstone Selection -->
-      <div class="option-group">
-        <span class="label">2. Gemstone Choice</span>
-        <div class="btn-grid">
-          <button class="opt-btn active" onclick="setStone('#000000', '45deg', this)">Onyx</button>
-          <button class="opt-btn" onclick="setStone('#b9f2ff', '0deg', this)">Diamond</button>
-          <button class="opt-btn" onclick="setStone('#e0115f', '45deg', this)">Ruby</button>
-          <button class="opt-btn" onclick="setStone('#0f52ba', '0deg', this)">Sapphire</button>
-        </div>
-      </div>
-
-      <!-- 3. Band Style -->
-      <div class="option-group">
-        <span class="label">3. Band Thickness</span>
-        <div class="btn-grid">
-          <button class="opt-btn active" onclick="setBand('20px', this)">Classic</button>
-          <button class="opt-btn" onclick="setBand('28px', this)">Bold Statement</button>
-        </div>
-      </div>
-
-      <!-- 4. Inside Engraving -->
-      <div class="option-group">
-        <span class="label">4. Inside Engraving</span>
-        <input type="text" id="engravingInput" placeholder="ENTER NAME OR INITIALS" maxlength="10" oninput="updateEngraving()">
-      </div>
-
-      <!-- 5. Ring Size -->
-      <div class="option-group">
-        <span class="label">5. Select Size</span>
-        <select>
-          <option>US 6 - 16.5 mm</option>
-          <option selected>US 7 - 17.3 mm</option>
-          <option>US 8 - 18.2 mm</option>
-          <option>US 9 - 18.9 mm</option>
-        </select>
-      </div>
-
-      <button class="cta-btn">REQUEST THIS CUSTOM DESIGN</button>
-    </div>
+    <h3>Diamond Color</h3>
+    <button class="btn" onclick="changeDiamond('#ffffff')">D-F Clear</button>
+    <button class="btn" onclick="changeDiamond('#ffb6c1')">Pink Diamond</button>
+    <button class="btn" onclick="changeDiamond('#000000')">Black Diamond</button>
   </div>
 
   <script>
-    function setMetal(color, btn) {
-      document.getElementById('ringBand').style.borderColor = color;
-      setActive(btn);
+    // 1. Scene Setup
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0a0a);
+
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 2, 8);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    container.appendChild(renderer.domElement);
+
+    // 2. Lighting (Luxury Jewellery Lighting)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    const mainLight = new THREE.DirectionalLight(0xffffff, 2);
+    mainLight.position.set(5, 10, 7);
+    scene.add(mainLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1.5);
+    pointLight.position.set(-5, -2, -5);
+    scene.add(pointLight);
+
+    // 3. 3D Ring Band Geometry & Material
+    const ringGeo = new THREE.TorusGeometry(2, 0.25, 30, 100);
+    const metalMat = new THREE.MeshStandardMaterial({
+      color: 0xffd700,
+      metalness: 0.95,
+      roughness: 0.1
+    });
+    const ringMesh = new THREE.Mesh(ringGeo, metalMat);
+    ringMesh.rotation.x = Math.PI / 3;
+    scene.add(ringMesh);
+
+    // 4. Gemstone (Diamond) Geometry & Material
+    const gemGeo = new THREE.OctahedronGeometry(0.5, 2);
+    const gemMat = new THREE.MeshPhysicalMaterial({
+      color: 0xffffff,
+      transmission: 0.9,  // Refraction / Glass effect
+      opacity: 1,
+      transparent: true,
+      roughness: 0,
+      ior: 2.4,            // Diamond Index of Refraction
+      reflectivity: 0.9
+    });
+    const gemMesh = new THREE.Mesh(gemGeo, gemMat);
+    gemMesh.position.set(0, 2.1, 0.7);
+    scene.add(gemMesh);
+
+    // 5. Animation Loop
+    function animate() {
+      requestAnimationFrame(animate);
+      ringMesh.rotation.z += 0.005; // Smooth 360-rotation
+      gemMesh.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Customizer Controls
+    function changeMetal(colorHex, metalness, roughness) {
+      metalMat.color.setHex(colorHex.replace('#', '0x'));
+      metalMat.metalness = metalness;
+      metalMat.roughness = roughness;
     }
 
-    function setStone(color, rotation, btn) {
-      const stone = document.getElementById('ringStone');
-      stone.style.backgroundColor = color;
-      stone.style.transform = `rotate(${rotation})`;
-      setActive(btn);
-    }
-
-    function setBand(width, btn) {
-      document.getElementById('ringBand').style.borderWidth = width;
-      setActive(btn);
-    }
-
-    function updateEngraving() {
-      const val = document.getElementById('engravingInput').value;
-      document.getElementById('engravingDisplay').innerText = val;
-    }
-
-    function setActive(element) {
-      const parent = element.parentElement;
-      parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
-      element.classList.add('active');
+    function changeDiamond(colorHex) {
+      gemMat.color.setHex(colorHex.replace('#', '0x'));
     }
   </script>
 </body>
