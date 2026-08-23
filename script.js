@@ -1,110 +1,103 @@
-// Global Variables for Scene Components
-let scene, camera, renderer, ringMesh, gemMesh;
-let metalMat, gemMat;
+/* ============================================
+   ORVEN JEWELS — complete JavaScript
+   (interactivity & demo feedback)
+   ============================================ */
 
-function init3DCustomizer() {
-  const container = document.getElementById('canvas-container');
+(function() {
+  'use strict';
 
-  // 1. Scene Setup
-  scene = new THREE.Scene();
+  // ── console greeting ──
+  console.log('✨ ORVEN JEWELS — timeless elegance');
 
-  // 2. Camera Setup
-  camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-  camera.position.set(0, 1.5, 7);
+  // ── helper: add click feedback with scale/opacity ──
+  function addClickFeedback(elements) {
+    elements.forEach(el => {
+      el.addEventListener('click', function(e) {
+        // prevent default for # links
+        if (this.tagName === 'A' && this.getAttribute('href') === '#') {
+          e.preventDefault();
+        }
+        // apply subtle feedback
+        this.style.transform = 'scale(0.96)';
+        this.style.opacity = '0.7';
+        setTimeout(() => {
+          this.style.transform = '';
+          this.style.opacity = '';
+        }, 180);
+      });
+    });
+  }
 
-  // 3. Renderer Setup
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
-  container.appendChild(renderer.domElement);
+  // ── collect all interactive elements ──
+  const interactive = [
+    ...document.querySelectorAll('.btn'),
+    ...document.querySelectorAll('.view-link'),
+    ...document.querySelectorAll('.nav-links a'),
+    ...document.querySelectorAll('.nav-actions i'),
+    ...document.querySelectorAll('.social-icons i'),
+    ...document.querySelectorAll('.footer-links span'),
+  ];
+  addClickFeedback(interactive);
 
-  // 4. Studio Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-  scene.add(ambientLight);
-
-  const mainLight = new THREE.DirectionalLight(0xffffff, 2.5);
-  mainLight.position.set(5, 8, 5);
-  scene.add(mainLight);
-
-  const fillLight = new THREE.PointLight(0xffffff, 1.5);
-  fillLight.position.set(-5, -2, -3);
-  scene.add(fillLight);
-
-  // 5. Create 3D Ring Mesh
-  createRingGeometry();
-
-  // 6. Responsive Window Resize Event
-  window.addEventListener('resize', onWindowResize);
-
-  // 7. Start Render Loop
-  animate();
-}
-
-function createRingGeometry() {
-  // Ring Band Material
-  metalMat = new THREE.MeshStandardMaterial({
-    color: 0xd4af37, // Default Yellow Gold
-    metalness: 0.95,
-    roughness: 0.1
+  // ── collection cards: log which collection is viewed ──
+  document.querySelectorAll('.collection-card .view-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const card = this.closest('.collection-card');
+      const label = card?.querySelector('h4')?.innerText || 'collection';
+      console.log(`🔍 Viewing ${label} collection (demo)`);
+    });
   });
 
-  const ringGeo = new THREE.TorusGeometry(1.8, 0.22, 32, 100);
-  ringMesh = new THREE.Mesh(ringGeo, metalMat);
-  ringMesh.rotation.x = Math.PI / 2.8;
-  scene.add(ringMesh);
+  // ── story button ──
+  const storyBtn = document.querySelector('.story-content .btn');
+  if (storyBtn) {
+    storyBtn.addEventListener('click', function() {
+      console.log('📖 Learn more about ORVEN (demo)');
+    });
+  }
 
-  // Gemstone Diamond Material
-  gemMat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    transmission: 0.92, // Glass/Refraction transparency
-    opacity: 1,
-    transparent: true,
-    roughness: 0.05,
-    ior: 2.417,          // Real Diamond Refractive Index
-    reflectivity: 0.9
+  // ── custom design button ──
+  const customBtn = document.querySelector('.custom-section .btn');
+  if (customBtn) {
+    customBtn.addEventListener('click', function() {
+      console.log('✏️ Request custom design (demo)');
+    });
+  }
+
+  // ── hero buttons ──
+  document.querySelectorAll('.hero-btns .btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const text = this.innerText.trim();
+      console.log(`🛒 ${text} (demo action)`);
+    });
   });
 
-  const gemGeo = new THREE.OctahedronGeometry(0.45, 2);
-  gemMesh = new THREE.Mesh(gemGeo, gemMat);
-  gemMesh.position.set(0, 1.9, 0.5);
-  scene.add(gemMesh);
-}
+  // ── footer "shop on whatsapp" ──
+  const whatsappBtn = document.querySelector('.footer-follow .btn');
+  if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', function() {
+      console.log('📲 Shop on WhatsApp (demo)');
+    });
+  }
 
-// Interactive Customizer Functions
-function changeMetal(colorHex, metalness, roughness, element) {
-  metalMat.color.set(colorHex);
-  metalMat.metalness = metalness;
-  metalMat.roughness = roughness;
-  updateActiveState(element);
-}
+  // ── extra: collection cards themselves (click on card) ──
+  document.querySelectorAll('.collection-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const label = this.querySelector('h4')?.innerText || 'item';
+      console.log(`🪄 ${label} card clicked (demo)`);
+    });
+  });
 
-function changeDiamondColor(colorHex, element) {
-  gemMat.color.set(colorHex);
-  updateActiveState(element);
-}
+  // ── nav brand logo click ──
+  const logo = document.querySelector('.logo');
+  if (logo) {
+    logo.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('🏠 ORVEN home (demo)');
+    });
+  }
 
-function updateActiveState(element) {
-  const siblings = element.parentElement.querySelectorAll('.btn');
-  siblings.forEach(btn => btn.classList.remove('active'));
-  element.classList.add('active');
-}
+  console.log('✅ ORVEN interface ready');
 
-// Animation Render Loop (Auto Rotation Effect)
-function animate() {
-  requestAnimationFrame(animate);
-  if (ringMesh) ringMesh.rotation.z += 0.003;
-  if (gemMesh) gemMesh.rotation.y += 0.008;
-  renderer.render(scene, camera);
-}
-
-// Window Resize Handler
-function onWindowResize() {
-  const container = document.getElementById('canvas-container');
-  camera.aspect = container.clientWidth / container.clientHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(container.clientWidth, container.clientHeight);
-}
-
-// Initialize on Load
-window.onload = init3DCustomizer;
+})();
