@@ -1,355 +1,1446 @@
-// ==========================================
-// ORVEN JEWELS OWNER PORTAL
-// ==========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-// WhatsApp Business Number
-const whatsappNumber = "919328784297";
+  <title>Orven Jewels | Jewellery Owner Portal</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-// ==========================================
-// PAGE NAVIGATION
-// ==========================================
+  <link rel="stylesheet" href="style.css">
+</head>
 
-const navItems = document.querySelectorAll(".nav-item");
-const pages = document.querySelectorAll(".page");
-const mobileItems = document.querySelectorAll(".mobile-nav-item");
+<body>
 
-function showPage(pageId) {
+  <!-- Mobile Overlay -->
+  <div class="overlay" id="overlay"></div>
 
-  pages.forEach(page => {
-    page.classList.remove("active-page");
-  });
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
 
-  const selectedPage = document.getElementById(pageId);
+    <div class="brand">
+      <div class="brand-mark">O</div>
+      <div>
+        <h2>Orven Jewels</h2>
+        <span>TIMELESS JEWELS • MODERN YOU</span>
+      </div>
+    </div>
 
-  if (selectedPage) {
-    selectedPage.classList.add("active-page");
-  }
+    <nav class="navigation">
 
-  navItems.forEach(item => {
-    item.classList.remove("active");
+      <p class="nav-title">MAIN MENU</p>
 
-    if (item.dataset.page === pageId) {
-      item.classList.add("active");
-    }
-  });
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <span>⌂</span> Dashboard
+      </a>
 
-  mobileItems.forEach(item => {
-    item.classList.remove("active");
-  });
+      <a href="#" class="nav-item" data-page="products">
+        <span>◇</span> Products
+      </a>
 
-  // Close mobile sidebar
-  document.getElementById("sidebar").classList.remove("open");
+      <a href="#" class="nav-item" data-page="orders">
+        <span>▣</span> Orders
+      </a>
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
+      <a href="#" class="nav-item" data-page="customers">
+        <span>♙</span> Customers
+      </a>
 
+      <a href="#" class="nav-item" data-page="analytics">
+        <span>◴</span> Sales & Analytics
+      </a>
 
-// Desktop sidebar navigation
-navItems.forEach(item => {
+      <a href="#" class="nav-item" data-page="marketing">
+        <span>✦</span> Marketing
+      </a>
 
-  item.addEventListener("click", function(e) {
+      <a href="#" class="nav-item" data-page="inventory">
+        <span>◈</span> Jewellery Inventory
+      </a>
 
-    e.preventDefault();
+      <a href="#" class="nav-item" data-page="invoices">
+        <span>▤</span> Invoices
+      </a>
 
-    const page = this.dataset.page;
+      <p class="nav-title">STORE</p>
 
-    showPage(page);
+      <a href="#" class="nav-item" data-page="store">
+        <span>⌂</span> My Store
+      </a>
 
-  });
+      <a href="#" class="nav-item" data-page="settings">
+        <span>⚙</span> Settings
+      </a>
 
-});
+    </nav>
 
+    <div class="sidebar-bottom">
 
-// ==========================================
-// MOBILE SIDEBAR
-// ==========================================
+      <div class="whatsapp-mini">
+        <div class="wa-icon">WA</div>
+        <div>
+          <strong>WhatsApp Business</strong>
+          <small>9328784297</small>
+        </div>
+      </div>
 
-const menuBtn = document.getElementById("menuBtn");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
+      <div class="profile">
+        <div class="avatar">O</div>
+        <div>
+          <strong>Store Owner</strong>
+          <small>Orven Jewels</small>
+        </div>
+        <span>⋮</span>
+      </div>
 
-if (menuBtn) {
+    </div>
 
-  menuBtn.addEventListener("click", () => {
+  </aside>
 
-    sidebar.classList.toggle("open");
 
-    if (sidebar.classList.contains("open")) {
-      overlay.style.display = "block";
-    } else {
-      overlay.style.display = "none";
-    }
+  <!-- Main Content -->
+  <main class="main">
 
-  });
+    <!-- Topbar -->
+    <header class="topbar">
 
-}
+      <button class="menu-btn" id="menuBtn">☰</button>
+
+      <div class="mobile-brand">
+        <strong>Orven Jewels</strong>
+      </div>
+
+      <div class="top-actions">
+
+        <button class="icon-btn" title="Store Link" onclick="shareStore()">↗</button>
+
+        <button class="icon-btn notification" title="Notifications">
+          ♢
+          <i></i>
+        </button>
+
+        <button class="profile-top">O</button>
+
+      </div>
+
+    </header>
+
+
+    <!-- PAGE: DASHBOARD -->
+    <section class="page active-page" id="dashboard">
+
+      <div class="welcome">
+
+        <div>
+          <p class="eyebrow">STORE OVERVIEW</p>
+
+          <h1>Good Morning, Welcome to <span>Orven Jewels</span></h1>
 
-if (overlay) {
+          <p>
+            Manage your jewellery business, products, customers and orders
+            from one place.
+          </p>
+        </div>
+
+        <button class="gold-btn" onclick="openAddProduct()">
+          + Add Jewellery
+        </button>
+
+      </div>
+
+
+      <!-- KPI Cards -->
+      <div class="stats-grid">
 
-  overlay.addEventListener("click", () => {
+        <div class="stat-card">
+          <div class="stat-icon gold">₹</div>
+          <div>
+            <span>Today's Sales</span>
+            <h3>₹28,450</h3>
+            <small class="positive">↑ 12.5% from yesterday</small>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon pink">₹</div>
+          <div>
+            <span>Monthly Sales</span>
+            <h3>₹4,82,750</h3>
+            <small class="positive">↑ 18.2% this month</small>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon dark">▣</div>
+          <div>
+            <span>Total Orders</span>
+            <h3>36</h3>
+            <small>7 pending</small>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon rose">♙</div>
+          <div>
+            <span>Customers</span>
+            <h3>214</h3>
+            <small class="positive">+24 new</small>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon gold">◉</div>
+          <div>
+            <span>Store Visits</span>
+            <h3>1,248</h3>
+            <small class="positive">↑ 8.4%</small>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon dark">!</div>
+          <div>
+            <span>Pending Orders</span>
+            <h3>7</h3>
+            <small class="warning">Needs attention</small>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon gold">◆</div>
+          <div>
+            <span>Inventory Value</span>
+            <h3>₹38.6L</h3>
+            <small>412 pieces</small>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon pink">◇</div>
+          <div>
+            <span>Available Stock</span>
+            <h3>386</h3>
+            <small>26 low stock</small>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- Sales Chart -->
+      <div class="content-grid">
+
+        <div class="panel chart-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <p class="eyebrow">PERFORMANCE</p>
+              <h2>Sales Overview</h2>
+            </div>
+
+            <div class="chart-controls">
+              <button class="period active" data-period="7">7 Days</button>
+              <button class="period" data-period="30">30 Days</button>
+              <button class="period" data-period="90">3 Months</button>
+              <button class="period" data-period="365">1 Year</button>
+            </div>
+
+          </div>
+
+          <div class="chart-summary">
+
+            <div>
+              <span>Revenue</span>
+              <strong id="revenue">₹4,82,750</strong>
+            </div>
+
+            <div>
+              <span>Profit</span>
+              <strong>₹1,24,860</strong>
+            </div>
+
+            <div>
+              <span>Orders</span>
+              <strong>36</strong>
+            </div>
+
+            <div>
+              <span>Avg. Order</span>
+              <strong>₹13,410</strong>
+            </div>
+
+          </div>
+
+          <div class="chart">
+            <div class="chart-y">
+              <span>50K</span>
+              <span>40K</span>
+              <span>30K</span>
+              <span>20K</span>
+              <span>10K</span>
+              <span>0</span>
+            </div>
+
+            <div class="bars" id="bars">
+
+              <div class="bar-wrap">
+                <div class="bar" style="height:45%"></div>
+                <small>Mon</small>
+              </div>
+
+              <div class="bar-wrap">
+                <div class="bar" style="height:65%"></div>
+                <small>Tue</small>
+              </div>
+
+              <div class="bar-wrap">
+                <div class="bar" style="height:52%"></div>
+                <small>Wed</small>
+              </div>
+
+              <div class="bar-wrap">
+                <div class="bar" style="height:78%"></div>
+                <small>Thu</small>
+              </div>
+
+              <div class="bar-wrap">
+                <div class="bar" style="height:60%"></div>
+                <small>Fri</small>
+              </div>
+
+              <div class="bar-wrap">
+                <div class="bar" style="height:90%"></div>
+                <small>Sat</small>
+              </div>
+
+              <div class="bar-wrap">
+                <div class="bar" style="height:72%"></div>
+                <small>Sun</small>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- Quick Actions -->
+        <div class="panel">
+
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">QUICK ACCESS</p>
+              <h2>Quick Actions</h2>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+
+            <button onclick="openAddProduct()">
+              <span>◇</span>
+              <div>
+                <strong>Add Product</strong>
+                <small>Add new jewellery</small>
+              </div>
+            </button>
+
+            <button onclick="showPage('orders')">
+              <span>▣</span>
+              <div>
+                <strong>Manage Orders</strong>
+                <small>7 pending orders</small>
+              </div>
+            </button>
+
+            <button onclick="showPage('customers')">
+              <span>♙</span>
+              <div>
+                <strong>Customers</strong>
+                <small>View customer CRM</small>
+              </div>
+            </button>
+
+            <button onclick="openWhatsApp()">
+              <span class="wa-text">WA</span>
+              <div>
+                <strong>WhatsApp</strong>
+                <small>Chat with customers</small>
+              </div>
+            </button>
+
+          </div>
 
-    sidebar.classList.remove("open");
-    overlay.style.display = "none";
+        </div>
 
-  });
+      </div>
 
-}
 
+      <!-- Best Sellers -->
+      <div class="panel">
 
-// ==========================================
-// WHATSAPP BUSINESS
-// ==========================================
+        <div class="panel-header">
 
-function openWhatsApp(message = "") {
+          <div>
+            <p class="eyebrow">TOP PERFORMERS</p>
+            <h2>Best Sellers</h2>
+          </div>
 
-  let defaultMessage =
-    message ||
-    "Hello Orven Jewels, I would like to know more about your jewellery collection.";
+          <button class="text-btn" onclick="showPage('products')">
+            View All →
+          </button>
+
+        </div>
 
-  const url =
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
+        <div class="product-grid">
 
-  window.open(url, "_blank");
+          <div class="product-card">
 
-}
+            <div class="product-image ring">
+              <span>◇</span>
+            </div>
 
+            <div class="product-info">
+              <span class="category">DIAMOND RINGS</span>
+              <h3>Diamond Solitaire Ring</h3>
+              <small>SKU: ORV-RNG-001</small>
 
-// ==========================================
-// SHARE STORE
-// ==========================================
+              <div class="product-meta">
+                <strong>₹1,09,999</strong>
+                <span>Stock: 4</span>
+              </div>
 
-function shareStore() {
+              <div class="sold">
+                <span>32 units sold</span>
+                <span>₹35.2L revenue</span>
+              </div>
+            </div>
 
-  const storeUrl = window.location.href;
+          </div>
 
-  if (navigator.share) {
 
-    navigator.share({
-      title: "Orven Jewels",
-      text: "Explore the premium jewellery collection from Orven Jewels.",
-      url: storeUrl
-    });
+          <div class="product-card">
 
-  } else {
+            <div class="product-image necklace">
+              <span>♢</span>
+            </div>
 
-    navigator.clipboard.writeText(storeUrl);
+            <div class="product-info">
+              <span class="category">GOLD JEWELLERY</span>
+              <h3>22K Gold Necklace</h3>
+              <small>SKU: ORV-NCK-002</small>
 
-    alert("Orven Jewels store link copied!");
+              <div class="product-meta">
+                <strong>₹1,85,500</strong>
+                <span>Stock: 7</span>
+              </div>
 
-  }
+              <div class="sold">
+                <span>24 units sold</span>
+                <span>₹44.5L revenue</span>
+              </div>
+            </div>
 
-}
+          </div>
 
 
-// ==========================================
-// ADD PRODUCT MODAL
-// ==========================================
+          <div class="product-card">
 
-const productModal = document.getElementById("productModal");
+            <div class="product-image bridal">
+              <span>✦</span>
+            </div>
+
+            <div class="product-info">
+              <span class="category">BRIDAL</span>
+              <h3>Bridal Kundan Set</h3>
+              <small>SKU: ORV-BRD-003</small>
+
+              <div class="product-meta">
+                <strong>₹2,45,000</strong>
+                <span>Stock: 3</span>
+              </div>
+
+              <div class="sold">
+                <span>18 units sold</span>
+                <span>₹38.4L revenue</span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="product-card">
 
-function openAddProduct() {
+            <div class="product-image earrings">
+              <span>✧</span>
+            </div>
 
-  productModal.classList.add("show");
+            <div class="product-info">
+              <span class="category">DIAMOND</span>
+              <h3>Diamond Earrings</h3>
+              <small>SKU: ORV-EAR-004</small>
 
-}
+              <div class="product-meta">
+                <strong>₹78,999</strong>
+                <span>Stock: 8</span>
+              </div>
 
-function closeAddProduct() {
+              <div class="sold">
+                <span>15 units sold</span>
+                <span>₹11.8L revenue</span>
+              </div>
+            </div>
 
-  productModal.classList.remove("show");
+          </div>
 
-}
+        </div>
 
+      </div>
 
-// Close modal by clicking outside
-productModal.addEventListener("click", function(e) {
 
-  if (e.target === productModal) {
-    closeAddProduct();
-  }
+      <!-- Recent Orders -->
+      <div class="panel">
 
-});
+        <div class="panel-header">
 
+          <div>
+            <p class="eyebrow">ORDERS</p>
+            <h2>Recent Orders</h2>
+          </div>
 
-// ==========================================
-// PRODUCT FORM
-// ==========================================
+          <button class="text-btn" onclick="showPage('orders')">
+            View All →
+          </button>
 
-const productForm = document.getElementById("productForm");
+        </div>
 
-productForm.addEventListener("submit", function(e) {
+        <div class="table-wrapper">
 
-  e.preventDefault();
+          <table>
 
-  const productName =
-    document.getElementById("newProductName").value;
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
 
-  alert(
-    `"${productName}" has been added to Orven Jewels catalogue.`
-  );
+            <tbody>
 
-  productForm.reset();
+              <tr>
+                <td><strong>#ORV-10245</strong></td>
+                <td>Priya Sharma</td>
+                <td>Diamond Solitaire Ring</td>
+                <td>₹1,09,999</td>
+                <td><span class="badge paid">Paid</span></td>
+                <td><span class="badge processing">Processing</span></td>
+                <td><button class="view-btn">View</button></td>
+              </tr>
+
+              <tr>
+                <td><strong>#ORV-10244</strong></td>
+                <td>Ananya Patel</td>
+                <td>22K Gold Necklace</td>
+                <td>₹1,85,500</td>
+                <td><span class="badge paid">Paid</span></td>
+                <td><span class="badge shipped">Shipped</span></td>
+                <td><button class="view-btn">View</button></td>
+              </tr>
+
+              <tr>
+                <td><strong>#ORV-10243</strong></td>
+                <td>Meera Shah</td>
+                <td>Diamond Earrings</td>
+                <td>₹78,999</td>
+                <td><span class="badge pending">Pending</span></td>
+                <td><span class="badge new">New</span></td>
+                <td><button class="view-btn">View</button></td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRODUCTS PAGE -->
+    <section class="page" id="products">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">CATALOGUE</p>
+          <h1>Jewellery Products</h1>
+          <p>Manage your complete jewellery catalogue.</p>
+        </div>
+
+        <button class="gold-btn" onclick="openAddProduct()">
+          + Add Product
+        </button>
+
+      </div>
+
+      <div class="toolbar">
+
+        <div class="search">
+          <span>⌕</span>
+          <input type="text" id="productSearch" placeholder="Search jewellery...">
+        </div>
+
+        <select>
+          <option>All Categories</option>
+          <option>Rings</option>
+          <option>Earrings</option>
+          <option>Necklaces</option>
+          <option>Bracelets</option>
+          <option>Bridal Jewellery</option>
+          <option>Diamond Jewellery</option>
+          <option>Gold Jewellery</option>
+        </select>
+
+        <button class="outline-btn">Filter</button>
+        <button class="outline-btn">Export</button>
+
+      </div>
+
+      <div class="products-table panel">
+
+        <div class="table-wrapper">
+
+          <table id="productTable">
+
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>SKU</th>
+                <th>Metal</th>
+                <th>Weight</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>
+                  <div class="table-product">
+                    <div class="tiny-image ring">◇</div>
+                    <strong>18K Diamond Solitaire Ring</strong>
+                  </div>
+                </td>
+                <td>ORV-RNG-001</td>
+                <td>18K Gold</td>
+                <td>3.42g</td>
+                <td>₹1,09,999</td>
+                <td>4</td>
+                <td><span class="badge active">Active</span></td>
+                <td><button class="view-btn">Edit</button></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="table-product">
+                    <div class="tiny-image necklace">♢</div>
+                    <strong>22K Gold Necklace</strong>
+                  </div>
+                </td>
+                <td>ORV-NCK-002</td>
+                <td>22K Gold</td>
+                <td>28.5g</td>
+                <td>₹1,85,500</td>
+                <td>7</td>
+                <td><span class="badge active">Active</span></td>
+                <td><button class="view-btn">Edit</button></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="table-product">
+                    <div class="tiny-image bridal">✦</div>
+                    <strong>Bridal Kundan Set</strong>
+                  </div>
+                </td>
+                <td>ORV-BRD-003</td>
+                <td>22K Gold</td>
+                <td>52.8g</td>
+                <td>₹2,45,000</td>
+                <td>3</td>
+                <td><span class="badge active">Active</span></td>
+                <td><button class="view-btn">Edit</button></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="table-product">
+                    <div class="tiny-image earrings">✧</div>
+                    <strong>Diamond Earrings</strong>
+                  </div>
+                </td>
+                <td>ORV-EAR-004</td>
+                <td>18K Gold</td>
+                <td>5.24g</td>
+                <td>₹78,999</td>
+                <td>2</td>
+                <td><span class="badge warning-badge">Low Stock</span></td>
+                <td><button class="view-btn">Edit</button></td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ORDERS PAGE -->
+    <section class="page" id="orders">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">ORDER MANAGEMENT</p>
+          <h1>Orders</h1>
+          <p>Manage customer orders and fulfilment.</p>
+        </div>
+
+        <button class="outline-btn">Export Orders</button>
+
+      </div>
+
+      <div class="order-tabs">
+
+        <button class="active">All Orders <b>36</b></button>
+        <button>New <b>4</b></button>
+        <button>Processing <b>7</b></button>
+        <button>Shipped <b>12</b></button>
+        <button>Delivered <b>13</b></button>
+
+      </div>
+
+      <div class="panel table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td><strong>#ORV-10245</strong></td>
+              <td>Priya Sharma<br><small>+91 98XXXXXX21</small></td>
+              <td>Diamond Solitaire Ring</td>
+              <td>₹1,09,999</td>
+              <td>24 Aug 2026</td>
+              <td><span class="badge paid">Paid</span></td>
+              <td><span class="badge processing">Processing</span></td>
+              <td><button class="view-btn">View</button></td>
+            </tr>
+
+            <tr>
+              <td><strong>#ORV-10244</strong></td>
+              <td>Ananya Patel<br><small>+91 97XXXXXX45</small></td>
+              <td>22K Gold Necklace</td>
+              <td>₹1,85,500</td>
+              <td>23 Aug 2026</td>
+              <td><span class="badge paid">Paid</span></td>
+              <td><span class="badge shipped">Shipped</span></td>
+              <td><button class="view-btn">View</button></td>
+            </tr>
+
+            <tr>
+              <td><strong>#ORV-10243</strong></td>
+              <td>Meera Shah<br><small>+91 96XXXXXX12</small></td>
+              <td>Diamond Earrings</td>
+              <td>₹78,999</td>
+              <td>23 Aug 2026</td>
+              <td><span class="badge pending">Pending</span></td>
+              <td><span class="badge new">New</span></td>
+              <td><button class="view-btn">View</button></td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- CUSTOMERS -->
+    <section class="page" id="customers">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">CUSTOMER RELATIONSHIP</p>
+          <h1>Customers</h1>
+          <p>Build stronger relationships with your jewellery customers.</p>
+        </div>
+
+        <button class="gold-btn" onclick="openWhatsApp()">WhatsApp Customer</button>
+
+      </div>
+
+      <div class="stats-grid four">
+
+        <div class="stat-card">
+          <div class="stat-icon gold">♙</div>
+          <div><span>Total Customers</span><h3>214</h3></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon pink">+</div>
+          <div><span>New Customers</span><h3>24</h3></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon dark">★</div>
+          <div><span>VIP Customers</span><h3>38</h3></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon rose">₹</div>
+          <div><span>Customer Value</span><h3>₹62.4L</h3></div>
+        </div>
+
+      </div>
+
+      <div class="panel table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Purchases</th>
+              <th>Total Spent</th>
+              <th>Last Purchase</th>
+              <th>Segment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td><strong>Priya Sharma</strong></td>
+              <td>+91 98XXXXXX21</td>
+              <td>8</td>
+              <td>₹8,45,000</td>
+              <td>24 Aug 2026</td>
+              <td><span class="badge vip">VIP</span></td>
+              <td><button class="view-btn" onclick="openWhatsApp()">WhatsApp</button></td>
+            </tr>
+
+            <tr>
+              <td><strong>Ananya Patel</strong></td>
+              <td>+91 97XXXXXX45</td>
+              <td>5</td>
+              <td>₹5,82,400</td>
+              <td>23 Aug 2026</td>
+              <td><span class="badge vip">VIP</span></td>
+              <td><button class="view-btn" onclick="openWhatsApp()">WhatsApp</button></td>
+            </tr>
+
+            <tr>
+              <td><strong>Meera Shah</strong></td>
+              <td>+91 96XXXXXX12</td>
+              <td>2</td>
+              <td>₹1,42,000</td>
+              <td>20 Aug 2026</td>
+              <td><span class="badge active">Regular</span></td>
+              <td><button class="view-btn" onclick="openWhatsApp()">WhatsApp</button></td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ANALYTICS -->
+    <section class="page" id="analytics">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">BUSINESS INTELLIGENCE</p>
+          <h1>Sales & Analytics</h1>
+          <p>Understand how Orven Jewels is performing.</p>
+        </div>
+
+        <select class="date-select">
+          <option>Last 30 Days</option>
+          <option>Last 3 Months</option>
+          <option>This Year</option>
+        </select>
+
+      </div>
+
+      <div class="stats-grid four">
+
+        <div class="stat-card">
+          <div class="stat-icon gold">₹</div>
+          <div><span>Total Revenue</span><h3>₹48.2L</h3><small class="positive">↑ 18.2%</small></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon pink">₹</div>
+          <div><span>Net Profit</span><h3>₹12.4L</h3><small class="positive">↑ 14.8%</small></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon dark">◉</div>
+          <div><span>Avg. Order Value</span><h3>₹13,410</h3></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon rose">♙</div>
+          <div><span>Retention</span><h3>72.4%</h3><small class="positive">↑ 4.2%</small></div>
+        </div>
+
+      </div>
+
+      <div class="analytics-grid">
+
+        <div class="panel large-analytics">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">REVENUE</p>
+              <h2>Revenue Analytics</h2>
+            </div>
+          </div>
+
+          <div class="line-chart">
+            <div class="line"></div>
+            <div class="dot d1"></div>
+            <div class="dot d2"></div>
+            <div class="dot d3"></div>
+            <div class="dot d4"></div>
+            <div class="dot d5"></div>
+            <div class="dot d6"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">TRAFFIC</p>
+              <h2>Store Traffic</h2>
+            </div>
+          </div>
+
+          <div class="traffic-item">
+            <span>Store Visits</span>
+            <strong>1,248</strong>
+            <div class="progress"><i style="width:82%"></i></div>
+          </div>
+
+          <div class="traffic-item">
+            <span>Product Views</span>
+            <strong>4,826</strong>
+            <div class="progress"><i style="width:70%"></i></div>
+          </div>
+
+          <div class="traffic-item">
+            <span>WhatsApp Clicks</span>
+            <strong>386</strong>
+            <div class="progress"><i style="width:48%"></i></div>
+          </div>
+
+          <div class="traffic-item">
+            <span>Instagram Clicks</span>
+            <strong>214</strong>
+            <div class="progress"><i style="width:35%"></i></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MARKETING -->
+    <section class="page" id="marketing">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">GROW YOUR BUSINESS</p>
+          <h1>Marketing</h1>
+          <p>Create premium campaigns for your jewellery customers.</p>
+        </div>
+
+        <button class="gold-btn">+ Create Campaign</button>
+
+      </div>
+
+      <div class="marketing-grid">
+
+        <div class="marketing-card">
+          <span class="marketing-icon">%</span>
+          <h3>Promotions</h3>
+          <p>Create discounts and festive offers.</p>
+          <button class="text-btn">Create Offer →</button>
+        </div>
+
+        <div class="marketing-card">
+          <span class="marketing-icon">WA</span>
+          <h3>WhatsApp Campaign</h3>
+          <p>Connect with your jewellery customers.</p>
+          <button class="text-btn" onclick="openWhatsApp()">Start Campaign →</button>
+        </div>
+
+        <div class="marketing-card">
+          <span class="marketing-icon">✦</span>
+          <h3>Festival Campaigns</h3>
+          <p>Promote Diwali, Wedding & festive collections.</p>
+          <button class="text-btn">Create Campaign →</button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- INVENTORY -->
+    <section class="page" id="inventory">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">STOCK CONTROL</p>
+          <h1>Jewellery Inventory</h1>
+          <p>Track your gold, diamond and jewellery inventory.</p>
+        </div>
+
+        <button class="outline-btn">Export Inventory</button>
+
+      </div>
+
+      <div class="stats-grid four">
+
+        <div class="stat-card">
+          <div class="stat-icon gold">◆</div>
+          <div><span>Total Pieces</span><h3>412</h3></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon pink">₹</div>
+          <div><span>Inventory Value</span><h3>₹38.6L</h3></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon dark">!</div>
+          <div><span>Low Stock</span><h3>26</h3></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon rose">×</div>
+          <div><span>Out of Stock</span><h3>8</h3></div>
+        </div>
+
+      </div>
+
+      <div class="panel table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Metal</th>
+              <th>Purity</th>
+              <th>Weight</th>
+              <th>Qty</th>
+              <th>Value</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>ORV-RNG-001</td>
+              <td><strong>Diamond Solitaire Ring</strong></td>
+              <td>Ring</td>
+              <td>Gold</td>
+              <td>18K</td>
+              <td>3.42g</td>
+              <td>4</td>
+              <td>₹4.4L</td>
+              <td><span class="badge active">In Stock</span></td>
+            </tr>
+
+            <tr>
+              <td>ORV-NCK-002</td>
+              <td><strong>22K Gold Necklace</strong></td>
+              <td>Necklace</td>
+              <td>Gold</td>
+              <td>22K</td>
+              <td>28.5g</td>
+              <td>7</td>
+              <td>₹12.9L</td>
+              <td><span class="badge active">In Stock</span></td>
+            </tr>
+
+            <tr>
+              <td>ORV-EAR-004</td>
+              <td><strong>Diamond Earrings</strong></td>
+              <td>Earrings</td>
+              <td>Gold</td>
+              <td>18K</td>
+              <td>5.24g</td>
+              <td>2</td>
+              <td>₹1.5L</td>
+              <td><span class="badge warning-badge">Low Stock</span></td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- INVOICES -->
+    <section class="page" id="invoices">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">BILLING</p>
+          <h1>Invoices</h1>
+          <p>Manage invoices and jewellery sales documentation.</p>
+        </div>
+
+        <button class="gold-btn">+ Create Invoice</button>
+
+      </div>
+
+      <div class="panel table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Invoice</th>
+              <th>Order</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Payment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td><strong>INV-ORV-245</strong></td>
+              <td>#ORV-10245</td>
+              <td>Priya Sharma</td>
+              <td>24 Aug 2026</td>
+              <td>₹1,09,999</td>
+              <td><span class="badge paid">Paid</span></td>
+              <td><button class="view-btn">Download</button></td>
+            </tr>
+
+            <tr>
+              <td><strong>INV-ORV-244</strong></td>
+              <td>#ORV-10244</td>
+              <td>Ananya Patel</td>
+              <td>23 Aug 2026</td>
+              <td>₹1,85,500</td>
+              <td><span class="badge paid">Paid</span></td>
+              <td><button class="view-btn">Download</button></td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- STORE -->
+    <section class="page" id="store">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">YOUR BRAND</p>
+          <h1>Orven Jewels Store</h1>
+          <p>Manage your public jewellery storefront.</p>
+        </div>
+
+        <button class="gold-btn" onclick="shareStore()">↗ Share Store</button>
+
+      </div>
+
+      <div class="store-preview panel">
+
+        <div class="store-cover"></div>
+
+        <div class="store-profile">
+
+          <div class="store-logo">O</div>
+
+          <div>
+            <h2>Orven Jewels</h2>
+            <p>TIMELESS JEWELS • MODERN YOU</p>
+            <span>Luxury Gold • Diamond • Bridal Jewellery</span>
+          </div>
+
+        </div>
+
+        <div class="store-actions">
+          <button class="gold-btn" onclick="openWhatsApp()">WhatsApp Us</button>
+          <button class="outline-btn">Edit Store</button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+    <section class="page" id="settings">
 
-  closeAddProduct();
+      <div class="page-heading">
 
-});
+        <div>
+          <p class="eyebrow">CONFIGURATION</p>
+          <h1>Settings</h1>
+          <p>Manage your Orven Jewels account and store settings.</p>
+        </div>
 
+      </div>
+
+      <div class="settings-grid">
 
-// ==========================================
-// SALES PERIOD SWITCH
-// ==========================================
-
-const periodButtons = document.querySelectorAll(".period");
-const bars = document.querySelectorAll(".bar");
-
-const chartData = {
-
-  7: [45, 65, 52, 78, 60, 90, 72],
-
-  30: [38, 52, 46, 67, 55, 74, 82],
-
-  90: [30, 48, 42, 70, 61, 88, 94],
-
-  365: [25, 40, 55, 48, 72, 83, 97]
-
-};
-
-periodButtons.forEach(button => {
-
-  button.addEventListener("click", function() {
-
-    periodButtons.forEach(btn => {
-      btn.classList.remove("active");
-    });
-
-    this.classList.add("active");
-
-    const period = this.dataset.period;
-
-    const data = chartData[period];
-
-    bars.forEach((bar, index) => {
-
-      bar.style.height = data[index] + "%";
-
-    });
-
-    const revenueElement =
-      document.getElementById("revenue");
-
-    const revenues = {
-      7: "₹1,18,450",
-      30: "₹4,82,750",
-      90: "₹13,74,850",
-      365: "₹48,25,600"
-    };
-
-    revenueElement.textContent =
-      revenues[period];
-
-  });
-
-});
-
-
-// ==========================================
-// PRODUCT SEARCH
-// ==========================================
-
-const productSearch =
-  document.getElementById("productSearch");
-
-if (productSearch) {
-
-  productSearch.addEventListener("input", function() {
-
-    const searchValue =
-      this.value.toLowerCase();
-
-    const rows =
-      document.querySelectorAll("#productTable tbody tr");
-
-    rows.forEach(row => {
-
-      const text =
-        row.textContent.toLowerCase();
-
-      if (text.includes(searchValue)) {
-
-        row.style.display = "";
-
-      } else {
-
-        row.style.display = "none";
-
-      }
-
-    });
-
-  });
-
-}
-
-
-// ==========================================
-// MOBILE NAVIGATION
-// ==========================================
-
-mobileItems.forEach((item, index) => {
-
-  item.addEventListener("click", function() {
-
-    mobileItems.forEach(btn => {
-      btn.classList.remove("active");
-    });
-
-    this.classList.add("active");
-
-    const pages = [
-      "dashboard",
-      "products",
-      "orders",
-      "customers",
-      "settings"
-    ];
-
-    showPage(pages[index]);
-
-  });
-
-});
-
-
-// ==========================================
-// KEYBOARD SHORTCUT
-// ==========================================
-
-document.addEventListener("keydown", function(e) {
-
-  // Escape closes modal
-  if (e.key === "Escape") {
-    closeAddProduct();
-  }
-
-});
-
-
-// ==========================================
-// DEMO NOTIFICATION
-// ==========================================
-
-setTimeout(() => {
-
-  console.log(
-    "✨ Orven Jewels Owner Portal loaded successfully."
-  );
-
-  console.log(
-    "📱 WhatsApp Business:",
-    whatsappNumber
-  );
-
-}, 500);
+        <div class="settings-menu">
+
+          <button class="active">Store Information</button>
+          <button>Business Information</button>
+          <button>WhatsApp Business</button>
+          <button>Notifications</button>
+          <button>Payment Settings</button>
+          <button>Delivery Settings</button>
+          <button>Security</button>
+
+        </div>
+
+        <div class="panel settings-form">
+
+          <h2>Store Information</h2>
+
+          <label>Store Name</label>
+          <input value="Orven Jewels">
+
+          <label>Tagline</label>
+          <input value="TIMELESS JEWELS • MODERN YOU">
+
+          <label>WhatsApp Business Number</label>
+          <input value="9328784297">
+
+          <label>Store Description</label>
+          <textarea>Premium jewellery collection crafted for timeless moments.</textarea>
+
+          <button class="gold-btn">Save Changes</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav">
+
+    <button class="mobile-nav-item active" onclick="showPage('dashboard')">
+      <span>⌂</span>
+      <small>Home</small>
+    </button>
+
+    <button class="mobile-nav-item" onclick="showPage('products')">
+      <span>◇</span>
+      <small>Products</small>
+    </button>
+
+    <button class="mobile-nav-item" onclick="showPage('orders')">
+      <span>▣</span>
+      <small>Orders</small>
+    </button>
+
+    <button class="mobile-nav-item" onclick="showPage('customers')">
+      <span>♙</span>
+      <small>Customers</small>
+    </button>
+
+    <button class="mobile-nav-item" onclick="showPage('settings')">
+      <span>☰</span>
+      <small>More</small>
+    </button>
+
+  </nav>
+
+
+  <!-- Add Product Modal -->
+  <div class="modal-overlay" id="productModal">
+
+    <div class="modal">
+
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">NEW JEWELLERY</p>
+          <h2>Add Product</h2>
+        </div>
+
+        <button onclick="closeAddProduct()">×</button>
+      </div>
+
+      <form id="productForm">
+
+        <div class="form-grid">
+
+          <div>
+            <label>Product Name</label>
+            <input id="newProductName" required placeholder="Diamond Solitaire Ring">
+          </div>
+
+          <div>
+            <label>SKU</label>
+            <input required placeholder="ORV-RNG-005">
+          </div>
+
+          <div>
+            <label>Category</label>
+            <select>
+              <option>Rings</option>
+              <option>Earrings</option>
+              <option>Necklaces</option>
+              <option>Bracelets</option>
+              <option>Bangels</option>
+              <option>Bridal Jewellery</option>
+              <option>Diamond Jewellery</option>
+              <option>Gold Jewellery</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Metal Type</label>
+            <select>
+              <option>Gold</option>
+              <option>Diamond</option>
+              <option>Silver</option>
+              <option>Platinum</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Purity</label>
+            <select>
+              <option>18K</option>
+              <option>22K</option>
+              <option>24K</option>
+              <option>925 Silver</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Net Weight</label>
+            <input placeholder="3.42g">
+          </div>
+
+          <div>
+            <label>MRP</label>
+            <input type="number" placeholder="125000">
+          </div>
+
+          <div>
+            <label>Selling Price</label>
+            <input type="number" placeholder="109999">
+          </div>
+
+        </div>
+
+        <label>Description</label>
+        <textarea placeholder="Describe this jewellery piece..."></textarea>
+
+        <div class="upload-box">
+          <span>＋</span>
+          <strong>Upload Product Images</strong>
+          <small>Front, side, back & lifestyle images</small>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="outline-btn" onclick="closeAddProduct()">Cancel</button>
+          <button type="submit" class="gold-btn">Add Jewellery</button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- WhatsApp Floating Button -->
+  <button class="whatsapp-float" onclick="openWhatsApp()" title="WhatsApp Orven Jewels">
+    WA
+  </button>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
