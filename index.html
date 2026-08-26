@@ -3454,6 +3454,42 @@
 
     })();
 
+  
+    /* Collection image fallback */
+    document
+      .querySelectorAll(".image-collection-card img")
+      .forEach(function(img) {
+
+        img.addEventListener("error", function() {
+
+          if (img.dataset.fallbackApplied) return;
+
+          img.dataset.fallbackApplied = "true";
+
+          img.style.display = "none";
+
+          const parent = img.parentElement;
+
+          if (parent &&
+              !parent.querySelector(".collection-image-fallback")) {
+
+            const fallback =
+              document.createElement("div");
+
+            fallback.className =
+              "collection-image-fallback";
+
+            fallback.textContent =
+              "ORVÉN JEWELS";
+
+            parent.appendChild(fallback);
+
+          }
+
+        });
+
+      });
+
   </script>
 
 </body>
