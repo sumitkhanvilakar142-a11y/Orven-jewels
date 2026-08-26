@@ -1771,7 +1771,157 @@
 @media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.product-collection-bar{align-items:flex-start;flex-direction:column}.product-collection-title{font-size:26px}.product-grid{grid-template-columns:1fr 1fr;gap:8px}.product-item-body{padding:10px}.product-item-name{font-size:13px}.product-item-link{font-size:8px}}
 
-  </style>
+  
+/* =========================
+   ORVÉN PRODUCT COLLECTIONS
+========================= */
+
+.collection-products {
+  display: none;
+  scroll-margin-top: 90px;
+}
+
+.collection-products.show {
+  display: block;
+}
+
+.product-collection-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.product-count {
+  color: var(--gold-light);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.product-back {
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.product-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.025);
+  transition: transform .3s ease, border-color .3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(240,211,158,.65);
+}
+
+.product-image-link {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #120b10;
+}
+
+.product-image-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+
+.product-card:hover .product-image-link img {
+  transform: scale(1.05);
+}
+
+.product-info {
+  padding: 15px;
+}
+
+.product-category {
+  margin: 0 0 6px;
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.product-name {
+  margin: 0;
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.product-price {
+  margin: 9px 0 0;
+  color: var(--gold-light);
+  font-size: 10px;
+}
+
+.product-whatsapp {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 10px;
+  color: var(--cream);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.product-whatsapp:hover {
+  border-color: var(--gold);
+  background: rgba(205,157,91,.08);
+}
+
+.product-loading,
+.product-empty {
+  grid-column: 1 / -1;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .product-collection-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+  }
+
+  .product-info {
+    padding: 10px;
+  }
+
+  .product-name {
+    font-size: 14px;
+  }
+}
+
+</style>
 </head>
 
 <body>
@@ -2943,9 +3093,10 @@
 
     }
 
+
     /* =========================================
-       LOAD COLLECTION IMAGES FROM EXISTING
-       GITHUB FOLDERS — NO GITHUB API NEEDED
+       LOAD THE FIRST PRODUCT PHOTO FROM EACH
+       EXISTING GITHUB CATEGORY FOLDER
     ========================================= */
 
     (async function loadCollectionImages() {
@@ -2954,110 +3105,106 @@
       const repo = "Orven-jewels";
       const branch = "main";
 
-      const cards = document.querySelectorAll(
-        ".image-collection-card[data-folder]"
-      );
-
-      const imageExtensions =
-        /\.(jpe?g|png|webp|avif)$/i;
-
-      try {
-
-        const response = await fetch(
-          "https://data.jsdelivr.com/v1/package/gh/" +
-          owner + "/" + repo + "@" + branch +
-          "/flat"
+      const cards =
+        document.querySelectorAll(
+          ".image-collection-card[data-folder]"
         );
 
-        if (!response.ok) {
-          throw new Error("Could not read repository files");
-        }
+      cards.forEach(function(card) {
 
-        const data = await response.json();
-        const files = Array.isArray(data.files) ? data.files : [];
+        const folder = card.dataset.folder;
+        const image = card.querySelector("img");
 
-        cards.forEach(function(card) {
+        const apiUrl =
+          "https://api.github.com/repos/" +
+          owner + "/" + repo +
+          "/contents/" +
+          encodeURIComponent(folder) +
+          "?ref=" + branch;
 
-          const folder = card.dataset.folder;
-          const image = card.querySelector("img");
+        fetch(apiUrl)
+          .then(function(response) {
+            if (!response.ok) {
+              throw new Error("GitHub folder not found");
+            }
+            return response.json();
+          })
+          .then(function(files) {
 
-          const matches = files
-            .map(function(item) {
-              return item.name || "";
-            })
-            .filter(function(path) {
+            const imageFile = files.find(function(file) {
+
+              if (file.type !== "file") return false;
+
+              const name =
+                file.name.toLowerCase();
 
               return (
-                path.indexOf("/" + folder + "/") !== -1 &&
-                imageExtensions.test(path)
+                name.endsWith(".jpg") ||
+                name.endsWith(".jpeg") ||
+                name.endsWith(".png") ||
+                name.endsWith(".webp") ||
+                name.endsWith(".avif")
               );
 
             });
 
-          if (matches.length > 0) {
+            if (imageFile) {
 
-            const selected = matches[0]
-              .replace(/^\/+/, "");
+              image.src =
+                "https://raw.githubusercontent.com/" +
+                owner + "/" +
+                repo + "/" +
+                branch + "/" +
+                imageFile.path;
 
-            image.src =
-              "https://cdn.jsdelivr.net/gh/" +
-              owner + "/" +
-              repo + "@" +
-              branch + "/" +
-              selected;
+            }
 
-            image.onerror = function() {
+          })
+          .catch(function(error) {
 
-              image.removeAttribute("src");
+            console.warn(
+              "Could not load collection image:",
+              folder,
+              error
+            );
 
-              const fallback =
-                document.createElement("div");
+          });
 
-              fallback.style.cssText =
-                "position:absolute;inset:0;" +
-                "display:grid;place-items:center;" +
-                "padding:20px;text-align:center;" +
-                "color:#d7aa68;font-size:10px;" +
-                "letter-spacing:1px;background:" +
-                "linear-gradient(135deg,#21131a,#0b080b);";
-
-              fallback.textContent =
-                "Collection image unavailable";
-
-              image.parentElement.prepend(fallback);
-
-            };
-
-          }
-
-        });
-
-      } catch (error) {
-
-        console.warn(
-          "Collection images could not be loaded:",
-          error
-        );
-
-      }
+      });
 
     })();
 
-/* =========================================
+
+
+    /* =========================================
        COLLECTION -> ACTUAL GITHUB PRODUCT GRID
     ========================================= */
 
     (function setupProductCollections(){
+
       const owner = "sumitkhanvilakar142-a11y";
       const repo = "Orven-jewels";
       const branch = "main";
 
-      const cards = document.querySelectorAll(".image-collection-card[data-folder]");
-      const section = document.getElementById("collection-products");
-      const grid = document.getElementById("productGrid");
-      const title = document.getElementById("productCollectionTitle");
-      const count = document.getElementById("productCollectionCount");
-      const back = document.getElementById("productCollectionBack");
+      const cards =
+        document.querySelectorAll(
+          ".image-collection-card[data-folder]"
+        );
+
+      const section =
+        document.getElementById("collection-products");
+
+      const grid =
+        document.getElementById("productGrid");
+
+      const title =
+        document.getElementById("productCollectionTitle");
+
+      const count =
+        document.getElementById("productCollectionCount");
+
+      const back =
+        document.getElementById("productCollectionBack");
 
       if (!cards.length || !section || !grid) return;
 
@@ -3083,7 +3230,9 @@
       const cache = {};
 
       function rawUrl(path){
-        return "https://raw.githubusercontent.com/" + owner + "/" + repo + "/" + branch + "/" + path.split("/").map(encodeURIComponent).join("/");
+        return "https://raw.githubusercontent.com/" +
+          owner + "/" + repo + "/" + branch + "/" +
+          path.split("/").map(encodeURIComponent).join("/");
       }
 
       function productName(filename){
@@ -3096,109 +3245,214 @@
       }
 
       async function getProducts(folder){
+
         if (cache[folder]) return cache[folder];
-        const url = "https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + encodeURIComponent(folder) + "?ref=" + branch;
-        const response = await fetch(url, {headers:{Accept:"application/vnd.github+json"}});
-        if (!response.ok) throw new Error("Unable to read GitHub folder");
-        const files = await response.json();
-        const products = files
-          .filter(file => file.type === "file" && /\.(jpe?g|png|webp|avif)$/i.test(file.name))
-          .map(file => ({name: productName(file.name), filename:file.name, path:file.path, url:rawUrl(file.path)}));
+
+        const url =
+          "https://api.github.com/repos/" +
+          owner + "/" + repo +
+          "/contents/" +
+          encodeURIComponent(folder) +
+          "?ref=" + branch;
+
+        const response =
+          await fetch(url, {
+            headers: {
+              Accept:
+                "application/vnd.github+json"
+            }
+          });
+
+        if (!response.ok) {
+          throw new Error(
+            "Unable to read GitHub folder: " + folder
+          );
+        }
+
+        const files =
+          await response.json();
+
+        const products =
+          files
+            .filter(file =>
+              file.type === "file" &&
+              /\.(jpe?g|png|webp|avif)$/i.test(file.name)
+            )
+            .map(file => ({
+              name: productName(file.name),
+              filename: file.name,
+              path: file.path,
+              url: rawUrl(file.path)
+            }));
+
         cache[folder] = products;
+
         return products;
       }
 
       function renderProducts(folder, products){
-        title.textContent = pretty[folder] || productName(folder);
-        count.textContent = products.length + (products.length === 1 ? " product" : " products");
+
+        title.textContent =
+          pretty[folder] || productName(folder);
+
+        count.textContent =
+          products.length +
+          (products.length === 1 ? " product" : " products");
 
         if (!products.length){
-          grid.innerHTML = '<div class="product-empty">No product images were found in this collection yet.</div>';
+
+          grid.innerHTML =
+            '<div class="product-empty">' +
+            'No product images were found in this collection yet.' +
+            '</div>';
+
           return;
         }
 
-        grid.innerHTML = products.map((product, index) => `
-          <article class="product-item">
-            <img class="product-item-image" src="${product.url}" alt="${product.name}" loading="lazy" onerror="this.style.display='none'">
-            <div class="product-item-body">
-              <h3 class="product-item-name">${product.name}</h3>
-              <div class="product-item-meta">${String(index + 1).padStart(2,"0")} · ${pretty[folder] || "ORVÉN"}</div>
-              <a class="product-item-link" href="${product.url}" target="_blank" rel="noopener">View Product →</a>
-            </div>
-          </article>
-        `).join("");
+        grid.innerHTML =
+          products.map((product, index) => {
+
+            const whatsappText =
+              "Hello Orvén, I am interested in " +
+              (pretty[folder] || product.name) +
+              " - " + product.name +
+              ". Please share details.";
+
+            return `
+              <article class="product-card">
+
+                <a
+                  class="product-image-link"
+                  href="${product.url}"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <img
+                    src="${product.url}"
+                    alt="${product.name}"
+                    loading="lazy"
+                    onerror="this.closest('.product-card').classList.add('image-error')"
+                  >
+                </a>
+
+                <div class="product-info">
+
+                  <p class="product-category">
+                    ${pretty[folder] || folder}
+                  </p>
+
+                  <h3 class="product-name">
+                    ${product.name}
+                  </h3>
+
+                  <p class="product-price">
+                    Price on Request
+                  </p>
+
+                  <a
+                    class="product-whatsapp"
+                    href="https://wa.me/?text=${encodeURIComponent(whatsappText)}"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    WhatsApp Inquiry →
+                  </a>
+
+                </div>
+
+              </article>
+            `;
+
+          }).join("");
+
       }
 
       async function openCollection(folder){
-        section.classList.add("is-visible");
-        grid.innerHTML = '<div class="product-loading">Loading collection products…</div>';
-        title.textContent = pretty[folder] || productName(folder);
-        count.textContent = "Loading…";
-        section.scrollIntoView({behavior:"smooth", block:"start"});
+
+        section.classList.add("show");
+
+        title.textContent =
+          pretty[folder] || folder;
+
+        count.textContent =
+          "Loading...";
+
+        grid.innerHTML =
+          '<div class="product-loading">' +
+          'LOADING COLLECTION...' +
+          '</div>';
+
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
 
         try {
-          const products = await getProducts(folder);
-          renderProducts(folder, products);
-          history.replaceState(null, "", "#collection-products-" + encodeURIComponent(folder));
-        } catch (error) {
-          count.textContent = "";
-          grid.innerHTML = '<div class="product-empty">Products could not be loaded right now. Please refresh the page and try again.</div>';
+
+          const products =
+            await getProducts(folder);
+
+          renderProducts(
+            folder,
+            products
+          );
+
+        } catch(error){
+
           console.error(error);
+
+          grid.innerHTML =
+            '<div class="product-empty">' +
+            'Unable to load this collection. ' +
+            'Please refresh the page.' +
+            '</div>';
+
+          count.textContent = "";
+
         }
+
       }
 
       cards.forEach(card => {
-        card.addEventListener("click", function(event){
+
+        card.addEventListener("click", event => {
+
           event.preventDefault();
-          openCollection(card.dataset.folder);
+
+          const folder =
+            card.dataset.folder;
+
+          if (folder){
+            openCollection(folder);
+          }
+
         });
+
       });
 
-      back.addEventListener("click", function(){
-        section.classList.remove("is-visible");
-        document.getElementById("collections")?.scrollIntoView({behavior:"smooth", block:"start"});
-        history.replaceState(null, "", "#collections");
-      });
+      if (back){
+
+        back.addEventListener("click", () => {
+
+          section.classList.remove("show");
+
+          const collections =
+            document.getElementById("collections");
+
+          if (collections){
+
+            collections.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+
+          }
+
+        });
+
+      }
+
     })();
-
-  
-    /* Collection cards -> existing product grid */
-    document.querySelectorAll(
-      ".image-collection-card[data-product-folder]"
-    ).forEach(function(card) {
-
-      card.addEventListener("click", function(event) {
-
-        event.preventDefault();
-
-        const folder =
-          card.dataset.productFolder;
-
-        const grid =
-          document.getElementById("product-grid");
-
-        if (grid) {
-          grid.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-        }
-
-        /* Compatible with the product-grid code already
-           present in this page. */
-        if (typeof window.showProducts === "function") {
-          window.showProducts(folder);
-        } else if (typeof window.loadProducts === "function") {
-          window.loadProducts(folder);
-        } else {
-          window.location.hash =
-            "product-grid-" +
-            encodeURIComponent(folder);
-        }
-
-      });
-
-    });
 
   </script>
 
