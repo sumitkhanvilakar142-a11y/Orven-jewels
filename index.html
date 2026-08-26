@@ -2670,11 +2670,7 @@
         </a>
 
         <a class="image-collection-card" href="#collection-products" data-folder="tennis-bracelet">
-          <img
-            src="https://raw.githubusercontent.com/sumitkhanvilakar142-a11y/Orven-jewels/main/tennis-bracelet/IMG-20260812-WA0111.jpg"
-            alt="Tennis Bracelets"
-            loading="lazy"
-          >
+          <img alt="Tennis Bracelets">
           <span class="image-collection-number">16</span>
           <div class="image-collection-info">
             <small>Continuous brilliance</small>
@@ -3179,25 +3175,6 @@
     })();
 
 
-
-
-      /* Direct fallback for Tennis Bracelets collection image */
-      const tennisCard =
-        document.querySelector(
-          '.image-collection-card[data-folder="tennis-bracelet"]'
-        );
-
-      if (tennisCard) {
-        const tennisImage =
-          tennisCard.querySelector("img");
-
-        if (tennisImage) {
-          tennisImage.addEventListener("error", function () {
-            tennisImage.src =
-              "https://cdn.jsdelivr.net/gh/sumitkhanvilakar142-a11y/Orven-jewels@main/tennis-bracelet/IMG-20260812-WA0111.jpg";
-          });
-        }
-      }
 
     /* =========================================
        COLLECTION -> ACTUAL GITHUB PRODUCT GRID
