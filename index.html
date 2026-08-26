@@ -1,1991 +1,2989 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORVÉN — Fine Jewellery</title>
-
-<style>
-:root{
-  --bg:#090609;
-  --bg2:#120a10;
-  --card:#160d14;
-  --gold:#c99555;
-  --gold-light:#f0d39e;
-  --cream:#f8eee5;
-  --muted:#c0aea3;
-  --border:rgba(214,162,94,.34);
-}
-
-*{margin:0;padding:0;box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
-body{
-  min-width:320px;
-  overflow-x:hidden;
-  color:var(--cream);
-  background:
-    radial-gradient(circle at 85% 12%,rgba(110,47,37,.19),transparent 25%),
-    radial-gradient(circle at 15% 54%,rgba(67,20,57,.18),transparent 28%),
-    var(--bg);
-  font-family:Arial,Helvetica,sans-serif;
-}
-
-a{color:inherit;text-decoration:none}
-button{border:0;cursor:pointer;font-family:inherit}
-
-/* TOP BAR */
-
-.topbar{
-  height:34px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(90deg,#2b0d27,#1c0d20,#2b0d27);
-  color:var(--gold-light);
-  font-size:11px;
-  letter-spacing:.5px;
-}
-
-/* NAVBAR */
-
-.navbar{
-  height:82px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5.5%;
-  background:rgba(5,4,6,.94);
-  border-bottom:1px solid rgba(255,255,255,.07);
-  position:relative;
-  z-index:50;
-}
-
-.brand{
-  display:flex;
-  flex-direction:column;
-  color:var(--gold);
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:32px;
-  line-height:.8;
-  letter-spacing:5px;
-}
-
-.brand small{
-  margin-top:10px;
-  padding-left:4px;
-  font-family:Arial,sans-serif;
-  font-size:9px;
-  letter-spacing:5px;
-  text-align:center;
-}
-
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:30px;
-}
-
-.nav-item{
-  position:relative;
-}
-
-.nav-link{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  color:#f2e7df;
-  background:transparent;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.8px;
-  padding:30px 0;
-}
-
-.nav-link:hover{color:var(--gold-light)}
-
-.arrow{
-  font-size:9px;
-  transition:.2s;
-}
-
-.nav-item:hover .arrow{
-  transform:rotate(180deg);
-}
-
-/* DESKTOP SHOP DROPDOWN */
-
-.shop-dropdown{
-  position:absolute;
-  top:78px;
-  left:50%;
-  transform:translateX(-50%) translateY(10px);
-  width:620px;
-  padding:22px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  background:
-    linear-gradient(145deg,#21111b,#0d090d);
-  border:1px solid var(--border);
-  box-shadow:0 20px 50px rgba(0,0,0,.65);
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:.25s;
-}
-
-.nav-item:hover .shop-dropdown,
-.shop-dropdown:hover{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-  transform:translateX(-50%) translateY(0);
-}
-
-.dropdown-title{
-  grid-column:1/-1;
-  padding-bottom:10px;
-  margin-bottom:5px;
-  border-bottom:1px solid var(--border);
-  color:var(--gold-light);
-  font-family:Georgia,serif;
-  font-size:18px;
-}
-
-.dropdown-link{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  padding:12px 10px;
-  color:#ddcec3;
-  border:1px solid transparent;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  transition:.2s;
-}
-
-.dropdown-link span{
-  color:var(--gold);
-  font-size:18px;
-}
-
-.dropdown-link:hover{
-  color:var(--gold-light);
-  border-color:var(--border);
-  background:rgba(201,149,85,.08);
-}
-
-.actions{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.icon-btn{
-  width:34px;
-  height:34px;
-  color:#eee2d7;
-  background:transparent;
-  font-size:25px;
-  position:relative;
-}
-
-.count{
-  width:18px;
-  height:18px;
-  position:absolute;
-  top:-2px;
-  right:-3px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  color:#21130d;
-  background:var(--gold);
-  font-size:9px;
-}
-
-.menu{
-  width:39px;
-  height:39px;
-  border:1px solid var(--gold);
-  border-radius:50%;
-  background:transparent;
-  color:var(--gold-light);
-  font-size:18px;
-}
-
-.mobile-links{display:none}
-
-/* HERO */
-
-.hero{
-  min-height:430px;
-  display:flex;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  padding:45px 8%;
-  background:#080608;
-}
-
-.hero-video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center;
-  z-index:-3;
-  pointer-events:none;
-}
-
-.hero-video-overlay{
-  position:absolute;
-  inset:0;
-  z-index:-2;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(5,4,6,.97) 0%,
-      rgba(5,4,6,.82) 34%,
-      rgba(5,4,6,.38) 63%,
-      rgba(5,4,6,.62) 100%
-    ),
-    linear-gradient(
-      0deg,
-      rgba(5,4,6,.75),
-      rgba(5,4,6,.05) 55%,
-      rgba(5,4,6,.38)
-    );
-}
-
-.hero-video-glow{
-  position:absolute;
-  width:620px;
-  height:420px;
-  right:4%;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:-1;
-  pointer-events:none;
-  background:radial-gradient(
-    ellipse,
-    rgba(205,140,62,.18),
-    rgba(205,140,62,.06) 42%,
-    transparent 74%
-  );
-  filter:blur(16px);
-}
-
-.hero-copy{
-  width:49%;
-  position:relative;
-  z-index:4;
-}
-
-.eyebrow{
-  color:var(--gold-light);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:2px;
-}
-
-.hero h1{
-  margin:12px 0 15px;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(45px,5vw,75px);
-  font-weight:normal;
-  letter-spacing:-2px;
-  line-height:.93;
-}
-
-.hero h1 span{color:var(--gold-light)}
-
-.hero-line{
-  width:min(450px,100%);
-  height:1px;
-  margin-bottom:15px;
-  background:linear-gradient(90deg,var(--gold),transparent);
-}
-
-.hero-description{
-  color:#e0d1c6;
-  font-size:13px;
-  line-height:1.7;
-}
-
-.hero-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:13px;
-  margin-top:23px;
-}
-
-.btn{
-  padding:14px 20px;
-  border:1px solid var(--gold);
-  background:transparent;
-  color:var(--cream);
-  font-size:10px;
-  font-weight:bold;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  transition:.25s;
-}
-
-.btn:hover{transform:translateY(-3px)}
-
-.btn-gold{
-  color:#24140d;
-  background:linear-gradient(125deg,#a97035,#e5bd7c);
-  border-color:transparent;
-}
-
-.btn-outline:hover{
-  background:rgba(202,149,85,.15);
-}
-
-.trust-points{
-  width:135px;
-  position:absolute;
-  right:2.5%;
-  top:43px;
-  z-index:4;
-}
-
-.trust{
-  display:flex;
-  gap:11px;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid rgba(219,164,91,.25);
-}
-
-.trust b{color:var(--gold-light);font-size:18px}
-
-.trust p{
-  color:#f4e7dd;
-  font-size:10px;
-  line-height:1.45;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.trust small{
-  color:#c8af9f;
-  font-size:9px;
-}
-
-/* LIVE STRIP */
-
-.live-strip{
-  min-height:57px;
-  display:flex;
-  align-items:center;
-  gap:20px;
-  margin:-1px 5% 0;
-  padding:8px 25px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  border-radius:32px;
-  background:rgba(24,13,20,.96);
-  color:#dbcec5;
-  position:relative;
-  z-index:5;
-  font-size:10px;
-  white-space:nowrap;
-}
-
-.live-title{color:white;font-size:11px}
-
-.pulse{
-  width:8px;
-  height:8px;
-  display:inline-block;
-  border-radius:50%;
-  background:#f15a67;
-  box-shadow:0 0 13px #f15a67;
-}
-
-.divider{
-  width:1px;
-  height:25px;
-  flex:0 0 1px;
-  background:var(--border);
-}
-
-/* GENERAL */
-
-.container{
-  width:min(1440px,94%);
-  margin:auto;
-}
-
-.section{padding-top:28px}
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:17px;
-}
-
-.section-head h2{
-  color:var(--gold-light);
-  font-size:14px;
-  font-weight:normal;
-  text-transform:uppercase;
-  letter-spacing:1.5px;
-}
-
-.view-link{
-  color:var(--gold-light);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-/* CATEGORY CARDS */
-
-.expressions{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:12px;
-}
-
-.expression{
-  min-height:125px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  color:var(--gold-light);
-  border:1px solid rgba(205,148,80,.16);
-  border-radius:18px;
-  background:
-    radial-gradient(circle,rgba(127,72,37,.4),transparent 56%),
-    #110b10;
-  transition:.25s;
-  position:relative;
-  overflow:hidden;
-}
-
-.expression::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    135deg,
-    transparent,
-    rgba(255,255,255,.05),
-    transparent
-  );
-  transform:translateX(-100%);
-  transition:.5s;
-}
-
-.expression:hover::before{
-  transform:translateX(100%);
-}
-
-.expression:hover{
-  transform:translateY(-5px);
-  border-color:var(--gold);
-  box-shadow:0 0 22px rgba(205,148,80,.2);
-}
-
-.expression .symbol{
-  font-family:Georgia,serif;
-  font-size:38px;
-  text-shadow:0 0 17px rgba(236,182,110,.47);
-}
-
-.expression span:last-child{
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  text-align:center;
-}
-
-/* FEATURE */
-
-.feature-grid{
-  display:grid;
-  grid-template-columns:1.06fr 1fr 1.06fr;
-  gap:10px;
-  padding-top:20px;
-}
-
-.feature-card{
-  min-height:212px;
-  position:relative;
-  overflow:hidden;
-  border:1px solid var(--border);
-  background:linear-gradient(145deg,#1e1118,#100a0e);
-  padding:20px;
-}
-
-.feature-card h3{
-  margin:9px 0;
-  color:var(--gold-light);
-  font-family:Georgia,serif;
-  font-size:24px;
-  font-weight:normal;
-}
-
-.feature-card p:not(.eyebrow){
-  color:#d9c6ba;
-  font-size:11px;
-  line-height:1.6;
-}
-
-.quiz-card{
-  background:
-    radial-gradient(circle at 0% 0%,rgba(130,42,97,.55),transparent 45%),
-    linear-gradient(140deg,#270f27,#110b11);
-}
-
-.quiz-card .btn{margin-top:17px}
-
-.phone{
-  width:125px;
-  height:230px;
-  position:absolute;
-  right:10%;
-  bottom:-45px;
-  padding:7px;
-  border:4px solid #3e3039;
-  border-radius:20px;
-  background:#070609;
-  box-shadow:0 0 20px #000;
-  transform:rotate(7deg);
-}
-
-.phone-screen{
-  height:100%;
-  padding:18px 9px;
-  border-radius:11px;
-  background:linear-gradient(#2a1429,#100b13);
-  color:#f4e9e4;
-  font-size:8px;
-}
-
-.phone-screen strong{
-  display:block;
-  margin:11px 0;
-  font-family:Georgia,serif;
-  font-size:14px;
-  font-weight:normal;
-  line-height:1.1;
-}
-
-.phone-option{
-  margin-top:6px;
-  padding:7px;
-  border:1px solid #704d61;
-  border-radius:4px;
-}
-
-.season-ring{
-  width:140px;
-  height:140px;
-  position:absolute;
-  right:7%;
-  bottom:3px;
-  border:15px solid #d49a55;
-  border-right-color:#ffe1a6;
-  border-radius:50%;
-  transform:rotate(-28deg);
-  box-shadow:inset 4px 2px 8px #fff0c7,0 0 25px rgba(231,161,82,.25);
-}
-
-.season-ring::before{
-  content:"✦";
-  width:64px;
-  height:64px;
-  position:absolute;
-  top:-48px;
-  left:24px;
-  display:grid;
-  place-items:center;
-  border:5px solid #d7a25e;
-  border-radius:50%;
-  color:white;
-  background:linear-gradient(135deg,white,#8e7b72,white);
-  font-size:26px;
-  text-shadow:0 0 8px white;
-}
-
-.price{
-  display:block;
-  margin:13px 0;
-  color:white;
-  font-size:14px;
-}
-
-.custom-card{
-  background:
-    radial-gradient(circle at 85% 65%,rgba(183,123,77,.26),transparent 30%),
-    linear-gradient(140deg,#1b1117,#0e090d);
-}
-
-.metal-row{
-  display:flex;
-  gap:13px;
-  margin:14px 0 6px;
-}
-
-.metal{
-  width:28px;
-  height:28px;
-  border:3px solid #7f716d;
-  border-radius:50%;
-  cursor:pointer;
-}
-
-.metal:hover,
-.metal.active{
-  outline:2px solid var(--gold-light);
-  outline-offset:3px;
-}
-
-.silver{background:linear-gradient(135deg,#222,#fff,#555)}
-.yellow{background:linear-gradient(135deg,#75461d,#ffd576,#794319)}
-.white{background:linear-gradient(135deg,#737373,#fff,#5d5d5d)}
-.rose{background:linear-gradient(135deg,#79442f,#f5b39c,#6f3927)}
-
-.custom-card .btn{margin-top:14px}
-
-.custom-ring{
-  width:130px;
-  height:130px;
-  position:absolute;
-  right:7%;
-  bottom:20px;
-  border:13px solid #a8a5a0;
-  border-right-color:white;
-  border-radius:50%;
-  transform:rotate(-20deg);
-  box-shadow:inset 4px 2px 8px #fff,0 0 25px rgba(255,255,255,.16);
-}
-
-.custom-ring::before{
-  content:"✦";
-  width:53px;
-  height:53px;
-  position:absolute;
-  top:-39px;
-  left:25px;
-  display:grid;
-  place-items:center;
-  border:4px solid #bbb;
-  border-radius:50%;
-  color:white;
-  background:linear-gradient(135deg,#fff,#868078,#fff);
-  font-size:22px;
-}
-
-/* COLLECTIONS */
-
-.collections{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-}
-
-.collection{
-  height:78px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  overflow:hidden;
-  padding-left:19px;
-  border:1px solid var(--border);
-  background:linear-gradient(100deg,#190e15,#0c090c);
-  transition:.25s;
-}
-
-.collection:hover{
-  border-color:var(--gold);
-  transform:translateY(-3px);
-}
-
-.collection h3{
-  color:var(--gold-light);
-  font-size:13px;
-  font-weight:normal;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.collection small{
-  display:block;
-  margin-top:4px;
-  color:#c9b5a5;
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.mini-jewel{
-  width:84px;
-  height:84px;
-  display:grid;
-  place-items:center;
-  color:#f3c782;
-  font-family:Georgia,serif;
-  font-size:45px;
-  text-shadow:0 0 15px rgba(230,166,85,.75);
-}
-
-/* MAISON */
-
-.maison{
-  display:grid;
-  grid-template-columns:1.6fr 1.5fr 1.1fr;
-  gap:20px;
-  align-items:center;
-  margin-top:16px;
-  padding:18px 26px;
-  border:1px solid var(--border);
-  background:linear-gradient(90deg,rgba(18,10,15,.97),rgba(21,12,17,.83)),#160d13;
-}
-
-.maison-intro{
-  display:flex;
-  gap:18px;
-  align-items:center;
-}
-
-.monogram{
-  color:var(--gold);
-  font-family:Georgia,serif;
-  font-size:58px;
-}
-
-.maison h3{
-  margin:5px 0;
-  font-family:Georgia,serif;
-  font-size:19px;
-  font-weight:normal;
-}
-
-.maison-intro p:not(.eyebrow),
-.review p:not(.eyebrow){
-  color:#d4c1b5;
-  font-size:10px;
-  line-height:1.5;
-}
-
-.values{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-  text-align:center;
-}
-
-.value span{
-  display:block;
-  color:var(--gold-light);
-  font-family:Georgia,serif;
-  font-size:26px;
-}
-
-.value small{
-  display:block;
-  margin-top:6px;
-  color:#e0d1c5;
-  font-size:8px;
-  line-height:1.5;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-}
-
-.review{
-  padding-left:20px;
-  border-left:1px solid var(--border);
-}
-
-.review p:not(.eyebrow){margin:8px 0}
-
-.review small{
-  color:var(--gold-light);
-  font-size:10px;
-}
-
-/* INSTAGRAM */
-
-.instagram{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:6px;
-  margin-top:12px;
-}
-
-.insta-item{
-  height:115px;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  color:var(--gold-light);
-  font-family:Georgia,serif;
-  font-size:48px;
-  background:
-    radial-gradient(circle at 60% 25%,rgba(229,160,75,.4),transparent 22%),
-    linear-gradient(135deg,#48211e,#160d17 55%,#0b080b);
-  border:1px solid rgba(223,165,91,.18);
-  transition:.3s;
-}
-
-.insta-item:hover{
-  filter:brightness(1.35);
-  transform:scale(1.02);
-}
-
-/* FOOTER */
-
-footer{
-  padding:30px 20px;
-  color:#a78f84;
-  text-align:center;
-  font-size:10px;
-}
-
-/* POPUP */
-
-.popup{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:none;
-  place-items:center;
-  padding:20px;
-  background:rgba(0,0,0,.76);
-}
-
-.popup.show{display:grid}
-
-.popup-card{
-  width:min(420px,100%);
-  position:relative;
-  padding:35px;
-  border:1px solid var(--gold);
-  background:
-    radial-gradient(circle at 0 0,rgba(126,45,90,.4),transparent 45%),
-    #180e16;
-  text-align:center;
-  box-shadow:0 0 50px rgba(0,0,0,.7);
-}
-
-.popup-card h2{
-  margin:12px 0;
-  color:var(--gold-light);
-  font-family:Georgia,serif;
-  font-size:32px;
-  font-weight:normal;
-}
-
-.popup-card p:not(.eyebrow){
-  margin-bottom:20px;
-  color:#dac8bc;
-  font-size:13px;
-  line-height:1.5;
-}
-
-.close-popup{
-  position:absolute;
-  top:8px;
-  right:14px;
-  background:transparent;
-  color:var(--gold-light);
-  font-size:28px;
-}
-
-/* TABLET */
-
-@media(max-width:1050px){
-
-  .nav-links{gap:16px}
-
-  .trust-points{display:none}
-
-  .hero-copy{width:58%}
-
-  .expressions{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .feature-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .custom-card{
-    grid-column:span 2;
-  }
-
-  .shop-dropdown{
-    width:560px;
-  }
-}
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-  .topbar{
-    font-size:9px;
-  }
-
-  .navbar{
-    height:70px;
-    padding:0 6%;
-  }
-
-  .brand{
-    font-size:25px;
-  }
-
-  .brand small{
-    font-size:7px;
-  }
-
-  .nav-links,
-  .actions .icon-btn{
-    display:none;
-  }
-
-  .mobile-links{
-    display:none;
-    position:absolute;
-    top:104px;
-    left:0;
-    width:100%;
-    padding:12px 7%;
-    background:#170c14;
-    border-bottom:1px solid var(--border);
-    z-index:49;
-  }
-
-  .mobile-links.open{
-    display:block;
-  }
-
-  .mobile-main-link{
-    display:block;
-    padding:13px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    color:var(--gold-light);
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-  }
-
-  .mobile-shop-toggle{
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:13px 0;
-    background:transparent;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    color:var(--gold-light);
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-  }
-
-  .mobile-categories{
-    display:none;
-    padding:5px 0 10px 12px;
-  }
-
-  .mobile-categories.open{
-    display:block;
-  }
-
-  .mobile-category{
-    display:block;
-    padding:10px 0;
-    color:#d8c7bc;
-    font-size:10px;
-    border-bottom:1px solid rgba(255,255,255,.05);
-  }
-
-  .mobile-category:hover{
-    color:var(--gold-light);
-  }
-
-  .hero{
-    min-height:590px;
-    align-items:flex-start;
-    padding:52px 7%;
-  }
-
-  .hero-copy{
-    width:100%;
-  }
-
-  .hero h1{
-    font-size:47px;
-  }
-
-  .hero-video{
-    object-position:62% center;
-  }
-
-  .hero-video-overlay{
-    background:
-      linear-gradient(
-        180deg,
-        rgba(5,4,6,.88) 0%,
-        rgba(5,4,6,.50) 42%,
-        rgba(5,4,6,.90) 100%
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORVÉN — Fine Jewellery</title>
+
+  <style>
+    :root {
+      --bg: #090609;
+      --bg-2: #120a10;
+      --card: #160d14;
+      --gold: #c99555;
+      --gold-light: #f0d39e;
+      --cream: #f8eee5;
+      --muted: #c0aea3;
+      --border: rgba(214, 162, 94, 0.34);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      overflow-x: hidden;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at 85% 12%, rgba(110, 47, 37, 0.19), transparent 25%),
+        radial-gradient(circle at 15% 54%, rgba(67, 20, 57, 0.18), transparent 28%),
+        var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* =========================
+       TOP BAR
+    ========================== */
+
+    .topbar {
+      height: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(90deg, #2b0d27, #1c0d20, #2b0d27);
+      color: var(--gold-light);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    .navbar {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5.5%;
+      background: rgba(5, 4, 6, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      position: relative;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      color: var(--gold);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      line-height: 0.8;
+      letter-spacing: 5px;
+    }
+
+    .brand small {
+      margin-top: 10px;
+      padding-left: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 9px;
+      letter-spacing: 5px;
+      text-align: center;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      color: #f2e7df;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      transition: 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      color: #eee2d7;
+      background: transparent;
+      font-size: 25px;
+      position: relative;
+    }
+
+    .count {
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: -2px;
+      right: -3px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #21130d;
+      background: var(--gold);
+      font-size: 9px;
+    }
+
+    .menu {
+      width: 39px;
+      height: 39px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--gold-light);
+      font-size: 18px;
+    }
+
+    .mobile-links {
+      display: none;
+    }
+
+    /* =========================
+       HERO
+       VIDEO BACKGROUND
+    ========================== */
+
+    .hero {
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 45px 8%;
+      background: #080608;
+    }
+
+    /*
+      REAL RING VIDEO
+      The MP4 is in the same folder as index.html.
+    */
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      /*
+        Keep the ring visually on the right side,
+        similar to the original design.
+      */
+      object-position: center center;
+
+      z-index: -3;
+
+      pointer-events: none;
+    }
+
+    /*
+      Dark luxury overlay.
+      Keeps the text readable while allowing
+      the ring video to remain visible.
+    */
+
+    .hero-video-overlay {
+      position: absolute;
+      inset: 0;
+
+      z-index: -2;
+
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(5, 4, 6, 0.97) 0%,
+          rgba(5, 4, 6, 0.82) 34%,
+          rgba(5, 4, 6, 0.38) 63%,
+          rgba(5, 4, 6, 0.62) 100%
+        ),
+        linear-gradient(
+          0deg,
+          rgba(5, 4, 6, 0.75) 0%,
+          rgba(5, 4, 6, 0.05) 55%,
+          rgba(5, 4, 6, 0.38) 100%
+        );
+    }
+
+    /*
+      Soft golden glow behind the video ring.
+    */
+
+    .hero-video-glow {
+      position: absolute;
+
+      width: 620px;
+      height: 420px;
+
+      right: 4%;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      z-index: -1;
+
+      pointer-events: none;
+
+      background: radial-gradient(
+        ellipse,
+        rgba(205, 140, 62, 0.18) 0%,
+        rgba(205, 140, 62, 0.06) 42%,
+        transparent 74%
       );
-  }
 
-  .hero-video-glow{
-    width:360px;
-    height:300px;
-    right:-100px;
-    top:57%;
-  }
+      filter: blur(16px);
+    }
 
-  .live-strip{
-    margin:0;
-    border-right:0;
-    border-left:0;
-    border-radius:0;
-    overflow-x:auto;
-  }
+    /*
+      Decorative golden orbit.
+    */
 
-  .expressions{
-    grid-template-columns:repeat(2,1fr);
-  }
+    .hero::after {
+      content: "";
 
-  .feature-grid{
-    grid-template-columns:1fr;
-  }
+      position: absolute;
 
-  .custom-card{
-    grid-column:auto;
-  }
+      width: 780px;
+      height: 180px;
 
-  .collections{
-    grid-template-columns:repeat(2,1fr);
-  }
+      right: 8%;
+      top: 47%;
 
-  .maison{
-    grid-template-columns:1fr;
-  }
+      border: 2px solid rgba(223, 151, 69, 0.26);
 
-  .review{
-    padding-top:16px;
-    padding-left:0;
-    border-top:1px solid var(--border);
-    border-left:0;
-  }
+      border-radius: 50%;
 
-  .instagram{
-    grid-template-columns:repeat(3,1fr);
+      transform: rotate(-8deg);
+
+      box-shadow:
+        0 0 24px rgba(228, 137, 47, 0.12);
+
+      z-index: -1;
+
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      width: 49%;
+
+      position: relative;
+
+      z-index: 4;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+
+      font-size: 10px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 2px;
+    }
+
+    .hero h1 {
+      margin: 12px 0 15px;
+
+      font-family: Georgia, "Times New Roman", serif;
+
+      font-size: clamp(45px, 5vw, 75px);
+
+      font-weight: normal;
+
+      letter-spacing: -2px;
+
+      line-height: 0.93;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+    }
+
+    .hero-line {
+      width: min(450px, 100%);
+
+      height: 1px;
+
+      margin-bottom: 15px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--gold),
+          transparent
+        );
+    }
+
+    .hero-description {
+      color: #e0d1c6;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 13px;
+
+      margin-top: 23px;
+    }
+
+    .btn {
+      padding: 14px 20px;
+
+      border: 1px solid var(--gold);
+
+      background: transparent;
+
+      color: var(--cream);
+
+      font-size: 10px;
+
+      font-weight: bold;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      transition: 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-gold {
+      color: #24140d;
+
+      background:
+        linear-gradient(
+          125deg,
+          #a97035,
+          #e5bd7c
+        );
+
+      border-color: transparent;
+    }
+
+    .btn-outline:hover {
+      background: rgba(202, 149, 85, 0.15);
+    }
+
+    /*
+      IMPORTANT:
+      The old CSS-made ring is hidden.
+      The real ring is now inside the MP4.
+    */
+
+    .ring-stage {
+      display: none;
+    }
+
+    /* =========================
+       TRUST POINTS
+    ========================== */
+
+    .trust-points {
+      width: 135px;
+
+      position: absolute;
+
+      right: 2.5%;
+      top: 43px;
+
+      z-index: 4;
+    }
+
+    .trust {
+      display: flex;
+
+      gap: 11px;
+
+      align-items: center;
+
+      padding: 12px 0;
+
+      border-bottom:
+        1px solid
+        rgba(219, 164, 91, 0.25);
+    }
+
+    .trust b {
+      color: var(--gold-light);
+
+      font-size: 18px;
+    }
+
+    .trust p {
+      color: #f4e7dd;
+
+      font-size: 10px;
+
+      line-height: 1.45;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    .trust small {
+      color: #c8af9f;
+
+      font-size: 9px;
+    }
+
+    /* =========================
+       LIVE STRIP
+    ========================== */
+
+    .live-strip {
+      min-height: 57px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 20px;
+
+      margin: -1px 5% 0;
+
+      padding: 8px 25px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 32px;
+
+      background:
+        rgba(24, 13, 20, 0.96);
+
+      color: #dbcec5;
+
+      position: relative;
+
+      z-index: 5;
+
+      font-size: 10px;
+
+      white-space: nowrap;
+    }
+
+    .live-title {
+      color: white;
+
+      font-size: 11px;
+    }
+
+    .pulse {
+      width: 8px;
+
+      height: 8px;
+
+      display: inline-block;
+
+      border-radius: 50%;
+
+      background: #f15a67;
+
+      box-shadow:
+        0 0 13px #f15a67;
+    }
+
+    .divider {
+      width: 1px;
+
+      height: 25px;
+
+      flex: 0 0 1px;
+
+      background: var(--border);
+    }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================== */
+
+    .container {
+      width: min(1440px, 94%);
+
+      margin: auto;
+    }
+
+    .section {
+      padding-top: 28px;
+    }
+
+    .section-head {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 17px;
+    }
+
+    .section-head h2 {
+      color: var(--gold-light);
+
+      font-size: 14px;
+
+      font-weight: normal;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+    }
+
+    .view-link {
+      color: var(--gold-light);
+
+      font-size: 10px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    /* =========================
+       EXPRESSIONS
+    ========================== */
+
+    .expressions {
+      display: grid;
+
+      grid-template-columns:
+        repeat(7, 1fr);
+
+      gap: 14px;
+    }
+
+    .expression {
+      min-height: 108px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 10px;
+
+      color: var(--gold-light);
+
+      border:
+        1px solid
+        rgba(205, 148, 80, 0.14);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(127, 72, 37, 0.4),
+          transparent 56%
+        ),
+        #110b10;
+
+      transition: 0.25s;
+    }
+
+    .expression:hover {
+      transform: translateY(-5px);
+
+      border-color: var(--gold);
+
+      box-shadow:
+        0 0 18px
+        rgba(205, 148, 80, 0.2);
+    }
+
+    .expression .symbol {
+      font-family: Georgia, serif;
+
+      font-size: 38px;
+
+      text-shadow:
+        0 0 17px
+        rgba(236, 182, 110, 0.47);
+    }
+
+    .expression span:last-child {
+      font-size: 9px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    /* =========================
+       FEATURE CARDS
+    ========================== */
+
+    .feature-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.06fr 1fr 1.06fr;
+
+      gap: 10px;
+
+      padding-top: 20px;
+    }
+
+    .feature-card {
+      min-height: 212px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        var(--border);
+
+      background:
+        linear-gradient(
+          145deg,
+          #1e1118,
+          #100a0e
+        );
+
+      padding: 20px;
+    }
+
+    .feature-card h3 {
+      margin: 9px 0;
+
+      color: var(--gold-light);
+
+      font-family: Georgia, serif;
+
+      font-size: 24px;
+
+      font-weight: normal;
+    }
+
+    .feature-card p:not(.eyebrow) {
+      color: #d9c6ba;
+
+      font-size: 11px;
+
+      line-height: 1.6;
+    }
+
+    .quiz-card {
+      background:
+        radial-gradient(
+          circle at 0% 0%,
+          rgba(130, 42, 97, 0.55),
+          transparent 45%
+        ),
+        linear-gradient(
+          140deg,
+          #270f27,
+          #110b11
+        );
+    }
+
+    .quiz-card .btn {
+      margin-top: 17px;
+    }
+
+    .phone {
+      width: 125px;
+
+      height: 230px;
+
+      position: absolute;
+
+      right: 10%;
+
+      bottom: -45px;
+
+      padding: 7px;
+
+      border: 4px solid #3e3039;
+
+      border-radius: 20px;
+
+      background: #070609;
+
+      box-shadow: 0 0 20px #000;
+
+      transform: rotate(7deg);
+    }
+
+    .phone-screen {
+      height: 100%;
+
+      padding: 18px 9px;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          #2a1429,
+          #100b13
+        );
+
+      color: #f4e9e4;
+
+      font-size: 8px;
+    }
+
+    .phone-screen strong {
+      display: block;
+
+      margin: 11px 0;
+
+      font-family: Georgia, serif;
+
+      font-size: 14px;
+
+      font-weight: normal;
+
+      line-height: 1.1;
+    }
+
+    .phone-option {
+      margin-top: 6px;
+
+      padding: 7px;
+
+      border:
+        1px solid
+        #704d61;
+
+      border-radius: 4px;
+    }
+
+    .season-ring {
+      width: 140px;
+
+      height: 140px;
+
+      position: absolute;
+
+      right: 7%;
+
+      bottom: 3px;
+
+      border:
+        15px solid
+        #d49a55;
+
+      border-right-color:
+        #ffe1a6;
+
+      border-radius: 50%;
+
+      transform: rotate(-28deg);
+
+      box-shadow:
+        inset 4px 2px 8px #fff0c7,
+        0 0 25px
+        rgba(231, 161, 82, 0.25);
+    }
+
+    .season-ring::before {
+      content: "✦";
+
+      width: 64px;
+
+      height: 64px;
+
+      position: absolute;
+
+      top: -48px;
+
+      left: 24px;
+
+      display: grid;
+
+      place-items: center;
+
+      border:
+        5px solid
+        #d7a25e;
+
+      border-radius: 50%;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          white,
+          #8e7b72,
+          white
+        );
+
+      font-size: 26px;
+
+      text-shadow:
+        0 0 8px white;
+    }
+
+    .price {
+      display: block;
+
+      margin: 13px 0;
+
+      color: white;
+
+      font-size: 14px;
+    }
+
+    .custom-card {
+      background:
+        radial-gradient(
+          circle at 85% 65%,
+          rgba(183, 123, 77, 0.26),
+          transparent 30%
+        ),
+        linear-gradient(
+          140deg,
+          #1b1117,
+          #0e090d
+        );
+    }
+
+    .metal-row {
+      display: flex;
+
+      gap: 13px;
+
+      margin: 14px 0 6px;
+    }
+
+    .metal {
+      width: 28px;
+
+      height: 28px;
+
+      border:
+        3px solid
+        #7f716d;
+
+      border-radius: 50%;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .metal:hover,
+    .metal.active {
+      outline:
+        2px solid
+        var(--gold-light);
+
+      outline-offset: 3px;
+    }
+
+    .silver {
+      background:
+        linear-gradient(
+          135deg,
+          #222,
+          #fff,
+          #555
+        );
+    }
+
+    .yellow {
+      background:
+        linear-gradient(
+          135deg,
+          #75461d,
+          #ffd576,
+          #794319
+        );
+    }
+
+    .white {
+      background:
+        linear-gradient(
+          135deg,
+          #737373,
+          #fff,
+          #5d5d5d
+        );
+    }
+
+    .rose {
+      background:
+        linear-gradient(
+          135deg,
+          #79442f,
+          #f5b39c,
+          #6f3927
+        );
+    }
+
+    .custom-card .btn {
+      margin-top: 14px;
+    }
+
+    .custom-ring {
+      width: 130px;
+
+      height: 130px;
+
+      position: absolute;
+
+      right: 7%;
+
+      bottom: 20px;
+
+      border:
+        13px solid
+        #a8a5a0;
+
+      border-right-color: white;
+
+      border-radius: 50%;
+
+      transform: rotate(-20deg);
+
+      box-shadow:
+        inset 4px 2px 8px #fff,
+        0 0 25px
+        rgba(255, 255, 255, 0.16);
+    }
+
+    .custom-ring::before {
+      content: "✦";
+
+      width: 53px;
+
+      height: 53px;
+
+      position: absolute;
+
+      top: -39px;
+
+      left: 25px;
+
+      display: grid;
+
+      place-items: center;
+
+      border:
+        4px solid
+        #bbb;
+
+      border-radius: 50%;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff,
+          #868078,
+          #fff
+        );
+
+      font-size: 22px;
+    }
+
+    /* =========================
+       COLLECTIONS
+    ========================== */
+
+    .collections {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 8px;
+    }
+
+    .collection {
+      height: 78px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      overflow: hidden;
+
+      padding-left: 19px;
+
+      border:
+        1px solid
+        var(--border);
+
+      background:
+        linear-gradient(
+          100deg,
+          #190e15,
+          #0c090c
+        );
+
+      transition: 0.25s;
+    }
+
+    .collection:hover {
+      border-color: var(--gold);
+
+      transform: translateY(-3px);
+    }
+
+    .collection h3 {
+      color: var(--gold-light);
+
+      font-size: 13px;
+
+      font-weight: normal;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    .collection small {
+      display: block;
+
+      margin-top: 4px;
+
+      color: #c9b5a5;
+
+      font-size: 9px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    .mini-jewel {
+      width: 84px;
+
+      height: 84px;
+
+      display: grid;
+
+      place-items: center;
+
+      color: #f3c782;
+
+      font-family: Georgia, serif;
+
+      font-size: 45px;
+
+      text-shadow:
+        0 0 15px
+        rgba(230, 166, 85, 0.75);
+    }
+
+    /* =========================
+       MAISON
+    ========================== */
+
+    .maison {
+      display: grid;
+
+      grid-template-columns:
+        1.6fr 1.5fr 1.1fr;
+
+      gap: 20px;
+
+      align-items: center;
+
+      margin-top: 16px;
+
+      padding: 18px 26px;
+
+      border:
+        1px solid
+        var(--border);
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(18, 10, 15, 0.97),
+          rgba(21, 12, 17, 0.83)
+        ),
+        #160d13;
+    }
+
+    .maison-intro {
+      display: flex;
+
+      gap: 18px;
+
+      align-items: center;
+    }
+
+    .monogram {
+      color: var(--gold);
+
+      font-family: Georgia, serif;
+
+      font-size: 58px;
+    }
+
+    .maison h3 {
+      margin: 5px 0;
+
+      font-family: Georgia, serif;
+
+      font-size: 19px;
+
+      font-weight: normal;
+    }
+
+    .maison-intro p:not(.eyebrow),
+    .review p:not(.eyebrow) {
+      color: #d4c1b5;
+
+      font-size: 10px;
+
+      line-height: 1.5;
+    }
+
+    .values {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 9px;
+
+      text-align: center;
+    }
+
+    .value span {
+      display: block;
+
+      color: var(--gold-light);
+
+      font-family: Georgia, serif;
+
+      font-size: 26px;
+    }
+
+    .value small {
+      display: block;
+
+      margin-top: 6px;
+
+      color: #e0d1c5;
+
+      font-size: 8px;
+
+      line-height: 1.5;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.7px;
+    }
+
+    .review {
+      padding-left: 20px;
+
+      border-left:
+        1px solid
+        var(--border);
+    }
+
+    .review p:not(.eyebrow) {
+      margin: 8px 0;
+    }
+
+    .review small {
+      color: var(--gold-light);
+
+      font-size: 10px;
+    }
+
+    /* =========================
+       INSTAGRAM
+    ========================== */
+
+    .instagram {
+      display: grid;
+
+      grid-template-columns:
+        repeat(6, 1fr);
+
+      gap: 6px;
+
+      margin-top: 12px;
+    }
+
+    .insta-item {
+      height: 115px;
+
+      display: grid;
+
+      place-items: center;
+
+      overflow: hidden;
+
+      color: var(--gold-light);
+
+      font-family: Georgia, serif;
+
+      font-size: 48px;
+
+      background:
+        radial-gradient(
+          circle at 60% 25%,
+          rgba(229, 160, 75, 0.4),
+          transparent 22%
+        ),
+        linear-gradient(
+          135deg,
+          #48211e,
+          #160d17 55%,
+          #0b080b
+        );
+
+      border:
+        1px solid
+        rgba(223, 165, 91, 0.18);
+
+      transition: 0.3s;
+    }
+
+    .insta-item:nth-child(2n) {
+      background:
+        radial-gradient(
+          circle at 30% 30%,
+          rgba(197, 165, 152, 0.35),
+          transparent 20%
+        ),
+        linear-gradient(
+          135deg,
+          #2d1c22,
+          #100b10
+        );
+    }
+
+    .insta-item:hover {
+      filter: brightness(1.35);
+
+      transform: scale(1.02);
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      padding: 30px 20px;
+
+      color: #a78f84;
+
+      text-align: center;
+
+      font-size: 10px;
+    }
+
+    /* =========================
+       POPUP
+    ========================== */
+
+    .popup {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 100;
+
+      display: none;
+
+      place-items: center;
+
+      padding: 20px;
+
+      background:
+        rgba(0, 0, 0, 0.76);
+    }
+
+    .popup.show {
+      display: grid;
+    }
+
+    .popup-card {
+      width: min(420px, 100%);
+
+      position: relative;
+
+      padding: 35px;
+
+      border:
+        1px solid
+        var(--gold);
+
+      background:
+        radial-gradient(
+          circle at 0 0,
+          rgba(126, 45, 90, 0.4),
+          transparent 45%
+        ),
+        #180e16;
+
+      text-align: center;
+
+      box-shadow:
+        0 0 50px
+        rgba(0, 0, 0, 0.7);
+    }
+
+    .popup-card h2 {
+      margin: 12px 0;
+
+      color: var(--gold-light);
+
+      font-family: Georgia, serif;
+
+      font-size: 32px;
+
+      font-weight: normal;
+    }
+
+    .popup-card p:not(.eyebrow) {
+      margin-bottom: 20px;
+
+      color: #dac8bc;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+    .close-popup {
+      position: absolute;
+
+      top: 8px;
+
+      right: 14px;
+
+      background: transparent;
+
+      color: var(--gold-light);
+
+      font-size: 28px;
+    }
+
+    /* =========================
+       TABLET
+    ========================== */
+
+    @media (max-width: 1050px) {
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .trust-points {
+        display: none;
+      }
+
+      .hero-copy {
+        width: 58%;
+      }
+
+      .expressions {
+        grid-template-columns:
+          repeat(4, 1fr);
+      }
+
+      .feature-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .custom-card {
+        grid-column: span 2;
+      }
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 700px) {
+
+      .topbar {
+        font-size: 9px;
+      }
+
+      .navbar {
+        height: 70px;
+
+        padding: 0 6%;
+      }
+
+      .brand {
+        font-size: 25px;
+      }
+
+      .brand small {
+        font-size: 7px;
+      }
+
+      .nav-links,
+      .actions .icon-btn {
+        display: none;
+      }
+
+      .mobile-links {
+        display: none;
+
+        position: absolute;
+
+        top: 104px;
+
+        left: 0;
+
+        width: 100%;
+
+        padding: 12px 7%;
+
+        background: #170c14;
+
+        border-bottom:
+          1px solid
+          var(--border);
+
+        z-index: 15;
+      }
+
+      .mobile-links.open {
+        display: flex;
+
+        flex-direction: column;
+      }
+
+      .mobile-links a {
+        padding: 13px 0;
+
+        border-bottom:
+          1px solid
+          rgba(255,255,255,0.08);
+
+        color: var(--gold-light);
+
+        font-size: 11px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+      }
+
+      .hero {
+        min-height: 590px;
+
+        align-items: flex-start;
+
+        padding: 52px 7%;
+      }
+
+      .hero-copy {
+        width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 47px;
+      }
+
+      /*
+        Mobile video positioning.
+        Keeps the ring visible on the right/center.
+      */
+
+      .hero-video {
+        object-position: 62% center;
+      }
+
+      .hero-video-overlay {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(5, 4, 6, 0.88) 0%,
+            rgba(5, 4, 6, 0.50) 42%,
+            rgba(5, 4, 6, 0.90) 100%
+          );
+      }
+
+      .hero-video-glow {
+        width: 360px;
+
+        height: 300px;
+
+        right: -100px;
+
+        top: 57%;
+      }
+
+      .live-strip {
+        margin: 0;
+
+        border-right: 0;
+
+        border-left: 0;
+
+        border-radius: 0;
+
+        overflow-x: auto;
+      }
+
+      .feature-grid,
+      .custom-card {
+        grid-template-columns: 1fr;
+
+        grid-column: auto;
+      }
+
+      .feature-card {
+        min-height: 220px;
+      }
+
+      .collections {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .maison {
+        grid-template-columns: 1fr;
+      }
+
+      .review {
+        padding-top: 16px;
+
+        padding-left: 0;
+
+        border-top:
+          1px solid
+          var(--border);
+
+        border-left: 0;
+      }
+
+      .instagram {
+        grid-template-columns:
+          repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 420px) {
+
+      .expressions {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .collections {
+        grid-template-columns: 1fr;
+      }
+
+      .instagram {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+    }
+  
+/* =========================
+   ORVÉN IMAGE COLLECTIONS
+========================= */
+
+.image-collections {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.image-collection-card {
+  position: relative;
+  min-height: 360px;
+  overflow: hidden;
+  display: block;
+  border: 1px solid var(--border);
+  background: #10090e;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.image-collection-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .65s cubic-bezier(.2,.7,.2,1), filter .45s ease;
+  background: linear-gradient(135deg, #21131a, #0b080b);
+}
+
+.image-collection-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.03) 18%,
+    rgba(0,0,0,.12) 42%,
+    rgba(5,3,6,.92) 100%
+  );
+}
+
+.image-collection-number {
+  position: absolute;
+  z-index: 2;
+  top: 15px;
+  left: 16px;
+  color: var(--gold-light);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+.image-collection-info {
+  position: absolute;
+  z-index: 2;
+  left: 19px;
+  right: 19px;
+  bottom: 19px;
+}
+
+.image-collection-info small {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--gold);
+  font-size: 8px;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+.image-collection-info h3 {
+  margin: 0 0 11px;
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.image-collection-info span {
+  color: var(--gold-light);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: letter-spacing .25s ease;
+}
+
+.image-collection-card:hover {
+  border-color: rgba(240,211,158,.75);
+  box-shadow: 0 16px 36px rgba(0,0,0,.38);
+}
+
+.image-collection-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(.88);
+}
+
+.image-collection-card:hover .image-collection-info span {
+  letter-spacing: 1.7px;
+}
+
+@media (max-width: 900px) {
+  .image-collections {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media(max-width:420px){
-
-  .expressions{
-    grid-template-columns:repeat(2,1fr);
+@media (max-width: 520px) {
+  .image-collections {
+    grid-template-columns: 1fr;
   }
 
-  .collections{
-    grid-template-columns:1fr;
-  }
-
-  .instagram{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .hero-buttons{
-    flex-direction:column;
-    align-items:flex-start;
+  .image-collection-card {
+    min-height: 390px;
   }
 }
-</style>
+
+  </style>
 </head>
 
 <body>
 
-<!-- TOP BAR -->
+  <!-- =========================
+       TOP BAR
+  ========================== -->
 
-<div class="topbar">
-  ✦ &nbsp; Free insured shipping on all orders above ₹2,999
-</div>
+  <div class="topbar">
+    ✦ &nbsp; Free insured shipping on all orders above ₹2,999
+  </div>
 
-<!-- NAVBAR -->
+  <!-- =========================
+       NAVBAR
+  ========================== -->
 
-<header class="navbar">
+  <header class="navbar">
 
-  <a href="#" class="brand">
-    ORVÉN
-    <small>JEWELS</small>
-  </a>
+    <a href="#" class="brand">
+      ORVÉN
+      <small>JEWELS</small>
+    </a>
 
-  <nav class="nav-links">
+    <nav class="nav-links">
+      <a href="#shop">Shop</a>
+      <a href="#collections">Collections</a>
+      <a href="#custom">Custom Jewellery</a>
+      <a href="#about">About Orvén</a>
+      <a href="#experience">Experience</a>
+    </nav>
 
-    <!-- SHOP DROPDOWN -->
+    <div class="actions">
 
-    <div class="nav-item">
-
-      <button class="nav-link">
-        Shop
-        <span class="arrow">▼</span>
+      <button class="icon-btn">
+        ⌕
       </button>
 
-      <div class="shop-dropdown">
+      <button class="icon-btn">
+        ♡
+        <span class="count">3</span>
+      </button>
 
-        <div class="dropdown-title">
-          Shop Orvén
-        </div>
+      <button class="icon-btn">
+        ♧
+        <span class="count">1</span>
+      </button>
 
-        <a class="dropdown-link" href="#rings">
-          <span>◉</span> Rings
-        </a>
-
-        <a class="dropdown-link" href="#earrings">
-          <span>♢</span> Earrings
-        </a>
-
-        <a class="dropdown-link" href="#studs">
-          <span>✦</span> Studs
-        </a>
-
-        <a class="dropdown-link" href="#necklaces">
-          <span>◈</span> Necklaces
-        </a>
-
-        <a class="dropdown-link" href="#bracelets">
-          <span>∞</span> Bracelets
-        </a>
-
-        <a class="dropdown-link" href="#pendants">
-          <span>◇</span> Pendants
-        </a>
-
-        <a class="dropdown-link" href="#cocktail-rings">
-          <span>♕</span> Cocktail Rings
-        </a>
-
-        <a class="dropdown-link" href="#mens-jewellery">
-          <span>♜</span> Men's Jewellery
-        </a>
-
-        <a class="dropdown-link" href="#silver-925">
-          <span>◌</span> Silver 925
-        </a>
-
-        <a class="dropdown-link" href="#moissanite">
-          <span>◆</span> Moissanite
-        </a>
-
-        <a class="dropdown-link" href="#engagement-rings">
-          <span>💍</span> Engagement Rings
-        </a>
-
-        <a class="dropdown-link" href="#couple-rings">
-          <span>♡</span> Couple Rings
-        </a>
-
-        <a class="dropdown-link" href="#custom">
-          <span>✧</span> Custom Jewellery
-        </a>
-
-        <a class="dropdown-link" href="#gifts">
-          <span>🎁</span> Gifts
-        </a>
-
-      </div>
+      <button
+        class="menu"
+        id="menuButton"
+      >
+        ☰
+      </button>
 
     </div>
 
-    <a class="nav-link" href="#collections">
+  </header>
+
+  <!-- =========================
+       MOBILE MENU
+  ========================== -->
+
+  <nav
+    class="mobile-links"
+    id="mobileLinks"
+  >
+
+    <a href="#shop">
+      Shop
+    </a>
+
+    <a href="#collections">
       Collections
     </a>
 
-    <a class="nav-link" href="#custom">
+    <a href="#custom">
       Custom Jewellery
     </a>
 
-    <a class="nav-link" href="#about">
+    <a href="#about">
       About Orvén
     </a>
 
-    <a class="nav-link" href="#experience">
+    <a href="#experience">
       Experience
     </a>
 
   </nav>
 
-  <div class="actions">
+  <main>
 
-    <button class="icon-btn">
-      ⌕
-    </button>
+    <!-- =========================
+         HERO
+         ACTUAL RING VIDEO
+    ========================== -->
 
-    <button class="icon-btn">
-      ♡
-      <span class="count">3</span>
-    </button>
+    <section class="hero">
 
-    <button class="icon-btn">
-      ♧
-      <span class="count">1</span>
-    </button>
+      <!--
+        IMPORTANT:
+        This is your uploaded ring video.
 
-    <button class="menu" id="menuButton">
-      ☰
-    </button>
+        File:
+        orven-hero-loop (1).mp4
+      -->
 
-  </div>
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      >
 
-</header>
+        <source
+          src="./orven-hero-loop%20%281%29.mp4"
+          type="video/mp4"
+        >
 
-<!-- MOBILE MENU -->
+      </video>
 
-<nav class="mobile-links" id="mobileLinks">
+      <!-- Dark luxury overlay -->
+      <div class="hero-video-overlay"></div>
 
-  <button
-    class="mobile-shop-toggle"
-    id="mobileShopToggle"
-  >
-    <span>Shop Categories</span>
-    <span id="mobileArrow">▼</span>
-  </button>
+      <!-- Golden glow -->
+      <div class="hero-video-glow"></div>
 
-  <div
-    class="mobile-categories"
-    id="mobileCategories"
-  >
 
-    <a class="mobile-category" href="#rings">
-      ◉ &nbsp; Rings
-    </a>
+      <!-- HERO TEXT -->
 
-    <a class="mobile-category" href="#earrings">
-      ♢ &nbsp; Earrings
-    </a>
+      <div class="hero-copy">
 
-    <a class="mobile-category" href="#studs">
-      ✦ &nbsp; Studs
-    </a>
+        <p class="eyebrow">
+          Defined by design. Made to last.
+        </p>
 
-    <a class="mobile-category" href="#necklaces">
-      ◈ &nbsp; Necklaces
-    </a>
+        <h1>
+          Timeless Beauty.<br>
+          <span>
+            Thoughtfully Crafted.
+          </span>
+        </h1>
 
-    <a class="mobile-category" href="#bracelets">
-      ∞ &nbsp; Bracelets
-    </a>
+        <div class="hero-line"></div>
 
-    <a class="mobile-category" href="#pendants">
-      ◇ &nbsp; Pendants
-    </a>
+        <p class="hero-description">
 
-    <a class="mobile-category" href="#cocktail-rings">
-      ♕ &nbsp; Cocktail Rings
-    </a>
+          Fine jewellery crafted in 925 Silver,
+          Gold & Diamonds.<br>
 
-    <a class="mobile-category" href="#mens-jewellery">
-      ♜ &nbsp; Men's Jewellery
-    </a>
+          Made for your most meaningful moments.
 
-    <a class="mobile-category" href="#silver-925">
-      ◌ &nbsp; Silver 925
-    </a>
+        </p>
 
-    <a class="mobile-category" href="#moissanite">
-      ◆ &nbsp; Moissanite
-    </a>
+        <div class="hero-buttons">
 
-    <a class="mobile-category" href="#engagement-rings">
-      💍 &nbsp; Engagement Rings
-    </a>
+          <a
+            href="#collections"
+            class="btn btn-gold"
+          >
+            Explore Collections &nbsp; →
+          </a>
 
-    <a class="mobile-category" href="#couple-rings">
-      ♡ &nbsp; Couple Rings
-    </a>
+          <a
+            href="#custom"
+            class="btn btn-outline"
+          >
+            Custom Jewellery
+          </a>
 
-    <a class="mobile-category" href="#custom">
-      ✧ &nbsp; Custom Jewellery
-    </a>
+        </div>
 
-    <a class="mobile-category" href="#gifts">
-      🎁 &nbsp; Gifts
-    </a>
+      </div>
 
-  </div>
 
-  <a class="mobile-main-link" href="#collections">
-    Collections
-  </a>
+      <!-- TRUST POINTS -->
 
-  <a class="mobile-main-link" href="#about">
-    About Orvén
-  </a>
+      <div class="trust-points">
 
-  <a class="mobile-main-link" href="#experience">
-    Experience
-  </a>
+        <div class="trust">
 
-</nav>
+          <b>✧</b>
 
-<main>
+          <p>
+            Hallmark<br>
+            <small>
+              Certified
+            </small>
+          </p>
 
-<!-- HERO -->
+        </div>
 
-<section class="hero">
+        <div class="trust">
 
-  <video
-    class="hero-video"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    aria-hidden="true"
-  >
+          <b>◌</b>
 
-    <source
-      src="./orven-hero-loop%20%281%29.mp4"
-      type="video/mp4"
+          <p>
+            Lifetime<br>
+            <small>
+              Exchange
+            </small>
+          </p>
+
+        </div>
+
+        <div class="trust">
+
+          <b>▣</b>
+
+          <p>
+            Secure<br>
+            <small>
+              Payment
+            </small>
+          </p>
+
+        </div>
+
+        <div class="trust">
+
+          <b>♧</b>
+
+          <p>
+            Free<br>
+            <small>
+              Shipping
+            </small>
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         LIVE STRIP
+    ========================== -->
+
+    <section class="live-strip">
+
+      <span class="pulse"></span>
+
+      <b class="live-title">
+        LIVE NOW
+      </b>
+
+      <span class="divider"></span>
+
+      <span>
+        💍 Priya just saved Floral Solitaire Ring
+      </span>
+
+      <span class="divider"></span>
+
+      <span>
+        ◇ Rahul from Mumbai purchased Men's Verto Ring
+      </span>
+
+      <span class="divider"></span>
+
+      <span>
+        💎 Only 7 left in Classic Moissanite Studs
+      </span>
+
+      <span class="divider"></span>
+
+      <span>
+        ♡ 12 people viewing this page
+      </span>
+
+    </section>
+
+
+    <!-- =========================
+         SHOP BY EXPRESSION
+    ========================== -->
+
+    <section
+      class="container section"
+      id="shop"
     >
 
-  </video>
+      <div class="section-head">
+
+        <h2>
+          Shop By Expression
+        </h2>
+
+        <a
+          class="view-link"
+          href="#"
+        >
+          View All &nbsp; →
+        </a>
 
-  <div class="hero-video-overlay"></div>
-  <div class="hero-video-glow"></div>
-
-  <div class="hero-copy">
-
-    <p class="eyebrow">
-      Defined by design. Made to last.
-    </p>
-
-    <h1>
-      Timeless Beauty.<br>
-      <span>Thoughtfully Crafted.</span>
-    </h1>
-
-    <div class="hero-line"></div>
-
-    <p class="hero-description">
-      Fine jewellery crafted in 925 Silver,
-      Gold & Diamonds.<br>
-      Made for your most meaningful moments.
-    </p>
-
-    <div class="hero-buttons">
-
-      <a href="#collections" class="btn btn-gold">
-        Explore Collections &nbsp; →
-      </a>
-
-      <a href="#custom" class="btn btn-outline">
-        Custom Jewellery
-      </a>
-
-    </div>
-
-  </div>
-
-  <div class="trust-points">
-
-    <div class="trust">
-      <b>✧</b>
-      <p>
-        Hallmark<br>
-        <small>Certified</small>
-      </p>
-    </div>
-
-    <div class="trust">
-      <b>◌</b>
-      <p>
-        Lifetime<br>
-        <small>Exchange</small>
-      </p>
-    </div>
-
-    <div class="trust">
-      <b>▣</b>
-      <p>
-        Secure<br>
-        <small>Payment</small>
-      </p>
-    </div>
-
-    <div class="trust">
-      <b>♧</b>
-      <p>
-        Free<br>
-        <small>Shipping</small>
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- LIVE -->
-
-<section class="live-strip">
-
-  <span class="pulse"></span>
-
-  <b class="live-title">
-    LIVE NOW
-  </b>
-
-  <span class="divider"></span>
-
-  <span>
-    💍 Priya just saved Floral Solitaire Ring
-  </span>
-
-  <span class="divider"></span>
-
-  <span>
-    ◇ Rahul from Mumbai purchased Men's Verto Ring
-  </span>
-
-  <span class="divider"></span>
-
-  <span>
-    💎 Only 7 left in Classic Moissanite Studs
-  </span>
-
-</section>
-
-<!-- CATEGORIES -->
-
-<section class="container section" id="shop">
-
-  <div class="section-head">
-
-    <h2>
-      Shop By Expression
-    </h2>
-
-    <span class="view-link">
-      14 Categories
-    </span>
-
-  </div>
-
-  <div class="expressions">
-
-    <a id="rings" href="#rings" class="expression">
-      <span class="symbol">◉</span>
-      <span>Rings</span>
-    </a>
-
-    <a id="earrings" href="#earrings" class="expression">
-      <span class="symbol">♢</span>
-      <span>Earrings</span>
-    </a>
-
-    <a id="studs" href="#studs" class="expression">
-      <span class="symbol">✦</span>
-      <span>Studs</span>
-    </a>
-
-    <a id="necklaces" href="#necklaces" class="expression">
-      <span class="symbol">◈</span>
-      <span>Necklaces</span>
-    </a>
-
-    <a id="bracelets" href="#bracelets" class="expression">
-      <span class="symbol">∞</span>
-      <span>Bracelets</span>
-    </a>
-
-    <a id="pendants" href="#pendants" class="expression">
-      <span class="symbol">◇</span>
-      <span>Pendants</span>
-    </a>
-
-    <a id="cocktail-rings" href="#cocktail-rings" class="expression">
-      <span class="symbol">♕</span>
-      <span>Cocktail Rings</span>
-    </a>
-
-    <a id="mens-jewellery" href="#mens-jewellery" class="expression">
-      <span class="symbol">♜</span>
-      <span>Men's Jewellery</span>
-    </a>
-
-    <a id="silver-925" href="#silver-925" class="expression">
-      <span class="symbol">◌</span>
-      <span>Silver 925</span>
-    </a>
-
-    <a id="moissanite" href="#moissanite" class="expression">
-      <span class="symbol">◆</span>
-      <span>Moissanite</span>
-    </a>
-
-    <a id="engagement-rings" href="#engagement-rings" class="expression">
-      <span class="symbol">💍</span>
-      <span>Engagement Rings</span>
-    </a>
-
-    <a id="couple-rings" href="#couple-rings" class="expression">
-      <span class="symbol">♡</span>
-      <span>Couple Rings</span>
-    </a>
-
-    <a id="custom-category" href="#custom" class="expression">
-      <span class="symbol">✧</span>
-      <span>Custom Jewellery</span>
-    </a>
-
-    <a id="gifts" href="#gifts" class="expression">
-      <span class="symbol">🎁</span>
-      <span>Gifts</span>
-    </a>
-
-  </div>
-
-</section>
-
-<!-- FEATURE CARDS -->
-
-<section class="container feature-grid">
-
-  <article class="feature-card quiz-card">
-
-    <p class="eyebrow">
-      Find your Orvén
-    </p>
-
-    <h3>
-      60-Second Style Quiz ✨
-    </h3>
-
-    <p>
-      Answer just 3 simple questions
-      and we'll recommend pieces made
-      for your personality.
-    </p>
-
-    <button class="btn btn-gold" id="quizButton">
-      Take The Quiz &nbsp; →
-    </button>
-
-  </article>
-
-  <article class="feature-card">
-
-    <p class="eyebrow">
-      Featured this season
-    </p>
-
-    <h3>
-      Élora Solitaire Ring
-    </h3>
-
-    <p>
-      A statement of eternal elegance.<br>
-      Crafted to be unforgettable.
-    </p>
-
-    <strong class="price">
-      ₹24,990
-    </strong>
-
-    <a href="#rings" class="view-link">
-      Discover Now &nbsp; →
-    </a>
-
-    <div class="season-ring"></div>
-
-  </article>
-
-  <article class="feature-card custom-card" id="custom">
-
-    <p class="eyebrow">
-      Custom Jewellery Studio
-    </p>
-
-    <h3>
-      Design a piece that's uniquely yours.
-    </h3>
-
-    <p>
-      Choose metal, stone, style & more.
-    </p>
-
-    <div class="metal-row">
-
-      <button class="metal silver active"></button>
-      <button class="metal yellow"></button>
-      <button class="metal white"></button>
-      <button class="metal rose"></button>
-
-    </div>
-
-    <button class="btn btn-gold">
-      Start Designing
-    </button>
-
-    <div class="custom-ring"></div>
-
-  </article>
-
-</section>
-
-<!-- COLLECTIONS -->
-
-<section class="container section" id="collections">
-
-  <div class="section-head">
-
-    <h2>
-      Signature Collections
-    </h2>
-
-    <a class="view-link" href="#">
-      View All Collections &nbsp; →
-    </a>
-
-  </div>
-
-  <div class="collections">
-
-    <a href="#rings" class="collection">
-      <div>
-        <h3>The Solitaire</h3>
-        <small>Collection</small>
       </div>
-      <div class="mini-jewel">◉</div>
-    </a>
 
-    <a href="#earrings" class="collection">
-      <div>
-        <h3>Everyday</h3>
-        <small>Essentials</small>
+      <div class="expressions">
+
+        <a
+          href="#"
+          class="expression"
+        >
+          <span class="symbol">
+            ◉
+          </span>
+
+          <span>
+            Rings
+          </span>
+        </a>
+
+        <a
+          href="#"
+          class="expression"
+        >
+          <span class="symbol">
+            ♢
+          </span>
+
+          <span>
+            Earrings
+          </span>
+        </a>
+
+        <a
+          href="#"
+          class="expression"
+        >
+          <span class="symbol">
+            ✦
+          </span>
+
+          <span>
+            Studs
+          </span>
+        </a>
+
+        <a
+          href="#"
+          class="expression"
+        >
+          <span class="symbol">
+            ♕
+          </span>
+
+          <span>
+            Cocktail Rings
+          </span>
+        </a>
+
+        <a
+          href="#"
+          class="expression"
+        >
+          <span class="symbol">
+            ◌
+          </span>
+
+          <span>
+            Men's Jewellery
+          </span>
+        </a>
+
+        <a
+          href="#"
+          class="expression"
+        >
+          <span class="symbol">
+            ♦
+          </span>
+
+          <span>
+            Teeth Grillz
+          </span>
+        </a>
+
+        <a
+          href="#"
+          class="expression"
+        >
+          <span class="symbol">
+            ∞
+          </span>
+
+          <span>
+            Silver 925
+          </span>
+        </a>
+
       </div>
-      <div class="mini-jewel">♢</div>
-    </a>
 
-    <a href="#mens-jewellery" class="collection">
-      <div>
-        <h3>Men's</h3>
-        <small>Collection</small>
+    </section>
+
+
+    <!-- =========================
+         FEATURE CARDS
+    ========================== -->
+
+    <section
+      class="container feature-grid"
+    >
+
+      <!-- QUIZ -->
+
+      <article
+        class="feature-card quiz-card"
+      >
+
+        <p class="eyebrow">
+          Find your Orvén
+        </p>
+
+        <h3>
+          60-Second Style Quiz ✨
+        </h3>
+
+        <p>
+          Answer just 3 simple questions
+          and we'll recommend pieces made
+          for your personality.
+        </p>
+
+        <button
+          class="btn btn-gold"
+          id="quizButton"
+        >
+          Take The Quiz &nbsp; →
+        </button>
+
+        <div class="phone">
+
+          <div class="phone-screen">
+
+            <small>
+              01 of 3
+            </small>
+
+            <strong>
+              What's your style
+              in three words?
+            </strong>
+
+            <div class="phone-option">
+              Minimal &nbsp; →
+            </div>
+
+            <div class="phone-option">
+              Classic &nbsp; →
+            </div>
+
+            <div class="phone-option">
+              Bold &nbsp; →
+            </div>
+
+            <div class="phone-option">
+              Trendy &nbsp; →
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- FEATURED -->
+
+      <article
+        class="feature-card"
+      >
+
+        <p class="eyebrow">
+          Featured this season
+        </p>
+
+        <h3>
+          Élora Solitaire Ring
+        </h3>
+
+        <p>
+          A statement of eternal elegance.<br>
+          Crafted to be unforgettable.
+        </p>
+
+        <strong class="price">
+          ₹24,990
+        </strong>
+
+        <a
+          href="#"
+          class="view-link"
+        >
+          Discover Now &nbsp; →
+        </a>
+
+        <div class="season-ring"></div>
+
+      </article>
+
+
+      <!-- CUSTOM -->
+
+      <article
+        class="feature-card custom-card"
+        id="custom"
+      >
+
+        <p class="eyebrow">
+          Custom Jewellery Studio
+        </p>
+
+        <h3>
+          Design a piece that's uniquely yours.
+        </h3>
+
+        <p>
+          Choose metal, stone, style & more.
+        </p>
+
+        <div class="metal-row">
+
+          <button
+            class="metal silver active"
+            title="Silver"
+          ></button>
+
+          <button
+            class="metal yellow"
+            title="Yellow Gold"
+          ></button>
+
+          <button
+            class="metal white"
+            title="White Gold"
+          ></button>
+
+          <button
+            class="metal rose"
+            title="Rose Gold"
+          ></button>
+
+        </div>
+
+        <button class="btn btn-gold">
+          Start Designing
+        </button>
+
+        <div class="custom-ring"></div>
+
+      </article>
+
+    </section>
+
+
+    <!-- =========================
+         COLLECTIONS — EXISTING GITHUB PRODUCT PHOTOS
+    ========================== -->
+
+    <section
+      class="container section"
+      id="collections"
+    >
+
+      <div class="section-head">
+
+        <div>
+          <p class="eyebrow">EXPLORE OUR WORLD</p>
+          <h2>Signature Collections</h2>
+        </div>
+
+        <a
+          class="view-link"
+          href="#shop"
+        >
+          View All Collections &nbsp; →
+        </a>
+
       </div>
-      <div class="mini-jewel">◌</div>
-    </a>
 
-    <a href="#cocktail-rings" class="collection">
-      <div>
-        <h3>Cocktail</h3>
-        <small>Collection</small>
+      <p style="
+        max-width: 650px;
+        margin: -10px 0 24px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.7;
+      ">
+        Discover jewellery collections crafted for every expression,
+        every occasion and every story.
+      </p>
+
+      <div class="image-collections" id="imageCollections">
+
+        <a class="image-collection-card" href="#cocktail-ring" data-folder="Cocktail-Ring">
+          <img alt="Cocktail Rings">
+          <span class="image-collection-number">01</span>
+          <div class="image-collection-info">
+            <small>Make a statement</small>
+            <h3>Cocktail Rings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#diamond-studs" data-folder="Diamond-Studs-for-Girls">
+          <img alt="Diamond Studs">
+          <span class="image-collection-number">02</span>
+          <div class="image-collection-info">
+            <small>Brilliant essentials</small>
+            <h3>Diamond Studs</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#lightweight-earrings" data-folder="Light-Weight-Earrings">
+          <img alt="Light Weight Earrings">
+          <span class="image-collection-number">03</span>
+          <div class="image-collection-info">
+            <small>Made for every moment</small>
+            <h3>Lightweight Earrings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#lightweight-rings" data-folder="Light-Weight-Ring">
+          <img alt="Light Weight Rings">
+          <span class="image-collection-number">04</span>
+          <div class="image-collection-info">
+            <small>Everyday elegance</small>
+            <h3>Lightweight Rings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#mens-ring" data-folder="Mens-Ring">
+          <img alt="Men's Rings">
+          <span class="image-collection-number">05</span>
+          <div class="image-collection-info">
+            <small>Defined by character</small>
+            <h3>Men's Rings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#mens-diamond-ring" data-folder="Mens-diamonds-ring">
+          <img alt="Men's Diamond Rings">
+          <span class="image-collection-number">06</span>
+          <div class="image-collection-info">
+            <small>Refined brilliance</small>
+            <h3>Men's Diamond Rings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#teeth-grillz" data-folder="Teeth-Grillz">
+          <img alt="Teeth Grillz">
+          <span class="image-collection-number">07</span>
+          <div class="image-collection-info">
+            <small>Bold expression</small>
+            <h3>Teeth Grillz</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#bracelets" data-folder="bracelet">
+          <img alt="Bracelets">
+          <span class="image-collection-number">08</span>
+          <div class="image-collection-info">
+            <small>Designed to shine</small>
+            <h3>Bracelets</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#fancy-shape-rings" data-folder="fancy-shape-band-ring">
+          <img alt="Fancy Shape Rings">
+          <span class="image-collection-number">09</span>
+          <div class="image-collection-info">
+            <small>Distinctive silhouettes</small>
+            <h3>Fancy Shape Rings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#mangalsutra" data-folder="mangalsutra">
+          <img alt="Mangalsutra">
+          <span class="image-collection-number">10</span>
+          <div class="image-collection-info">
+            <small>Tradition, reimagined</small>
+            <h3>Mangalsutra</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#necklaces" data-folder="necklaces">
+          <img alt="Necklaces">
+          <span class="image-collection-number">11</span>
+          <div class="image-collection-info">
+            <small>Grace around you</small>
+            <h3>Necklaces</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#nosepin" data-folder="nosepin">
+          <img alt="Nose Pins">
+          <span class="image-collection-number">12</span>
+          <div class="image-collection-info">
+            <small>Subtle sparkle</small>
+            <h3>Nose Pins</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#rings" data-folder="rings">
+          <img alt="Rings">
+          <span class="image-collection-number">13</span>
+          <div class="image-collection-info">
+            <small>Timeless icons</small>
+            <h3>Rings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#solitaire-diamond" data-folder="solitaire-diamond-ring">
+          <img alt="Solitaire Diamond Rings">
+          <span class="image-collection-number">14</span>
+          <div class="image-collection-info">
+            <small>Made for forever</small>
+            <h3>Solitaire Diamond</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#solitaire-rings" data-folder="solitaire-rings">
+          <img alt="Solitaire Rings">
+          <span class="image-collection-number">15</span>
+          <div class="image-collection-info">
+            <small>Timeless brilliance</small>
+            <h3>Solitaire Rings</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
+        <a class="image-collection-card" href="#tennis-bracelet" data-folder="tennis-bracelet">
+          <img alt="Tennis Bracelets">
+          <span class="image-collection-number">16</span>
+          <div class="image-collection-info">
+            <small>Continuous brilliance</small>
+            <h3>Tennis Bracelets</h3>
+            <span>Explore Collection →</span>
+          </div>
+        </a>
+
       </div>
-      <div class="mini-jewel">♕</div>
-    </a>
 
-  </div>
+    </section>
 
-</section>
 
-<!-- MAISON -->
+    <!-- =========================
+         MAISON
+    ========================== -->
 
-<section class="container maison" id="about">
+    <section
+      class="container maison"
+      id="about"
+    >
 
-  <div class="maison-intro">
+      <div class="maison-intro">
 
-    <div class="monogram">
-      O
-    </div>
+        <div class="monogram">
+          O
+        </div>
 
-    <div>
+        <div>
+
+          <p class="eyebrow">
+            The Orvén Maison
+          </p>
+
+          <h3>
+            Jewellery is more than adornment.
+          </h3>
+
+          <p>
+            It is emotion, memory and a mark
+            of your journey. Crafted with
+            precision. Inspired by you.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="values">
+
+        <div class="value">
+
+          <span>
+            ✧
+          </span>
+
+          <small>
+            Hand-set<br>
+            by artisans
+          </small>
+
+        </div>
+
+        <div class="value">
+
+          <span>
+            ◇
+          </span>
+
+          <small>
+            Conflict-free<br>
+            diamonds
+          </small>
+
+        </div>
+
+        <div class="value">
+
+          <span>
+            ♜
+          </span>
+
+          <small>
+            Certified<br>
+            materials
+          </small>
+
+        </div>
+
+        <div class="value">
+
+          <span>
+            ♡
+          </span>
+
+          <small>
+            Made for<br>
+            a lifetime
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <div class="review">
+
+        <p class="eyebrow">
+          Love, in their words
+        </p>
+
+        <p>
+          “The quality, the shine, the packaging —
+          everything felt so premium. Orvén is my
+          go-to for every special moment.”
+        </p>
+
+        <small>
+          — Ananya S.
+        </small>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         EXPERIENCE
+    ========================== -->
+
+    <section
+      class="container section"
+      id="experience"
+    >
+
+      <div class="section-head">
+
+        <div>
+
+          <h2>
+            Follow Our Journey
+          </h2>
+
+          <p
+            class="eyebrow"
+            style="margin-top: 6px;"
+          >
+            @orven.jewels
+          </p>
+
+        </div>
+
+        <a
+          class="view-link"
+          href="#"
+        >
+          View on Instagram &nbsp; →
+        </a>
+
+      </div>
+
+
+      <div class="instagram">
+
+        <div class="insta-item">
+          ◉
+        </div>
+
+        <div class="insta-item">
+          ♢
+        </div>
+
+        <div class="insta-item">
+          ✦
+        </div>
+
+        <div class="insta-item">
+          ♕
+        </div>
+
+        <div class="insta-item">
+          ◇
+        </div>
+
+        <div class="insta-item">
+          ∞
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+    © 2026 ORVÉN JEWELS — Crafted for your story.
+  </footer>
+
+
+  <!-- =========================
+       QUIZ POPUP
+  ========================== -->
+
+  <div
+    class="popup"
+    id="quizPopup"
+  >
+
+    <div class="popup-card">
+
+      <button
+        class="close-popup"
+        id="closePopup"
+      >
+        ×
+      </button>
 
       <p class="eyebrow">
-        The Orvén Maison
+        Orvén Style Quiz
       </p>
-
-      <h3>
-        Jewellery is more than adornment.
-      </h3>
-
-      <p>
-        It is emotion, memory and a mark
-        of your journey. Crafted with
-        precision. Inspired by you.
-      </p>
-
-    </div>
-
-  </div>
-
-  <div class="values">
-
-    <div class="value">
-      <span>✧</span>
-      <small>Hand-set<br>by artisans</small>
-    </div>
-
-    <div class="value">
-      <span>◇</span>
-      <small>Conflict-free<br>diamonds</small>
-    </div>
-
-    <div class="value">
-      <span>♜</span>
-      <small>Certified<br>materials</small>
-    </div>
-
-    <div class="value">
-      <span>♡</span>
-      <small>Made for<br>a lifetime</small>
-    </div>
-
-  </div>
-
-  <div class="review">
-
-    <p class="eyebrow">
-      Love, in their words
-    </p>
-
-    <p>
-      “The quality, the shine, the packaging —
-      everything felt so premium. Orvén is my
-      go-to for every special moment.”
-    </p>
-
-    <small>
-      — Ananya S.
-    </small>
-
-  </div>
-
-</section>
-
-<!-- EXPERIENCE -->
-
-<section class="container section" id="experience">
-
-  <div class="section-head">
-
-    <div>
 
       <h2>
-        Follow Our Journey
+        Find your signature style.
       </h2>
 
-      <p class="eyebrow" style="margin-top:6px;">
-        @orven.jewels
+      <p>
+        Answer 3 questions and receive
+        jewellery recommendations made
+        for you.
       </p>
+
+      <button
+        class="btn btn-gold"
+        id="startQuiz"
+      >
+        Start Quiz
+      </button>
 
     </div>
 
-    <a class="view-link" href="#">
-      View on Instagram &nbsp; →
-    </a>
-
   </div>
 
-  <div class="instagram">
 
-    <div class="insta-item">◉</div>
-    <div class="insta-item">♢</div>
-    <div class="insta-item">✦</div>
-    <div class="insta-item">♕</div>
-    <div class="insta-item">◇</div>
-    <div class="insta-item">∞</div>
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
-  </div>
+  <script>
 
-</section>
+    const menuButton =
+      document.getElementById("menuButton");
 
-</main>
+    const mobileLinks =
+      document.getElementById("mobileLinks");
 
-<footer>
-  © 2026 ORVÉN JEWELS — Crafted for your story.
-</footer>
+    const quizButton =
+      document.getElementById("quizButton");
 
-<!-- QUIZ POPUP -->
+    const quizPopup =
+      document.getElementById("quizPopup");
 
-<div class="popup" id="quizPopup">
+    const closePopup =
+      document.getElementById("closePopup");
 
-  <div class="popup-card">
+    const startQuiz =
+      document.getElementById("startQuiz");
 
-    <button class="close-popup" id="closePopup">
-      ×
-    </button>
 
-    <p class="eyebrow">
-      Orvén Style Quiz
-    </p>
+    /* Mobile menu */
 
-    <h2>
-      Find your signature style.
-    </h2>
+    menuButton.addEventListener(
+      "click",
+      function () {
 
-    <p>
-      Answer 3 questions and receive
-      jewellery recommendations made
-      for you.
-    </p>
+        mobileLinks.classList.toggle("open");
 
-    <button class="btn btn-gold" id="startQuiz">
-      Start Quiz
-    </button>
+        menuButton.innerText =
+          mobileLinks.classList.contains("open")
+            ? "×"
+            : "☰";
 
-  </div>
+      }
+    );
 
-</div>
-
-<script>
-
-/* MOBILE MENU */
-
-const menuButton =
-  document.getElementById("menuButton");
-
-const mobileLinks =
-  document.getElementById("mobileLinks");
-
-const mobileShopToggle =
-  document.getElementById("mobileShopToggle");
-
-const mobileCategories =
-  document.getElementById("mobileCategories");
-
-const mobileArrow =
-  document.getElementById("mobileArrow");
-
-menuButton.addEventListener("click",function(){
-
-  mobileLinks.classList.toggle("open");
-
-  menuButton.innerText =
-    mobileLinks.classList.contains("open")
-      ? "×"
-      : "☰";
-
-});
-
-mobileShopToggle.addEventListener("click",function(){
-
-  mobileCategories.classList.toggle("open");
-
-  mobileArrow.innerText =
-    mobileCategories.classList.contains("open")
-      ? "▲"
-      : "▼";
-
-});
-
-/* CLOSE MOBILE MENU AFTER CATEGORY CLICK */
-
-document
-.querySelectorAll(".mobile-category,.mobile-main-link")
-.forEach(function(link){
-
-  link.addEventListener("click",function(){
-
-    mobileLinks.classList.remove("open");
-
-    mobileCategories.classList.remove("open");
-
-    mobileArrow.innerText="▼";
-
-    menuButton.innerText="☰";
-
-  });
-
-});
-
-/* QUIZ */
-
-const quizButton =
-  document.getElementById("quizButton");
-
-const quizPopup =
-  document.getElementById("quizPopup");
-
-const closePopup =
-  document.getElementById("closePopup");
-
-const startQuiz =
-  document.getElementById("startQuiz");
-
-quizButton.addEventListener("click",function(){
-  quizPopup.classList.add("show");
-});
-
-closePopup.addEventListener("click",function(){
-  quizPopup.classList.remove("show");
-});
-
-quizPopup.addEventListener("click",function(event){
-
-  if(event.target === quizPopup){
-    quizPopup.classList.remove("show");
-  }
-
-});
-
-startQuiz.addEventListener("click",function(){
-
-  alert("Your style quiz is starting soon!");
-
-  quizPopup.classList.remove("show");
-
-});
-
-/* METAL SELECTOR */
-
-document
-.querySelectorAll(".metal")
-.forEach(function(metal){
-
-  metal.addEventListener("click",function(){
 
     document
-    .querySelectorAll(".metal")
-    .forEach(function(item){
-      item.classList.remove("active");
-    });
+      .querySelectorAll(".mobile-links a")
+      .forEach(function (link) {
 
-    metal.classList.add("active");
+        link.addEventListener(
+          "click",
+          function () {
 
-  });
+            mobileLinks.classList.remove("open");
 
-});
+            menuButton.innerText = "☰";
 
-/* VIDEO AUTOPLAY */
+          }
+        );
 
-const heroVideo =
-  document.querySelector(".hero-video");
+      });
 
-if(heroVideo){
 
-  heroVideo.play().catch(function(){
+    /* Quiz popup */
 
-    console.log("Video will start when browser allows playback.");
+    quizButton.addEventListener(
+      "click",
+      function () {
 
-  });
+        quizPopup.classList.add("show");
 
-}
+      }
+    );
 
-</script>
+
+    closePopup.addEventListener(
+      "click",
+      function () {
+
+        quizPopup.classList.remove("show");
+
+      }
+    );
+
+
+    quizPopup.addEventListener(
+      "click",
+      function (event) {
+
+        if (event.target === quizPopup) {
+
+          quizPopup.classList.remove("show");
+
+        }
+
+      }
+    );
+
+
+    startQuiz.addEventListener(
+      "click",
+      function () {
+
+        alert(
+          "Your style quiz is starting soon!"
+        );
+
+        quizPopup.classList.remove("show");
+
+      }
+    );
+
+
+    /* Metal selector */
+
+    document
+      .querySelectorAll(".metal")
+      .forEach(function (metal) {
+
+        metal.addEventListener(
+          "click",
+          function () {
+
+            document
+              .querySelectorAll(".metal")
+              .forEach(function (item) {
+
+                item.classList.remove("active");
+
+              });
+
+            metal.classList.add("active");
+
+          }
+        );
+
+      });
+
+
+    /* Make sure video tries to play */
+
+    const heroVideo =
+      document.querySelector(".hero-video");
+
+    if (heroVideo) {
+
+      heroVideo.play().catch(function () {
+        /*
+          Browser may block autoplay until
+          user interaction. Because the video
+          is muted + playsinline, most modern
+          browsers allow autoplay.
+        */
+      });
+
+    }
+
+
+    /* =========================================
+       LOAD THE FIRST PRODUCT PHOTO FROM EACH
+       EXISTING GITHUB CATEGORY FOLDER
+    ========================================= */
+
+    (async function loadCollectionImages() {
+
+      const owner = "sumitkhanvilakar142-a11y";
+      const repo = "Orven-jewels";
+      const branch = "main";
+
+      const cards =
+        document.querySelectorAll(
+          ".image-collection-card[data-folder]"
+        );
+
+      cards.forEach(function(card) {
+
+        const folder = card.dataset.folder;
+        const image = card.querySelector("img");
+
+        const apiUrl =
+          "https://api.github.com/repos/" +
+          owner + "/" + repo +
+          "/contents/" +
+          encodeURIComponent(folder) +
+          "?ref=" + branch;
+
+        fetch(apiUrl)
+          .then(function(response) {
+            if (!response.ok) {
+              throw new Error("GitHub folder not found");
+            }
+            return response.json();
+          })
+          .then(function(files) {
+
+            const imageFile = files.find(function(file) {
+
+              if (file.type !== "file") return false;
+
+              const name =
+                file.name.toLowerCase();
+
+              return (
+                name.endsWith(".jpg") ||
+                name.endsWith(".jpeg") ||
+                name.endsWith(".png") ||
+                name.endsWith(".webp") ||
+                name.endsWith(".avif")
+              );
+
+            });
+
+            if (imageFile) {
+
+              image.src =
+                "https://raw.githubusercontent.com/" +
+                owner + "/" +
+                repo + "/" +
+                branch + "/" +
+                imageFile.path;
+
+            }
+
+          })
+          .catch(function(error) {
+
+            console.warn(
+              "Could not load collection image:",
+              folder,
+              error
+            );
+
+          });
+
+      });
+
+    })();
+
+  </script>
 
 </body>
 </html>
