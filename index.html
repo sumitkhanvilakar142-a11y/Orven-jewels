@@ -3,165 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ORVÉN JEWELS — Timeless Beauty</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Orvén Jewels</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="topbar">✦ Free insured shipping on all orders above ₹2,999</div>
+
+  <div class="shipping-bar">
+    ◆ Free insured shipping on all orders above ₹2,999
+  </div>
 
   <header class="header">
-    <a class="brand" href="#"><strong>ORVÉN</strong><span>JEWELS</span></a>
-    <nav class="nav">
-      <a href="#shop">SHOP</a><a href="#collections">COLLECTIONS</a>
-      <a href="#custom">CUSTOM JEWELLERY</a><a href="#maison">ABOUT ORVÉN</a>
-      <a href="#experience">EXPERIENCE</a>
+    <a href="#" class="logo">
+      <span>ORVÉN</span>
+      <small>JEWELS</small>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#shop">Shop</a>
+      <a href="#collections">Collections</a>
+      <a href="#custom">Custom Jewellery</a>
+      <a href="#about">About Orvén</a>
+      <a href="#experience">Experience</a>
     </nav>
-    <div class="actions">
+
+    <div class="header-actions">
       <button aria-label="Search">⌕</button>
-      <button id="wishBtn" aria-label="Wishlist">♡ <b id="wishCount">0</b></button>
-      <button aria-label="Bag">▢ <b>1</b></button>
-      <button class="menu" aria-label="Menu">☰</button>
+      <button aria-label="Wishlist" class="wishlist">♡ <b>3</b></button>
+      <button aria-label="Cart">♧ <b>1</b></button>
+      <button class="menu-btn" id="menuBtn">☰</button>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">DEFINED BY DESIGN. MADE TO LAST.</p>
-        <h1>Timeless Beauty.<br><em>Thoughtfully Crafted.</em></h1>
-        <p class="intro">Fine jewellery crafted in 925 Silver, Gold & Diamonds.<br>Made for your most meaningful moments.</p>
-        <div class="hero-buttons">
-          <a class="btn gold" href="#collections">EXPLORE COLLECTIONS <span>→</span></a>
-          <a class="btn ghost" href="#custom">CUSTOM JEWELLERY</a>
-        </div>
-      </div>
-
-      <div class="ring-stage" id="ringStage">
-        <div class="particles"></div>
-        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-        <div class="pedestal"><div class="pedestal-glow"></div></div>
-        <div class="ring-3d" id="ring3d">
-          <div class="band"></div>
-          <div class="stone"><i></i><i></i><i></i></div>
-          <div class="side-stones"><span></span><span></span><span></span><span></span><span></span></div>
-        </div>
-        <p class="drag-note">DRAG TO ROTATE ✦</p>
-      </div>
-
-      <div class="hero-trust">
-        <div>✧ <span>HALLMARK<br>CERTIFIED</span></div>
-        <div>♘ <span>LIFETIME<br>EXCHANGE</span></div>
-        <div>▣ <span>SECURE<br>PAYMENT</span></div>
-        <div>▱ <span>FREE<br>SHIPPING</span></div>
-      </div>
-    </section>
-
-    <section class="ticker">
-      <strong><i></i> LIVE NOW</strong>
-      <div>💍 Priya just saved <b>Floral Solitaire Ring</b></div>
-      <div>✧ Rahul from Mumbai <b>purchased Men's Verto Ring</b></div>
-      <div>💎 Only 7 left in <b>Classic Moissanite Studs</b></div>
-      <div>♥ Neha added <b>Cocktail Glow Ring to wishlist</b></div>
-      <div>◉ 12 people <b>viewing this page</b></div>
-    </section>
-
-    <section class="section expression" id="shop">
-      <div class="section-head"><h2>SHOP BY EXPRESSION</h2><a href="#collections">VIEW ALL →</a></div>
-      <div class="category-row">
-        <button class="category"><span class="mini-ring gold-ring"></span><b>RINGS</b></button>
-        <button class="category"><span class="mini-earrings">◇ ◇</span><b>EARRINGS</b></button>
-        <button class="category"><span class="mini-studs">✦ ✦</span><b>STUDS</b></button>
-        <button class="category"><span class="mini-ring ruby-ring"></span><b>COCKTAIL RINGS</b></button>
-        <button class="category"><span class="mini-band"></span><b>MEN'S JEWELLERY</b></button>
-        <button class="category"><span class="grill">▦▦▦</span><b>TEETH GRILLZ</b></button>
-        <button class="category"><span class="chain">⌁</span><b>SILVER 925</b></button>
-      </div>
-    </section>
-
-    <section class="experience-grid" id="experience">
-      <article class="quiz-card">
-        <p class="eyebrow">FIND YOUR ORVÉN</p>
-        <h2>60-Second Style Quiz ✦</h2>
-        <p>Answer just 3 simple questions and we'll recommend pieces that match your personality.</p>
-        <button class="btn gold" id="startQuiz">TAKE THE QUIZ →</button>
-        <div class="phone">01 / 03<br><br><b>What's your style?</b><button>Minimal</button><button>Classic</button><button>Bold</button></div>
-      </article>
-
-      <article class="featured-card">
-        <p class="eyebrow">FEATURED THIS SEASON</p>
-        <h3>ÉLORA SOLITAIRE RING</h3>
-        <p>A statement of eternal elegance.<br>Crafted to be unforgettable.</p>
-        <strong>₹24,990</strong>
-        <a href="#">DISCOVER NOW →</a>
-        <div class="featured-ring"><div class="small-band"></div><div class="small-stone"></div></div>
-        <div class="dots">● ○ ○ ○</div>
-      </article>
-
-      <article class="custom-card" id="custom">
-        <div>
-          <p class="eyebrow">CUSTOM JEWELLERY STUDIO</p>
-          <p>Design a piece that's uniquely yours.<br>Choose metal, stone, style & more.</p>
-          <div class="swatches">
-            <button data-metal="silver" class="active"><i></i>Silver 925</button>
-            <button data-metal="yellow"><i></i>Yellow Gold</button>
-            <button data-metal="white"><i></i>White Gold</button>
-            <button data-metal="rose"><i></i>Rose Gold</button>
-          </div>
-          <button class="btn gold" id="designBtn">START DESIGNING →</button>
-        </div>
-        <div class="custom-ring" id="customRing"><div class="custom-band"></div><div class="custom-stone"></div></div>
-      </article>
-    </section>
-
-    <section class="section collections" id="collections">
-      <div class="section-head"><h2>SIGNATURE COLLECTIONS</h2><a href="#">VIEW ALL COLLECTIONS →</a></div>
-      <div class="collection-grid">
-        <article><h3>THE SOLITAIRE</h3><small>COLLECTION</small><span class="card-jewel">◈</span></article>
-        <article><h3>EVERYDAY</h3><small>ESSENTIALS</small><span class="card-jewel">✦ ✦</span></article>
-        <article><h3>MEN'S</h3><small>COLLECTION</small><span class="card-jewel">◉</span></article>
-        <article><h3>COCKTAIL</h3><small>COLLECTION</small><span class="card-jewel ruby">◆</span></article>
-      </div>
-    </section>
-
-    <section class="maison" id="maison">
-      <div class="maison-story">
-        <div class="mono">O</div>
-        <div><h2>THE ORVÉN MAISON</h2><p>We believe jewellery is more than adornment.<br>It's emotion, memory and a mark of your journey.<br>Crafted with precision. Inspired by you.</p><em>Crafted to be yours.</em></div>
-      </div>
-      <div class="values">
-        <div>✧<span>HAND-SET<br>BY ARTISANS</span></div>
-        <div>◇<span>CONFLICT-FREE<br>DIAMONDS</span></div>
-        <div>⬡<span>CERTIFIED<br>MATERIALS</span></div>
-        <div>♡<span>MADE FOR<br>A LIFETIME</span></div>
-      </div>
-      <div class="testimonial">
-        <p class="eyebrow">LOVE, IN THEIR WORDS</p>
-        <blockquote id="quote">“The quality, the shine, the packaging — everything felt so premium.”</blockquote>
-        <small id="author">— Ananya S.</small>
-        <div class="quote-controls"><button id="prevQuote">‹</button><span id="quoteDots">● ○ ○</span><button id="nextQuote">›</button></div>
-      </div>
-    </section>
-
-    <section class="instagram">
-      <div><h2>FOLLOW OUR JOURNEY</h2><p>@orven.jewels</p></div>
-      <div class="insta-grid"><span>✦</span><span>◇</span><span>✧</span><span>◈</span><span>◆</span><span>♡</span></div>
-      <a href="#">VIEW ON INSTAGRAM →</a>
-    </section>
-  </main>
-
-  <div class="modal" id="quizModal">
-    <div class="modal-box">
-      <button class="close" id="closeQuiz">×</button>
-      <p class="eyebrow" id="quizStep">QUESTION 1 OF 3</p>
-      <h2 id="quizQuestion">Which style feels most like you?</h2>
-      <div class="quiz-options" id="quizOptions"></div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast">Added to your ORVÉN wishlist ♡</div>
-  <script src="script.js"></script>
-</body>
-</html>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#shop">Shop</a>
+    <a href="#collections">Collections</a>
+    <a href="#custom">Custom Jewellery
