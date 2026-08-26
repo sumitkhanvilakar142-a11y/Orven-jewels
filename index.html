@@ -1749,6 +1749,28 @@
   }
 }
 
+  
+/* =========================
+   COLLECTION PRODUCT GRID
+========================= */
+.product-collection-section{display:none;padding-top:35px;padding-bottom:70px}
+.product-collection-section.is-visible{display:block}
+.product-collection-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:20px}
+.product-collection-title{color:var(--gold-light);font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:400}
+.product-collection-count{margin-top:6px;color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.product-back{padding:10px 14px;border:1px solid var(--gold);background:transparent;color:var(--gold-light);font-size:9px;letter-spacing:1px;text-transform:uppercase}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.product-item{overflow:hidden;border:1px solid rgba(214,162,94,.25);background:#120a10;transition:.3s}
+.product-item:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 14px 32px rgba(0,0,0,.35)}
+.product-item-image{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#0d080c}
+.product-item-body{padding:13px 14px 15px}
+.product-item-name{min-height:30px;color:var(--cream);font-family:Georgia,"Times New Roman",serif;font-size:15px;line-height:1.25}
+.product-item-meta{margin-top:8px;color:var(--gold);font-size:8px;letter-spacing:1.2px;text-transform:uppercase}
+.product-item-link{display:inline-block;margin-top:12px;color:var(--gold-light);font-size:9px;letter-spacing:1px;text-transform:uppercase}
+.product-loading,.product-empty{padding:35px 10px;color:var(--muted);text-align:center;border:1px solid rgba(214,162,94,.18);font-size:11px;line-height:1.7}
+@media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.product-collection-bar{align-items:flex-start;flex-direction:column}.product-collection-title{font-size:26px}.product-grid{grid-template-columns:1fr 1fr;gap:8px}.product-item-body{padding:10px}.product-item-name{font-size:13px}.product-item-link{font-size:8px}}
+
   </style>
 </head>
 
@@ -2347,7 +2369,7 @@
 
       <div class="image-collections" id="imageCollections">
 
-        <a class="image-collection-card" href="#cocktail-ring" data-folder="Cocktail-Ring">
+        <a class="image-collection-card" href="#collection-products" data-folder="Cocktail-Ring">
           <img alt="Cocktail Rings">
           <span class="image-collection-number">01</span>
           <div class="image-collection-info">
@@ -2357,7 +2379,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#diamond-studs" data-folder="Diamond-Studs-for-Girls">
+        <a class="image-collection-card" href="#collection-products" data-folder="Diamond-Studs-for-Girls">
           <img alt="Diamond Studs">
           <span class="image-collection-number">02</span>
           <div class="image-collection-info">
@@ -2367,7 +2389,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#lightweight-earrings" data-folder="Light-Weight-Earrings">
+        <a class="image-collection-card" href="#collection-products" data-folder="Light-Weight-Earrings">
           <img alt="Light Weight Earrings">
           <span class="image-collection-number">03</span>
           <div class="image-collection-info">
@@ -2377,7 +2399,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#lightweight-rings" data-folder="Light-Weight-Ring">
+        <a class="image-collection-card" href="#collection-products" data-folder="Light-Weight-Ring">
           <img alt="Light Weight Rings">
           <span class="image-collection-number">04</span>
           <div class="image-collection-info">
@@ -2387,7 +2409,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#mens-ring" data-folder="Mens-Ring">
+        <a class="image-collection-card" href="#collection-products" data-folder="Mens-Ring">
           <img alt="Men's Rings">
           <span class="image-collection-number">05</span>
           <div class="image-collection-info">
@@ -2397,7 +2419,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#mens-diamond-ring" data-folder="Mens-diamonds-ring">
+        <a class="image-collection-card" href="#collection-products" data-folder="Mens-diamonds-ring">
           <img alt="Men's Diamond Rings">
           <span class="image-collection-number">06</span>
           <div class="image-collection-info">
@@ -2407,7 +2429,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#teeth-grillz" data-folder="Teeth-Grillz">
+        <a class="image-collection-card" href="#collection-products" data-folder="Teeth-Grillz">
           <img alt="Teeth Grillz">
           <span class="image-collection-number">07</span>
           <div class="image-collection-info">
@@ -2417,7 +2439,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#bracelets" data-folder="bracelet">
+        <a class="image-collection-card" href="#collection-products" data-folder="bracelet">
           <img alt="Bracelets">
           <span class="image-collection-number">08</span>
           <div class="image-collection-info">
@@ -2427,7 +2449,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#fancy-shape-rings" data-folder="fancy-shape-band-ring">
+        <a class="image-collection-card" href="#collection-products" data-folder="fancy-shape-band-ring">
           <img alt="Fancy Shape Rings">
           <span class="image-collection-number">09</span>
           <div class="image-collection-info">
@@ -2437,7 +2459,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#mangalsutra" data-folder="mangalsutra">
+        <a class="image-collection-card" href="#collection-products" data-folder="mangalsutra">
           <img alt="Mangalsutra">
           <span class="image-collection-number">10</span>
           <div class="image-collection-info">
@@ -2447,7 +2469,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#necklaces" data-folder="necklaces">
+        <a class="image-collection-card" href="#collection-products" data-folder="necklaces">
           <img alt="Necklaces">
           <span class="image-collection-number">11</span>
           <div class="image-collection-info">
@@ -2457,7 +2479,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#nosepin" data-folder="nosepin">
+        <a class="image-collection-card" href="#collection-products" data-folder="nosepin">
           <img alt="Nose Pins">
           <span class="image-collection-number">12</span>
           <div class="image-collection-info">
@@ -2467,7 +2489,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#rings" data-folder="rings">
+        <a class="image-collection-card" href="#collection-products" data-folder="rings">
           <img alt="Rings">
           <span class="image-collection-number">13</span>
           <div class="image-collection-info">
@@ -2477,7 +2499,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#solitaire-diamond" data-folder="solitaire-diamond-ring">
+        <a class="image-collection-card" href="#collection-products" data-folder="solitaire-diamond-ring">
           <img alt="Solitaire Diamond Rings">
           <span class="image-collection-number">14</span>
           <div class="image-collection-info">
@@ -2487,7 +2509,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#solitaire-rings" data-folder="solitaire-rings">
+        <a class="image-collection-card" href="#collection-products" data-folder="solitaire-rings">
           <img alt="Solitaire Rings">
           <span class="image-collection-number">15</span>
           <div class="image-collection-info">
@@ -2497,7 +2519,7 @@
           </div>
         </a>
 
-        <a class="image-collection-card" href="#tennis-bracelet" data-folder="tennis-bracelet">
+        <a class="image-collection-card" href="#collection-products" data-folder="tennis-bracelet">
           <img alt="Tennis Bracelets">
           <span class="image-collection-number">16</span>
           <div class="image-collection-info">
@@ -2511,6 +2533,25 @@
 
     </section>
 
+
+
+    <!-- =========================
+         COLLECTION PRODUCTS
+    ========================== -->
+
+    <section class="container product-collection-section" id="collection-products">
+      <div class="product-collection-bar">
+        <div>
+          <p class="eyebrow">COLLECTION</p>
+          <h2 class="product-collection-title" id="productCollectionTitle">Products</h2>
+          <p class="product-collection-count" id="productCollectionCount"></p>
+        </div>
+        <button class="product-back" type="button" id="productCollectionBack">← Back to Collections</button>
+      </div>
+      <div id="productGrid" class="product-grid">
+        <div class="product-loading">Select a collection to view its products.</div>
+      </div>
+    </section>
 
     <!-- =========================
          MAISON
@@ -2981,6 +3022,126 @@
 
       });
 
+    })();
+
+
+
+    /* =========================================
+       COLLECTION -> ACTUAL GITHUB PRODUCT GRID
+    ========================================= */
+
+    (function setupProductCollections(){
+      const owner = "sumitkhanvilakar142-a11y";
+      const repo = "Orven-jewels";
+      const branch = "main";
+
+      const cards = document.querySelectorAll(".image-collection-card[data-folder]");
+      const section = document.getElementById("collection-products");
+      const grid = document.getElementById("productGrid");
+      const title = document.getElementById("productCollectionTitle");
+      const count = document.getElementById("productCollectionCount");
+      const back = document.getElementById("productCollectionBack");
+
+      if (!cards.length || !section || !grid) return;
+
+      const pretty = {
+        "Cocktail-Ring":"Cocktail Rings",
+        "Diamond-Studs-for-Girls":"Diamond Studs",
+        "Light-Weight-Earrings":"Lightweight Earrings",
+        "Light-Weight-Ring":"Lightweight Rings",
+        "Mens-Ring":"Men's Rings",
+        "Mens-diamonds-ring":"Men's Diamond Rings",
+        "Teeth-Grillz":"Teeth Grillz",
+        "bracelet":"Bracelets",
+        "fancy-shape-band-ring":"Fancy Shape Rings",
+        "mangalsutra":"Mangalsutra",
+        "necklaces":"Necklaces",
+        "nosepin":"Nose Pins",
+        "rings":"Rings",
+        "solitaire-diamond-ring":"Solitaire Diamond",
+        "solitaire-rings":"Solitaire Rings",
+        "tennis-bracelet":"Tennis Bracelets"
+      };
+
+      const cache = {};
+
+      function rawUrl(path){
+        return "https://raw.githubusercontent.com/" + owner + "/" + repo + "/" + branch + "/" + path.split("/").map(encodeURIComponent).join("/");
+      }
+
+      function productName(filename){
+        return filename
+          .replace(/\.[^.]+$/, "")
+          .replace(/[_-]+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
+          .replace(/\b\w/g, c => c.toUpperCase());
+      }
+
+      async function getProducts(folder){
+        if (cache[folder]) return cache[folder];
+        const url = "https://api.github.com/repos/" + owner + "/" + repo + "/contents/" + encodeURIComponent(folder) + "?ref=" + branch;
+        const response = await fetch(url, {headers:{Accept:"application/vnd.github+json"}});
+        if (!response.ok) throw new Error("Unable to read GitHub folder");
+        const files = await response.json();
+        const products = files
+          .filter(file => file.type === "file" && /\.(jpe?g|png|webp|avif)$/i.test(file.name))
+          .map(file => ({name: productName(file.name), filename:file.name, path:file.path, url:rawUrl(file.path)}));
+        cache[folder] = products;
+        return products;
+      }
+
+      function renderProducts(folder, products){
+        title.textContent = pretty[folder] || productName(folder);
+        count.textContent = products.length + (products.length === 1 ? " product" : " products");
+
+        if (!products.length){
+          grid.innerHTML = '<div class="product-empty">No product images were found in this collection yet.</div>';
+          return;
+        }
+
+        grid.innerHTML = products.map((product, index) => `
+          <article class="product-item">
+            <img class="product-item-image" src="${product.url}" alt="${product.name}" loading="lazy" onerror="this.style.display='none'">
+            <div class="product-item-body">
+              <h3 class="product-item-name">${product.name}</h3>
+              <div class="product-item-meta">${String(index + 1).padStart(2,"0")} · ${pretty[folder] || "ORVÉN"}</div>
+              <a class="product-item-link" href="${product.url}" target="_blank" rel="noopener">View Product →</a>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      async function openCollection(folder){
+        section.classList.add("is-visible");
+        grid.innerHTML = '<div class="product-loading">Loading collection products…</div>';
+        title.textContent = pretty[folder] || productName(folder);
+        count.textContent = "Loading…";
+        section.scrollIntoView({behavior:"smooth", block:"start"});
+
+        try {
+          const products = await getProducts(folder);
+          renderProducts(folder, products);
+          history.replaceState(null, "", "#collection-products-" + encodeURIComponent(folder));
+        } catch (error) {
+          count.textContent = "";
+          grid.innerHTML = '<div class="product-empty">Products could not be loaded right now. Please refresh the page and try again.</div>';
+          console.error(error);
+        }
+      }
+
+      cards.forEach(card => {
+        card.addEventListener("click", function(event){
+          event.preventDefault();
+          openCollection(card.dataset.folder);
+        });
+      });
+
+      back.addEventListener("click", function(){
+        section.classList.remove("is-visible");
+        document.getElementById("collections")?.scrollIntoView({behavior:"smooth", block:"start"});
+        history.replaceState(null, "", "#collections");
+      });
     })();
 
   </script>
