@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORVÉN JEWELS — Collection</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .gallery-wrap {
+      width: 90%;
+      max-width: 1200px;
+      margin: 40px auto;
+    }
+    .gallery-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .gallery-header h1 {
+      font-family: Georgia, serif;
+      font-weight: normal;
+      color: #e8c07c;
+      font-size: 22px;
+    }
+    .back-link {
+      color: #d7c1a5;
+      font-size: 10px;
+      letter-spacing: .5px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border: 1px solid #3a2924;
+      background: #110b0c;
+      transition: transform .4s ease;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.04);
+    }
+    .gallery-status {
+      color: #9f9188;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
 
+  <header class="navbar">
+    <div class="logo">
+      ORVÉN
+      <span>JEWELS</span>
+    </div>
+    <nav class="desktop-nav">
+      <a href="index.html">HOME</a>
+    </nav>
+  </header>
+
+  <div class="gallery-wrap">
+    <div class="gallery-header">
+      <h1 id="galleryTitle">Collection</h1>
+      <a href="index.html" class="back-link">← BACK TO HOME</a>
+    </div>
+
+    <p class="gallery-status" id="galleryStatus">Loading photos...</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const folder = params.get("folder");
+
+    const titleEl = document.getElementById("galleryTitle");
+    const statusEl = document.getElementById("galleryStatus");
+    const gridEl = document.getElementById("galleryGrid");
+
+    if (!folder) {
+      statusEl.textContent = "No collection selected.";
+    } else {
+      titleEl.textContent = folder.replace(/-/g, " ");
+
+      const apiUrl = "https://api.github.com/repos/sumitkhanvilakar142-a11y/Orven-jewels/contents/" + encodeURIComponent(folder);
+
+      fetch(apiUrl)
+        .then(res => res.json())
+        .then(files => {
+          const images = files.filter(f =>
+            /\.(jpg|jpeg|png)$/i.test(f.name)
+          );
+
+          if (images.length === 0) {
+            statusEl.textContent = "No photos found in this collection.";
+            return;
+          }
+
+          statusEl.textContent = "";
+
+          images.forEach(file => {
+            const img = document.createElement("img");
+            img.src = folder + "/" + file.name;
+            img.alt = folder;
+            gridEl.appendChild(img);
+          });
+        })
+        .catch(() => {
+          statusEl.textContent = "Could not load photos right now.";
+        });
+    }
+  </script>
+
+</body>
+</html>
