@@ -1,3 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORVÉN JEWELS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="top-bar">
+    ✦ Free insured shipping on all orders above ₹2,999
+  </div>
+
+  <header class="navbar">
+    <div class="logo">
+      ORVÉN
+      <span>JEWELS</span>
+    </div>
+
+    <nav class="desktop-nav">
+      <a href="#">SHOP</a>
+      <a href="#">COLLECTIONS</a>
+      <a href="#">CUSTOM JEWELLERY</a>
+      <a href="#">ABOUT ORVÉN</a>
+      <a href="#">EXPERIENCE</a>
+    </nav>
+
+    <div class="nav-icons">
+      <button class="icon-btn">⌕</button>
+      <button class="icon-btn">♡</button>
+      <button class="icon-btn">🛍<span class="badge">1</span></button>
+      <button class="menu-btn" id="menuBtn">☰</button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#">SHOP</a>
+      <a href="#">COLLECTIONS</a>
+      <a href="#">CUSTOM JEWELLERY</a>
+      <a href="#">ABOUT ORVÉN</a>
+      <a href="#">EXPERIENCE</a>
+    </div>
+  </header>
+
+  <section class="hero">
+
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source src="hero-video.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="eyebrow">DEFINED BY DESIGN. MADE TO LAST.</div>
+
+      <h1>
+        Timeless Beauty.<br>
+        <span>Thoughtfully Crafted.</span>
+      </h1>
+
+      <p>
+        Fine jewellery crafted in 925 Silver, Gold & Diamonds.<br>
+        Made for your most meaningful moments.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="gold-button">EXPLORE COLLECTIONS <span>→</span></button>
+        <button class="outline-button">CUSTOM JEWELLERY</button>
+      </div>
+    </div>
+
+    <button class="video-control" id="videoControl">❚❚</button>
+
+  </section>
+
+  <div class="live-wrapper">
+    <div class="live-bar">
+      <div class="live-title">
+        <span class="live-dot"></span>LIVE NOW
+      </div>
+      <span class="live-item">♙ Priya just saved Floral Solitaire Ring</span>
+      <span class="live-item">◇ Rahul from Mumbai purchased Men's Verto Ring</span>
+      <span class="live-item">💎 Only 7 left in Classic Moissanite Studs</span>
+      <span class="live-item">◷ 12 pm</span>
+    </div>
+  </div>
+
+  <section class="section expression-section">
+
+    <div class="section-header">
+      <h2>SHOP BY EXPRESSION</h2>
+      <a href="#">VIEW ALL →</a>
+    </div>
+
+    <div class="categories">
+
+      <div class="category"><span class="category-icon">◯</span><span>RINGS</span></div>
+      <div class="category"><span class="category-icon">◇</span><span>EARRINGS</span></div>
+      <div class="category"><span class="category-icon">✦</span><span>STUDS</span></div>
+      <div class="category"><span class="category-icon">♕</span><span>COCKTAIL RINGS</span></div>
+
+      <div class="category"><span class="category-icon">◌</span><span>MEN'S JEWELLERY</span></div>
+      <div class="category"><span class="category-icon">◆</span><span>TEETH GRILLZ</span></div>
+      <div class="category"><span class="category-icon">∞</span><span>SILVER 925</span></div>
+
+    </div>
+
+  </section>
+
+  <section class="feature-grid">
+
+    <div class="quiz-card">
+      <small class="mini-title">FIND YOUR ORVÉN</small>
+
+      <h2>60-Second Style Quiz ✨</h2>
+
+      <p>
+        Answer just 3 simple questions and we'll recommend
+        jewellery based on your personality.
+      </p>
+
+      <button class="gold-button">TAKE THE QUIZ →</button>
+
+      <div class="phone-preview">
+        <div class="phone-screen">
+          <small>Q 1 OF 3</small>
+          <h3>What's your style in three words?</h3>
+          <div class="quiz-option">Minimal ✓</div>
+          <div class="quiz-option">Classic</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ring-card">
+
+      <div class="ring-info">
+        <small class="mini-title">FEATURED THIS SEASON</small>
+
+        <h2>Élora Solitaire Ring</h2>
+
+        <p>
+          A statement of eternal elegance.<br>
+          Crafted to be unforgettable.
+        </p>
+
+        <strong class="price">₹24,990</strong>
+
+        <a href="#" class="discover">DISCOVER NOW →</a>
+      </div>
+
+      <div class="real-ring">
+        <img
+          src="IMG-20260812-WA0196.jpg"
+          alt="Élora Solitaire Ring"
+        >
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="custom-studio">
+
+    <div class="custom-content">
+      <small class="mini-title">CUSTOM JEWELLERY STUDIO</small>
+
+      <h2>
+        Design a piece that's uniquely yours.
+      </h2>
+
+      <p>Choose metal, stone, style & more.</p>
+
+      <div class="selected-metal" id="selectedMetal">Yellow Gold</div>
+
+      <div class="metal-swatches">
+        <span class="metal silver" data-metal="Silver"></span>
+        <span class="metal yellow active" data-metal="Yellow Gold"></span>
+        <span class="metal white" data-metal="White Gold"></span>
+        <span class="metal rose" data-metal="Rose Gold"></span>
+      </div>
+
+      <button class="gold-button">START DESIGNING</button>
+    </div>
+
+    <div class="custom-ring">
+      <img src="IMG-20260812-WA0197.jpg" alt="Custom Jewellery">
+    </div>
+
+  </section>
+
+  <section class="collections-section">
+
+    <div class="section-header">
+      <div>
+        <small class="mini-title">EXPLORE OUR WORLD</small>
+        <h2>SIGNATURE COLLECTIONS</h2>
+      </div>
+
+      <a href="#">VIEW ALL COLLECTIONS →</a>
+    </div>
+
+    <p class="collection-description">
+      Discover jewellery collections crafted for every expression,
+      every occasion and every story.
+    </p>
+
     <div class="collection-grid">
 
       <a href="gallery.html?folder=Cocktail-Ring" class="collection-card">
@@ -177,4 +390,29 @@
       </a>
 
     </div>
-    
+
+  </section>
+
+  <footer>
+    <div class="footer-logo">
+      ORVÉN
+      <span>JEWELS</span>
+    </div>
+
+    <p>Fine jewellery crafted for life's most meaningful moments.</p>
+
+    <div class="footer-links">
+      <a href="#">Shop</a>
+      <a href="#">Collections</a>
+      <a href="#">Custom Jewellery</a>
+      <a href="#">About Orvén</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="copyright">© 2026 Orvén Jewels. All rights reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
