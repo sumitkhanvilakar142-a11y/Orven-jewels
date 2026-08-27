@@ -37,17 +37,12 @@ a {
 
 .top-bar {
   height: 32px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #280b24;
-
   color: #e6c58d;
-
   font-size: 10px;
-
   letter-spacing: .5px;
 }
 
@@ -58,66 +53,42 @@ a {
 
 .navbar {
   height: 74px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 0 5%;
-
   background: #050505;
-
   border-bottom: 1px solid #30221d;
-
   position: relative;
   z-index: 100;
 }
 
-
-/* LOGO */
-
 .logo {
   color: #dca85c;
-
   font-family: Georgia, "Times New Roman", serif;
-
   font-size: 28px;
-
   letter-spacing: 6px;
-
   text-align: center;
 }
 
 .logo span {
   display: block;
-
   margin-top: -3px;
-
   font-family: Arial, sans-serif;
-
   font-size: 7px;
-
   letter-spacing: 4px;
 }
 
-
-/* DESKTOP NAV */
-
 .desktop-nav {
   display: flex;
-
   align-items: center;
-
   gap: 30px;
 }
 
 .desktop-nav a {
   font-size: 9px;
-
   letter-spacing: .5px;
-
   color: #e5dcd1;
-
   transition: .3s;
 }
 
@@ -125,99 +96,65 @@ a {
   color: #e2ad61;
 }
 
-
-/* NAV ICONS */
-
 .nav-icons {
   display: flex;
-
   align-items: center;
-
   gap: 12px;
 }
 
 .icon-btn,
 .menu-btn {
   position: relative;
-
   border: none;
-
   background: transparent;
-
   color: #f5eadb;
-
   font-size: 21px;
-
   cursor: pointer;
 }
 
 .menu-btn {
   width: 36px;
   height: 36px;
-
   border: 1px solid #70542e;
-
   border-radius: 50%;
-
   font-size: 18px;
 }
 
 .badge {
   position: absolute;
-
   top: -5px;
   right: -5px;
-
   min-width: 14px;
   height: 14px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
-
   background: #d9a459;
-
   color: #080607;
-
   font-size: 7px;
 }
 
-
-/* MOBILE MENU */
-
 .mobile-menu {
   display: none;
-
   position: absolute;
-
   top: 106px;
-
   right: 15px;
-
   width: 230px;
-
   padding: 20px;
-
   background: #120b0d;
-
   border: 1px solid #51392c;
-
   z-index: 200;
 }
 
 .mobile-menu.active {
   display: flex;
-
   flex-direction: column;
-
   gap: 18px;
 }
 
 .mobile-menu a {
   font-size: 11px;
-
   color: #eadfd2;
 }
 
@@ -228,39 +165,22 @@ a {
 
 .hero {
   height: 470px;
-
   position: relative;
-
   overflow: hidden;
 }
 
-
-/*
-IMPORTANT:
-VIDEO IS NOT CHANGED.
-*/
-
 .hero-video {
   position: absolute;
-
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   z-index: 0;
 }
 
-
-/* HERO DARK OVERLAY */
-
 .hero-overlay {
   position: absolute;
-
   inset: 0;
-
   background:
     linear-gradient(
       90deg,
@@ -268,45 +188,30 @@ VIDEO IS NOT CHANGED.
       rgba(0,0,0,.55) 38%,
       rgba(0,0,0,.15) 75%
     );
-
   z-index: 1;
 }
 
-
-/* HERO CONTENT */
-
 .hero-content {
   position: relative;
-
   z-index: 2;
-
   width: 90%;
   max-width: 1200px;
-
   margin: auto;
-
   padding-top: 105px;
 }
 
 .eyebrow {
   color: #d6a65c;
-
   font-size: 9px;
-
   letter-spacing: 2px;
-
   margin-bottom: 15px;
 }
 
 .hero h1 {
   font-family: Georgia, "Times New Roman", serif;
-
   font-size: clamp(38px, 5vw, 60px);
-
   line-height: .98;
-
   font-weight: normal;
-
   color: #f6eee3;
 }
 
@@ -316,52 +221,31 @@ VIDEO IS NOT CHANGED.
 
 .hero-content p {
   margin-top: 22px;
-
   color: #d6ccc2;
-
   font-size: 12px;
-
   line-height: 1.7;
 }
 
-
-/* BUTTONS */
-
 .hero-buttons {
   display: flex;
-
   gap: 12px;
-
   margin-top: 25px;
 }
 
 .gold-button {
   border: none;
-
-  background: linear-gradient(
-    135deg,
-    #e6b35e,
-    #bd8036
-  );
-
+  background: linear-gradient(135deg, #e6b35e, #bd8036);
   color: #120b08;
-
   padding: 14px 22px;
-
   font-size: 9px;
-
   font-weight: bold;
-
   letter-spacing: 1px;
-
   cursor: pointer;
-
   transition: .3s;
 }
 
 .gold-button:hover {
   transform: translateY(-2px);
-
   box-shadow: 0 8px 25px rgba(201,148,73,.2);
 }
 
@@ -371,21 +255,13 @@ VIDEO IS NOT CHANGED.
 
 .outline-button {
   padding: 13px 21px;
-
   background: transparent;
-
   color: #eee3d6;
-
   border: 1px solid #c99a55;
-
   font-size: 9px;
-
   font-weight: bold;
-
   letter-spacing: 1px;
-
   cursor: pointer;
-
   transition: .3s;
 }
 
@@ -393,29 +269,17 @@ VIDEO IS NOT CHANGED.
   background: rgba(215,163,83,.1);
 }
 
-
-/* VIDEO CONTROL */
-
 .video-control {
   position: absolute;
-
   right: 20px;
-
   bottom: 20px;
-
   z-index: 5;
-
   width: 32px;
   height: 32px;
-
   border-radius: 50%;
-
   background: rgba(0,0,0,.45);
-
   color: white;
-
   border: 1px solid #b98b4a;
-
   cursor: pointer;
 }
 
@@ -426,71 +290,47 @@ VIDEO IS NOT CHANGED.
 
 .live-wrapper {
   position: relative;
-
   z-index: 10;
-
   margin-top: -17px;
 }
 
 .live-bar {
   width: 90%;
   max-width: 1200px;
-
   margin: auto;
-
   min-height: 43px;
-
   padding: 8px 20px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   gap: 18px;
-
   border: 1px solid #53362e;
-
   border-radius: 30px;
-
   background: rgba(22,10,18,.95);
-
   box-shadow: 0 10px 30px rgba(0,0,0,.3);
-
   overflow: hidden;
 }
 
 .live-title {
   display: flex;
-
   align-items: center;
-
   gap: 7px;
-
   font-size: 8px;
-
   letter-spacing: 1px;
-
   white-space: nowrap;
 }
 
 .live-dot {
   width: 6px;
   height: 6px;
-
   background: #dca65b;
-
   border-radius: 50%;
-
   box-shadow: 0 0 8px #dca65b;
 }
 
 .live-item {
   font-size: 8px;
-
   color: #c8b9aa;
-
   white-space: nowrap;
 }
 
@@ -505,7 +345,6 @@ VIDEO IS NOT CHANGED.
 .collections-section {
   width: 90%;
   max-width: 1200px;
-
   margin-left: auto;
   margin-right: auto;
 }
@@ -516,37 +355,27 @@ VIDEO IS NOT CHANGED.
 
 .section-header {
   display: flex;
-
   align-items: flex-end;
-
   justify-content: space-between;
-
   margin-bottom: 18px;
 }
 
 .section-header h2 {
   font-size: 13px;
-
   color: #dfb36b;
-
   letter-spacing: 1.8px;
 }
 
 .section-header a {
   color: #d7c1a5;
-
   font-size: 9px;
-
   letter-spacing: .5px;
 }
 
 .mini-title {
   color: #c89954;
-
   font-size: 8px;
-
   letter-spacing: 2px;
-
   margin-bottom: 6px;
 }
 
@@ -557,63 +386,40 @@ VIDEO IS NOT CHANGED.
 
 .categories {
   display: grid;
-
   grid-template-columns: repeat(4, 1fr);
-
   gap: 13px;
 }
 
 .category {
   min-height: 85px;
-
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   justify-content: center;
-
   gap: 9px;
-
   border: 1px solid #3e2a25;
-
   border-radius: 50%;
-
   background:
-    radial-gradient(
-      circle,
-      #24150f 0%,
-      #110a0b 65%,
-      #090607 100%
-    );
-
+    radial-gradient(circle, #24150f 0%, #110a0b 65%, #090607 100%);
   transition: .35s;
-
   color: #e4ba76;
 }
 
 .category:hover {
   transform: translateY(-5px);
-
   border-color: #9b6c36;
-
   box-shadow: 0 12px 30px rgba(199,139,57,.12);
 }
 
 .category-icon {
   font-size: 27px;
-
   line-height: 1;
-
   text-shadow: 0 0 12px rgba(225,172,93,.3);
 }
 
 .category span {
   font-size: 8px;
-
   letter-spacing: 1px;
-
   color: #d8c8b5;
 }
 
@@ -624,55 +430,32 @@ VIDEO IS NOT CHANGED.
 
 .feature-grid {
   display: grid;
-
   grid-template-columns: 1fr 1.5fr;
-
   gap: 10px;
-
   margin-top: 15px;
 }
 
-
-/* QUIZ */
-
 .quiz-card {
   position: relative;
-
   min-height: 190px;
-
   padding: 22px;
-
   overflow: hidden;
-
   border: 1px solid #644535;
-
-  background:
-    linear-gradient(
-      120deg,
-      #281021,
-      #10090b
-    );
+  background: linear-gradient(120deg, #281021, #10090b);
 }
 
 .quiz-card h2 {
   font-family: Georgia, serif;
-
   font-size: 24px;
-
   font-weight: normal;
-
   color: #e8c07c;
-
   margin-bottom: 10px;
 }
 
 .quiz-card p {
   width: 62%;
-
   color: #c8b8aa;
-
   font-size: 10px;
-
   line-height: 1.6;
 }
 
@@ -680,40 +463,24 @@ VIDEO IS NOT CHANGED.
   margin-top: 18px;
 }
 
-
-/* PHONE */
-
 .phone-preview {
   position: absolute;
-
   right: 18px;
-
   bottom: -45px;
-
   width: 100px;
-
   height: 180px;
-
   padding: 7px;
-
   border: 3px solid #34222c;
-
   border-radius: 18px;
-
   background: #080609;
-
   transform: rotate(8deg);
 }
 
 .phone-screen {
   height: 100%;
-
   padding: 15px 9px;
-
   border-radius: 12px;
-
   background: #190d1b;
-
   color: #f0d6b0;
 }
 
@@ -723,25 +490,17 @@ VIDEO IS NOT CHANGED.
 
 .phone-screen h3 {
   margin-top: 16px;
-
   font-family: Georgia, serif;
-
   font-size: 12px;
-
   line-height: 1.2;
-
   font-weight: normal;
 }
 
 .quiz-option {
   margin-top: 12px;
-
   padding: 5px;
-
   border: 1px solid #60454c;
-
   border-radius: 5px;
-
   font-size: 6px;
 }
 
@@ -752,76 +511,49 @@ VIDEO IS NOT CHANGED.
 
 .ring-card {
   position: relative;
-
   min-height: 190px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   overflow: hidden;
-
   padding: 22px;
-
   border: 1px solid #644535;
-
   background:
-    radial-gradient(
-      circle at 75% 50%,
-      #281b15,
-      #10090a 65%
-    );
+    radial-gradient(circle at 75% 50%, #281b15, #10090a 65%);
 }
 
 .ring-info {
   position: relative;
-
   z-index: 3;
-
   width: 52%;
 }
 
 .ring-info h2 {
   font-family: Georgia, serif;
-
   font-size: 24px;
-
   font-weight: normal;
-
   color: #e8c07c;
-
   margin: 7px 0 10px;
 }
 
 .ring-info p {
   color: #c9baac;
-
   font-size: 10px;
-
   line-height: 1.6;
 }
 
 .price {
   margin-top: 10px;
-
   font-size: 13px;
-
   font-weight: bold;
-
   color: #f2e5d3;
 }
 
 .discover {
   display: inline-block;
-
   margin-top: 12px;
-
   color: #dca75c;
-
   font-size: 8px;
-
   letter-spacing: 1px;
 }
 
@@ -832,71 +564,35 @@ VIDEO IS NOT CHANGED.
 
 .real-ring {
   width: 46%;
-
   height: 180px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   overflow: hidden;
-
   position: relative;
 }
 
 .real-ring::before {
   content: "";
-
   position: absolute;
-
   width: 170px;
   height: 170px;
-
   border-radius: 50%;
-
-  background: radial-gradient(
-    circle,
-    rgba(255,205,126,.12),
-    transparent 68%
-  );
-
+  background: radial-gradient(circle, rgba(255,205,126,.12), transparent 68%);
   filter: blur(5px);
 }
 
-
-/*
-YOUR REAL PRODUCT IMAGE
-*/
-
 .real-ring img {
   position: relative;
-
   z-index: 2;
-
   width: 100%;
-
   max-width: 290px;
-
   height: 170px;
-
   object-fit: contain;
-
-  /*
-    White background photo ko
-    dark section ke saath blend karne ke liye.
-  */
-
-  mix-blend-mode: multiply;
-
   filter:
     contrast(1.05)
     brightness(.96)
-    drop-shadow(
-      0 12px 22px rgba(0,0,0,.45)
-    );
-
+    drop-shadow(0 12px 22px rgba(0,0,0,.45));
   transition:
     transform .5s ease,
     filter .5s ease;
@@ -904,13 +600,10 @@ YOUR REAL PRODUCT IMAGE
 
 .real-ring:hover img {
   transform: scale(1.07);
-
   filter:
     contrast(1.08)
     brightness(1)
-    drop-shadow(
-      0 15px 30px rgba(220,165,85,.18)
-    );
+    drop-shadow(0 15px 30px rgba(220,165,85,.18));
 }
 
 
@@ -920,165 +613,94 @@ YOUR REAL PRODUCT IMAGE
 
 .custom-studio {
   min-height: 200px;
-
   margin-top: 10px;
-
   padding: 25px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   position: relative;
-
   overflow: hidden;
-
   border: 1px solid #5a4034;
-
   background:
-    radial-gradient(
-      circle at 80% 50%,
-      #24170f,
-      #130b0d 55%,
-      #0d0809
-    );
+    radial-gradient(circle at 80% 50%, #24170f, #130b0d 55%, #0d0809);
 }
 
 .custom-content {
   position: relative;
-
   z-index: 2;
 }
 
 .custom-content h2 {
   font-family: Georgia, serif;
-
   font-size: 27px;
-
   font-weight: normal;
-
   color: #e8bf7d;
-
   margin-bottom: 7px;
 }
 
 .custom-content p {
   color: #c5b6a9;
-
   font-size: 10px;
 }
 
-
-/* METAL SWATCHES */
-
 .metal-swatches {
   display: flex;
-
   gap: 9px;
-
   margin: 12px 0 5px;
 }
 
 .metal {
   width: 30px;
   height: 30px;
-
   border-radius: 50%;
-
   border: 2px solid #756452;
-
   cursor: pointer;
-
   transition: .3s;
 }
 
 .metal:hover,
 .metal.active {
   transform: scale(1.1);
-
   border-color: #e1b36b;
-
   box-shadow: 0 0 12px rgba(218,169,91,.35);
 }
 
 .metal.silver {
-  background:
-    linear-gradient(
-      135deg,
-      #ffffff,
-      #858585,
-      #f4f4f4
-    );
+  background: linear-gradient(135deg, #ffffff, #858585, #f4f4f4);
 }
 
 .metal.yellow {
-  background:
-    linear-gradient(
-      135deg,
-      #ffe89c,
-      #a46a14,
-      #f4c766
-    );
+  background: linear-gradient(135deg, #ffe89c, #a46a14, #f4c766);
 }
 
 .metal.white {
-  background:
-    linear-gradient(
-      135deg,
-      #ffffff,
-      #999,
-      #eee
-    );
+  background: linear-gradient(135deg, #ffffff, #999, #eee);
 }
 
 .metal.rose {
-  background:
-    linear-gradient(
-      135deg,
-      #ffd2c0,
-      #a56b5d,
-      #efb2a0
-    );
+  background: linear-gradient(135deg, #ffd2c0, #a56b5d, #efb2a0);
 }
 
 .selected-metal {
   height: 15px;
-
   color: #bca999;
-
   font-size: 8px;
-
   letter-spacing: 1px;
-
   margin-bottom: 8px;
 }
 
-
-/* CUSTOM RING */
-
 .custom-ring {
   width: 40%;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 }
 
 .custom-ring img {
   width: 270px;
-
   height: 160px;
-
   object-fit: contain;
-
-  mix-blend-mode: multiply;
-
   filter: contrast(1.04) brightness(.95);
-
   transition: .5s;
 }
 
@@ -1093,46 +715,34 @@ YOUR REAL PRODUCT IMAGE
 
 .collections-section {
   margin-top: 38px;
-
   margin-bottom: 50px;
 }
 
 .collection-description {
   color: #9f9188;
-
   font-size: 10px;
-
   margin-top: -7px;
-
   margin-bottom: 20px;
 }
 
 .collection-grid {
   display: grid;
-
   grid-template-columns: repeat(4, 1fr);
-
   gap: 10px;
 }
 
 .collection-card {
   height: 370px;
-
   position: relative;
-
   overflow: hidden;
-
   border: 1px solid #3a2924;
-
   background: #110b0c;
 }
 
 .collection-card img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   transition: transform .7s ease;
 }
 
@@ -1142,60 +752,41 @@ YOUR REAL PRODUCT IMAGE
 
 .collection-overlay {
   position: absolute;
-
   inset: 0;
-
-  background:
-    linear-gradient(
-      transparent 30%,
-      rgba(0,0,0,.9) 92%
-    );
+  background: linear-gradient(transparent 30%, rgba(0,0,0,.9) 92%);
 }
 
 .collection-content {
   position: absolute;
-
   left: 17px;
   right: 17px;
-
   bottom: 18px;
-
   z-index: 2;
 }
 
 .collection-content small {
   color: #d1b287;
-
   font-size: 8px;
 }
 
 .collection-label {
   margin-top: 70px;
-
   color: #bfa27b;
-
   font-size: 7px;
-
   letter-spacing: 1.5px;
 }
 
 .collection-content h3 {
   margin: 7px 0 14px;
-
   font-family: Georgia, serif;
-
   font-weight: normal;
-
   font-size: 21px;
-
   color: #f0dfcc;
 }
 
 .collection-content span {
   color: #dca85c;
-
   font-size: 7px;
-
   letter-spacing: 1px;
 }
 
@@ -1206,63 +797,46 @@ YOUR REAL PRODUCT IMAGE
 
 footer {
   padding: 50px 20px;
-
   text-align: center;
-
   border-top: 1px solid #2c201c;
-
   background: #050505;
 }
 
 .footer-logo {
   font-family: Georgia, serif;
-
   color: #dca85c;
-
   font-size: 27px;
-
   letter-spacing: 6px;
 }
 
 .footer-logo span {
   display: block;
-
   font-family: Arial, sans-serif;
-
   font-size: 7px;
-
   letter-spacing: 4px;
 }
 
 footer p {
   margin-top: 15px;
-
   color: #91857d;
-
   font-size: 10px;
 }
 
 .footer-links {
   margin-top: 22px;
-
   display: flex;
-
   justify-content: center;
-
   gap: 25px;
 }
 
 .footer-links a {
   color: #b9aaa0;
-
   font-size: 9px;
 }
 
 .copyright {
   margin-top: 30px;
-
   color: #655d58;
-
   font-size: 8px;
 }
 
@@ -1272,213 +846,60 @@ footer p {
 ========================================================= */
 
 @media (max-width: 850px) {
-
-  .desktop-nav {
-    display: none;
-  }
-
-  .navbar {
-    padding: 0 20px;
-  }
-
-  .hero-content {
-    padding-top: 90px;
-  }
-
-  .hero h1 {
-    font-size: 42px;
-  }
-
-  .live-item:nth-child(n+4) {
-    display: none;
-  }
-
-  .categories {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .feature-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .collection-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+  .desktop-nav { display: none; }
+  .navbar { padding: 0 20px; }
+  .hero-content { padding-top: 90px; }
+  .hero h1 { font-size: 42px; }
+  .live-item:nth-child(n+4) { display: none; }
+  .categories { grid-template-columns: repeat(2, 1fr); }
+  .feature-grid { grid-template-columns: 1fr; }
+  .collection-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-
 @media (max-width: 600px) {
+  .top-bar { font-size: 8px; }
+  .navbar { height: 68px; }
+  .logo { font-size: 23px; }
+  .icon-btn { font-size: 18px; }
+  .nav-icons { gap: 5px; }
 
-  .top-bar {
-    font-size: 8px;
-  }
-
-  .navbar {
-    height: 68px;
-  }
-
-  .logo {
-    font-size: 23px;
-  }
-
-  .icon-btn {
-    font-size: 18px;
-  }
-
-  .nav-icons {
-    gap: 5px;
-  }
-
-
-  /* HERO */
-
-  .hero {
-    height: 440px;
-  }
-
-  .hero-content {
-    width: 90%;
-
-    padding-top: 95px;
-  }
-
-  .hero h1 {
-    font-size: 35px;
-  }
-
-  .hero-content p {
-    font-size: 10px;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-
-    width: max-content;
-  }
-
-
-  /* LIVE */
+  .hero { height: 440px; }
+  .hero-content { width: 90%; padding-top: 95px; }
+  .hero h1 { font-size: 35px; }
+  .hero-content p { font-size: 10px; }
+  .hero-buttons { flex-direction: column; width: max-content; }
 
   .live-bar {
     width: 94%;
-
     justify-content: flex-start;
-
     overflow-x: auto;
-
     padding: 10px 15px;
-
     border-radius: 20px;
   }
+  .live-item { flex-shrink: 0; }
 
-  .live-item {
-    flex-shrink: 0;
-  }
+  .categories { gap: 8px; }
+  .category { min-height: 78px; }
 
+  .ring-card { min-height: 230px; padding: 18px; }
+  .ring-info { width: 58%; }
+  .ring-info h2 { font-size: 21px; }
+  .real-ring { width: 42%; height: 180px; }
+  .real-ring img { width: 145%; max-width: none; height: 150px; }
 
-  /* CATEGORIES */
+  .custom-studio { flex-direction: column; align-items: flex-start; padding: 20px; }
+  .custom-content h2 { font-size: 23px; }
+  .custom-ring { width: 100%; margin-top: 15px; }
 
-  .categories {
-    gap: 8px;
-  }
-
-  .category {
-    min-height: 78px;
-  }
-
-
-  /* FEATURE */
-
-  .ring-card {
-    min-height: 230px;
-
-    padding: 18px;
-  }
-
-  .ring-info {
-    width: 58%;
-  }
-
-  .ring-info h2 {
-    font-size: 21px;
-  }
-
-  .real-ring {
-    width: 42%;
-
-    height: 180px;
-  }
-
-  .real-ring img {
-    width: 145%;
-
-    max-width: none;
-
-    height: 150px;
-  }
-
-
-  /* CUSTOM */
-
-  .custom-studio {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    padding: 20px;
-  }
-
-  .custom-content h2 {
-    font-size: 23px;
-  }
-
-  .custom-ring {
-    width: 100%;
-
-    margin-top: 15px;
-  }
-
-
-  /* COLLECTION */
-
-  .collection-grid {
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 7px;
-  }
-
-  .collection-card {
-    height: 290px;
-  }
-
-  .collection-label {
-    margin-top: 40px;
-  }
-
-  .collection-content h3 {
-    font-size: 17px;
-  }
-
-  .footer-links {
-    flex-wrap: wrap;
-  }
-
+  .collection-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+  .collection-card { height: 290px; }
+  .collection-label { margin-top: 40px; }
+  .collection-content h3 { font-size: 17px; }
+  .footer-links { flex-wrap: wrap; }
 }
 
-
 @media (max-width: 400px) {
-
-  .hero h1 {
-    font-size: 31px;
-  }
-
-  .ring-card {
-    min-height: 250px;
-  }
-
-  .real-ring img {
-    width: 160%;
-  }
-
+  .hero h1 { font-size: 31px; }
+  .ring-card { min-height: 250px; }
+  .real-ring img { width: 160%; }
 }
