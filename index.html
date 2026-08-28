@@ -416,3 +416,29 @@
 
 </body>
 </html>
+/* Card overlays ko click block karne se rokne ke liye */
+.collection-card {
+  position: relative;
+  display: block;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.collection-overlay,
+.collection-content {
+  pointer-events: none; /* Mouse/Touch clicks direct parent link <a> par jayenge */
+}
+
+/* Base buttons & icons clickability fix */
+button, 
+.gold-button, 
+.outline-button, 
+.icon-btn, 
+.menu-btn, 
+.video-control,
+.category {
+  position: relative !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
