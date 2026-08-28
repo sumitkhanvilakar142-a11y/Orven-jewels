@@ -5,6 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ORVÉN JEWELS</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Clicks & Layering Fix -->
+  <style>
+    /* Prevent overlay elements from blocking clicks */
+    .collection-card {
+      position: relative;
+      display: block;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .collection-overlay,
+    .collection-content {
+      pointer-events: none;
+    }
+
+    /* Ensure all interactive buttons respond to click/touch */
+    button, 
+    .gold-button, 
+    .outline-button, 
+    .icon-btn, 
+    .menu-btn, 
+    .video-control,
+    .category,
+    .metal {
+      position: relative !important;
+      z-index: 10 !important;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+    }
+
+    .mobile-menu.active {
+      display: flex !important;
+      flex-direction: column;
+    }
+  </style>
 </head>
 
 <body>
@@ -46,6 +82,7 @@
   <section class="hero">
 
     <video
+      id="heroVideo"
       class="hero-video"
       autoplay
       muted
@@ -412,33 +449,50 @@
     <div class="copyright">© 2026 Orvén Jewels. All rights reserved.</div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // 1. Mobile Navigation Toggle
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", function () {
+          mobileMenu.classList.toggle("active");
+        });
+      }
+
+      // 2. Video Play / Pause Toggle
+      const video = document.getElementById("heroVideo");
+      const videoControl = document.getElementById("videoControl");
+
+      if (video && videoControl) {
+        videoControl.addEventListener("click", function () {
+          if (video.paused) {
+            video.play();
+            videoControl.textContent = "❚❚";
+          } else {
+            video.pause();
+            videoControl.textContent = "▶";
+          }
+        });
+      }
+
+      // 3. Custom Studio Metal Switcher
+      const metalSwatches = document.querySelectorAll(".metal-swatches .metal");
+      const selectedMetalLabel = document.getElementById("selectedMetal");
+
+      metalSwatches.forEach((swatch) => {
+        swatch.addEventListener("click", function () {
+          metalSwatches.forEach((s) => s.classList.remove("active"));
+          this.classList.add("active");
+          const metalName = this.getAttribute("data-metal");
+          if (selectedMetalLabel && metalName) {
+            selectedMetalLabel.textContent = metalName;
+          }
+        });
+      });
+    });
+  </script>
 
 </body>
 </html>
-/* Card overlays ko click block karne se rokne ke liye */
-.collection-card {
-  position: relative;
-  display: block;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.collection-overlay,
-.collection-content {
-  pointer-events: none; /* Mouse/Touch clicks direct parent link <a> par jayenge */
-}
-
-/* Base buttons & icons clickability fix */
-button, 
-.gold-button, 
-.outline-button, 
-.icon-btn, 
-.menu-btn, 
-.video-control,
-.category {
-  position: relative !important;
-  z-index: 10 !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-}
