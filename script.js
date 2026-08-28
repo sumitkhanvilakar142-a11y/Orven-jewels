@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Mobile Navigation Menu Toggle
+  // Mobile Menu Toggle
   const menuBtn = document.getElementById("menuBtn");
   const mobileMenu = document.getElementById("mobileMenu");
   if (menuBtn && mobileMenu) {
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Hero Video Control Play/Pause
+  // Hero Video Control
   const video = document.getElementById("heroVideo");
   const videoControl = document.getElementById("videoControl");
   if (video && videoControl) {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Custom Studio Metal Swatches Toggle
+  // Metal Swatches Selection
   const swatches = document.querySelectorAll(".metal-swatches .metal");
   const selectedMetal = document.getElementById("selectedMetal");
   swatches.forEach((swatch) => {
