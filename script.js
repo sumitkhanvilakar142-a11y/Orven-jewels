@@ -1,268 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORVÉN JEWELS | Timeless Fine Jewellery</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+document.addEventListener('DOMContentLoaded', () => {
 
-<div class="top-bar">✦ Free insured shipping on all orders above ₹2,999</div>
+  // ---------- Hero Video Autoplay & Fallback Fix ----------
+  const heroVideo = document.querySelector('.hero-video');
 
-<header class="navbar">
-  <div class="logo">
-    ORVÉN
-    <span>JEWELS</span>
-  </div>
-  <nav class="desktop-nav">
-    <a href="#">Shop</a>
-    <a href="#">Collections</a>
-    <a href="#">Custom Jewellery</a>
-    <a href="#">About Orvén</a>
-    <a href="#">Experience</a>
-  </nav>
-  <div class="nav-icons">
-    <span>⌕</span>
-    <span>♡</span>
-    <span>🛍</span>
-  </div>
-</header>
+  if (heroVideo) {
+    // Ensure video properties are set correctly for mobile browsers
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
 
-<!-- HERO VIDEO SECTION -->
-<section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="orven-bg-video.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="eyebrow">Defined by design. Made to last.</div>
-    <h1>Timeless Beauty.<br><span>Thoughtfully Crafted.</span></h1>
-    <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds.<br>Made for your most meaningful moments.</p>
-    <div class="hero-buttons">
-      <button class="gold-button">Explore Collections →</button>
-      <button class="outline-button">Custom Jewellery</button>
-    </div>
-  </div>
-</section>
+    // Force video play command
+    const playVideo = () => {
+      heroVideo.play().then(() => {
+        console.log("Hero video playing successfully");
+      }).catch(error => {
+        console.log("Autoplay blocked by browser, attempting muted re-play:", error);
+        heroVideo.muted = true;
+        heroVideo.play();
+      });
+    };
 
-<div class="ticker-bar">
-  <div class="ticker-item"><span class="live-dot"></span> LIVE NOW</div>
-  <div class="ticker-item">✦ Priya just saved Floral Solitaire Ring</div>
-  <div class="ticker-item">◇ Rahul from Mumbai purchased Men's Verto Ring</div>
-  <div class="ticker-item">💎 Only 7 left in Classic Moissanite Studs</div>
-</div>
+    playVideo();
 
-<section class="expression-section">
-  <div class="expression-header">
-    <h2>SHOP BY EXPRESSION</h2>
-    <a href="#">VIEW ALL →</a>
-  </div>
-  <div class="expression-chips">
-    <div class="chip">◯ RINGS</div>
-    <div class="chip">◇ EARRINGS</div>
-    <div class="chip">✦ STUDS</div>
-    <div class="chip">🍸 COCKTAIL RINGS</div>
-    <div class="chip">💍 MEN'S JEWELLERY</div>
-    <div class="chip">🦷 TEETH GRILLZ</div>
-    <div class="chip">♾ SILVER 925</div>
-  </div>
-</section>
+    // Re-trigger play on user interaction if browser blocked initial autoplay
+    const handleFirstInteraction = () => {
+      if (heroVideo.paused) {
+        heroVideo.play();
+      }
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('click', handleFirstInteraction);
+    };
 
-<section class="collections-section">
-  <div class="section-title-group">
-    <small>EXPLORE OUR WORLD</small>
-    <h2>SIGNATURE COLLECTIONS</h2>
-    <p class="section-description">Discover jewellery collections crafted for every expression, every occasion and every story.</p>
-  </div>
+    window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+    window.addEventListener('click', handleFirstInteraction, { once: true });
+  }
 
-  <div class="collection-grid">
+  // ---------- Smooth Scroll for Navigation Links ----------
+  const navLinks = document.querySelectorAll('a[href^="#"]');
+  navLinks.forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId !== '#') {
+        e.preventDefault();
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  });
 
-    <a href="gallery.html?folder=Cocktail-Ring" class="collection-card">
-      <img src="Cocktail-Ring/IMG-20260812-WA0220.jpg" alt="Cocktail Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">01</div>
-        <div class="tag">MAKE A STATEMENT</div>
-        <h3>Cocktail Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=Diamond-Studs-for-Girls" class="collection-card">
-      <img src="Diamond-Studs-for-Girls/IMG-20260812-WA0198.jpg" alt="Diamond Studs">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">02</div>
-        <div class="tag">BRILLIANT ESSENTIALS</div>
-        <h3>Diamond Studs</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=Light-Weight-Earrings" class="collection-card">
-      <img src="Light-Weight-Earrings/IMG-20260812-WA0294.jpg" alt="Lightweight Earrings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">03</div>
-        <div class="tag">MADE FOR EVERY MOMENT</div>
-        <h3>Lightweight Earrings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=Light-Weight-Ring" class="collection-card">
-      <img src="Light-Weight-Ring/IMG-20260812-WA0326.jpg" alt="Lightweight Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">04</div>
-        <div class="tag">EVERYDAY ELEGANCE</div>
-        <h3>Lightweight Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=Mens-Ring" class="collection-card">
-      <img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="Men's Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">05</div>
-        <div class="tag">DEFINED BY CHARACTER</div>
-        <h3>Men's Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=Mens-diamonds-ring" class="collection-card">
-      <img src="Mens-diamonds-ring/IMG-20260812-WA0160.jpg" alt="Men's Diamond Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">06</div>
-        <div class="tag">REFINED BRILLIANCE</div>
-        <h3>Men's Diamond Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=Teeth-Grillz" class="collection-card">
-      <img src="Teeth-Grillz/IMG-20260812-WA0178.jpg" alt="Teeth Grillz">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">07</div>
-        <div class="tag">BOLD EXPRESSION</div>
-        <h3>Teeth Grillz</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=bracelet" class="collection-card">
-      <img src="bracelet/IMG-20260812-WA0132.jpg" alt="Bracelets">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">08</div>
-        <div class="tag">DESIGNED TO SHINE</div>
-        <h3>Bracelets</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=fancy-shape-band-ring" class="collection-card">
-      <img src="fancy-shape-band-ring/IMG-20260812-WA0067.jpg" alt="Fancy Shape Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">09</div>
-        <div class="tag">DISTINCTIVE SILHOUETTES</div>
-        <h3>Fancy Shape Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=mangalsutra" class="collection-card">
-      <img src="mangalsutra/IMG-20260812-WA0089.jpg" alt="Mangalsutra">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">10</div>
-        <div class="tag">TRADITION, REIMAGINED</div>
-        <h3>Mangalsutra</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=necklaces" class="collection-card">
-      <img src="necklaces/IMG-20260812-WA0012.jpg" alt="Necklaces">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">11</div>
-        <div class="tag">GRACE AROUND YOU</div>
-        <h3>Necklaces</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <!-- ⚠️ Neeche wale 5 cards mein image filename check karke sahi karna -->
-
-    <a href="gallery.html?folder=nosepin" class="collection-card">
-      <img src="nosepin/IMG-20260812-WA0001.jpg" alt="Nosepins">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">12</div>
-        <div class="tag">DELICATE DETAIL</div>
-        <h3>Nosepins</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=rings" class="collection-card">
-      <img src="rings/IMG-20260812-WA0001.jpg" alt="Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">13</div>
-        <div class="tag">CLASSIC & TIMELESS</div>
-        <h3>Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=solitaire-diamond-ring" class="collection-card">
-      <img src="solitaire-diamond-ring/IMG-20260812-WA0001.jpg" alt="Solitaire Diamond Ring">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">14</div>
-        <div class="tag">PURE BRILLIANCE</div>
-        <h3>Solitaire Diamond Ring</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=solitaire-rings" class="collection-card">
-      <img src="solitaire-rings/IMG-20260812-WA0001.jpg" alt="Solitaire Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">15</div>
-        <div class="tag">ONE STONE, ENDLESS SHINE</div>
-        <h3>Solitaire Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="gallery.html?folder=tennis-bracelet" class="collection-card">
-      <img src="tennis-bracelet/IMG-20260812-WA0001.jpg" alt="Tennis Bracelet">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">16</div>
-        <div class="tag">LINE OF LIGHT</div>
-        <h3>Tennis Bracelet</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<footer>
-  <p>&copy; 2026 Orvén Jewels. All rights reserved.</p>
-</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
+});
