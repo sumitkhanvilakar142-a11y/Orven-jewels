@@ -143,7 +143,7 @@
       justify-content: center;
     }
 
-    /* Hero Section */
+    /* Hero Section with Video Fix */
     .hero {
       position: relative;
       height: 85vh;
@@ -153,12 +153,20 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
+      background-color: #000;
     }
 
     .hero-video {
       position: absolute;
-      inset: 0;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
       z-index: 1;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
     }
 
     .hero-overlay {
@@ -535,7 +543,8 @@
   </header>
 
   <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
+    <video class="hero-video" autoplay muted loop playsinline poster="Cocktail-Ring/IMG-20260812-WA0220.jpg">
+      <source src="./orven-hero-loop (1).mp4" type="video/mp4">
       <source src="orven-hero-loop (1).mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
