@@ -1,37 +1,51 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Mobile Menu Toggle
-  const menuBtn = document.getElementById("menuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("active");
-    });
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  // Hero Video Autoplay & Fallback Fix
+  const heroVideo = document.querySelector('.hero-video');
 
-  // Hero Video Control
-  const video = document.getElementById("heroVideo");
-  const videoControl = document.getElementById("videoControl");
-  if (video && videoControl) {
-    videoControl.addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
-        videoControl.textContent = "❚❚";
-      } else {
-        video.pause();
-        videoControl.textContent = "▶";
+  if (heroVideo) {
+    // Ensure video properties are set correctly for mobile browsers
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
+
+    // Force video play command
+    const playVideo = () => {
+      heroVideo.play().then(() => {
+        console.log("Hero video playing successfully");
+      }).catch(error => {
+        console.log("Autoplay blocked by browser, attempting muted re-play:", error);
+        heroVideo.muted = true;
+        heroVideo.play();
+      });
+    };
+
+    playVideo();
+
+    // Re-trigger play on user interaction if browser blocked initial autoplay
+    const handleFirstInteraction = () => {
+      if (heroVideo.paused) {
+        heroVideo.play();
       }
-    });
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('click', handleFirstInteraction);
+    };
+
+    window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+    window.addEventListener('click', handleFirstInteraction, { once: true });
   }
 
-  // Metal Swatches Selection
-  const swatches = document.querySelectorAll(".metal-swatches .metal");
-  const selectedMetal = document.getElementById("selectedMetal");
-  swatches.forEach((swatch) => {
-    swatch.addEventListener("click", function () {
-      swatches.forEach((s) => s.classList.remove("active"));
-      this.classList.add("active");
-      if (selectedMetal) {
-        selectedMetal.textContent = this.getAttribute("data-metal");
+  // Smooth Scroll for Navigation Links
+  const navLinks = document.querySelectorAll('a[href^="#"]');
+  navLinks.forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId !== '#') {
+        e.preventDefault();
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
       }
     });
   });
