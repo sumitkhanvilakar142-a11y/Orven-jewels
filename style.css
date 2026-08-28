@@ -520,3 +520,10 @@ footer p {
     grid-template-columns: 1fr;
   }
 }
+button, .btn, a.btn {
+  position: relative !important;
+  z-index: 999 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
