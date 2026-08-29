@@ -1,83 +1,91 @@
 const express = require('express');
-const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+app.use(express.static(__dirname));
 
-// Serve static frontend files (jaise index.html)
-app.use(express.static(path.join(__dirname)));
-
-// Serve uploaded files statically
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-if (!fs.existsSync('./uploads')) {
-  fs.mkdirSync('./uploads');
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './uploads');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
+// Helper function to read/write JSON database
+const readDB = () => {
+  if (!fs.existsSync('db.json')) {
+    fs.writeFileSync('db.json', JSON.stringify({ products: [], users: [], admin: { username: "admin", password: "password123" } }));
   }
-});
-const upload = multer({ storage: storage });
+  return JSON.parse(fs.readFileSync('db.json', 'utf8'));
+};
 
-let products = [];
+const writeDB = (data) => {
+  fs.writeFileSync('db.json', JSON.stringify(data, null, 2));
+};
 
-// Live Market Rates API
-app.get('/api/live-rates', (req, res) => {
-  res.json({
-    success: true,
-    goldPricePerGram24K: 7200.00,
-    silverPricePerGramFine: 90.00
-  });
-});
-
-// Get all saved products
+// Get all products
 app.get('/api/products', (req, res) => {
-  res.json(products);
+  const db = readDB();
+  res.json(db.products || []);
 });
 
-// Save a new product with images and CAD files
-app.post('/api/product', upload.fields([
-  { name: 'gallery', maxCount: 10 },
-  { name: 'cadFiles', maxCount: 10 }
-]), (req, res) => {
-  try {
-    const data = JSON.parse(req.body.data || '{}');
-    
-    const galleryFiles = req.files['gallery'] ? req.files['gallery'].map(file => file.filename) : [];
-    const cadFiles = req.files['cadFiles'] ? req.files['cadFiles'].map(file => file.filename) : [];
+// Add Product (Admin only)
+app.post('/api/products', (req, res) => {
+  const db = readDB();
+  const newProduct = { id: Date.now(), ...req.body };
+  db.products.push(newProduct);
+  writeDB(db);
+  res.json({ status: 'success', product: newProduct });
+});
 
-    const newProduct = {
-      id: Date.now(),
-      ...data,
-      gallery: galleryFiles,
-      cadFiles: cadFiles,
-      createdAt: new Date().toISOString()
-    };
+// Delete Product (Admin only)
+app.delete('/api/product/:id', (req, res) => {
+  const db = readDB();
+  const id = Number(req.params.id);
+  db.products = db.products.filter(p => p.id !== id);
+  writeDB(db);
+  res.json({ status: 'success', message: 'Product deleted' });
+});
 
-    products.push(newProduct);
-    res.json({ status: 'success', product: newProduct });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ status: 'error', message: err.message });
+// Customer Signup
+app.post('/api/signup', (req, res) => {
+  const { email, password } = req.body;
+  const db = readDB();
+  if (!db.users) db.users = [];
+
+  const existingUser = db.users.find(u => u.email === email);
+  if (existingUser) {
+    return res.status(400).json({ status: 'error', message: 'User already exists!' });
+  }
+
+  db.users.push({ email, password });
+  writeDB(db);
+  res.json({ status: 'success', message: 'Signup successful!' });
+});
+
+// Customer Login
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+  const db = readDB();
+  const user = (db.users || []).find(u => u.email === email && u.password === password);
+
+  if (user) {
+    res.json({ status: 'success', message: 'Login successful' });
+  } else {
+    res.status(401).json({ status: 'error', message: 'Invalid email or password' });
   }
 });
 
-// Delete a product
-app.delete('/api/product/:id', (req, res) => {
-  const id = Number(req.params.id);
-  products = products.filter(p => p.id !== id);
-  res.json({ status: 'success', message: 'Product deleted' });
+// Admin Login
+app.post('/api/admin-login', (req, res) => {
+  const { username, password } = req.body;
+  const db = readDB();
+  const admin = db.admin || { username: "admin", password: "password123" };
+
+  if (username === admin.username && password === admin.password) {
+    res.json({ status: 'success', message: 'Admin login successful' });
+  } else {
+    res.status(401).json({ status: 'error', message: 'Invalid Admin Credentials' });
+  }
 });
 
 app.listen(PORT, () => {
