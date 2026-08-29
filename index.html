@@ -1,266 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORVÉN JEWELS | Timeless Fine Jewellery</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Orven Jewels - Jewellery Vault & Live Pricing</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f7f7f7; color: #333; margin: 0; padding: 30px; }
+    .container { max-width: 950px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    h2 { font-size: 18px; color: #855827; margin-top: 0; margin-bottom: 4px; font-weight: 700; }
+    .sub-text { font-size: 12px; color: #718096; margin-bottom: 16px; }
+    
+    label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 4px; }
+    input[type="text"], input[type="number"], select { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e0; border-radius: 4px; box-sizing: border-box; font-size: 14px; background: #fff; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+    .public-live-ticker { background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%); border: 1px solid #fbd38d; border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+    .ticker-title { font-weight: bold; color: #744210; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+    .ticker-rates { display: flex; gap: 12px; font-size: 13px; color: #51380d; flex-wrap: wrap; }
+    .rate-highlight { font-weight: bold; color: #b8860b; background: #fff; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; }
+
+    .cost-summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 16px; margin-top: 16px; font-size: 13px; }
+    .cost-summary div { margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .cost-summary .total-row { font-size: 15px; font-weight: bold; color: #855827; border-top: 1px dashed #cbd5e0; padding-top: 6px; margin-top: 6px; }
+    
+    .stone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .stone-card { border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; background: #fafafa; position: relative; }
+    .stone-card-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 14px; margin-bottom: 8px; }
+    .btn-close { background: #e53e3e; color: white; border: none; border-radius: 4px; width: 22px; height: 22px; cursor: pointer; font-size: 12px; line-height: 1; }
+    .stone-field { margin-bottom: 8px; }
+
+    .action-bar { display: flex; gap: 10px; align-items: center; margin-top: 16px; }
+    .btn { padding: 9px 18px; border-radius: 4px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: #b8860b; color: #fff; }
+    .btn-primary:hover { background: #996515; }
+    .btn-outline { background: #fff; border: 1px solid #cbd5e0; color: #4a5568; }
+    .btn-outline:hover { background: #f7fafc; }
+    .btn-cancel { background: #fff; border: 1px solid #cbd5e0; color: #718096; }
+    .btn-cancel:hover { background: #edf2f7; color: #2d3748; }
+    .btn-danger { background: #9b2c2c; color: white; padding: 5px 10px; font-size: 11px; }
+
+    .file-upload-box { border: 1px solid #cbd5e0; padding: 10px; border-radius: 4px; background: #fff; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; font-size: 13px; }
+    th { background: #f7fafc; }
+  </style>
 </head>
 <body>
 
-<div class="top-bar">✦ Free insured shipping on all orders above ₹2,999</div>
-
-<header class="navbar">
-  <div class="logo">
-    ORVÉN
-    <span>JEWELS</span>
-  </div>
-  <nav class="desktop-nav">
-    <a href="#">Shop</a>
-    <a href="#">Collections</a>
-    <a href="#">Custom Jewellery</a>
-    <a href="#">About Orvén</a>
-    <a href="#">Experience</a>
-  </nav>
-  <div class="nav-icons">
-    <span>⌕</span>
-    <span>♡</span>
-    <span>🛍</span>
-  </div>
-</header>
-
-<!-- HERO VIDEO SECTION -->
-<section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="orven-bg-video.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="eyebrow">Defined by design. Made to last.</div>
-    <h1>Timeless Beauty.<br><span>Thoughtfully Crafted.</span></h1>
-    <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds.<br>Made for your most meaningful moments.</p>
-    <div class="hero-buttons">
-      <button class="gold-button">Explore Collections →</button>
-      <button class="outline-button">Custom Jewellery</button>
+<div class="container">
+  
+  <div class="public-live-ticker">
+    <div class="ticker-title">
+      <span>🔴 Live Rates:</span>
+    </div>
+    <div class="ticker-rates">
+      <div>24K: <span id="publicGold24K" class="rate-highlight">Loading...</span></div>
+      <div>22K: <span id="publicGold22K" class="rate-highlight">Loading...</span></div>
+      <div>18K: <span id="publicGold18K" class="rate-highlight">Loading...</span></div>
+      <div>14K: <span id="publicGold14K" class="rate-highlight">Loading...</span></div>
+      <div>9K: <span id="publicGold9K" class="rate-highlight">Loading...</span></div>
+      <div>Silver Fine: <span id="publicSilverFine" class="rate-highlight">Loading...</span></div>
+      <div>Silver 925: <span id="publicSilver925" class="rate-highlight">Loading...</span></div>
     </div>
   </div>
-</section>
 
-<div class="ticker-bar">
-  <div class="ticker-item"><span class="live-dot"></span> LIVE NOW</div>
-  <div class="ticker-item">✦ Priya just saved Floral Solitaire Ring</div>
-  <div class="ticker-item">◇ Rahul from Mumbai purchased Men's Verto Ring</div>
-  <div class="ticker-item">💎 Only 7 left in Classic Moissanite Studs</div>
+  <form id="vaultForm">
+    <div class="card">
+      <h2>Item Specification</h2>
+      <div style="margin-top: 12px; margin-bottom: 16px;">
+        <label>Design number (SKU)</label>
+        <input type="text" id="title" required placeholder="e.g. ORV 101">
+      </div>
+
+      <div class="grid-4" style="margin-bottom: 16px;">
+        <div>
+          <label>Gold Purity</label>
+          <select id="goldPurity" onchange="calculateGrandTotal()">
+            <option value="24K">24KT (99.9%)</option>
+            <option value="22K">22KT (91.6%)</option>
+            <option value="18K" selected>18KT (76.0%)</option>
+            <option value="14K">14KT (59.5%)</option>
+            <option value="9K">9KT (39.0%)</option>
+          </select>
+        </div>
+        <div>
+          <label>Gold weight (g)</label>
+          <input type="number" step="0.001" id="goldWeight" placeholder="0.000" oninput="calculateGrandTotal()">
+        </div>
+        <div>
+          <label>Silver Purity</label>
+          <select id="silverPurity" onchange="calculateGrandTotal()">
+            <option value="925" selected>925 Sterling (92.5%)</option>
+            <option value="Fine">Fine Silver (99.9%)</option>
+          </select>
+        </div>
+        <div>
+          <label>Silver weight (g)</label>
+          <input type="number" step="0.001" id="silverWeight" placeholder="0.000" oninput="calculateGrandTotal()">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Making Charges Type</label>
+          <select id="makingType" onchange="calculateGrandTotal()">
+            <option value="flat">Flat Rate (₹ / Gram)</option>
+            <option value="percentage">Percentage (% of Metal Cost)</option>
+            <option value="fixed">Fixed Lump-sum Amount (₹)</option>
+          </select>
+        </div>
+        <div>
+          <label>Making Charges Value</label>
+          <input type="number" step="0.01" id="makingValue" placeholder="0.00" oninput="calculateGrandTotal()">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Stone slots — plain, priced by carat bucket</h2>
+      <div class="sub-text">Enter Pieces and Cent (carat size) for plain stone calculation slots.</div>
+      
+      <div id="plainStonesContainer" class="stone-grid"></div>
+
+      <div style="margin-top: 12px;">
+        <button type="button" class="btn btn-outline" onclick="addPlainStoneSlot()">+ Add stone slot</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Fancy stone slots — priced by category rate</h2>
+      <div class="sub-text">Select type, manual rate per carat, pieces, and cent size.</div>
+      
+      <div id="fancyStonesContainer" class="stone-grid"></div>
+
+      <div style="margin-top: 12px;">
+        <button type="button" class="btn btn-outline" onclick="addFancyStoneSlot()">+ Add fancy stone</button>
+      </div>
+
+      <div class="cost-summary">
+        <div><span>Base Metal Value:</span> <span>₹<span id="metalCostDisplay">0.00</span></span></div>
+        <div><span>Making Charges:</span> <span>₹<span id="makingCostDisplay">0.00</span></span></div>
+        <div><span>Total Stones Cost:</span> <span>₹<span id="stoneCostDisplay">0.00</span></span></div>
+        <div><span>GST (3%):</span> <span>₹<span id="gstCostDisplay">0.00</span></span></div>
+        <div class="total-row"><span>Grand Estimated Total (Incl. GST):</span> <span>₹<span id="totalCostDisplay">0.00</span></span></div>
+      </div>
+
+      <div class="action-bar">
+        <button type="submit" class="btn btn-primary">Save & recalculate prices</button>
+        <button type="button" class="btn btn-cancel" onclick="resetForm()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Gallery — Images & Video</h2>
+      <div class="file-upload-box">
+        <input type="file" id="galleryInput" multiple accept="image/*,video/*">
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>CAD Reference Files</h2>
+      <div class="sub-text">Upload CAD or reference files (.stl, .3dm, .jpg, .jpeg, .png).</div>
+      <div class="file-upload-box">
+        <input type="file" id="cadInput" multiple accept=".stl,.3dm,.jpg,.jpeg,.png">
+      </div>
+    </div>
+  </form>
+
+  <div class="card">
+    <h2>Saved Designs Vault</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Metal Specs</th>
+          <th>Stone Slots</th>
+          <th>Total Value (Incl. GST)</th>
+          <th>Gallery</th>
+          <th>CAD / Reference Files</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="vaultTable"></tbody>
+    </table>
+  </div>
 </div>
 
-<section class="expression-section">
-  <div class="expression-header">
-    <h2>SHOP BY EXPRESSION</h2>
-    <a href="#">VIEW ALL →</a>
-  </div>
-  <div class="expression-chips">
-    <div class="chip">◯ RINGS</div>
-    <div class="chip">◇ EARRINGS</div>
-    <div class="chip">✦ STUDS</div>
-    <div class="chip">🍸 COCKTAIL RINGS</div>
-    <div class="chip">💍 MEN'S JEWELLERY</div>
-    <div class="chip">🦷 TEETH GRILLZ</div>
-    <div class="chip">♾ SILVER 925</div>
-  </div>
-</section>
+<script>
+  let baseGoldRate24K = 0;
+  let baseSilverRateFine = 0;
 
-<section class="collections-section">
-  <div class="section-title-group">
-    <small>EXPLORE OUR WORLD</small>
-    <h2>SIGNATURE COLLECTIONS</h2>
-    <p class="section-description">Discover jewellery collections crafted for every expression, every occasion and every story.</p>
-  </div>
+  const goldPurityMap = { '24K': 1.0, '22K': 0.916, '18K': 0.76, '14K': 0.595, '9K': 0.39 };
+  const silverPurityMap = { 'Fine': 1.0, '925': 0.925 };
 
-  <div class="collection-grid">
+  async function fetchLiveRates() {
+    try {
+      const res = await fetch('/api/live-rates');
+      const data = await res.json();
+      
+      if (data && data.success && data.goldPricePerGram24K) {
+        baseGoldRate24K = parseFloat(data.goldPricePerGram24K);
+        baseSilverRateFine = parseFloat(data.silverPricePerGramFine);
 
-    <a href="gallery.html?folder=Cocktail-Ring" class="collection-card">
-      <img src="Cocktail-Ring/IMG-20260812-WA0220.jpg" alt="Cocktail Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">01</div>
-        <div class="tag">MAKE A STATEMENT</div>
-        <h3>Cocktail Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
+        const rate24K = baseGoldRate24K;
+        const rate22K = baseGoldRate24K * goldPurityMap['22K'];
+        const rate18K = baseGoldRate24K * goldPurityMap['18K'];
+        const rate14K = baseGoldRate24K * goldPurityMap['14K'];
+        const rate9K = baseGoldRate24K * goldPurityMap['9K'];
+        const rateFine = baseSilverRateFine;
+        const rate925 = baseSilverRateFine * silverPurityMap['925'];
+
+        document.getElementById('publicGold24K').innerText = `₹${rate24K.toFixed(2)}`;
+        document.getElementById('publicGold22K').innerText = `₹${rate22K.toFixed(2)}`;
+        document.getElementById('publicGold18K').innerText = `₹${rate18K.toFixed(2)}`;
+        document.getElementById('publicGold14K').innerText = `₹${rate14K.toFixed(2)}`;
+        document.getElementById('publicGold9K').innerText = `₹${rate9K.toFixed(2)}`;
+        document.getElementById('publicSilverFine').innerText = `₹${rateFine.toFixed(2)}`;
+        document.getElementById('publicSilver925').innerText = `₹${rate925.toFixed(2)}`;
+
+        calculateGrandTotal();
+      } else {
+        document.getElementById('publicGold24K').innerText = 'Unavailable';
+      }
+    } catch (err) {
+      console.error('Failed to fetch live rates', err);
+    }
+  }
+
+  function calculateGrandTotal() {
+    const goldPurity = document.getElementById('goldPurity').value;
+    const silverPurity = document.getElementById('silverPurity').value;
+    const goldGrams = parseFloat(document.getElementById('goldWeight').value || 0);
+    const silverGrams = parseFloat(document.getElementById('silverWeight').value || 0);
+
+    const goldRate = baseGoldRate24K * (goldPurityMap[goldPurity] || 0.76);
+    const silverRate = baseSilverRateFine * (silverPurityMap[silverPurity] || 0.925);
+    const rawMetalCost = (goldGrams * goldRate) + (silverGrams * silverRate);
+    
+    const makingType = document.getElementById('makingType').value;
+    const makingVal = parseFloat(document.getElementById('makingValue').value || 0);
+    let makingCost = 0;
+
+    if (makingType === 'flat') makingCost = (goldGrams + silverGrams) * makingVal;
+    else if (makingType === 'percentage') makingCost = (rawMetalCost * makingVal) / 100;
+    else if (makingType === 'fixed') makingCost = makingVal;
+
+    let totalStoneCost = 0;
+
+    const plainCards = document.querySelectorAll('#plainStonesContainer .stone-card');
+    plainCards.forEach(card => {
+      const pcs = parseFloat(card.querySelector('.stone-pieces').value || 0);
+      const cent = parseFloat(card.querySelector('.stone-carat').value || 0);
+      const standardPlainRate = 8500; 
+      const cardCost = (pcs * cent * standardPlainRate) / 100;
+      card.querySelector('.stone-subtotal').innerText = cardCost.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+      totalStoneCost += cardCost;
+    });
+
+    const fancyCards = document.querySelectorAll('#fancyStonesContainer .stone-card');
+    fancyCards.forEach(card => {
+      const rate = parseFloat(card.querySelector('.stone-rate').value || 0);
+      const pcs = parseFloat(card.querySelector('.stone-pieces').value || 0);
+      const cent = parseFloat(card.querySelector('.stone-carat').value || 0);
+      const cardCost = (pcs * cent * rate) / 100;
+      card.querySelector('.stone-subtotal').innerText = cardCost.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+      totalStoneCost += cardCost;
+    });
+
+    const subTotal = rawMetalCost + makingCost + totalStoneCost;
+    const gstCost = (subTotal * 3) / 100;
+    const grandTotal = subTotal + gstCost;
+
+    document.getElementById('metalCostDisplay').innerText = rawMetalCost.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+    document.getElementById('makingCostDisplay').innerText = makingCost.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+    document.getElementById('stoneCostDisplay').innerText = totalStoneCost.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+    document.getElementById('gstCostDisplay').innerText = gstCost.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+    document.getElementById('totalCostDisplay').innerText = grandTotal.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+  }
+
+  function addPlainStoneSlot(pieces = 0, carat = 0) {
+    const container = document.getElementById('plainStonesContainer');
+    const index = container.children.length + 1;
+    const card = document.createElement('div');
+    card.className = 'stone-card';
+    card.innerHTML = `
+      <div class="stone-card-header">
+        <span>Slot ${index}</span>
+        <button type="button" class="btn-close" onclick="this.closest('.stone-card').remove(); calculateGrandTotal();">✕</button>
       </div>
-    </a>
-
-    <a href="gallery.html?folder=Diamond-Studs-for-Girls" class="collection-card">
-      <img src="Diamond-Studs-for-Girls/IMG-20260812-WA0198.jpg" alt="Diamond Studs">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">02</div>
-        <div class="tag">BRILLIANT ESSENTIALS</div>
-        <h3>Diamond Studs</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div class="stone-field">
+        <label>Pieces</label>
+        <input type="number" class="stone-pieces" value="${pieces}" placeholder="0" oninput="calculateGrandTotal()">
       </div>
-    </a>
-
-    <a href="gallery.html?folder=Light-Weight-Earrings" class="collection-card">
-      <img src="Light-Weight-Earrings/IMG-20260812-WA0294.jpg" alt="Lightweight Earrings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">03</div>
-        <div class="tag">MADE FOR EVERY MOMENT</div>
-        <h3>Lightweight Earrings</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div class="stone-field">
+        <label>Cent (carat size)</label>
+        <input type="number" step="0.01" class="stone-carat" value="${carat}" placeholder="0" oninput="calculateGrandTotal()">
       </div>
-    </a>
-
-    <a href="gallery.html?folder=Light-Weight-Ring" class="collection-card">
-      <img src="Light-Weight-Ring/IMG-20260812-WA0326.jpg" alt="Lightweight Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">04</div>
-        <div class="tag">EVERYDAY ELEGANCE</div>
-        <h3>Lightweight Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div style="font-size: 11px; font-weight: bold; text-align: right; margin-top: 4px;">
+        Slot Amount: ₹<span class="stone-subtotal">0.00</span>
       </div>
-    </a>
+    `;
+    container.appendChild(card);
+    calculateGrandTotal();
+  }
 
-    <a href="gallery.html?folder=Mens-Ring" class="collection-card">
-      <img src="Mens-Ring/IMG-20260812-WA0173.jpg" alt="Men's Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">05</div>
-        <div class="tag">DEFINED BY CHARACTER</div>
-        <h3>Men's Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
+  function addFancyStoneSlot(type = '- none -', rate = 0, pieces = 0, carat = 0) {
+    const container = document.getElementById('fancyStonesContainer');
+    const index = container.children.length + 1;
+    const card = document.createElement('div');
+    card.className = 'stone-card';
+    card.innerHTML = `
+      <div class="stone-card-header">
+        <span>Fancy ${index}</span>
+        <button type="button" class="btn-close" onclick="this.closest('.stone-card').remove(); calculateGrandTotal();">✕</button>
       </div>
-    </a>
-
-    <a href="gallery.html?folder=Mens-diamonds-ring" class="collection-card">
-      <img src="Mens-diamonds-ring/IMG-20260812-WA0160.jpg" alt="Men's Diamond Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">06</div>
-        <div class="tag">REFINED BRILLIANCE</div>
-        <h3>Men's Diamond Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div class="stone-field">
+        <label>Type</label>
+        <select class="stone-type">
+          <option value="- none -" ${type === '- none -' ? 'selected' : ''}>- none -</option>
+          <option value="Diamond" ${type === 'Diamond' ? 'selected' : ''}>Diamond</option>
+          <option value="Ruby" ${type === 'Ruby' ? 'selected' : ''}>Ruby</option>
+          <option value="Emerald" ${type === 'Emerald' ? 'selected' : ''}>Emerald</option>
+          <option value="Sapphire" ${type === 'Sapphire' ? 'selected' : ''}>Sapphire</option>
+        </select>
       </div>
-    </a>
-
-    <a href="gallery.html?folder=Teeth-Grillz" class="collection-card">
-      <img src="Teeth-Grillz/IMG-20260812-WA0178.jpg" alt="Teeth Grillz">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">07</div>
-        <div class="tag">BOLD EXPRESSION</div>
-        <h3>Teeth Grillz</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div class="stone-field">
+        <label>Rate (₹ / Carat)</label>
+        <input type="number" step="0.01" class="stone-rate" value="${rate}" placeholder="0.00" oninput="calculateGrandTotal()">
       </div>
-    </a>
-
-    <a href="gallery.html?folder=bracelet" class="collection-card">
-      <img src="bracelet/IMG-20260812-WA0132.jpg" alt="Bracelets">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">08</div>
-        <div class="tag">DESIGNED TO SHINE</div>
-        <h3>Bracelets</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div class="stone-field">
+        <label>Pieces</label>
+        <input type="number" class="stone-pieces" value="${pieces}" placeholder="0" oninput="calculateGrandTotal()">
       </div>
-    </a>
-
-    <a href="gallery.html?folder=fancy-shape-band-ring" class="collection-card">
-      <img src="fancy-shape-band-ring/IMG-20260812-WA0067.jpg" alt="Fancy Shape Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">09</div>
-        <div class="tag">DISTINCTIVE SILHOUETTES</div>
-        <h3>Fancy Shape Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div class="stone-field">
+        <label>Cent (carat size)</label>
+        <input type="number" step="0.01" class="stone-carat" value="${carat}" placeholder="0" oninput="calculateGrandTotal()">
       </div>
-    </a>
-
-    <a href="gallery.html?folder=mangalsutra" class="collection-card">
-      <img src="mangalsutra/IMG-20260812-WA0089.jpg" alt="Mangalsutra">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">10</div>
-        <div class="tag">TRADITION, REIMAGINED</div>
-        <h3>Mangalsutra</h3>
-        <span>EXPLORE COLLECTION →</span>
+      <div style="font-size: 11px; font-weight: bold; text-align: right; margin-top: 4px;">
+        Slot Amount: ₹<span class="stone-subtotal">0.00</span>
       </div>
-    </a>
+    `;
+    container.appendChild(card);
+    calculateGrandTotal();
+  }
 
-    <a href="gallery.html?folder=necklaces" class="collection-card">
-      <img src="necklaces/IMG-20260812-WA0012.jpg" alt="Necklaces">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">11</div>
-        <div class="tag">GRACE AROUND YOU</div>
-        <h3>Necklaces</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
+  function resetForm() {
+    document.getElementById('vaultForm').reset();
+    document.getElementById('plainStonesContainer').innerHTML = '';
+    document.getElementById('fancyStonesContainer').innerHTML = '';
+    addPlainStoneSlot();
+    addFancyStoneSlot();
+    calculateGrandTotal();
+  }
 
-    <a href="gallery.html?folder=nosepin" class="collection-card">
-      <img src="nosepin/IMG-20260812-WA0119.jpg" alt="Nosepins">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">12</div>
-        <div class="tag">DELICATE DETAIL</div>
-        <h3>Nosepins</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
+  addPlainStoneSlot();
+  addPlainStoneSlot();
+  addPlainStoneSlot();
+  addPlainStoneSlot();
+  addFancyStoneSlot();
+  addFancyStoneSlot();
+  fetchLiveRates();
 
-    <a href="gallery.html?folder=rings" class="collection-card">
-      <img src="rings/IMG-20260812-WA0017.jpg" alt="Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">13</div>
-        <div class="tag">CLASSIC & TIMELESS</div>
-        <h3>Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
+  document.getElementById('vaultForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    <a href="gallery.html?folder=solitaire-diamond-ring" class="collection-card">
-      <img src="solitaire-diamond-ring/IMG-20260812-WA0065.jpg" alt="Solitaire Diamond Ring">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">14</div>
-        <div class="tag">PURE BRILLIANCE</div>
-        <h3>Solitaire Diamond Ring</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
+    const title = document.getElementById('title').value;
+    const goldPurity = document.getElementById('goldPurity').value;
+    const goldWeight = Number(document.getElementById('goldWeight').value || 0);
+    const silverPurity = document.getElementById('silverPurity').value;
+    const silverWeight = Number(document.getElementById('silverWeight').value || 0);
 
-    <a href="gallery.html?folder=solitaire-rings" class="collection-card">
-      <img src="solitaire-rings/IMG-20260812-WA0057.jpg" alt="Solitaire Rings">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">15</div>
-        <div class="tag">ONE STONE, ENDLESS SHINE</div>
-        <h3>Solitaire Rings</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
+    const makingType = document.getElementById('makingType').value;
+    const makingValue = Number(document.getElementById('makingValue').value || 0);
 
-    <a href="gallery.html?folder=tennis-bracelet" class="collection-card">
-      <img src="tennis-bracelet/IMG-20260812-WA0111.jpg" alt="Tennis Bracelet">
-      <div class="collection-overlay"></div>
-      <div class="collection-content">
-        <div class="num">16</div>
-        <div class="tag">LINE OF LIGHT</div>
-        <h3>Tennis Bracelet</h3>
-        <span>EXPLORE COLLECTION →</span>
-      </div>
-    </a>
+    const goldRate = baseGoldRate24K * (goldPurityMap[goldPurity] || 0.76);
+    const silverRate = baseSilverRateFine * (silverPurityMap[silverPurity] || 0.925);
+    const rawMetalCost = (goldWeight * goldRate) + (silverWeight * silverRate);
 
-  </div>
-</section>
+    let makingCost = 0;
+    if (makingType === 'flat') makingCost = (goldWeight + silverWeight) * makingValue;
+    else if (makingType === 'percentage') makingCost = (rawMetalCost * makingValue) / 100;
+    else if (makingType === 'fixed') makingCost = makingValue;
 
-<footer>
-  <p>&copy; 2026 Orvén Jewels. All rights reserved.</p>
-</footer>
+    let totalStoneCost = 0;
+    const plainStones = [];
+    document.querySelectorAll('#plainStonesContainer .stone-card').forEach(card => {
+      const pcs = Number(card.querySelector('.stone-pieces').value || 0);
+      const cent = Number(card.querySelector('.stone-carat').value || 0);
+      totalStoneCost += (pcs * cent * 8500) / 100;
+      plainStones.push({ pieces: pcs, carat: cent });
+    });
 
-<script src="script.js"></script>
+    const fancyStones = [];
+    document.querySelectorAll('#fancyStonesContainer .stone-card').forEach(card => {
+      const type = card.querySelector('.stone-type').value;
+      const rate = Number(card.querySelector('.stone-rate').value || 0);
+      const pcs = Number(card.querySelector('.stone-pieces').value || 0);
+      const cent = Number(card.querySelector('.stone-carat').value || 0);
+      totalStoneCost += (pcs * cent * rate) / 100;
+      fancyStones.push({ type, rate, pieces: pcs, carat: cent });
+    });
+
+    const subTotal = rawMetalCost + makingCost + totalStoneCost;
+    const totalMetalCost = subTotal + ((subTotal * 3) / 100);
+
+    const formData = new FormData();
+    formData.append('data', JSON.stringify({ 
+      title, goldPurity, goldWeight, silverPurity, silverWeight, makingType, makingValue, totalMetalCost, plainStones, fancyStones 
+    }));
+
+    const galleryFiles = document.getElementById('galleryInput').files;
+    for (let f of galleryFiles) formData.append('gallery', f);
+
+    const cadFiles = document.getElementById('cadInput').files;
+    for (let f of cadFiles) formData.append('cadFiles', f);
+
+    try {
+      const res = await fetch('/api/product', { method: 'POST', body: formData });
+      const result = await res.json();
+      if (result.status === 'success') {
+        alert('Design Saved Successfully!');
+        resetForm();
+        loadProducts();
+      }
+    } catch (err) {
+      alert('Error saving design!');
+    }
+  });
+
+  async function loadProducts() {
+    try {
+      const res = await fetch('/api/products');
+      const products = await res.json();
+      const table = document.getElementById('vaultTable');
+      table.innerHTML = '';
+
+      products.forEach(p => {
+        const metals = `Gold: <b>${p.goldWeight || 0}g</b> (${p.goldPurity || '18K'})<br>Silver: <b>${p.silverWeight || 0}g</b> (${p.silverPurity || '925'})`;
+        const costText = `₹${(p.totalMetalCost || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
+        const galleryText = p.gallery ? p.gallery.map(g => `<a href="/uploads/${g}" target="_blank">${g}</a>`).join('<br>') : 'No images';
+        const cadText = p.cadFiles ? p.cadFiles.map(c => `<a href="/uploads/${c}" target="_blank">${c}</a>`).join('<br>') : 'No CAD/Ref';
+
+        table.innerHTML += `
+          <tr>
+            <td><b>${p.title}</b></td>
+            <td>${metals}</td>
+            <td>Plain/Fancy Slots</td>
+            <td><b>${costText}</b></td>
+            <td>${galleryText}</td>
+            <td>${cadText}</td>
+            <td><button class="btn btn-danger" onclick="deleteProduct(${p.id})">Delete</button></td>
+          </tr>
+        `;
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function deleteProduct(id) {
+    if (confirm('Delete this item?')) {
+      await fetch(`/api/product/${id}`, { method: 'DELETE' });
+      loadProducts();
+    }
+  }
+
+  loadProducts();
+</script>
 </body>
 </html>
