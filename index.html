@@ -22,7 +22,7 @@
     /* Announcement Bar */
     .announcement-bar { background: #1a1214; color: var(--gold); text-align: center; font-size: 11px; padding: 8px; letter-spacing: 1px; border-bottom: 1px solid var(--border); position: relative; z-index: 1001; }
 
-    /* Header */
+    /* Header Navigation */
     header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(11,7,8,0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
     .brand-logo { font-size: 22px; font-weight: 700; color: #fff; text-decoration: none; }
     .brand-logo span { color: var(--gold); font-size: 14px; display: block; font-weight: 400; }
@@ -31,7 +31,7 @@
     .calc-btn { border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; font-size: 11px; border-radius: 4px; text-decoration: none; transition: 0.3s; }
     .calc-btn:hover { background: var(--gold); color: #000; }
 
-    /* Hero Video Background */
+    /* Hero Section with Video */
     .hero-video-container { position: relative; height: 85vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
     .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 1; }
     .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(11,7,8,0.6) 0%, rgba(11,7,8,0.5) 50%, rgba(11,7,8,0.95) 100%); z-index: 2; }
@@ -47,32 +47,31 @@
     .live-ticker { background: #140d0f; padding: 10px 5%; font-size: 11px; color: var(--text-muted); border-y: 1px solid var(--border); display: flex; gap: 20px; overflow-x: auto; white-space: nowrap; }
     .live-ticker span { color: var(--gold); }
 
-    /* Section Headers */
+    /* Section Titles */
     .section-title { text-align: center; margin: 50px 0 20px; }
     .section-title h2 { font-size: 24px; color: var(--text-main); }
     .section-title p { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
 
-    /* Shop By Expression Pills */
+    /* Category Quick Filter Pills */
     .category-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 0 5% 30px; }
     .pill { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; font-size: 11px; text-decoration: none; border-radius: 20px; transition: 0.3s; }
     .pill:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* Signature Collections Grid */
-    .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 0 5% 60px; }
-    .grid-card { background: var(--card-bg); border: 1px solid var(--border); position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 1/1.2; }
+    /* Signature Collections Grid (All 16 Folders) */
+    .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 0 5% 60px; }
+    .grid-card { background: var(--card-bg); border: 1px solid var(--border); position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 1/1.2; text-decoration: none; color: inherit; }
     .grid-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
     .grid-card:hover img { transform: scale(1.05); opacity: 0.95; }
     .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(11,7,8,0.95), transparent); }
     .card-tag { color: var(--gold); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
-    .card-title { font-size: 16px; margin: 4px 0; color: #fff; }
-    .card-link { color: var(--text-muted); font-size: 11px; text-decoration: none; }
+    .card-title { font-size: 15px; margin: 4px 0; color: #fff; }
+    .card-link { color: var(--text-muted); font-size: 11px; letter-spacing: 1px; }
 
-    /* Custom Enquiry Form */
+    /* Custom Enquiry Section */
     .custom-section { background: #110a0c; padding: 60px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; border-top: 1px solid var(--border); }
     .form-box input, .form-box textarea { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 12px; color: #fff; margin-bottom: 15px; font-size: 12px; }
     .form-box button { width: 100%; background: var(--gold); color: #000; border: none; padding: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px; }
 
-    /* Footer */
     footer { text-align: center; padding: 40px 5%; background: #070405; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
   </style>
 </head>
@@ -91,7 +90,6 @@
     <a href="login.html" class="calc-btn">CALCULATOR 🔒</a>
   </header>
 
-  <!-- Hero Section with Background Video -->
   <section class="hero-video-container">
     <video autoplay loop muted playsinline class="bg-video">
       <source src="hero-video.mp4" type="video/mp4">
@@ -109,7 +107,6 @@
     </div>
   </section>
 
-  <!-- Ticker -->
   <div class="live-ticker">
     <div>• LIVE NOW</div>
     <div>Priya just saved Floral Solitaire Ring</div>
@@ -117,63 +114,185 @@
     <div>• Only 7 left in Classic Moissanite Studs</div>
   </div>
 
-  <!-- Shop by Expression -->
+  <!-- Category Pills Filter -->
   <div class="section-title">
     <p>Shop By Expression</p>
     <h2>Find Your Style</h2>
   </div>
   <div class="category-pills">
-    <a href="#" class="pill">Rings</a>
-    <a href="#" class="pill">Earrings</a>
-    <a href="#" class="pill">Studs</a>
-    <a href="#" class="pill">Cocktail Rings</a>
-    <a href="#" class="pill">Men's Jewellery</a>
-    <a href="#" class="pill">Teeth Grillz</a>
-    <a href="#" class="pill">Silver 925</a>
+    <a href="./Cocktail-Ring" class="pill">Cocktail Rings</a>
+    <a href="./Diamond-Studs-for-Girls" class="pill">Diamond Studs</a>
+    <a href="./Light-Weight-Earrings" class="pill">Light Weight Earrings</a>
+    <a href="./Light-Weight-Ring" class="pill">Light Weight Rings</a>
+    <a href="./Mens-Ring" class="pill">Men's Rings</a>
+    <a href="./Mens-diamonds-ring" class="pill">Men's Diamond Rings</a>
+    <a href="./Teeth-Grillz" class="pill">Teeth Grillz</a>
+    <a href="./bracelet" class="pill">Bracelets</a>
+    <a href="./fancy-shape-band-ring" class="pill">Fancy Band Rings</a>
+    <a href="./mangalsutra" class="pill">Mangalsutra</a>
+    <a href="./necklaces" class="pill">Necklaces</a>
+    <a href="./nosepin" class="pill">Nosepins</a>
+    <a href="./rings" class="pill">Rings</a>
+    <a href="./solitaire-diamond-ring" class="pill">Solitaire Diamond Rings</a>
+    <a href="./solitaire-rings" class="pill">Solitaire Rings</a>
+    <a href="./tennis-bracelet" class="pill">Tennis Bracelets</a>
   </div>
 
-  <!-- Signature Collections Grid -->
+  <!-- Signature Collections Grid (Aapke Sare 16 Folders) -->
   <div class="section-title" id="collections">
     <p>Explore Our World</p>
     <h2>Signature Collections</h2>
   </div>
 
   <div class="grid-container">
-    <div class="grid-card">
+
+    <a href="./Cocktail-Ring" class="grid-card">
       <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Cocktail Rings">
       <div class="card-overlay">
-        <div class="card-tag">Make A Statement</div>
+        <div class="card-tag">Statement Pieces</div>
         <div class="card-title">Cocktail Rings</div>
-        <a href="#" class="card-link">EXPLORE COLLECTION →</a>
+        <span class="card-link">EXPLORE COLLECTION →</span>
       </div>
-    </div>
-    <div class="grid-card">
+    </a>
+
+    <a href="./Diamond-Studs-for-Girls" class="grid-card">
       <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Diamond Studs">
       <div class="card-overlay">
         <div class="card-tag">Brilliant Essentials</div>
         <div class="card-title">Diamond Studs</div>
-        <a href="#" class="card-link">EXPLORE COLLECTION →</a>
+        <span class="card-link">EXPLORE COLLECTION →</span>
       </div>
-    </div>
-    <div class="grid-card">
-      <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500" alt="Lightweight Rings">
+    </a>
+
+    <a href="./Light-Weight-Earrings" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500" alt="Light Weight Earrings">
       <div class="card-overlay">
-        <div class="card-tag">Everyday Elegance</div>
-        <div class="card-title">Lightweight Rings</div>
-        <a href="#" class="card-link">EXPLORE COLLECTION →</a>
+        <div class="card-tag">Everyday Comfort</div>
+        <div class="card-title">Light Weight Earrings</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
       </div>
-    </div>
-    <div class="grid-card">
+    </a>
+
+    <a href="./Light-Weight-Ring" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" alt="Light Weight Rings">
+      <div class="card-overlay">
+        <div class="card-tag">Subtle Glamour</div>
+        <div class="card-title">Light Weight Rings</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./Mens-Ring" class="grid-card">
       <img src="https://images.unsplash.com/photo-1611591475169-d758f14b62db?w=500" alt="Men's Rings">
       <div class="card-overlay">
-        <div class="card-tag">Defined By Character</div>
+        <div class="card-tag">Bold Character</div>
         <div class="card-title">Men's Rings</div>
-        <a href="#" class="card-link">EXPLORE COLLECTION →</a>
+        <span class="card-link">EXPLORE COLLECTION →</span>
       </div>
-    </div>
+    </a>
+
+    <a href="./Mens-diamonds-ring" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Men's Diamond Rings">
+      <div class="card-overlay">
+        <div class="card-tag">Luxury For Men</div>
+        <div class="card-title">Men's Diamond Rings</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./Teeth-Grillz" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500" alt="Teeth Grillz">
+      <div class="card-overlay">
+        <div class="card-tag">Custom Grillz</div>
+        <div class="card-title">Teeth Grillz</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./bracelet" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1611591475169-d758f14b62db?w=500" alt="Bracelets">
+      <div class="card-overlay">
+        <div class="card-tag">Refined Elegance</div>
+        <div class="card-title">Bracelets</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./fancy-shape-band-ring" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" alt="Fancy Shape Band Rings">
+      <div class="card-overlay">
+        <div class="card-tag">Modern Shapes</div>
+        <div class="card-title">Fancy Band Rings</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./mangalsutra" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Mangalsutra">
+      <div class="card-overlay">
+        <div class="card-tag">Sacred Traditions</div>
+        <div class="card-title">Mangalsutra</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./necklaces" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Necklaces">
+      <div class="card-overlay">
+        <div class="card-tag">Timeless Chains</div>
+        <div class="card-title">Necklaces</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./nosepin" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Nosepin">
+      <div class="card-overlay">
+        <div class="card-tag">Delicate Detail</div>
+        <div class="card-title">Nosepins</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./rings" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Rings">
+      <div class="card-overlay">
+        <div class="card-tag">Classic & Timeless</div>
+        <div class="card-title">Rings</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./solitaire-diamond-ring" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" alt="Solitaire Diamond Rings">
+      <div class="card-overlay">
+        <div class="card-tag">Pure Brilliance</div>
+        <div class="card-title">Solitaire Diamond Rings</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./solitaire-rings" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Solitaire Rings">
+      <div class="card-overlay">
+        <div class="card-tag">One Stone Endless Shine</div>
+        <div class="card-title">Solitaire Rings</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
+    <a href="./tennis-bracelet" class="grid-card">
+      <img src="https://images.unsplash.com/photo-1611591475169-d758f14b62db?w=500" alt="Tennis Bracelet">
+      <div class="card-overlay">
+        <div class="card-tag">Line Of Light</div>
+        <div class="card-title">Tennis Bracelets</div>
+        <span class="card-link">EXPLORE COLLECTION →</span>
+      </div>
+    </a>
+
   </div>
 
-  <!-- Custom Jewellery Section -->
+  <!-- Custom Enquiry Section -->
   <section class="custom-section" id="custom">
     <div>
       <p style="color:var(--gold); font-size:11px; letter-spacing:2px;">MADE FOR YOU</p>
@@ -183,7 +302,7 @@
     <div class="form-box">
       <input type="text" placeholder="Your Name">
       <input type="text" placeholder="What do you want? e.g. Ring">
-      <textarea rows="4" placeholder="Describe your design or requirements"></textarea>
+      <textarea rows="4" placeholder="Describe your requirements"></textarea>
       <button>SEND CUSTOM ENQUIRY</button>
     </div>
   </section>
