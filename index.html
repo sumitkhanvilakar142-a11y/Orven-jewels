@@ -19,24 +19,23 @@
     body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
     h1, h2, h3, .brand-logo { font-family: 'Cinzel', serif; letter-spacing: 2px; }
 
-    /* Top Announcement Bar */
+    /* Announcement Bar */
     .announcement-bar { background: #1a1214; color: var(--gold); text-align: center; font-size: 11px; padding: 8px; letter-spacing: 1px; border-bottom: 1px solid var(--border); position: relative; z-index: 1001; }
 
-    /* Header Navigation */
+    /* Header */
     header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(11,7,8,0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
     .brand-logo { font-size: 22px; font-weight: 700; color: #fff; text-decoration: none; }
     .brand-logo span { color: var(--gold); font-size: 14px; display: block; font-weight: 400; }
-    nav a { color: var(--text-main); text-decoration: none; margin: 0 15px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+    nav a { color: var(--text-main); text-decoration: none; margin: 0 12px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
     nav a:hover { color: var(--gold); }
     .calc-btn { border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; font-size: 11px; border-radius: 4px; text-decoration: none; transition: 0.3s; }
     .calc-btn:hover { background: var(--gold); color: #000; }
 
-    /* Video Hero Section */
+    /* Hero Video Background */
     .hero-video-container { position: relative; height: 85vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
     .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 1; }
-    .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(11,7,8,0.7) 0%, rgba(11,7,8,0.5) 50%, rgba(11,7,8,0.95) 100%); z-index: 2; }
+    .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(11,7,8,0.6) 0%, rgba(11,7,8,0.5) 50%, rgba(11,7,8,0.95) 100%); z-index: 2; }
     .hero-content { position: relative; z-index: 3; padding: 0 20px; max-width: 700px; }
-    
     .hero-tag { color: var(--gold); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; }
     .hero h1 { font-size: 42px; font-weight: 400; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
     .hero p { color: #e0e0e0; font-size: 14px; margin-bottom: 30px; text-shadow: 0 1px 5px rgba(0,0,0,0.8); }
@@ -45,31 +44,35 @@
     .btn-outline { border: 1px solid #fff; color: #fff; padding: 12px 28px; text-decoration: none; font-size: 12px; letter-spacing: 1px; background: rgba(0,0,0,0.4); }
 
     /* Live Ticker Bar */
-    .live-ticker { background: #140d0f; padding: 10px 5%; font-size: 11px; color: var(--text-muted); border-y: 1px solid var(--border); display: flex; gap: 20px; overflow-x: auto; }
+    .live-ticker { background: #140d0f; padding: 10px 5%; font-size: 11px; color: var(--text-muted); border-y: 1px solid var(--border); display: flex; gap: 20px; overflow-x: auto; white-space: nowrap; }
     .live-ticker span { color: var(--gold); }
 
-    /* Category Section */
+    /* Section Headers */
     .section-title { text-align: center; margin: 50px 0 20px; }
     .section-title h2 { font-size: 24px; color: var(--text-main); }
     .section-title p { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
 
+    /* Shop By Expression Pills */
     .category-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 0 5% 30px; }
-    .pill { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; font-size: 11px; text-decoration: none; border-radius: 20px; }
+    .pill { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; font-size: 11px; text-decoration: none; border-radius: 20px; transition: 0.3s; }
+    .pill:hover { border-color: var(--gold); color: var(--gold); }
 
     /* Signature Collections Grid */
     .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 0 5% 60px; }
     .grid-card { background: var(--card-bg); border: 1px solid var(--border); position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 1/1.2; }
     .grid-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
+    .grid-card:hover img { transform: scale(1.05); opacity: 0.95; }
     .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(11,7,8,0.95), transparent); }
     .card-tag { color: var(--gold); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
     .card-title { font-size: 16px; margin: 4px 0; color: #fff; }
     .card-link { color: var(--text-muted); font-size: 11px; text-decoration: none; }
 
-    /* Custom Enquiry Section */
+    /* Custom Enquiry Form */
     .custom-section { background: #110a0c; padding: 60px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; border-top: 1px solid var(--border); }
     .form-box input, .form-box textarea { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 12px; color: #fff; margin-bottom: 15px; font-size: 12px; }
     .form-box button { width: 100%; background: var(--gold); color: #000; border: none; padding: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px; }
 
+    /* Footer */
     footer { text-align: center; padding: 40px 5%; background: #070405; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
   </style>
 </head>
@@ -88,11 +91,10 @@
     <a href="login.html" class="calc-btn">CALCULATOR 🔒</a>
   </header>
 
-  <!-- Video Background Hero Section -->
-  <section class="hero-video-container hero">
+  <!-- Hero Section with Background Video -->
+  <section class="hero-video-container">
     <video autoplay loop muted playsinline class="bg-video">
-      <!-- Aapki leopard/gold video file ka path yahan daalein -->
-      <source src="background.mp4" type="video/mp4">
+      <source src="hero-video.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
 
@@ -107,12 +109,15 @@
     </div>
   </section>
 
+  <!-- Ticker -->
   <div class="live-ticker">
     <div>• LIVE NOW</div>
     <div>Priya just saved Floral Solitaire Ring</div>
-    <div>Rahul purchased Men's Verto Ring</div>
+    <div>• Rahul purchased Men's Verto Ring</div>
+    <div>• Only 7 left in Classic Moissanite Studs</div>
   </div>
 
+  <!-- Shop by Expression -->
   <div class="section-title">
     <p>Shop By Expression</p>
     <h2>Find Your Style</h2>
@@ -123,8 +128,11 @@
     <a href="#" class="pill">Studs</a>
     <a href="#" class="pill">Cocktail Rings</a>
     <a href="#" class="pill">Men's Jewellery</a>
+    <a href="#" class="pill">Teeth Grillz</a>
+    <a href="#" class="pill">Silver 925</a>
   </div>
 
+  <!-- Signature Collections Grid -->
   <div class="section-title" id="collections">
     <p>Explore Our World</p>
     <h2>Signature Collections</h2>
@@ -147,24 +155,41 @@
         <a href="#" class="card-link">EXPLORE COLLECTION →</a>
       </div>
     </div>
+    <div class="grid-card">
+      <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500" alt="Lightweight Rings">
+      <div class="card-overlay">
+        <div class="card-tag">Everyday Elegance</div>
+        <div class="card-title">Lightweight Rings</div>
+        <a href="#" class="card-link">EXPLORE COLLECTION →</a>
+      </div>
+    </div>
+    <div class="grid-card">
+      <img src="https://images.unsplash.com/photo-1611591475169-d758f14b62db?w=500" alt="Men's Rings">
+      <div class="card-overlay">
+        <div class="card-tag">Defined By Character</div>
+        <div class="card-title">Men's Rings</div>
+        <a href="#" class="card-link">EXPLORE COLLECTION →</a>
+      </div>
+    </div>
   </div>
 
+  <!-- Custom Jewellery Section -->
   <section class="custom-section" id="custom">
     <div>
       <p style="color:var(--gold); font-size:11px; letter-spacing:2px;">MADE FOR YOU</p>
       <h2 style="font-size:32px; margin-bottom:15px;">Custom Jewellery</h2>
-      <p style="color:var(--text-muted); font-size:13px;">Tell us what you want to create and our team can discuss your design.</p>
+      <p style="color:var(--text-muted); font-size:13px; margin-bottom:20px;">Tell us what you want to create and our team can discuss your design.</p>
     </div>
     <div class="form-box">
       <input type="text" placeholder="Your Name">
       <input type="text" placeholder="What do you want? e.g. Ring">
-      <textarea rows="4" placeholder="Describe your requirements"></textarea>
+      <textarea rows="4" placeholder="Describe your design or requirements"></textarea>
       <button>SEND CUSTOM ENQUIRY</button>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 ORVÉN JEWELS. All rights reserved.</p>
+    <p>© 2026 ORVÉN JEWELS. All rights reserved. | Premium Jewellery • Wholesale • Custom</p>
   </footer>
 
 </body>
