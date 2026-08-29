@@ -5,80 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ORVÉN JEWELS - Timeless Beauty & Fine Jewellery</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0b0708;
-      --card-bg: #140d0f;
-      --gold: #d4af37;
-      --text-main: #f5f5f5;
-      --text-muted: #a09a9c;
-      --border: #241a1c;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
-    h1, h2, h3, .brand-logo { font-family: 'Cinzel', serif; letter-spacing: 2px; }
-
-    /* Announcement Bar */
-    .announcement-bar { background: #1a1214; color: var(--gold); text-align: center; font-size: 11px; padding: 8px; letter-spacing: 1px; border-bottom: 1px solid var(--border); position: relative; z-index: 1001; }
-
-    /* Header Navigation */
-    header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(11,7,8,0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
-    .brand-logo { font-size: 22px; font-weight: 700; color: #fff; text-decoration: none; }
-    .brand-logo span { color: var(--gold); font-size: 14px; display: block; font-weight: 400; }
-    nav a { color: var(--text-main); text-decoration: none; margin: 0 12px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
-    nav a:hover { color: var(--gold); }
-    .calc-btn { border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; font-size: 11px; border-radius: 4px; text-decoration: none; transition: 0.3s; }
-    .calc-btn:hover { background: var(--gold); color: #000; }
-
-    /* Hero Section with Video */
-    .hero-video-container { position: relative; height: 85vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
-    .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 1; }
-    .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(11,7,8,0.6) 0%, rgba(11,7,8,0.5) 50%, rgba(11,7,8,0.95) 100%); z-index: 2; }
-    .hero-content { position: relative; z-index: 3; padding: 0 20px; max-width: 700px; }
-    .hero-tag { color: var(--gold); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; }
-    .hero h1 { font-size: 42px; font-weight: 400; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-    .hero p { color: #e0e0e0; font-size: 14px; margin-bottom: 30px; text-shadow: 0 1px 5px rgba(0,0,0,0.8); }
-    .hero-btns { display: flex; gap: 15px; justify-content: center; }
-    .btn-gold { background: var(--gold); color: #000; padding: 12px 28px; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 1px; }
-    .btn-outline { border: 1px solid #fff; color: #fff; padding: 12px 28px; text-decoration: none; font-size: 12px; letter-spacing: 1px; background: rgba(0,0,0,0.4); }
-
-    /* Live Ticker Bar */
-    .live-ticker { background: #140d0f; padding: 10px 5%; font-size: 11px; color: var(--text-muted); border-y: 1px solid var(--border); display: flex; gap: 20px; overflow-x: auto; white-space: nowrap; }
-    .live-ticker span { color: var(--gold); }
-
-    /* Section Titles */
-    .section-title { text-align: center; margin: 50px 0 20px; }
-    .section-title h2 { font-size: 24px; color: var(--text-main); }
-    .section-title p { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
-
-    /* Category Quick Filter Pills */
-    .category-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 0 5% 30px; }
-    .pill { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 16px; font-size: 11px; text-decoration: none; border-radius: 20px; transition: 0.3s; }
-    .pill:hover { border-color: var(--gold); color: var(--gold); }
-
-    /* Signature Collections Grid (All 16 Folders) */
-    .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 0 5% 60px; }
-    .grid-card { background: var(--card-bg); border: 1px solid var(--border); position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 1/1.2; text-decoration: none; color: inherit; }
-    .grid-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
-    .grid-card:hover img { transform: scale(1.05); opacity: 0.95; }
-    .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(11,7,8,0.95), transparent); }
-    .card-tag { color: var(--gold); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
-    .card-title { font-size: 15px; margin: 4px 0; color: #fff; }
-    .card-link { color: var(--text-muted); font-size: 11px; letter-spacing: 1px; }
-
-    /* Custom Enquiry Section */
-    .custom-section { background: #110a0c; padding: 60px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; border-top: 1px solid var(--border); }
-    .form-box input, .form-box textarea { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 12px; color: #fff; margin-bottom: 15px; font-size: 12px; }
-    .form-box button { width: 100%; background: var(--gold); color: #000; border: none; padding: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px; }
-
-    footer { text-align: center; padding: 40px 5%; background: #070405; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Announcement Bar -->
   <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999</div>
 
+  <!-- Header Section -->
   <header>
     <a href="#" class="brand-logo">ORVÉN <span>JEWELS</span></a>
     <nav>
@@ -90,6 +24,7 @@
     <a href="login.html" class="calc-btn">CALCULATOR 🔒</a>
   </header>
 
+  <!-- Background Video Hero Section -->
   <section class="hero-video-container">
     <video autoplay loop muted playsinline class="bg-video">
       <source src="hero-video.mp4" type="video/mp4">
@@ -107,6 +42,7 @@
     </div>
   </section>
 
+  <!-- Live Ticker Bar -->
   <div class="live-ticker">
     <div>• LIVE NOW</div>
     <div>Priya just saved Floral Solitaire Ring</div>
@@ -114,11 +50,12 @@
     <div>• Only 7 left in Classic Moissanite Studs</div>
   </div>
 
-  <!-- Category Pills Filter -->
+  <!-- Shop By Expression Section -->
   <div class="section-title">
     <p>Shop By Expression</p>
     <h2>Find Your Style</h2>
   </div>
+
   <div class="category-pills">
     <a href="./Cocktail-Ring" class="pill">Cocktail Rings</a>
     <a href="./Diamond-Studs-for-Girls" class="pill">Diamond Studs</a>
@@ -138,7 +75,7 @@
     <a href="./tennis-bracelet" class="pill">Tennis Bracelets</a>
   </div>
 
-  <!-- Signature Collections Grid (Aapke Sare 16 Folders) -->
+  <!-- Signature Collections Grid Section -->
   <div class="section-title" id="collections">
     <p>Explore Our World</p>
     <h2>Signature Collections</h2>
@@ -307,6 +244,7 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Premium Jewellery • Wholesale • Custom</p>
   </footer>
