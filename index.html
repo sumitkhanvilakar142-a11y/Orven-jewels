@@ -43,7 +43,7 @@
 
   <div class="auth-container">
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
-    <p class="auth-subtitle">Secure Gateway & Vault Access</p>
+    <p class="auth-subtitle">Secure Access Portal</p>
 
     <div class="tabs">
       <button class="tab active" onclick="switchTab('login')">LOGIN</button>
@@ -51,27 +51,27 @@
     </div>
 
     <!-- Login Form -->
-    <form id="loginForm" onsubmit="handleLoginRouting(event)">
+    <form id="loginForm" onsubmit="checkUserRole(event)">
       <div class="form-group">
-        <label>Mobile Number or Email</label>
-        <input type="text" id="userInput" required placeholder="Enter mobile / email">
+        <label>Mobile Number / Email</label>
+        <input type="text" id="loginMobile" required placeholder="Enter your mobile number">
       </div>
       <div class="form-group">
         <label>Password / OTP</label>
         <input type="password" required placeholder="••••••••">
       </div>
-      <button type="submit" class="btn-submit">Continue to Portal</button>
+      <button type="submit" class="btn-submit">Sign In</button>
     </form>
 
     <!-- Sign Up Form -->
-    <form id="signupForm" style="display: none;" onsubmit="handleSignupRouting(event)">
+    <form id="signupForm" style="display: none;" onsubmit="checkUserRole(event)">
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" required placeholder="Enter your name">
       </div>
       <div class="form-group">
-        <label>Mobile Number / Email</label>
-        <input type="text" id="signupInput" required placeholder="Enter contact info">
+        <label>Mobile Number</label>
+        <input type="text" id="signupMobile" required placeholder="Enter mobile number">
       </div>
       <div class="form-group">
         <label>Create Password</label>
@@ -80,10 +80,13 @@
       <button type="submit" class="btn-submit">Register Account</button>
     </form>
 
-    <a href="index.html" class="back-home">← Return to Home Page</a>
+    <a href="index.html" class="back-home">← Back to Homepage</a>
   </div>
 
   <script>
+    // Yahan aap apne admin ke mobile numbers list kar sakte hain
+    const adminNumbers = ["9876543210", "9999999999", "8888888888"];
+
     function switchTab(tabType) {
       const loginForm = document.getElementById('loginForm');
       const signupForm = document.getElementById('signupForm');
@@ -102,25 +105,21 @@
       }
     }
 
-    // Number ke basis par Admin ya Customer decide karne ka logic
-    function handleLoginRouting(event) {
+    function checkUserRole(event) {
       event.preventDefault();
-      const val = document.getElementById('userInput').value.trim();
+      
+      // Input se mobile number fetch karna
+      const mobileInput = document.getElementById('loginMobile') || document.getElementById('signupMobile');
+      const enteredNumber = mobileInput.value.trim();
 
-      // Agar mobile number ya email me 'admin' keyword ya koi specific admin number ho
-      if(val.toLowerCase().includes('admin') || val === '9999999999') {
-        alert('Admin credentials detected. Redirecting to Admin Portal...');
+      // Check karna ki entered number admin whitelist mein hai ya nahi
+      if (adminNumbers.includes(enteredNumber)) {
+        alert('Admin Access Granted! Redirecting to Admin Portal...');
         window.location.href = 'admin.html';
       } else {
-        alert('Customer login successful. Redirecting to Customer Dashboard...');
+        alert('Welcome to Client Portal! Loading active offers & catalog...');
         window.location.href = 'dashboard.html';
       }
-    }
-
-    function handleSignupRouting(event) {
-      event.preventDefault();
-      alert('Registration successful! Redirecting to Customer Dashboard...');
-      window.location.href = 'dashboard.html';
     }
   </script>
 
