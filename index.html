@@ -26,10 +26,11 @@
     header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(11,7,8,0.9); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
     .brand-logo { font-size: 20px; font-weight: 700; color: #fff; text-decoration: none; }
     .brand-logo span { color: var(--gold); font-size: 12px; display: block; font-weight: 400; }
-    nav { display: flex; gap: 10px; flex-wrap: wrap; }
+    nav { display: flex; gap: 15px; flex-wrap: wrap; }
     nav a { color: var(--text-main); text-decoration: none; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
     nav a:hover { color: var(--gold); }
-    .calc-btn { border: 1px solid var(--gold); color: var(--gold); padding: 6px 12px; font-size: 11px; border-radius: 4px; text-decoration: none; }
+    .calc-btn { border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; font-size: 11px; border-radius: 4px; text-decoration: none; font-weight: 600; letter-spacing: 1px; transition: 0.3s; }
+    .calc-btn:hover { background: var(--gold); color: #000; }
 
     /* Background Video Hero Section */
     .hero-video-container { position: relative; height: 75vh; min-height: 450px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
@@ -37,14 +38,16 @@
     .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(11,7,8,0.5) 0%, rgba(11,7,8,0.7) 60%, rgba(11,7,8,0.95) 100%); z-index: 2; }
     .hero-content { position: relative; z-index: 3; padding: 0 20px; max-width: 700px; }
     .hero-tag { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-    .hero h1 { font-size: 32px; font-weight: 400; margin-bottom: 12px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-    .hero p { color: #e0e0e0; font-size: 13px; margin-bottom: 25px; text-shadow: 0 1px 5px rgba(0,0,0,0.8); }
+    .hero-content h1 { font-size: 32px; font-weight: 400; margin-bottom: 12px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+    .hero-content p { color: #e0e0e0; font-size: 13px; margin-bottom: 25px; text-shadow: 0 1px 5px rgba(0,0,0,0.8); }
     .hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .btn-gold { background: var(--gold); color: #000; padding: 10px 22px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 1px; }
     .btn-outline { border: 1px solid #fff; color: #fff; padding: 10px 22px; text-decoration: none; font-size: 11px; letter-spacing: 1px; background: rgba(0,0,0,0.4); }
 
-    /* Live Ticker Bar */
-    .live-ticker { background: #140d0f; padding: 10px 5%; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; gap: 20px; overflow-x: auto; white-space: nowrap; }
+    /* Live Rates Ticker Section */
+    .live-rates-ticker { background: #140d0f; padding: 12px 5%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 12px; }
+    .rate-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+    .rate-item span { color: var(--gold); font-weight: 600; }
 
     /* Section Titles */
     .section-title { text-align: center; margin: 40px 0 20px; padding: 0 15px; }
@@ -79,17 +82,18 @@
   <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999</div>
 
   <header>
-    <a href="#" class="brand-logo">ORVÉN <span>JEWELS</span></a>
+    <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
     <nav>
       <a href="#collections">Collections</a>
       <a href="#custom">Custom</a>
+      <a href="admin.html">Admin Portal</a>
     </nav>
-    <a href="login.html" class="calc-btn">CALCULATOR 🔒</a>
+    <a href="client.html" class="calc-btn">LOGIN / SIGNUP 🔒</a>
   </header>
 
   <section class="hero-video-container">
     <video autoplay loop muted playsinline class="bg-video">
-      <source src="hero-video.mp4" type="video/mp4">
+      <source src="orven bg video.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
 
@@ -104,11 +108,14 @@
     </div>
   </section>
 
-  <div class="live-ticker">
-    <div>• LIVE NOW</div>
-    <div>Priya just saved Floral Solitaire Ring</div>
-    <div>• Rahul purchased Men's Verto Ring</div>
-    <div>• Only 7 left in Classic Moissanite Studs</div>
+  <!-- Live Purity Rates Ticker -->
+  <div class="live-rates-ticker">
+    <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
+    <div class="rate-item">24K Gold: <span id="rate-24k">₹7,200</span></div>
+    <div class="rate-item">18K Gold: <span id="rate-18k">₹5,450</span></div>
+    <div class="rate-item">14K Gold: <span id="rate-4k">₹4,250</span></div>
+    <div class="rate-item">9K Gold: <span id="rate-9k">₹2,800</span></div>
+    <div class="rate-item">Silver (925): <span id="rate-silver">₹90</span></div>
   </div>
 
   <div class="section-title">
@@ -141,7 +148,6 @@
   </div>
 
   <div class="grid-container">
-
     <a href="./Cocktail-Ring" class="grid-card">
       <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Cocktail Rings">
       <div class="card-overlay">
@@ -169,87 +175,6 @@
       </div>
     </a>
 
-    <a href="./Light-Weight-Ring" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" alt="Light Weight Rings">
-      <div class="card-overlay">
-        <div class="card-tag">Subtle Glamour</div>
-        <div class="card-title">Light Weight Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./Mens-Ring" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1611591475169-d758f14b62db?w=500" alt="Men's Rings">
-      <div class="card-overlay">
-        <div class="card-tag">Bold Character</div>
-        <div class="card-title">Men's Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./Mens-diamonds-ring" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Men's Diamond Rings">
-      <div class="card-overlay">
-        <div class="card-tag">Luxury For Men</div>
-        <div class="card-title">Men's Diamond Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./Teeth-Grillz" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500" alt="Teeth Grillz">
-      <div class="card-overlay">
-        <div class="card-tag">Custom Grillz</div>
-        <div class="card-title">Teeth Grillz</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./bracelet" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1611591475169-d758f14b62db?w=500" alt="Bracelets">
-      <div class="card-overlay">
-        <div class="card-tag">Refined Elegance</div>
-        <div class="card-title">Bracelets</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./fancy-shape-band-ring" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" alt="Fancy Shape Band Rings">
-      <div class="card-overlay">
-        <div class="card-tag">Modern Shapes</div>
-        <div class="card-title">Fancy Band Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./mangalsutra" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Mangalsutra">
-      <div class="card-overlay">
-        <div class="card-tag">Sacred Traditions</div>
-        <div class="card-title">Mangalsutra</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./necklaces" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Necklaces">
-      <div class="card-overlay">
-        <div class="card-tag">Timeless Chains</div>
-        <div class="card-title">Necklaces</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./nosepin" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Nosepin">
-      <div class="card-overlay">
-        <div class="card-tag">Delicate Detail</div>
-        <div class="card-title">Nosepins</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
     <a href="./rings" class="grid-card">
       <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Rings">
       <div class="card-overlay">
@@ -258,34 +183,6 @@
         <span class="card-link">EXPLORE COLLECTION →</span>
       </div>
     </a>
-
-    <a href="./solitaire-diamond-ring" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" alt="Solitaire Diamond Rings">
-      <div class="card-overlay">
-        <div class="card-tag">Pure Brilliance</div>
-        <div class="card-title">Solitaire Diamond Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./solitaire-rings" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Solitaire Rings">
-      <div class="card-overlay">
-        <div class="card-tag">One Stone Endless Shine</div>
-        <div class="card-title">Solitaire Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
-    <a href="./tennis-bracelet" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1611591475169-d758f14b62db?w=500" alt="Tennis Bracelet">
-      <div class="card-overlay">
-        <div class="card-tag">Line Of Light</div>
-        <div class="card-title">Tennis Bracelets</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
-      </div>
-    </a>
-
   </div>
 
   <section class="custom-section" id="custom">
