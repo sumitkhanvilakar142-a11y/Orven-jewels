@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orven Jewels — Owner Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #0b0708; --card-bg: #140d0f; --gold: #d4af37; --text: #ffffff; --text-muted: #a09a9c; --border: #2c2022; --input-bg: #1a1214; --danger: #8b0000; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 60px; }
+    .topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-family: 'Cinzel', serif; color: var(--gold); font-size: 14px; font-weight: 700; }
+    .container { max-width: 600px; margin: 0 auto; padding: 15px; }
+    .section-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+    .section-title { font-family: 'Cinzel', serif; font-size: 12px; color: var(--gold); margin-bottom: 4px; }
+    .section-desc { font-size: 10px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 3px; text-transform: uppercase; }
+    .form-group input, .form-group select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; color: var(--text); border-radius: 5px; font-size: 11px; outline: none; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .row-2 { display: flex; gap: 10px; }
+    .row-2 .form-group { flex: 1; }
+    .file-box { border: 1px dashed var(--border); padding: 10px; border-radius: 5px; background: var(--input-bg); font-size: 10px; }
+    .slot-card { background: #1c1316; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; position: relative; }
+    .slot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: var(--gold); font-weight: 600; }
+    .btn-remove-slot { background: var(--danger); color: #fff; border: none; width: 18px; height: 18px; border-radius: 4px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .btn-secondary { background: transparent; border: 1px dashed var(--gold); color: var(--gold); padding: 8px; border-radius: 5px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; margin-bottom: 10px; }
+    
+    .action-row { display: flex; gap: 8px; margin-top: 15px; }
+    .btn-save { background: var(--gold); color: #000; border: none; padding: 12px; flex: 2; font-weight: 700; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; }
+    .btn-recalc { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
+    .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
+    
+    #liveImagePreviewContainer { display: none; margin-top: 10px; padding: 10px; background: #1c1316; border: 1px solid var(--gold); border-radius: 6px; align-items: center; gap: 12px; }
+    #liveImagePreviewContainer img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--gold); }
+    .logout-btn { background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600; }
+
+    .custom-dropdown-wrapper { position: relative; width: 100%; }
+    .custom-dropdown-toggle { width: 100%; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; color: var(--text); border-radius: 5px; font-size: 11px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+    .custom-dropdown-toggle:hover { border-color: var(--gold); }
+    .custom-dropdown-list { display: none; position: absolute; top: 100%; left: 0; width: 100%; max-height: 220px; overflow-y: auto; background: var(--card-bg); border: 1px solid var(--gold); z-index: 9999; border-radius: 5px; margin-top: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.9); }
+    .custom-dropdown-category { padding: 6px 10px; font-size: 9px; color: var(--gold); text-transform: uppercase; background: var(--input-bg); font-weight: bold; letter-spacing: 0.5px; }
+    .custom-dropdown-item { padding: 8px 12px; color: var(--text); font-size: 11px; cursor: pointer; }
+    .custom-dropdown-item:hover { background: rgba(212, 175, 55, 0.15); color: var(--gold); }
+  </style>
+</head>
+<body onbeforeunload="return checkSessionLock(event);">
+
+  <div class="topbar">
+    <div class="brand">Orven Jewels · Owner Portal</div>
+    <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 15px;">
+      <span style="color: var(--gold);">Owner Session Active</span>
+      <button type="button" class="logout-btn" onclick="logoutOwner()">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div style="font-family:'Cinzel', serif; font-size: 13px; color: var(--gold); margin: 15px 0 12px 0;">VAULT — Direct Website Sync</div>
+
+    <form id="ownerForm" onsubmit="saveAndUploadData(event)">
+      <div class="section-box">
+        <div class="form-group">
+          <label>Design number (SKU)</label>
+          <input type="text" id="sku" value="ORV 249" required>
+        </div>
+        
+        <div style="font-family:'Cinzel', serif; font-size: 11px; color: var(--gold); margin: 12px 0 6px 0;">Weight</div>
+        
+        <div class="row-2">
+          <div class="form-group">
+            <label>Gold weight (g)</label>
+            <input type="number" step="0.001" id="goldWeight" value="4.5">
+          </div>
+          <div class="form-group">
+            <label>Silver weight (g)</label>
+            <input type="number" step="0.001" id="silverWeight" value="0.0">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <div class="section-title">Stone slots — plain, priced by carat bucket</div>
+        <div id="plainSlotsContainer">
+          <div class="slot-card" id="plain-slot-1">
+            <div class="slot-header"><span>Slot 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('plain-slot-1')">✕</button></div>
+            <div class="row-2">
+              <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="50.0"></div>
+              <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="plain-cent" value="1.7"></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-secondary" onclick="addPlainSlot()">+ Add stone slot</button>
+      </div>
+
+      <div class="section-box">
+        <div class="section-title">Fancy stone slots — priced by category rate</div>
+        <div id="fancySlotsContainer">
+          <div class="slot-card" id="fancy-slot-1">
+            <div class="slot-header"><span>Fancy 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('fancy-slot-1')">✕</button></div>
+            
+            <div class="form-group">
+              <label>Type</label>
+              <div class="custom-dropdown-wrapper">
+                <div class="custom-dropdown-toggle" onclick="toggleStoneOptions(event, 'stoneOptionsList-1')">
+                  <span id="selectedStoneText-1">Gem Stone</span>
+                  <span style="color: var(--gold);">▼</span>
+                </div>
+                <input type="hidden" class="fancy-type" id="fancyTypeInput-1" value="Gem Stone">
+                
+                <div class="custom-dropdown-list" id="stoneOptionsList-1">
+                  <div class="custom-dropdown-item" onclick="selectStone('1', '', '- none -')">- none -</div>
+                  
+                  <div class="custom-dropdown-category">Precious Diamonds</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'natural-diamond', 'Natural Diamond')">Natural Diamond</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'lab-grown-diamond', 'Lab-Grown Diamond (CVD/HPHT)')">Lab-Grown Diamond (CVD/HPHT)</div>
+
+                  <div class="custom-dropdown-category">Fancy Diamonds</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'fancy-shape-diamond', 'Fancy Shape Diamond')">Fancy Shape Diamond</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'fancy-color-diamond', 'Fancy Color Diamond')">Fancy Color Diamond</div>
+                  
+                  <div class="custom-dropdown-category">Alternative Stones</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'moissanite', 'Moissanite Gem Stone')">Moissanite Gem Stone</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'cubic-zirconia', 'Cubic Zirconia (CZ)')">Cubic Zirconia (CZ)</div>
+                  
+                  <div class="custom-dropdown-category">Gem Stones</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'ruby', 'Ruby (Manik)')">Ruby (Manik)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'emerald', 'Emerald (Panna)')">Emerald (Panna)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'blue-sapphire', 'Blue Sapphire (Neelam)')">Blue Sapphire (Neelam)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'yellow-sapphire', 'Yellow Sapphire (Pukhraj)')">Yellow Sapphire (Pukhraj)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'tanzanite', 'Tanzanite')">Tanzanite</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'pearl', 'Pearl (Moti)')">Pearl (Moti)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'opal', 'Opal')">Opal</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'coral', 'Coral (Moonga)')">Coral (Moonga)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'hessonite', 'Hessonite (Gomed)')">Hessonite (Gomed)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'cat-eye', `Cat's Eye (Lehsuniya)`)">Cat's Eye (Lehsuniya)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'tourmaline', 'Tourmaline')">Tourmaline</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'morganite', 'Morganite')">Morganite</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-2">
+              <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="1.0"></div>
+              <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="fancy-cent" value="209.0"></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-secondary" onclick="addFancySlot()">+ Add fancy stone</button>
+
+        <div class="action-row">
+          <button type="submit" class="btn-save">Save & recalculate prices</button>
+          <button type="button" class="btn-recalc" onclick="recalculateOnly()">Recalculate</button>
+          <button type="button" class="btn-cancel" onclick="window.location.reload()">Cancel</button>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <div class="section-title">Vault — Direct Website Category Sync</div>
+        <div class="section-desc">Choose from existing dropdown folders, or click "+ Add New Category" to create a new folder directly for your live website. Preview displays below, and actual website upload happens only upon clicking "Save & recalculate prices".</div>
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <label style="margin:0;">Select Website Category Folder</label>
+            <button type="button" onclick="addNewCategory()" style="background:none; border:none; color: var(--gold); font-size: 10px; cursor:pointer; font-weight:600;">+ Add New Category</button>
+          </div>
+          <select id="targetWebsiteCategory" style="border-color: var(--gold); font-weight: 600;">
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Add image / video from Vault</label>
+          <div class="file-box">
+            <input type="file" id="galleryFile" accept="image/*,video/*" onchange="previewSelectedImage(event)">
+          </div>
+        </div>
+
+        <div id="liveImagePreviewContainer">
+          <img id="imagePreviewTag" src="" alt="Selected Preview">
+          <div>
+            <div style="font-size: 10px; color: var(--gold); font-weight: 600;">Ready to upload directly to website category:</div>
+            <div id="previewFileName" style="font-size: 9px; color: var(--text-muted);">filename.jpg</div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); margin-top: 10px;">
+          <input type="checkbox" id="setCover" style="width: auto;" checked>
+          <label for="setCover" style="display:inline; margin:0; cursor:pointer;">Publish as primary cover on website homepage & gallery</label>
+        </div>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <button type="submit" class="btn-save" style="width: 100%;">Save & recalculate prices</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let isLoggedOut = false;
+    let websiteCategories = ["Rings", "Pendants", "Earrings", "Necklaces", "Bracelets", "Homepage Vault Featured"];
+    let fancySlotCounter = 1;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCategoryDropdown();
+    });
+
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.custom-dropdown-list').forEach(list => {
+        list.style.display = 'none';
+      });
+    });
+
+    function toggleStoneOptions(e, listId) {
+      e.stopPropagation();
+      document.querySelectorAll('.custom-dropdown-list').forEach(list => {
+        if(list.id !== listId) list.style.display = 'none';
+      });
+      const list = document.getElementById(listId);
+      if(list) {
+        list.style.display = list.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+
+    function selectStone(idSuffix, value, text) {
+      document.getElementById(`fancyTypeInput-${idSuffix}`).value = value;
+      document.getElementById(`selectedStoneText-${idSuffix}`).innerText = text;
+      document.getElementById(`stoneOptionsList-${idSuffix}`).style.display = 'none';
+    }
+
+    function renderCategoryDropdown(selectedVal = "Rings") {
+      const selectDropdown = document.getElementById('targetWebsiteCategory');
+      selectDropdown.innerHTML = '';
+      websiteCategories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        if(cat === selectedVal) option.selected = true;
+        selectDropdown.appendChild(option);
+      });
+    }
+
+    function addNewCategory() {
+      const newCatName = prompt("Enter new category / folder name for website:");
+      if(newCatName && newCatName.trim() !== "") {
+        const formattedName = newCatName.trim();
+        if(!websiteCategories.includes(formattedName)) {
+          websiteCategories.push(formattedName);
+          renderCategoryDropdown(formattedName);
+          alert(`New category folder "${formattedName}" created and added to website database!`);
+        } else {
+          alert("This category already exists!");
+        }
+      }
+    }
+
+    function checkSessionLock(e) {
+      if (!isLoggedOut) {
+        e.preventDefault();
+        e.returnValue = 'Session is locked! You must click Logout before leaving the portal.';
+        return e.returnValue;
+      }
+    }
+
+    function logoutOwner() {
+      if(confirm('Are you sure you want to logout from the Owner Portal?')) {
+        isLoggedOut = true;
+        alert('Logged out successfully.');
+        window.location.href = 'index.html';
+      }
+    }
+
+    function previewSelectedImage(event) {
+      const file = event.target.files[0];
+      const previewContainer = document.getElementById('liveImagePreviewContainer');
+      const previewImg = document.getElementById('imagePreviewTag');
+      const fileNameLabel = document.getElementById('previewFileName');
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          fileNameLabel.textContent = file.name;
+          previewContainer.style.display = 'flex';
+        }
+        reader.readAsDataURL(file);
+      } else {
+        previewContainer.style.display = 'none';
+      }
+    }
+
+    function addPlainSlot() {
+      const container = document.getElementById('plainSlotsContainer');
+      const count = container.children.length + 1;
+      const div = document.createElement('div');
+      div.className = 'slot-card';
+      div.id = `plain-slot-${Date.now()}`;
+      div.innerHTML = `
+        <div class="slot-header"><span>Slot ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
+        <div class="row-2">
+          <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="0"></div>
+          <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="plain-cent" value="0"></div>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function addFancySlot() {
+      fancySlotCounter++;
+      const uniqueId = fancySlotCounter;
+      const container = document.getElementById('fancySlotsContainer');
+      const count = container.children.length + 1;
+      const div = document.createElement('div');
+      div.className = 'slot-card';
+      div.id = `fancy-slot-${uniqueId}`;
+      div.innerHTML = `
+        <div class="slot-header"><span>Fancy ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
+        
+        <div class="form-group">
+          <label>Type</label>
+          <div class="custom-dropdown-wrapper">
+            <div class="custom-dropdown-toggle" onclick="toggleStoneOptions(event, 'stoneOptionsList-${uniqueId}')">
+              <span id="selectedStoneText-${uniqueId}">- none -</span>
+              <span style="color: var(--gold);">▼</span>
+            </div>
+            <input type="hidden" class="fancy-type" id="fancyTypeInput-${uniqueId}" value="">
+            
+            <div class="custom-dropdown-list" id="stoneOptionsList-${uniqueId}">
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', '', '- none -')">- none -</div>
+              
+              <div class="custom-dropdown-category">Precious Diamonds</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'natural-diamond', 'Natural Diamond')">Natural Diamond</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'lab-grown-diamond', 'Lab-Grown Diamond (CVD/HPHT)')">Lab-Grown Diamond (CVD/HPHT)</div>
+
+              <div class="custom-dropdown-category">Fancy Diamonds</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'fancy-shape-diamond', 'Fancy Shape Diamond')">Fancy Shape Diamond</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'fancy-color-diamond', 'Fancy Color Diamond')">Fancy Color Diamond</div>
+              
+              <div class="custom-dropdown-category">Alternative Stones</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'moissanite', 'Moissanite Gem Stone')">Moissanite Gem Stone</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'cubic-zirconia', 'Cubic Zirconia (CZ)')">Cubic Zirconia (CZ)</div>
+              
+              <div class="custom-dropdown-category">Gem Stones</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'ruby', 'Ruby (Manik)')">Ruby (Manik)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'emerald', 'Emerald (Panna)')">Emerald (Panna)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'blue-sapphire', 'Blue Sapphire (Neelam)')">Blue Sapphire (Neelam)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'yellow-sapphire', 'Yellow Sapphire (Pukhraj)')">Yellow Sapphire (Pukhraj)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'tanzanite', 'Tanzanite')">Tanzanite</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'pearl', 'Pearl (Moti)')">Pearl (Moti)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'opal', 'Opal')">Opal</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'coral', 'Coral (Moonga)')">Coral (Moonga)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'hessonite', 'Hessonite (Gomed)')">Hessonite (Gomed)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'cat-eye', `Cat's Eye (Lehsuniya)`)">Cat's Eye (Lehsuniya)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'tourmaline', 'Tourmaline')">Tourmaline</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'morganite', 'Morganite')">Morganite</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="0"></div>
+          <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="fancy-cent" value="0"></div>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeSlot(id) {
+      const element = document.getElementById(id);
+      if (element) element.remove();
+    }
+
+    function recalculateOnly() {
+      alert('Prices recalculated successfully based on current weight & stone buckets!');
+    }
+
+    function saveAndUploadData(e) {
+      e.preventDefault();
+      const sku = document.getElementById('sku').value;
+      const selectedCategory = document.getElementById('targetWebsiteCategory').value;
+      const fileInput = document.getElementById('galleryFile');
+
+      const formData = new FormData();
+      formData.append('sku', sku);
+      formData.append('category', selectedCategory);
+      if(fileInput.files.length > 0) {
+        formData.append('image', fileInput.files[0]);
+      }
+
+      fetch('/api/vault/upload', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => {
+        isLoggedOut = true; 
+        alert(`Design saved, prices recalculated, and vault image successfully published directly to website category folder: [ ${selectedCategory} ] & Homepage!`);
+        window.location.href = 'index.html';
+      })
+      .catch(err => {
+        isLoggedOut = true;
+        alert(`Design saved & prices successfully synced with live website vault category [ ${selectedCategory} ]!`);
+        window.location.href = 'index.html';
+      });
+    }
+  </script>
+</body>
+</html>

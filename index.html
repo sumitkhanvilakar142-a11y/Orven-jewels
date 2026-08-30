@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orven Jewels — Vault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #0b0708; --card-bg: #140d0f; --gold: #d4af37; --text: #ffffff; --text-muted: #a09a9c; --border: #2c2022; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
+    
+    /* Header */
+    .header { padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); }
+    .brand { font-family: 'Cinzel', serif; color: var(--gold); font-size: 16px; font-weight: 700; letter-spacing: 1px; }
+    
+    /* Product Grid */
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 15px; }
+    .product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; }
+    .product-card img { width: 100%; height: 140px; object-fit: cover; }
+    .product-info { padding: 10px; }
+    .product-title { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .product-price { font-size: 13px; color: var(--gold); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="brand">Orven Jewels</div>
+    <a href="admin.html" style="color: var(--gold); font-size: 11px; text-decoration: none;">Admin Login</a>
+  </div>
+
+  <div class="catalog-grid" id="productGrid">
+    <!-- Products will load dynamically here -->
+  </div>
+
+  <script>
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(products => {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = products.map(p => `
+          <div class="product-card">
+            <img src="${p.image || 'vault-ring.jpg'}" alt="${p.sku}">
+            <div class="product-info">
+              <div class="product-title">Design: ${p.sku}</div>
+              <div class="product-price">₹${Math.floor(p.goldWeight * 7200 + 15000).toLocaleString('en-IN')}</div>
+            </div>
+          </div>
+        `).join('');
+      });
+  </script>
+</body>
+</html>
