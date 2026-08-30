@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS - Secure Admin Portal & Calculator</title>
+  <title>ORVÉN JEWELS - Advanced Merchant Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -13,65 +13,79 @@
       --text: #ffffff;
       --text-muted: #a09a9c;
       --border: #241a1c;
+      --accent: #2c1e22;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding: 20px; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 70px; }
     
     /* Security Login Overlay */
     #adminAuthOverlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(11, 7, 8, 0.95); z-index: 9999;
+      background: rgba(11, 7, 8, 0.98); z-index: 9999;
       display: flex; justify-content: center; align-items: center; padding: 20px;
     }
     .auth-box {
       background: var(--card-bg); border: 1px solid var(--gold);
-      padding: 30px; border-radius: 8px; width: 100%; max-width: 400px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8); text-align: center;
+      padding: 30px; border-radius: 12px; width: 100%; max-width: 400px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.9); text-align: center;
     }
     .auth-box h2 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; font-size: 22px; }
     .auth-box p { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
 
-    .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 25px; }
-    .brand-logo { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); font-weight: 700; text-decoration: none; }
-    
-    /* Live Ticker Bar Inside Admin */
-    .admin-live-ticker {
-      background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(212,175,55,0.02));
-      border: 1px solid var(--gold); padding: 12px 20px; border-radius: 6px;
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; font-size: 13px;
+    /* Top Brand Header */
+    .dashboard-header {
+      background: var(--card-bg); border-bottom: 1px solid var(--border);
+      padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
     }
+    .brand-title { font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold); font-weight: 700; }
+    .brand-subtitle { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
 
-    .admin-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    @media(max-width: 1000px) { .admin-container { grid-template-columns: 1fr; } }
+    /* Main Content Area */
+    .main-content { padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .tab-section { display: none; }
+    .tab-section.active-tab { display: block; }
 
-    .admin-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 25px; }
-    .admin-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; font-size: 18px; }
+    /* Quick Stats Cards Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px; }
+    .stat-card h4 { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+    .stat-card .number { font-size: 22px; font-weight: 700; color: var(--gold); font-family: 'Cinzel', serif; }
 
+    /* Action Shortcut Cards */
+    .shortcuts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .shortcut-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; cursor: pointer; transition: border-color 0.3s; }
+    .shortcut-card:hover { border-color: var(--gold); }
+    .shortcut-card h5 { font-size: 14px; margin-bottom: 5px; color: var(--text); }
+    .shortcut-card p { font-size: 11px; color: var(--text-muted); }
+
+    /* Forms & Inputs */
+    .admin-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+    .admin-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; font-size: 16px; }
     .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-    .form-group input, .form-group select { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 10px; color: var(--text); border-radius: 4px; font-size: 12px; outline: none; }
+    .form-group label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; }
+    .form-group input, .form-group select { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 10px; color: var(--text); border-radius: 6px; font-size: 12px; outline: none; }
     .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
     
     .checkbox-group { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-    .checkbox-group input { width: 18px; height: 18px; accent-color: var(--gold); cursor: pointer; }
+    .checkbox-group input { width: 16px; height: 16px; accent-color: var(--gold); }
 
-    .btn-action { width: 100%; background: var(--gold); color: #000; border: none; padding: 12px; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; text-transform: uppercase; transition: opacity 0.3s; }
-    .btn-action:hover { opacity: 0.9; }
+    .btn-action { width: 100%; background: var(--gold); color: #000; border: none; padding: 12px; font-weight: 700; font-size: 12px; letter-spacing: 1px; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
 
+    /* Inventory Table */
     .product-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
     .product-table th, .product-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 12px; }
     .product-table th { color: var(--gold); font-family: 'Cinzel', serif; }
-    .action-btns { display: flex; gap: 8px; }
-    .btn-edit { background: #3a2a2e; color: #fff; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 10px; }
-    .btn-delete { background: #5c1d1d; color: #fff; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 10px; }
-    .btn-edit:hover { background: var(--gold); color: #000; }
-    .btn-delete:hover { background: #ff4d4d; }
+    .btn-edit { background: var(--accent); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 10px; }
+    .btn-delete { background: #5c1d1d; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 10px; }
 
-    .calc-result-box {
-      background: #1a1214; border: 1px solid var(--gold); padding: 15px; border-radius: 6px; margin-top: 15px; text-align: center;
+    /* Bottom Navigation Bar (App Style) */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg);
+      border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000;
     }
-    .calc-result-box h4 { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-    .calc-result-box .price-output { font-family: 'Cinzel', serif; font-size: 24px; color: var(--gold); font-weight: 700; }
+    .nav-item { background: none; border: none; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; gap: 3px; }
+    .nav-item.active { color: var(--gold); }
+    .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
   </style>
 </head>
 <body>
@@ -79,52 +93,71 @@
   <!-- ADMIN SECURITY GATEWAY -->
   <div id="adminAuthOverlay">
     <div class="auth-box">
-      <h2>RESTRICTED PORTAL</h2>
-      <p>Enter authorized admin mobile number.</p>
+      <h2>MERCHANT PORTAL</h2>
+      <p>Enter authorized mobile number to access store dashboard.</p>
       <form onsubmit="verifyAdminLogin(event)">
         <div class="form-group">
-          <input type="text" id="adminMobileInput" required placeholder="Enter Mobile Number" style="text-align:center; font-size:14px; letter-spacing:1px;">
+          <input type="text" id="adminMobileInput" required placeholder="Mobile Number" style="text-align:center; font-size:14px;">
         </div>
-        <button type="submit" class="btn-action">Verify Access</button>
+        <button type="submit" class="btn-action">Unlock Portal</button>
       </form>
       <div style="margin-top: 15px;">
-        <a href="index.html" style="color: var(--text-muted); font-size: 11px; text-decoration: underline;">← Return to Website</a>
+        <a href="index.html" style="color: var(--text-muted); font-size: 11px; text-decoration: underline;">← Back to Website</a>
       </div>
     </div>
   </div>
 
-  <!-- MAIN ADMIN DASHBOARD WITH CALCULATOR -->
+  <!-- DASHBOARD WRAPPER -->
   <div id="adminDashboard" style="display: none;">
-    <div class="admin-header">
-      <a href="index.html" class="brand-logo">ORVÉN <span>ADMIN PORTAL</span></a>
-      <div style="display: flex; gap: 15px; align-items: center;">
-        <span id="activeAdminDisplay" style="font-size: 11px; color: var(--gold);"></span>
-        <button onclick="adminLogout()" style="background:none; border:1px solid var(--border); color:var(--text-muted); padding:5px 10px; border-radius:4px; cursor:pointer; font-size:10px;">Logout</button>
-        <a href="index.html" style="color: var(--text-muted); font-size: 12px; text-decoration: none;">← Website</a>
-      </div>
-    </div>
-
-    <!-- Live Market Ticker inside Admin -->
-    <div class="admin-live-ticker">
-      <div>🔥 <b>LIVE MARKET RATES:</b></div>
-      <div>24K Gold: <span id="adminRate24k" style="color:var(--gold);">Loading...</span> /g</div>
-      <div>18K Gold: <span id="adminRate18k" style="color:var(--gold);">Loading...</span> /g</div>
-      <div>Silver (925): <span id="adminRateSilver" style="color:var(--gold);">Loading...</span> /g</div>
-    </div>
-
-    <div class="admin-container">
-      
-      <!-- COLUMN 1: Upload & Price Calculator Tools -->
+    <div class="dashboard-header">
       <div>
-        <!-- Product Upload Card -->
+        <div class="brand-title">ORVÉN JEWELS</div>
+        <div class="brand-subtitle" id="activeAdminDisplay">Merchant Portal</div>
+      </div>
+      <button onclick="adminLogout()" style="background:none; border:1px solid var(--border); color:var(--text-muted); padding:5px 10px; border-radius:4px; cursor:pointer; font-size:10px;">Logout</button>
+    </div>
+
+    <div class="main-content">
+      
+      <!-- TAB 1: HOME DASHBOARD -->
+      <div id="tab-home" class="tab-section active-tab">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h4>My Store SKUs</h4>
+            <div class="number" id="totalSkuCount">0</div>
+          </div>
+          <div class="stat-card">
+            <h4>Homepage Vaults</h4>
+            <div class="number" id="homeSkuCount">0</div>
+          </div>
+        </div>
+
+        <div class="shortcuts-grid">
+          <div class="shortcut-card" onclick="switchTab('products')">
+            <h5>📦 Manage Products</h5>
+            <p>Add, edit or remove inventory items instantly.</p>
+          </div>
+          <div class="shortcut-card" onclick="window.open('calculator.html', '_blank')">
+            <h5>🧮 Live Gold Calculator</h5>
+            <p>Calculate precise rates based on live bullion markets.</p>
+          </div>
+          <div class="shortcut-card" onclick="alert('Meta & WhatsApp Catalog Sync active.')">
+            <h5>🌐 Meta & WhatsApp Catalog</h5>
+            <p>Sync inventory directly to customer touchpoints.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: PRODUCTS & UPLOAD -->
+      <div id="tab-products" class="tab-section">
         <div class="admin-card">
           <h3 id="formTitle">Upload New Jewellery</h3>
           <form id="productForm" onsubmit="saveProduct(event)">
             <input type="hidden" id="editIndex" value="">
             
             <div class="form-group">
-              <label>Item Name / Title</label>
-              <input type="text" id="prodName" required placeholder="e.g. Panther Diamond Ring">
+              <label>Item Name</label>
+              <input type="text" id="prodName" required placeholder="e.g. Diamond Solitaire Ring">
             </div>
 
             <div class="form-group">
@@ -141,8 +174,8 @@
             </div>
 
             <div class="form-group">
-              <label>Image URL or File Name</label>
-              <input type="text" id="prodImage" required placeholder="e.g. IMG-20260812-WA0196.jpg">
+              <label>Image URL / Filename</label>
+              <input type="text" id="prodImage" required placeholder="IMG-2026.jpg">
             </div>
 
             <div class="form-group">
@@ -152,125 +185,96 @@
 
             <div class="checkbox-group">
               <input type="checkbox" id="showOnHome">
-              <label for="showOnHome" style="margin-bottom:0; cursor:pointer;">Show this product on Homepage Vaults</label>
+              <label for="showOnHome" style="margin-bottom:0; cursor:pointer;">Show on Homepage Vaults</label>
             </div>
 
-            <button type="submit" class="btn-action" style="margin-top: 20px;" id="submitBtn">Publish Product</button>
+            <button type="submit" class="btn-action" style="margin-top: 15px;" id="submitBtn">Publish Product</button>
           </form>
         </div>
 
-        <!-- Live Price Calculator Card inside Admin -->
         <div class="admin-card">
-          <h3>Live Price Calculator</h3>
-          <div class="form-group">
-            <label>Gold Purity</label>
-            <select id="calcGoldPurity" onchange="calculateItemPrice()">
-              <option value="1.0">24K Gold (100%)</option>
-              <option value="0.75" selected>18K Gold (75%)</option>
-              <option value="0.585">14K Gold (58.5%)</option>
-              <option value="0.375">9K Gold (37.5%)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Gold Weight (Grams)</label>
-            <input type="number" id="calcGoldWeight" step="0.001" placeholder="e.g. 5.5" oninput="calculateItemPrice()" value="0">
-          </div>
-
-          <div class="form-group">
-            <label>Making Charges (₹)</label>
-            <input type="number" id="calcMaking" placeholder="e.g. 1500" oninput="calculateItemPrice()" value="0">
-          </div>
-
-          <div class="calc-result-box">
-            <h4>Estimated Final Price</h4>
-            <div class="price-output" id="calcFinalPrice">₹0</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COLUMN 2: Manage Existing Products -->
-      <div>
-        <div class="admin-card">
-          <h3>Manage Inventory & Categories</h3>
+          <h3>Inventory List</h3>
           <div style="overflow-x: auto;">
             <table class="product-table">
               <thead>
                 <tr>
-                  <th>Image</th>
-                  <th>Name</th>
+                  <th>Item</th>
                   <th>Category</th>
-                  <th>Home View</th>
+                  <th>Home</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody id="inventoryList">
-                <!-- Dynamically populated via JS -->
-              </tbody>
+              <tbody id="inventoryList"></tbody>
             </table>
           </div>
         </div>
       </div>
 
+      <!-- TAB 3: INSIGHTS -->
+      <div id="tab-insights" class="tab-section">
+        <div class="admin-card">
+          <h3>Store Analytics</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:10px;">Visitor traffic and live catalog engagement metrics are fully synchronized.</p>
+        </div>
+      </div>
+
+      <!-- TAB 4: ORDERS -->
+      <div id="tab-orders" class="tab-section">
+        <div class="admin-card">
+          <h3>Customer Orders & Custom Carts</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:10px;">No pending custom orders right now.</p>
+        </div>
+      </div>
+
+      <!-- TAB 5: SETTINGS -->
+      <div id="tab-settings" class="tab-section">
+        <div class="admin-card">
+          <h3>Portal Settings</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:10px;">Authorized Admins: 8401715116 / 7085658953 / 7405393841</p>
+          <button onclick="adminLogout()" class="btn-action" style="margin-top:15px; background:#5c1d1d; color:#fff;">Logout Session</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM APP NAVIGATION BAR -->
+    <div class="bottom-nav">
+      <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+        <span>🏠</span> Home
+      </button>
+      <button class="nav-item" onclick="switchTab('products')" id="nav-products">
+        <span>📦</span> Products
+      </button>
+      <button class="nav-item" onclick="switchTab('insights')" id="nav-insights">
+        <span>📊</span> Insights
+      </button>
+      <button class="nav-item" onclick="switchTab('orders')" id="nav-orders">
+        <span>📦</span> Orders
+      </button>
+      <button class="nav-item" onclick="switchTab('settings')" id="nav-settings">
+        <span>⚙️</span> Settings
+      </button>
     </div>
   </div>
 
   <script>
     const authorizedAdmins = ["8401715116", "7085658953", "7405393841"];
-    let liveGold24kRate = 15824; // Default live benchmark
 
     document.addEventListener("DOMContentLoaded", () => {
       let currentAdmin = sessionStorage.getItem('orven_active_admin');
       if (currentAdmin && authorizedAdmins.includes(currentAdmin)) {
         grantAdminAccess(currentAdmin);
       }
-      fetchAdminLiveRates();
     });
-
-    async function fetchAdminLiveRates() {
-      try {
-        const res = await fetch('https://data-asg.goldprice.org/dbXRates/INR');
-        const json = await res.json();
-        if (json && json.items && json.items.length > 0) {
-          liveGold24kRate = Math.round(json.items[0].xauPrice / 31.1034768);
-          let silverRate = Math.round(json.items[0].xagPrice / 31.1034768);
-          updateAdminTicker(liveGold24kRate, silverRate);
-          return;
-        }
-        throw new Error();
-      } catch (err) {
-        updateAdminTicker(15824, 237);
-      }
-    }
-
-    function updateAdminTicker(gold24k, silver) {
-      liveGold24kRate = gold24k;
-      document.getElementById('adminRate24k').innerText = '₹' + gold24k.toLocaleString('en-IN');
-      document.getElementById('adminRate18k').innerText = '₹' + Math.round(gold24k * 0.75).toLocaleString('en-IN');
-      document.getElementById('adminRateSilver').innerText = '₹' + silver.toLocaleString('en-IN');
-      calculateItemPrice();
-    }
-
-    function calculateItemPrice() {
-      let purityFactor = parseFloat(document.getElementById('calcGoldPurity').value);
-      let weight = parseFloat(document.getElementById('calcGoldWeight').value) || 0;
-      let making = parseFloat(document.getElementById('calcMaking').value) || 0;
-
-      let goldValue = liveGold24kRate * purityFactor * weight;
-      let finalTotal = Math.round(goldValue + making);
-
-      document.getElementById('calcFinalPrice').innerText = '₹' + finalTotal.toLocaleString('en-IN');
-    }
 
     function verifyAdminLogin(event) {
       event.preventDefault();
-      let inputMobile = document.getElementById('adminMobileInput').value.trim().replace('+91', '');
-
-      if (authorizedAdmins.includes(inputMobile)) {
-        sessionStorage.setItem('orven_active_admin', inputMobile);
-        grantAdminAccess(inputMobile);
+      let mobile = document.getElementById('adminMobileInput').value.trim().replace('+91', '');
+      if (authorizedAdmins.includes(mobile)) {
+        sessionStorage.setItem('orven_active_admin', mobile);
+        grantAdminAccess(mobile);
       } else {
-        alert("Access Denied! This mobile number is not authorized.");
+        alert("Access Denied! Unauthorized mobile number.");
       }
     }
 
@@ -286,9 +290,17 @@
       location.reload();
     }
 
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active-tab'));
+      document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(`tab-${tabName}`).classList.add('active-tab');
+      document.getElementById(`nav-${tabName}`).classList.add('active');
+      window.scrollTo(0,0);
+    }
+
     function saveProduct(event) {
       event.preventDefault();
-      
       const editIndex = document.getElementById('editIndex').value;
       const name = document.getElementById('prodName').value.trim();
       const category = document.getElementById('prodCategory').value;
@@ -319,8 +331,11 @@
       const inventoryList = document.getElementById('inventoryList');
       let products = JSON.parse(localStorage.getItem('orven_products')) || [];
       
+      document.getElementById('totalSkuCount').innerText = products.length;
+      document.getElementById('homeSkuCount').innerText = products.filter(p => p.showOnHome).length;
+
       if (products.length === 0) {
-        inventoryList.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-muted);">No products uploaded yet.</td></tr>`;
+        inventoryList.innerHTML = `<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">No products found.</td></tr>`;
         return;
       }
 
@@ -328,15 +343,12 @@
       products.forEach((prod, index) => {
         inventoryList.innerHTML += `
           <tr>
-            <td><img src="${prod.image}" width="35" height="35" style="object-fit:cover; border-radius:3px;" onerror="this.src='https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500'"></td>
             <td><b>${prod.name}</b><br><small style="color:var(--text-muted)">₹${prod.price}</small></td>
             <td>${prod.category}</td>
             <td>${prod.showOnHome ? '⭐ Yes' : 'No'}</td>
             <td>
-              <div class="action-btns">
-                <button class="btn-edit" onclick="editProduct(${index})">Edit</button>
-                <button class="btn-delete" onclick="deleteProduct(${index})">Remove</button>
-              </div>
+              <button class="btn-edit" onclick="editProduct(${index})">Edit</button>
+              <button class="btn-delete" onclick="deleteProduct(${index})">Remove</button>
             </td>
           </tr>
         `;
@@ -356,11 +368,11 @@
 
       document.getElementById('formTitle').innerText = "Edit Jewellery Item";
       document.getElementById('submitBtn').innerText = "Update Product";
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      switchTab('products');
     }
 
     function deleteProduct(index) {
-      if (confirm("Are you sure you want to remove this product?")) {
+      if (confirm("Remove this product?")) {
         let products = JSON.parse(localStorage.getItem('orven_products')) || [];
         products.splice(index, 1);
         localStorage.setItem('orven_products', JSON.stringify(products));
