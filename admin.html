@@ -14,14 +14,14 @@
     .container { max-width: 600px; margin: 0 auto; padding: 15px; }
     .section-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
     .section-title { font-family: 'Cinzel', serif; font-size: 12px; color: var(--gold); margin-bottom: 4px; }
-    .section-desc { font-size: 10px; color: var(--text-muted); margin-bottom: 10px; }
+    .section-desc { font-size: 10px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 3px; text-transform: uppercase; }
     .form-group input, .form-group select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; color: var(--text); border-radius: 5px; font-size: 11px; outline: none; }
     .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
     .row-2 { display: flex; gap: 10px; }
     .row-2 .form-group { flex: 1; }
-    .file-box { border: 1px dashed var(--border); padding: 10px; border-radius: 5px; background: var(--input-bg); font-size: 10px; text-align: center; }
+    .file-box { border: 1px dashed var(--border); padding: 10px; border-radius: 5px; background: var(--input-bg); font-size: 10px; }
     .slot-card { background: #1c1316; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; position: relative; }
     .slot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: var(--gold); font-weight: 600; }
     .btn-remove-slot { background: var(--danger); color: #fff; border: none; width: 18px; height: 18px; border-radius: 4px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -32,6 +32,14 @@
     .btn-save { background: var(--gold); color: #000; border: none; padding: 12px; flex: 2; font-weight: 700; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; }
     .btn-recalc { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
     .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
+    
+    /* Image Thumbnail Grid in Gallery */
+    .thumb-preview { display: flex; align-items: center; justify-content: space-between; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; border-radius: 5px; margin-bottom: 10px; }
+    .thumb-left { display: flex; align-items: center; gap: 10px; }
+    .thumb-left img { width: 45px; height: 45px; object-fit: cover; border-radius: 4px; }
+    .badge-cover { background: #d4af3733; color: var(--gold); padding: 2px 6px; font-size: 9px; border-radius: 3px; font-weight: 600; }
+    .btn-action-sm { background: var(--border); color: var(--text); border: none; padding: 3px 8px; font-size: 9px; border-radius: 3px; cursor: pointer; margin-right: 4px; }
+    .btn-danger-sm { background: var(--danger); color: #fff; border: none; padding: 3px 8px; font-size: 9px; border-radius: 3px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -51,7 +59,7 @@
     <form onsubmit="saveItem(event)">
       <!-- Current Image Preview Box -->
       <div class="section-box" style="display: flex; gap: 12px; align-items: center;">
-        <div style="width: 60px; height: 60px; background: #1a1214; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 50px; height: 50px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
           <img src="vault-ring.jpg" alt="Ring" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
         </div>
         <div style="font-size: 10px; color: var(--text-muted);">Current image for this design</div>
@@ -134,19 +142,65 @@
       <!-- Gallery - Images & Video -->
       <div class="section-box">
         <div class="section-title">Gallery — Images & Video</div>
-        <div class="section-desc">Shown to everyone who can view this design. The cover image is what shows first in the Vault.</div>
-        <div class="file-box">
-          <input type="file" id="galleryFile" accept="image/*,video/*" style="font-size:10px;">
+        <div class="section-desc">Shown to everyone who can view this design. The cover image is what shows first in the Vault; a new cover image that looks like an existing design cover will be flagged before it saves.</div>
+        
+        <div class="thumb-preview">
+          <div class="thumb-left">
+            <img src="vault-ring.jpg" alt="Thumb" onerror="this.src='https://via.placeholder.com/45'">
+            <div>
+              <span class="badge-cover">cover</span>
+            </div>
+          </div>
+          <div>
+            <button type="button" class="btn-action-sm">Share</button>
+            <button type="button" class="btn-danger-sm">Delete</button>
+          </div>
         </div>
+
+        <div class="form-group" style="margin-top: 10px;">
+          <label>Add images / video</label>
+          <div class="file-box">
+            <input type="file" id="galleryFile" accept="image/*,video/*" style="font-size:10px;">
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); margin-top: 8px;">
+          <input type="checkbox" id="setCover" style="width: auto;">
+          <label for="setCover" style="display:inline; margin:0; cursor:pointer;">Set the first image in this batch as the cover</label>
+        </div>
+        <button type="button" class="btn-secondary" style="margin-top: 10px; width: auto; padding: 6px 15px;" onclick="alert('Image uploaded successfully!')">Upload selected</button>
       </div>
 
       <!-- CAD Image Section -->
-      <div class="section-box" style="margin-bottom:0;">
+      <div class="section-box">
         <div class="section-title">CAD Image</div>
-        <div class="section-desc">.3dm / .stl / .jpg / .png render of the CAD. Owner/staff only — never shown in the Vault.</div>
-        <div class="file-box">
-          <input type="file" id="cadRefFile" accept=".3dm,.stl,.jpg,.png,image/jpeg,image/png" style="font-size:10px;">
+        <div class="section-desc">.JPG / .PNG render of the CAD. Staff/owner only — never shown in the Vault.</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">No CAD images yet.</div>
+        <div class="form-group">
+          <label>Add CAD image(s)</label>
+          <div class="file-box">
+            <input type="file" id="cadImgFile" accept="image/jpeg,image/png" style="font-size:10px;">
+          </div>
         </div>
+        <button type="button" class="btn-secondary" style="margin-top: 10px; width: auto; padding: 6px 15px;" onclick="alert('CAD image uploaded!')">Upload selected</button>
+      </div>
+
+      <!-- CAD Reference Files Section -->
+      <div class="section-box" style="margin-bottom:0;">
+        <div class="section-title">CAD Reference Files</div>
+        <div class="section-desc">.3dm / .stl reference files. Staff/owner only — never shown in the Vault.</div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">No CAD files uploaded yet.</div>
+        <div class="form-group">
+          <label>Add CAD file(s)</label>
+          <div class="file-box">
+            <input type="file" id="cadRefFile" accept=".3dm,.stl" style="font-size:10px;">
+          </div>
+        </div>
+        <button type="button" class="btn-secondary" style="margin-top: 10px; width: auto; padding: 6px 15px;" onclick="alert('CAD file uploaded!')">Upload selected</button>
+      </div>
+
+      <!-- Bottom Save Button Matching Screenshot Style -->
+      <div style="margin-top: 15px;">
+        <button type="submit" class="btn-save" style="width: 100%;">Save & recalculate prices</button>
       </div>
     </form>
   </div>
