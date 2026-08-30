@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Custom Jewellery | ORVÉN JEWELS</title>
+
+  <meta
+    name="description"
+    content="Create your own ORVÉN jewellery. Choose metal, ring style, diamond shape, setting and ring size."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="customize.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="custom-header">
+
+    <a href="index.html" class="brand">
+      ORVÉN
+      <span>JEWELS</span>
+    </a>
+
+    <div class="header-center">
+      CREATE YOUR OWN
+    </div>
+
+    <a href="index.html" class="back-link">
+      ← Back to Collection
+    </a>
+
+  </header>
+
+
+  <!-- MAIN CUSTOMIZER -->
+  <main class="customizer">
+
+    <!-- LEFT CONTROL PANEL -->
+    <aside class="control-panel">
+
+      <div class="panel-heading">
+        <span>PERSONALIZE</span>
+        <h1>Your Signature Ring</h1>
+        <p>Design every detail your way.</p>
+      </div>
+
+
+      <!-- 01 METAL -->
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span>01</span>
+          <div>
+            <h2>Choose Metal</h2>
+            <small id="metalSelected">Silver 925</small>
+          </div>
+        </div>
+
+        <div class="metal-grid">
+
+          <button
+            class="metal-option active"
+            data-metal="Silver 925"
+            data-color="#c9c9c9"
+          >
+            <span class="metal-swatch silver"></span>
+            <span>Silver 925</span>
+          </button>
+
+          <button
+            class="metal-option"
+            data-metal="White Gold"
+            data-color="#e6e6e6"
+          >
+            <span class="metal-swatch white-gold"></span>
+            <span>White Gold</span>
+          </button>
+
+          <button
+            class="metal-option"
+            data-metal="Rose Gold"
+            data-color="#d9a08c"
+          >
+            <span class="metal-swatch rose-gold"></span>
+            <span>Rose Gold</span>
+          </button>
+
+          <button
+            class="metal-option"
+            data-metal="Yellow Gold"
+            data-color="#d4af37"
+          >
+            <span class="metal-swatch yellow-gold"></span>
+            <span>Yellow Gold</span>
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- 02 RING / BAND -->
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span>02</span>
+          <div>
+            <h2>Choose Ring / Band</h2>
+            <small id="ringSelected">Classic Solitaire</small>
+          </div>
+        </div>
+
+        <div class="choice-list">
+
+          <button
+            class="choice-card active"
+            data-ring="Classic Solitaire"
+          >
+            <span class="choice-icon ring-icon classic"></span>
+            <span>
+              <strong>Classic Solitaire</strong>
+              <small>Clean & timeless</small>
+            </span>
+          </button>
+
+          <button
+            class="choice-card"
+            data-ring="Halo Ring"
+          >
+            <span class="choice-icon ring-icon halo"></span>
+            <span>
+              <strong>Halo Ring</strong>
+              <small>Diamond surround</small>
+            </span>
+          </button>
+
+          <button
+            class="choice-card"
+            data-ring="Three Stone"
+          >
+            <span class="choice-icon ring-icon three"></span>
+            <span>
+              <strong>Three Stone</strong>
+              <small>Elegant trilogy</small>
+            </span>
+          </button>
+
+          <button
+            class="choice-card"
+            data-ring="Modern Band"
+          >
+            <span class="choice-icon ring-icon band"></span>
+            <span>
+              <strong>Modern Band</strong>
+              <small>Contemporary profile</small>
+            </span>
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- 03 STONE -->
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span>03</span>
+          <div>
+            <h2>Choose Stone</h2>
+            <small id="stoneSelected">Round</small>
+          </div>
+        </div>
+
+        <div class="shape-grid" id="shapeGrid"></div>
+
+      </section>
+
+
+      <!-- 04 SETTING -->
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span>04</span>
+          <div>
+            <h2>Choose Setting</h2>
+            <small id="settingSelected">Four Prong</small>
+          </div>
+        </div>
+
+        <div class="setting-grid">
+
+          <button
+            class="setting-option active"
+            data-setting="Four Prong"
+          >
+            <span>4</span>
+            Four Prong
+          </button>
+
+          <button
+            class="setting-option"
+            data-setting="Six Prong"
+          >
+            <span>6</span>
+            Six Prong
+          </button>
+
+          <button
+            class="setting-option"
+            data-setting="Bezel"
+          >
+            <span>○</span>
+            Bezel
+          </button>
+
+          <button
+            class="setting-option"
+            data-setting="Halo"
+          >
+            <span>◇</span>
+            Halo
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- 05 SIZE -->
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span>05</span>
+          <div>
+            <h2>Choose Ring Size</h2>
+            <small id="sizeSelected">US 7</small>
+          </div>
+        </div>
+
+
+        <div class="size-switch">
+
+          <button
+            class="size-system active"
+            data-system="US"
+          >
+            US SIZE
+          </button>
+
+          <button
+            class="size-system"
+            data-system="IND"
+          >
+            IND SIZE
+          </button>
+
+        </div>
+
+
+        <div class="size-grid" id="sizeGrid"></div>
+
+        <p class="size-note">
+          Not sure about your size?
+          <button id="sizeGuideBtn">View Size Guide</button>
+        </p>
+
+      </section>
+
+
+      <!-- SUMMARY -->
+      <section class="summary-box">
+
+        <div class="summary-top">
+          <div>
+            <span>YOUR DESIGN</span>
+            <h2>ORVÉN Custom</h2>
+          </div>
+
+          <div class="design-number">
+            #<span id="designNumber">ORV-0001</span>
+          </div>
+        </div>
+
+
+        <div class="summary-row">
+          <span>Metal</span>
+          <strong id="summaryMetal">Silver 925</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Ring / Band</span>
+          <strong id="summaryRing">Classic Solitaire</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Stone</span>
+          <strong id="summaryStone">Round</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Setting</span>
+          <strong id="summarySetting">Four Prong</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Size</span>
+          <strong id="summarySize">US 7</strong>
+        </div>
+
+        <button id="requestDesign" class="whatsapp-btn">
+          REQUEST THIS DESIGN
+          <span>→</span>
+        </button>
+
+        <p class="summary-note">
+          Your selections will be sent to ORVÉN JEWELS on WhatsApp.
+        </p>
+
+      </section>
+
+    </aside>
+
+
+    <!-- RIGHT PREVIEW -->
+    <section class="preview-area">
+
+      <div class="preview-top">
+
+        <div>
+          <span class="eyebrow">LIVE PREVIEW</span>
+          <h2>Your Jewellery</h2>
+        </div>
+
+        <div class="preview-tools">
+
+          <button id="rotateBtn" title="Rotate">
+            ↻
+          </button>
+
+          <button id="resetBtn" title="Reset">
+            ⟳
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- 3D PREVIEW CONTAINER -->
+      <div
+        class="ring-stage"
+        id="ringStage"
+      >
+
+        <div class="stage-glow"></div>
+
+        <!-- Decorative ring preview -->
+        <div
+          class="ring-preview"
+          id="ringPreview"
+        >
+
+          <div
+            class="ring-band"
+            id="ringBand"
+          ></div>
+
+          <div
+            class="ring-setting"
+            id="ringSetting"
+          ></div>
+
+          <div
+            class="diamond"
+            id="diamond"
+          ></div>
+
+        </div>
+
+
+        <div class="preview-message">
+          <span>LIVE 3D PREVIEW</span>
+          <small>
+            Your selections update here instantly.
+          </small>
+        </div>
+
+
+        <div class="stage-controls">
+
+          <button id="zoomOut">−</button>
+
+          <span>360°</span>
+
+          <button id="zoomIn">+</button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PREVIEW INFORMATION -->
+      <div class="preview-info">
+
+        <div class="info-item">
+          <span>METAL</span>
+          <strong id="previewMetal">Silver 925</strong>
+        </div>
+
+        <div class="info-item">
+          <span>STONE</span>
+          <strong id="previewStone">Round</strong>
+        </div>
+
+        <div class="info-item">
+          <span>SETTING</span>
+          <strong id="previewSetting">Four Prong</strong>
+        </div>
+
+        <div class="info-item">
+          <span>SIZE</span>
+          <strong id="previewSize">US 7</strong>
+        </div>
+
+      </div>
+
+
+      <!-- MOBILE REQUEST BUTTON -->
+      <div class="mobile-request">
+
+        <button id="mobileRequestDesign">
+          REQUEST THIS DESIGN
+          <span>→</span>
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- SIZE GUIDE MODAL -->
+  <div
+    class="modal"
+    id="sizeModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        id="modalClose"
+      >
+        ×
+      </button>
+
+      <span class="eyebrow">ORVÉN GUIDE</span>
+
+      <h2>Ring Size Guide</h2>
+
+      <p>
+        Select the sizing system you normally use.
+        For an exact fit, professional measurement is recommended.
+      </p>
+
+      <div class="size-guide-table">
+
+        <div class="guide-head">
+          <strong>US</strong>
+          <strong>IND</strong>
+        </div>
+
+        <div>6</div>
+        <div>13</div>
+
+        <div>7</div>
+        <div>14–15</div>
+
+        <div>8</div>
+        <div>16–17</div>
+
+        <div>9</div>
+        <div>18–19</div>
+
+        <div>10</div>
+        <div>20–21</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- JAVASCRIPT -->
+  <script src="customize.js"></script>
+
+</body>
+</html>
