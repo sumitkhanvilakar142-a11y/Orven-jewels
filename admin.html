@@ -27,18 +27,15 @@
     .btn-remove-slot { background: var(--danger); color: #fff; border: none; width: 18px; height: 18px; border-radius: 4px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .btn-secondary { background: transparent; border: 1px dashed var(--gold); color: var(--gold); padding: 8px; border-radius: 5px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; margin-bottom: 10px; }
     
-    /* Action Buttons Row */
     .action-row { display: flex; gap: 8px; margin-top: 15px; }
     .btn-save { background: var(--gold); color: #000; border: none; padding: 12px; flex: 2; font-weight: 700; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; }
     .btn-recalc { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
     .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
     
-    /* Live Preview Container */
     #liveImagePreviewContainer { display: none; margin-top: 10px; padding: 10px; background: #1c1316; border: 1px solid var(--gold); border-radius: 6px; align-items: center; gap: 12px; }
     #liveImagePreviewContainer img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--gold); }
     .logout-btn { background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600; }
 
-    /* Custom Mobile-Friendly Clickable Dropdown Styles */
     .custom-dropdown-wrapper { position: relative; width: 100%; }
     .custom-dropdown-toggle { width: 100%; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; color: var(--text); border-radius: 5px; font-size: 11px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
     .custom-dropdown-toggle:hover { border-color: var(--gold); }
@@ -54,7 +51,7 @@
     <div class="brand">Orven Jewels · Owner Portal</div>
     <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 15px;">
       <span style="color: var(--gold);">Owner Session Active</span>
-      <button class="logout-btn" onclick="logoutOwner()">Logout</button>
+      <button type="button" class="logout-btn" onclick="logoutOwner()">Logout</button>
     </div>
   </div>
 
@@ -102,7 +99,6 @@
           <div class="slot-card" id="fancy-slot-1">
             <div class="slot-header"><span>Fancy 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('fancy-slot-1')">✕</button></div>
             
-            <!-- Custom Clickable Dropdown for Fancy Type -->
             <div class="form-group">
               <label>Type</label>
               <div class="custom-dropdown-wrapper">
@@ -200,12 +196,10 @@
     let websiteCategories = ["Rings", "Pendants", "Earrings", "Necklaces", "Bracelets", "Homepage Vault Featured"];
     let fancySlotCounter = 1;
 
-    // Populate Category Dropdown on Load
     window.addEventListener('DOMContentLoaded', () => {
       renderCategoryDropdown();
     });
 
-    // Close custom dropdowns when clicking anywhere outside
     window.addEventListener('click', () => {
       document.querySelectorAll('.custom-dropdown-list').forEach(list => {
         list.style.display = 'none';
@@ -214,7 +208,6 @@
 
     function toggleStoneOptions(e, listId) {
       e.stopPropagation();
-      // Hide all other open dropdown lists first
       document.querySelectorAll('.custom-dropdown-list').forEach(list => {
         if(list.id !== listId) list.style.display = 'none';
       });
@@ -242,7 +235,6 @@
       });
     }
 
-    // Function to Add New Category Dynamically
     function addNewCategory() {
       const newCatName = prompt("Enter new category / folder name for website:");
       if(newCatName && newCatName.trim() !== "") {
@@ -257,7 +249,6 @@
       }
     }
 
-    // Prevent leaving page unless logout is pressed
     function checkSessionLock(e) {
       if (!isLoggedOut) {
         e.preventDefault();
@@ -274,7 +265,6 @@
       }
     }
 
-    // Live preview function (does not upload directly)
     function previewSelectedImage(event) {
       const file = event.target.files[0];
       const previewContainer = document.getElementById('liveImagePreviewContainer');
@@ -299,7 +289,7 @@
       const count = container.children.length + 1;
       const div = document.createElement('div');
       div.className = 'slot-card';
-      div.id = `plain-slot-${count}`;
+      div.id = `plain-slot-${Date.now()}`;
       div.innerHTML = `
         <div class="slot-header"><span>Slot ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
         <div class="row-2">
@@ -367,14 +357,14 @@
     }
 
     function removeSlot(id) {
-      document.getElementById(id).remove();
+      const element = document.getElementById(id);
+      if (element) element.remove();
     }
 
     function recalculateOnly() {
       alert('Prices recalculated successfully based on current weight & stone buckets!');
     }
 
-    // Final upload happens ONLY when Save & Recalculate is clicked, directly pushing to website vault & homepage
     function saveAndUploadData(e) {
       e.preventDefault();
       const sku = document.getElementById('sku').value;
@@ -388,16 +378,17 @@
         formData.append('image', fileInput.files[0]);
       }
 
-      // Syncing directly with live website database folder
       fetch('/api/vault/upload', {
         method: 'POST',
         body: formData
       })
       .then(res => {
+        isLoggedOut = true; 
         alert(`Design saved, prices recalculated, and vault image successfully published directly to website category folder: [ ${selectedCategory} ] & Homepage!`);
         window.location.href = 'index.html';
       })
       .catch(err => {
+        isLoggedOut = true;
         alert(`Design saved & prices successfully synced with live website vault category [ ${selectedCategory} ]!`);
         window.location.href = 'index.html';
       });
