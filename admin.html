@@ -114,9 +114,13 @@
                   <div class="custom-dropdown-category">Precious Diamonds</div>
                   <div class="custom-dropdown-item" onclick="selectStone('1', 'natural-diamond', 'Natural Diamond')">Natural Diamond</div>
                   <div class="custom-dropdown-item" onclick="selectStone('1', 'lab-grown-diamond', 'Lab-Grown Diamond (CVD/HPHT)')">Lab-Grown Diamond (CVD/HPHT)</div>
+
+                  <div class="custom-dropdown-category">Fancy Diamonds</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'fancy-shape-diamond', 'Fancy Shape Diamond')">Fancy Shape Diamond</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'fancy-color-diamond', 'Fancy Color Diamond')">Fancy Color Diamond</div>
                   
                   <div class="custom-dropdown-category">Alternative Stones</div>
-                  <div class="custom-dropdown-item" onclick="selectStone('1', 'moissanite', 'Moissanite')">Moissanite</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'moissanite', 'Moissanite Gem Stone')">Moissanite Gem Stone</div>
                   <div class="custom-dropdown-item" onclick="selectStone('1', 'cubic-zirconia', 'Cubic Zirconia (CZ)')">Cubic Zirconia (CZ)</div>
                   
                   <div class="custom-dropdown-category">Gem Stones</div>
@@ -252,147 +256,4 @@
     function checkSessionLock(e) {
       if (!isLoggedOut) {
         e.preventDefault();
-        e.returnValue = 'Session is locked! You must click Logout before leaving the portal.';
-        return e.returnValue;
-      }
-    }
-
-    function logoutOwner() {
-      if(confirm('Are you sure you want to logout from the Owner Portal?')) {
-        isLoggedOut = true;
-        alert('Logged out successfully.');
-        window.location.href = 'index.html';
-      }
-    }
-
-    function previewSelectedImage(event) {
-      const file = event.target.files[0];
-      const previewContainer = document.getElementById('liveImagePreviewContainer');
-      const previewImg = document.getElementById('imagePreviewTag');
-      const fileNameLabel = document.getElementById('previewFileName');
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          previewImg.src = e.target.result;
-          fileNameLabel.textContent = file.name;
-          previewContainer.style.display = 'flex';
-        }
-        reader.readAsDataURL(file);
-      } else {
-        previewContainer.style.display = 'none';
-      }
-    }
-
-    function addPlainSlot() {
-      const container = document.getElementById('plainSlotsContainer');
-      const count = container.children.length + 1;
-      const div = document.createElement('div');
-      div.className = 'slot-card';
-      div.id = `plain-slot-${Date.now()}`;
-      div.innerHTML = `
-        <div class="slot-header"><span>Slot ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
-        <div class="row-2">
-          <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="0"></div>
-          <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="plain-cent" value="0"></div>
-        </div>
-      `;
-      container.appendChild(div);
-    }
-
-    function addFancySlot() {
-      fancySlotCounter++;
-      const uniqueId = fancySlotCounter;
-      const container = document.getElementById('fancySlotsContainer');
-      const count = container.children.length + 1;
-      const div = document.createElement('div');
-      div.className = 'slot-card';
-      div.id = `fancy-slot-${uniqueId}`;
-      div.innerHTML = `
-        <div class="slot-header"><span>Fancy ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
-        
-        <div class="form-group">
-          <label>Type</label>
-          <div class="custom-dropdown-wrapper">
-            <div class="custom-dropdown-toggle" onclick="toggleStoneOptions(event, 'stoneOptionsList-${uniqueId}')">
-              <span id="selectedStoneText-${uniqueId}">- none -</span>
-              <span style="color: var(--gold);">▼</span>
-            </div>
-            <input type="hidden" class="fancy-type" id="fancyTypeInput-${uniqueId}" value="">
-            
-            <div class="custom-dropdown-list" id="stoneOptionsList-${uniqueId}">
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', '', '- none -')">- none -</div>
-              
-              <div class="custom-dropdown-category">Precious Diamonds</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'natural-diamond', 'Natural Diamond')">Natural Diamond</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'lab-grown-diamond', 'Lab-Grown Diamond (CVD/HPHT)')">Lab-Grown Diamond (CVD/HPHT)</div>
-              
-              <div class="custom-dropdown-category">Alternative Stones</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'moissanite', 'Moissanite')">Moissanite</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'cubic-zirconia', 'Cubic Zirconia (CZ)')">Cubic Zirconia (CZ)</div>
-              
-              <div class="custom-dropdown-category">Gem Stones</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'ruby', 'Ruby (Manik)')">Ruby (Manik)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'emerald', 'Emerald (Panna)')">Emerald (Panna)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'blue-sapphire', 'Blue Sapphire (Neelam)')">Blue Sapphire (Neelam)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'yellow-sapphire', 'Yellow Sapphire (Pukhraj)')">Yellow Sapphire (Pukhraj)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'tanzanite', 'Tanzanite')">Tanzanite</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'pearl', 'Pearl (Moti)')">Pearl (Moti)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'opal', 'Opal')">Opal</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'coral', 'Coral (Moonga)')">Coral (Moonga)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'hessonite', 'Hessonite (Gomed)')">Hessonite (Gomed)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'cat-eye', `Cat's Eye (Lehsuniya)`)">Cat's Eye (Lehsuniya)</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'tourmaline', 'Tourmaline')">Tourmaline</div>
-              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'morganite', 'Morganite')">Morganite</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row-2">
-          <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="0"></div>
-          <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="fancy-cent" value="0"></div>
-        </div>
-      `;
-      container.appendChild(div);
-    }
-
-    function removeSlot(id) {
-      const element = document.getElementById(id);
-      if (element) element.remove();
-    }
-
-    function recalculateOnly() {
-      alert('Prices recalculated successfully based on current weight & stone buckets!');
-    }
-
-    function saveAndUploadData(e) {
-      e.preventDefault();
-      const sku = document.getElementById('sku').value;
-      const selectedCategory = document.getElementById('targetWebsiteCategory').value;
-      const fileInput = document.getElementById('galleryFile');
-
-      const formData = new FormData();
-      formData.append('sku', sku);
-      formData.append('category', selectedCategory);
-      if(fileInput.files.length > 0) {
-        formData.append('image', fileInput.files[0]);
-      }
-
-      fetch('/api/vault/upload', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => {
-        isLoggedOut = true; 
-        alert(`Design saved, prices recalculated, and vault image successfully published directly to website category folder: [ ${selectedCategory} ] & Homepage!`);
-        window.location.href = 'index.html';
-      })
-      .catch(err => {
-        isLoggedOut = true;
-        alert(`Design saved & prices successfully synced with live website vault category [ ${selectedCategory} ]!`);
-        window.location.href = 'index.html';
-      });
-    }
-  </script>
-</body>
-</html>
+        e.returnValue = 'Session is locked! You
