@@ -5,67 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ORVÉN JEWELS - Timeless Beauty & Fine Jewellery</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0b0708;
-      --card-bg: #140d0f;
-      --gold: #d4af37;
-      --text-main: #f5f5f5;
-      --text-muted: #a09a9c;
-      --border: #241a1c;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
-    h1, h2, h3, .brand-logo { font-family: 'Cinzel', serif; letter-spacing: 2px; }
-
-    .announcement-bar { background: #1a1214; color: var(--gold); text-align: center; font-size: 11px; padding: 8px; letter-spacing: 1px; border-bottom: 1px solid var(--border); position: relative; z-index: 1001; }
-
-    header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(11,7,8,0.9); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
-    .brand-logo { font-size: 20px; font-weight: 700; color: #fff; text-decoration: none; }
-    .brand-logo span { color: var(--gold); font-size: 12px; display: block; font-weight: 400; }
-    nav { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
-    nav a { color: var(--text-main); text-decoration: none; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
-    nav a:hover { color: var(--gold); }
-    .auth-btn { border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; font-size: 11px; border-radius: 4px; text-decoration: none; font-weight: 600; letter-spacing: 1px; transition: 0.3s; }
-    .auth-btn:hover { background: var(--gold); color: #000; }
-
-    /* Panther / Background Video Hero Section */
-    .hero-video-container { position: relative; height: 75vh; min-height: 450px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
-    .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 1; }
-    .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(11,7,8,0.5) 0%, rgba(11,7,8,0.7) 60%, rgba(11,7,8,0.95) 100%); z-index: 2; }
-    .hero-content { position: relative; z-index: 3; padding: 0 20px; max-width: 700px; }
-    .hero-tag { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
-    .hero-content h1 { font-size: 32px; font-weight: 400; margin-bottom: 12px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-    .hero-content p { color: #e0e0e0; font-size: 13px; margin-bottom: 25px; text-shadow: 0 1px 5px rgba(0,0,0,0.8); }
-    .btn-gold { background: var(--gold); color: #000; padding: 10px 22px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 1px; }
-
-    /* Live Rates Ticker */
-    .live-rates-ticker { background: #140d0f; padding: 12px 5%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 12px; }
-    .rate-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
-    .rate-item span { color: var(--gold); font-weight: 600; }
-
-    .section-title { text-align: center; margin: 40px 0 20px; padding: 0 15px; }
-    .section-title h2 { font-size: 22px; color: var(--text-main); }
-    .section-title p { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
-
-    /* 16 Categories Pills */
-    .category-pills { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 0 5% 30px; }
-    .pill { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 14px; font-size: 11px; text-decoration: none; border-radius: 20px; transition: 0.3s; margin-bottom: 5px; }
-    .pill:hover { border-color: var(--gold); color: var(--gold); }
-
-    /* Signature Grid */
-    .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 0 5% 50px; }
-    .grid-card { background: var(--card-bg); border: 1px solid var(--border); position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 1/1.2; text-decoration: none; color: inherit; display: block; }
-    .grid-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
-    .grid-card:hover img { transform: scale(1.05); opacity: 0.95; }
-    .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(11,7,8,0.95), transparent); }
-    .card-tag { color: var(--gold); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
-    .card-title { font-size: 15px; margin: 4px 0; color: #fff; }
-    .card-link { color: var(--text-muted); font-size: 11px; letter-spacing: 1px; display: block; margin-top: 5px; }
-
-    footer { text-align: center; padding: 30px 5%; background: #070405; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -74,15 +14,16 @@
   <header>
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
     <nav>
+      <a href="gallery.html">Gallery</a>
       <a href="#collections">Collections</a>
     </nav>
     <a href="login.html" class="auth-btn">LOGIN / SIGN UP 🔒</a>
   </header>
 
-  <!-- Panther / Hero Video Section -->
+  <!-- Hero Video Section (Using hero-video.mp4 from your repository) -->
   <section class="hero-video-container">
     <video autoplay loop muted playsinline class="bg-video">
-      <source src="orven-bg-video.mp4" type="video/mp4">
+      <source src="hero-video.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
 
@@ -111,24 +52,24 @@
     <h2>All 16 Categories</h2>
   </div>
 
-  <!-- All 16 Category Vault Links -->
+  <!-- All 16 Category Folders Connected -->
   <div class="category-pills">
-    <a href="./Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
-    <a href="./Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
-    <a href="./Light-Weight-Earrings/index.html" class="pill">Light Weight Earrings</a>
-    <a href="./Light-Weight-Ring/index.html" class="pill">Light Weight Rings</a>
-    <a href="./Mens-Ring/index.html" class="pill">Men's Rings</a>
-    <a href="./Mens-diamonds-ring/index.html" class="pill">Men's Diamond Rings</a>
-    <a href="./Teeth-Grillz/index.html" class="pill">Teeth Grillz</a>
-    <a href="./bracelet/index.html" class="pill">Bracelets</a>
-    <a href="./fancy-shape-band-ring/index.html" class="pill">Fancy Band Rings</a>
-    <a href="./mangalsutra/index.html" class="pill">Mangalsutra</a>
-    <a href="./necklaces/index.html" class="pill">Necklaces</a>
-    <a href="./nosepin/index.html" class="pill">Nosepins</a>
-    <a href="./rings/index.html" class="pill">Rings</a>
-    <a href="./solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
-    <a href="./solitaire-rings/index.html" class="pill">Solitaire Rings</a>
-    <a href="./tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
+    <a href="Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
+    <a href="Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
+    <a href="Light-Weight-Earrings/index.html" class="pill">Light Weight Earrings</a>
+    <a href="Light-Weight-Ring/index.html" class="pill">Light Weight Rings</a>
+    <a href="Mens-Ring/index.html" class="pill">Men's Rings</a>
+    <a href="Mens-diamonds-ring/index.html" class="pill">Men's Diamond Rings</a>
+    <a href="Teeth-Grillz/index.html" class="pill">Teeth Grillz</a>
+    <a href="bracelet/index.html" class="pill">Bracelets</a>
+    <a href="fancy-shape-band-ring/index.html" class="pill">Fancy Band Rings</a>
+    <a href="mangalsutra/index.html" class="pill">Mangalsutra</a>
+    <a href="necklaces/index.html" class="pill">Necklaces</a>
+    <a href="nosepin/index.html" class="pill">Nosepins</a>
+    <a href="rings/index.html" class="pill">Rings</a>
+    <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
+    <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
+    <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
   </div>
 
   <div class="section-title" id="collections">
@@ -137,23 +78,23 @@
   </div>
 
   <div class="grid-container">
-    <a href="./Cocktail-Ring/index.html" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Cocktail Rings">
+    <a href="Cocktail-Ring/index.html" class="grid-card">
+      <img src="IMG-20260812-WA0196.jpg" alt="Cocktail Rings">
       <div class="card-overlay">
         <div class="card-tag">Statement Pieces</div>
         <div class="card-title">Cocktail Rings</div>
         <span class="card-link">VIEW VAULT →</span>
       </div>
     </a>
-    <a href="./Diamond-Studs-for-Girls/index.html" class="grid-card">
-      <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Diamond Studs">
+    <a href="Diamond-Studs-for-Girls/index.html" class="grid-card">
+      <img src="IMG-20260812-WA0197.jpg" alt="Diamond Studs">
       <div class="card-overlay">
         <div class="card-tag">Brilliant Essentials</div>
         <div class="card-title">Diamond Studs</div>
         <span class="card-link">VIEW VAULT →</span>
       </div>
     </a>
-    <a href="./necklaces/index.html" class="grid-card">
+    <a href="necklaces/index.html" class="grid-card">
       <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Necklaces">
       <div class="card-overlay">
         <div class="card-tag">Royal Ornaments</div>
@@ -161,7 +102,7 @@
         <span class="card-link">VIEW VAULT →</span>
       </div>
     </a>
-    <a href="./rings/index.html" class="grid-card">
+    <a href="rings/index.html" class="grid-card">
       <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Rings">
       <div class="card-overlay">
         <div class="card-tag">Classic & Timeless</div>
@@ -175,5 +116,6 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
