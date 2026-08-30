@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Homepage Background Video Container Styling (Fit-to-Screen / Responsive Cover for Mobile, PC, Laptop) */
+    /* Homepage Background Video Container Styling (Fully Responsive Cover for All Screens) */
     .bg-video-container {
       position: fixed;
       top: 0;
@@ -27,7 +27,7 @@
       min-height: 100%;
       width: auto;
       height: auto;
-      object-fit: cover; /* Yeh ensure karega ki video kisi bhi device screen par stretch ya fit ho jaye */
+      object-fit: cover;
       filter: brightness(0.55); 
       -webkit-filter: brightness(0.55);
       image-rendering: -webkit-optimize-contrast;
@@ -166,7 +166,7 @@
 </head>
 <body>
 
-  <!-- Homepage Background Video Element (Fully Responsive Cover for All Screens) -->
+  <!-- Homepage Background Video Element -->
   <div class="bg-video-container">
     <video autoplay muted loop playsinline preload="auto">
       <source src="orven-bg-video.mp4" type="video/mp4">
@@ -232,6 +232,79 @@
     <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
     <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
     <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
+  </div>
+
+  <!-- Stone Slots Section with Gem Stone Options Integrated -->
+  <div style="max-width: 750px; margin: 40px auto; background: #0b0708; border: 1px solid var(--border, #241a1c); padding: 25px; border-radius: 8px;">
+    
+    <!-- Plain Stone Slots Section -->
+    <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Stone slots — plain, priced by carat bucket</div>
+    <div class="stone-slot-card" style="background: #140d0f; border: 1px solid var(--border, #241a1c); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span style="color: var(--gold, #d4af37); font-weight: 600; font-size: 13px;">Slot 1</span>
+        <button type="button" style="background: transparent; border: none; color: #ff4d4d; cursor: pointer; font-size: 16px;">✕</button>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>Pieces</label>
+          <input type="number" placeholder="e.g. 4">
+        </div>
+        <div class="form-group">
+          <label>Cent (carat size)</label>
+          <input type="number" step="0.01" placeholder="e.g. 25">
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn-login-secondary" style="margin-bottom: 25px; width: 100%; font-size: 11px;">+ Add stone slot</button>
+
+    <!-- Fancy Stone Slots Section with Gem Stone Options -->
+    <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Fancy stone slots — priced by category rate</div>
+    <div class="stone-slot-card" style="background: #140d0f; border: 1px solid var(--border, #241a1c); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span style="color: var(--gold, #d4af37); font-weight: 600; font-size: 13px;">Fancy 1</span>
+        <button type="button" style="background: transparent; border: none; color: #ff4d4d; cursor: pointer; font-size: 16px;">✕</button>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 12px;">
+        <label>Type</label>
+        <select id="fancyStoneType" style="width: 100%; background: #1a1214; border: 1px solid var(--border, #241a1c); padding: 10px; color: #fff; font-size: 12px; border-radius: 4px; outline: none;">
+          <option value="">- none -</option>
+          <optgroup label="Gem Stones">
+            <option value="ruby">Ruby (Manik)</option>
+            <option value="emerald">Emerald (Panna)</option>
+            <option value="blue-sapphire">Blue Sapphire (Neelam)</option>
+            <option value="yellow-sapphire">Yellow Sapphire (Pukhraj)</option>
+            <option value="tanzanite">Tanzanite</option>
+            <option value="pearl">Pearl (Moti)</option>
+            <option value="opal">Opal</option>
+            <option value="coral">Coral (Moonga)</option>
+            <option value="hessonite">Hessonite (Gomed)</option>
+            <option value="cat-eye">Cat's Eye (Lehsuniya)</option>
+            <option value="tourmaline">Tourmaline</option>
+            <option value="morganite">Morganite</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>Pieces</label>
+          <input type="number" placeholder="e.g. 2">
+        </div>
+        <div class="form-group">
+          <label>Cent (carat size)</label>
+          <input type="number" step="0.01" placeholder="e.g. 50">
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn-login-secondary" style="margin-bottom: 15px; width: 100%; font-size: 11px;">+ Add fancy stone</button>
+
+    <div style="display: flex; gap: 10px;">
+      <button type="button" class="btn-submit-action" style="flex: 2;">Save & recalculate prices</button>
+      <button type="button" class="btn-login-secondary" style="flex: 1;">Recalculate</button>
+      <button type="button" style="background: transparent; border: 1px solid #3a2a2e; color: #a09a9c; padding: 11px; cursor: pointer; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase;">Cancel</button>
+    </div>
   </div>
 
   <div class="section-title" id="collections">
