@@ -83,7 +83,6 @@
 
     .btn-submit { width: 100%; background: var(--gold, #d4af37); color: #000; border: none; padding: 12px; font-weight: 600; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; margin-top: 10px; text-transform: uppercase; transition: opacity 0.3s; }
     .btn-submit:hover { opacity: 0.9; }
-    .otp-section { display: none; }
   </style>
 </head>
 <body>
@@ -202,34 +201,28 @@
     <div class="auth-popup">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
       <div class="popup-brand">ORVÉN <span>JEWELS</span></div>
-      <p class="popup-subtitle" id="popupSubtitle">Authorized Secure Gateway</p>
+      <p class="popup-subtitle" id="popupSubtitle">Secure Client & Admin Gateway</p>
 
-      <!-- Step 1: Mobile Input -->
-      <form id="popupMobileForm" onsubmit="sendPopupOTP(event)">
+      <!-- Mobile & Password Form -->
+      <form id="popupAuthForm" onsubmit="handleAuth(event)">
         <div class="form-group">
           <label>Mobile Number (with Country Code)</label>
           <input type="text" id="popupMobile" required placeholder="+919876543210" value="+91">
         </div>
-        <button type="submit" class="btn-submit">Send OTP</button>
-      </form>
-
-      <!-- Step 2: OTP Verification -->
-      <form id="popupOtpForm" class="otp-section" onsubmit="verifyPopupOTP(event)">
         <div class="form-group">
-          <label>Enter 4-Digit OTP (Mock: 1234)</label>
-          <input type="text" id="popupOtp" required placeholder="1234" maxlength="4">
+          <label>Password</label>
+          <input type="password" id="popupPassword" required placeholder="Enter your password">
         </div>
-        <button type="submit" class="btn-submit">Verify & Proceed</button>
+        <button type="submit" class="btn-submit">Login / Register</button>
       </form>
     </div>
   </div>
 
   <script src="script.js"></script>
   <script>
+    // Hardcoded Admin numbers (Bina code update kiye change nahi honge)
     const allowedAdminNumbers = ["+919999999999", "+919876543210"];
-    const allowedClientNumbers = ["+918888888888", "+917777777777"];
-    let currentMobileInput = "";
-    const mockOtpCode = "1234";
+    const adminWhatsAppNumber = "919876543210"; // Apna WhatsApp number yaha daalein jiss par message aayega
 
     // Website khulne ke theek 10 seconds baad popup smooth animation ke sath open hoga
     window.addEventListener("DOMContentLoaded", () => {
@@ -246,49 +239,49 @@
     function closeLoginModal() {
       const modal = document.getElementById('loginModal');
       modal.classList.remove('active');
-      // Reset form states
-      setTimeout(() => {
-        document.getElementById('popupMobileForm').style.display = 'block';
-        document.getElementById('popupOtpForm').style.display = 'none';
-        document.getElementById('popupSubtitle').innerText = "Authorized Secure Gateway";
-      }, 300);
     }
 
-    function sendPopupOTP(event) {
+    function handleAuth(event) {
       event.preventDefault();
-      currentMobileInput = document.getElementById('popupMobile').value.trim();
+      const mobile = document.getElementById('popupMobile').value.trim();
+      const password = document.getElementById('popupPassword').value.trim();
 
-      if(currentMobileInput.length < 10) {
+      if(mobile.length < 10) {
         alert('Please enter a valid mobile number.');
         return;
       }
 
-      alert(`OTP sent successfully to ${currentMobileInput}\n(For testing, use OTP: 1234)`);
-
-      document.getElementById('popupMobileForm').style.display = 'none';
-      document.getElementById('popupOtpForm').style.display = 'block';
-      document.getElementById('popupSubtitle').innerText = `Verifying ${currentMobileInput}`;
-    }
-
-    function verifyPopupOTP(event) {
-      event.preventDefault();
-      const enteredCode = document.getElementById('popupOtp').value.trim();
-
-      if(enteredCode !== mockOtpCode) {
-        alert('Incorrect OTP! Please enter 1234.');
+      // 1. Admin Login Check
+      if (allowedAdminNumbers.includes(mobile)) {
+        alert('Admin Access Granted! Redirecting to Admin Portal...');
+        window.location.href = 'admin.html';
         return;
       }
 
-      // Role routing based on whitelist check
-      if (allowedAdminNumbers.includes(currentMobileInput)) {
-        alert('Admin Access Granted! Redirecting to Admin Portal...');
-        window.location.href = 'admin.html';
-      } else if (allowedClientNumbers.includes(currentMobileInput)) {
-        alert('Client Access Granted! Loading Client Dashboard...');
-        window.location.href = 'dashboardhtml';
+      // 2. Regular Customer Register / Login Logic
+      let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
+      let existingUser = users.find(u => u.mobile === mobile);
+
+      if (existingUser) {
+        if (existingUser.password === password) {
+          alert(`Welcome back! Successfully logged in as ${mobile}`);
+          closeLoginModal();
+        } else {
+          alert('Incorrect password! Please try again.');
+        }
       } else {
-        alert('This number is not authorized for special portal access. Remaining on Homepage.');
+        // Naya user register karna aur localstorage mein save karna
+        users.push({ mobile: mobile, password: password, date: new Date().toLocaleString() });
+        localStorage.setItem('orven_registered_users', JSON.stringify(users));
+
+        alert(`Registration successful! Welcome to ORVÉN JEWELS.`);
         closeLoginModal();
+
+        // 3. WhatsApp par notification message bhejna
+        let whatsappMessage = `Hello Admin, a new customer has registered on ORVÉN JEWELS!%0a%0a📱 Mobile: ${mobile}%0a🕒 Time: ${new Date().toLocaleString()}`;
+        let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
+        
+        window.open(whatsappURL, '_blank');
       }
     }
   </script>
