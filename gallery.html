@@ -3,116 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS — Collection</title>
+  <title>Gallery Vault - ORVÉN JEWELS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    .gallery-wrap {
-      width: 90%;
-      max-width: 1200px;
-      margin: 40px auto;
-    }
-    .gallery-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .gallery-header h1 {
-      font-family: Georgia, serif;
-      font-weight: normal;
-      color: #e8c07c;
-      font-size: 22px;
-    }
-    .back-link {
-      color: #d7c1a5;
-      font-size: 10px;
-      letter-spacing: .5px;
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 10px;
-    }
-    .gallery-grid img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border: 1px solid #3a2924;
-      background: #110b0c;
-      transition: transform .4s ease;
-    }
-    .gallery-grid img:hover {
-      transform: scale(1.04);
-    }
-    .gallery-status {
-      color: #9f9188;
-      font-size: 11px;
-    }
+    .gallery-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+    .gallery-title { text-align: center; margin-bottom: 40px; }
+    .gallery-title h1 { font-family: 'Cinzel', serif; font-size: 26px; color: #fff; margin-bottom: 8px; }
+    .gallery-title p { color: var(--gold, #d4af37); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .gallery-item { background: var(--card-bg, #140d0f); border: 1px solid var(--border, #241a1c); border-radius: 6px; overflow: hidden; }
+    .gallery-item img { width: 100%; height: 300px; object-fit: cover; display: block; }
+    .gallery-info { padding: 15px; text-align: center; }
+    .gallery-info h4 { font-family: 'Cinzel', serif; font-size: 14px; color: #fff; margin-bottom: 5px; }
   </style>
 </head>
-<body>
+<body style="background-color: var(--bg-dark, #0b0708); color: var(--text-main, #f5f5f5); font-family: 'Montserrat', sans-serif;">
 
-  <header class="navbar">
-    <div class="logo">
-      ORVÉN
-      <span>JEWELS</span>
-    </div>
-    <nav class="desktop-nav">
-      <a href="index.html">HOME</a>
-    </nav>
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(11,7,8,0.9); border-bottom: 1px solid var(--border, #241a1c);">
+    <a href="index.html" class="brand-logo" style="font-family: 'Cinzel', serif; font-size: 20px; color: #fff; text-decoration: none;">ORVÉN <span>JEWELS</span></a>
+    <a href="index.html" style="color: var(--gold, #d4af37); font-size: 11px; text-decoration: none; letter-spacing: 1px;">← BACK TO HOME</a>
   </header>
 
-  <div class="gallery-wrap">
-    <div class="gallery-header">
-      <h1 id="galleryTitle">Collection</h1>
-      <a href="index.html" class="back-link">← BACK TO HOME</a>
+  <div class="gallery-container">
+    <div class="gallery-title">
+      <p>Visual Archive</p>
+      <h1>Signature Gallery</h1>
     </div>
 
-    <p class="gallery-status" id="galleryStatus">Loading photos...</p>
-    <div class="gallery-grid" id="galleryGrid"></div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="IMG-20260812-WA0196.jpg" alt="Gallery Piece 1">
+        <div class="gallery-info">
+          <h4>Panther Cocktail Ring</h4>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="IMG-20260812-WA0197.jpg" alt="Gallery Piece 2">
+        <div class="gallery-info">
+          <h4>Brilliant Diamond Studs</h4>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Gallery Piece 3">
+        <div class="gallery-info">
+          <h4>Royal Gold Necklace</h4>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Gallery Piece 4">
+        <div class="gallery-info">
+          <h4>Classic Solitaire Ring</h4>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const folder = params.get("folder");
-
-    const titleEl = document.getElementById("galleryTitle");
-    const statusEl = document.getElementById("galleryStatus");
-    const gridEl = document.getElementById("galleryGrid");
-
-    if (!folder) {
-      statusEl.textContent = "No collection selected.";
-    } else {
-      titleEl.textContent = folder.replace(/-/g, " ");
-
-      const apiUrl = "https://api.github.com/repos/sumitkhanvilakar142-a11y/Orven-jewels/contents/" + encodeURIComponent(folder);
-
-      fetch(apiUrl)
-        .then(res => res.json())
-        .then(files => {
-          const images = files.filter(f =>
-            /\.(jpg|jpeg|png)$/i.test(f.name)
-          );
-
-          if (images.length === 0) {
-            statusEl.textContent = "No photos found in this collection.";
-            return;
-          }
-
-          statusEl.textContent = "";
-
-          images.forEach(file => {
-            const img = document.createElement("img");
-            img.src = folder + "/" + file.name;
-            img.alt = folder;
-            gridEl.appendChild(img);
-          });
-        })
-        .catch(() => {
-          statusEl.textContent = "Could not load photos right now.";
-        });
-    }
-  </script>
+  <footer style="text-align: center; padding: 30px; margin-top: 50px; background: #070405; border-top: 1px solid var(--border, #241a1c); font-size: 11px; color: var(--text-muted, #a09a9c);">
+    <p>© 2026 ORVÉN JEWELS. Gallery Archive.</p>
+  </footer>
 
 </body>
 </html>
