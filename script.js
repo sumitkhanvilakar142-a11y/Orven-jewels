@@ -14,7 +14,71 @@ window.addEventListener("DOMContentLoaded", () => {
   
   // Load accurate live market rates
   loadGoogleLiveRates();
+
+  // Load products dynamically from static products.json
+  loadProductsFromJSON();
+
+  // Setup Password Show/Hide Toggle Button
+  setupPasswordToggle();
 });
+
+// Setup Password Show/Hide Toggle UI
+function setupPasswordToggle() {
+  const passwordInputs = document.querySelectorAll('input[type="password"]');
+  
+  passwordInputs.forEach(input => {
+    const parent = input.parentElement;
+    if (parent && !parent.querySelector('.toggle-password-btn')) {
+      // Styling parent for proper icon alignment
+      parent.style.position = 'relative';
+
+      const toggleBtn = document.createElement('button');
+      toggleBtn.type = 'button';
+      toggleBtn.className = 'toggle-password-btn';
+      toggleBtn.innerHTML = '👁️';
+      toggleBtn.style.cssText = 'position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 16px; z-index: 10; padding: 0;';
+
+      toggleBtn.addEventListener('click', () => {
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        toggleBtn.innerHTML = isPassword ? '🙈' : '👁️';
+      });
+
+      parent.appendChild(toggleBtn);
+    }
+  });
+}
+
+// Function to fetch products from static products.json for GitHub Pages
+async function loadProductsFromJSON() {
+  const container = document.getElementById('productsContainer') || document.querySelector('.product-grid');
+  if (!container) return;
+
+  try {
+    const response = await fetch('products.json');
+    if (!response.ok) throw new Error("Could not fetch products.json");
+    
+    const products = await response.json();
+    
+    if (Array.isArray(products) && products.length > 0) {
+      container.innerHTML = products.map(prod => `
+        <div class="grid-card">
+          <div class="card-image-wrap" style="position: relative; overflow: hidden;">
+            <img src="${prod.image || 'https://via.placeholder.com/300'}" alt="${prod.name}" style="width: 100%; display: block;">
+            <div class="gold-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(212, 175, 55, 0.15); pointer-events: none;"></div>
+          </div>
+          <div class="card-details" style="padding: 12px; text-align: center;">
+            <span class="category-pill" style="font-size: 12px; background: #f4f4f4; padding: 2px 8px; border-radius: 10px;">${prod.category || 'Jewellery'}</span>
+            <h3 style="margin: 8px 0; font-size: 16px;">${prod.name}</h3>
+            <p class="price" style="font-weight: bold; color: #d4af37;">${prod.price}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  } catch (err) {
+    console.log("Static product loading info:", err.message);
+  }
+}
 
 // Function to fetch and sync live gold and silver rates
 async function loadGoogleLiveRates() {
