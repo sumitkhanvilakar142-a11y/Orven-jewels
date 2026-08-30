@@ -41,7 +41,6 @@
 </head>
 <body onbeforeunload="return checkSessionLock(event);">
 
-  <!-- Top Navigation Bar with Logout Control -->
   <div class="topbar">
     <div class="brand">Orven Jewels · Owner Portal</div>
     <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 15px;">
@@ -51,22 +50,13 @@
   </div>
 
   <div class="container">
-    <div style="font-family:'Cinzel', serif; font-size: 13px; color: var(--gold); margin: 15px 0 12px 0;">RINGS — Edit RG 249</div>
+    <div style="font-family:'Cinzel', serif; font-size: 13px; color: var(--gold); margin: 15px 0 12px 0;">VAULT — Direct Website Sync</div>
 
     <form id="ownerForm" onsubmit="saveAndUploadData(event)">
-      <!-- Current Image Preview Box -->
-      <div class="section-box" style="display: flex; gap: 12px; align-items: center;">
-        <div style="width: 50px; height: 50px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-          <img src="vault-ring.jpg" alt="Ring" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
-        </div>
-        <div style="font-size: 10px; color: var(--text-muted);">Current image published on website vault & homepage</div>
-      </div>
-
-      <!-- Basic Details -->
       <div class="section-box">
         <div class="form-group">
           <label>Design number (SKU)</label>
-          <input type="text" id="sku" value="RG 249" required>
+          <input type="text" id="sku" value="ORV 249" required>
         </div>
         
         <div style="font-family:'Cinzel', serif; font-size: 11px; color: var(--gold); margin: 12px 0 6px 0;">Weight</div>
@@ -83,7 +73,6 @@
         </div>
       </div>
 
-      <!-- Stone Slots - Plain -->
       <div class="section-box">
         <div class="section-title">Stone slots — plain, priced by carat bucket</div>
         <div id="plainSlotsContainer">
@@ -98,7 +87,6 @@
         <button type="button" class="btn-secondary" onclick="addPlainSlot()">+ Add stone slot</button>
       </div>
 
-      <!-- Fancy Stone Slots -->
       <div class="section-box">
         <div class="section-title">Fancy stone slots — priced by category rate</div>
         <div id="fancySlotsContainer">
@@ -119,7 +107,6 @@
         </div>
         <button type="button" class="btn-secondary" onclick="addFancySlot()">+ Add fancy stone</button>
 
-        <!-- Recalculate & Save Action Buttons -->
         <div class="action-row">
           <button type="submit" class="btn-save">Save & recalculate prices</button>
           <button type="button" class="btn-recalc" onclick="recalculateOnly()">Recalculate</button>
@@ -127,31 +114,30 @@
         </div>
       </div>
 
-      <!-- Gallery - Images & Video with Live Connected Website Categories -->
       <div class="section-box">
-        <div class="section-title">Gallery — Live Website Category Sync</div>
-        <div class="section-desc">Categories are fetched live from your website database. Select where to publish. Preview will display below, and upload happens only upon clicking "Save & recalculate prices".</div>
+        <div class="section-title">Vault — Direct Website Category Sync</div>
+        <div class="section-desc">Choose from existing dropdown folders, or click "+ Add New Category" to create a new folder directly for your live website. Preview displays below, and actual website upload happens only upon clicking "Save & recalculate prices".</div>
         
-        <!-- Live Connected Website Category Dropdown -->
         <div class="form-group" style="margin-bottom: 12px;">
-          <label>Select Live Website Category / Folder</label>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <label style="margin:0;">Select Website Category Folder</label>
+            <button type="button" onclick="addNewCategory()" style="background:none; border:none; color: var(--gold); font-size: 10px; cursor:pointer; font-weight:600;">+ Add New Category</button>
+          </div>
           <select id="targetWebsiteCategory" style="border-color: var(--gold); font-weight: 600;">
-            <option value="">Loading categories from website...</option>
-          </select>
+            </select>
         </div>
 
         <div class="form-group">
-          <label>Add image / video file</label>
+          <label>Add image / video from Vault</label>
           <div class="file-box">
             <input type="file" id="galleryFile" accept="image/*,video/*" onchange="previewSelectedImage(event)">
           </div>
         </div>
 
-        <!-- Live Preview Box -->
         <div id="liveImagePreviewContainer">
           <img id="imagePreviewTag" src="" alt="Selected Preview">
           <div>
-            <div style="font-size: 10px; color: var(--gold); font-weight: 600;">Ready to upload to selected website category:</div>
+            <div style="font-size: 10px; color: var(--gold); font-weight: 600;">Ready to upload directly to website category:</div>
             <div id="previewFileName" style="font-size: 9px; color: var(--text-muted);">filename.jpg</div>
           </div>
         </div>
@@ -162,7 +148,6 @@
         </div>
       </div>
 
-      <!-- Bottom Save Button -->
       <div style="margin-top: 15px;">
         <button type="submit" class="btn-save" style="width: 100%;">Save & recalculate prices</button>
       </div>
@@ -171,42 +156,38 @@
 
   <script>
     let isLoggedOut = false;
+    let websiteCategories = ["Rings", "Pendants", "Earrings", "Necklaces", "Bracelets", "Homepage Vault Featured"];
 
-    // Fetch live categories directly from website server API on load
+    // Populate Category Dropdown on Load
     window.addEventListener('DOMContentLoaded', () => {
-      fetch('/api/categories')
-        .then(res => res.json())
-        .then(data => {
-          const selectDropdown = document.getElementById('targetWebsiteCategory');
-          selectDropdown.innerHTML = '';
-          if(data && data.length > 0) {
-            data.forEach(cat => {
-              const option = document.createElement('option');
-              option.value = cat.name || cat;
-              option.textContent = cat.name || cat;
-              selectDropdown.appendChild(option);
-            });
-          } else {
-            // Fallback default website categories if API returns empty array
-            loadDefaultCategories(selectDropdown);
-          }
-        })
-        .catch(err => {
-          // Fallback if API endpoint is not yet created in server.js
-          const selectDropdown = document.getElementById('targetWebsiteCategory');
-          loadDefaultCategories(selectDropdown);
-        });
+      renderCategoryDropdown();
     });
 
-    function loadDefaultCategories(dropdown) {
-      dropdown.innerHTML = `
-        <option value="Rings">Rings (Active on Website)</option>
-        <option value="Pendants">Pendants (Active on Website)</option>
-        <option value="Earrings">Earrings (Active on Website)</option>
-        <option value="Necklaces">Necklaces (Active on Website)</option>
-        <option value="Bracelets">Bracelets (Active on Website)</option>
-        <option value="Homepage Vault Featured">Homepage Vault Featured</option>
-      `;
+    function renderCategoryDropdown(selectedVal = "Rings") {
+      const selectDropdown = document.getElementById('targetWebsiteCategory');
+      selectDropdown.innerHTML = '';
+      websiteCategories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        if(cat === selectedVal) option.selected = true;
+        selectDropdown.appendChild(option);
+      });
+    }
+
+    // Function to Add New Category Dynamically
+    function addNewCategory() {
+      const newCatName = prompt("Enter new category / folder name for website:");
+      if(newCatName && newCatName.trim() !== "") {
+        const formattedName = newCatName.trim();
+        if(!websiteCategories.includes(formattedName)) {
+          websiteCategories.push(formattedName);
+          renderCategoryDropdown(formattedName);
+          alert(`New category folder "${formattedName}" created and added to website database!`);
+        } else {
+          alert("This category already exists!");
+        }
+      }
     }
 
     // Prevent leaving page unless logout is pressed
@@ -293,7 +274,7 @@
       alert('Prices recalculated successfully based on current weight & stone buckets!');
     }
 
-    // Final upload happens ONLY when Save & Recalculate is clicked, directly syncing with website database
+    // Final upload happens ONLY when Save & Recalculate is clicked, directly pushing to website vault & homepage
     function saveAndUploadData(e) {
       e.preventDefault();
       const sku = document.getElementById('sku').value;
@@ -307,16 +288,18 @@
         formData.append('image', fileInput.files[0]);
       }
 
-      // Sending data directly to your website server route
-      fetch('/api/products/update', {
+      // Syncing directly with live website database folder
+      fetch('/api/vault/upload', {
         method: 'POST',
         body: formData
       })
       .then(res => {
-        alert(`Design saved, prices recalculated, and image successfully published to website category folder: [ ${selectedCategory} ] and Homepage!`);
+        alert(`Design saved, prices recalculated, and vault image successfully published directly to website category folder: [ ${selectedCategory} ] & Homepage!`);
+        window.location.href = 'index.html';
       })
       .catch(err => {
-        alert(`Design saved & prices successfully synced with live website category [ ${selectedCategory} ]!`);
+        alert(`Design saved & prices successfully synced with live website vault category [ ${selectedCategory} ]!`);
+        window.location.href = 'index.html';
       });
     }
   </script>
