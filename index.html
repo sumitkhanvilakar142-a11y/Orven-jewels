@@ -156,9 +156,10 @@
 </head>
 <body>
 
+  <!-- Homepage Background Video Element -->
   <div class="bg-video-container">
     <video autoplay muted loop playsinline>
-      <source src="homepage-video.mp4" type="video/mp4">
+      <source src="orven-bg-video.mp4" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
   </div>
@@ -177,6 +178,7 @@
     </button>
   </header>
 
+  <!-- Hero Content Section -->
   <section class="hero-video-container" style="background: transparent;">
     <div class="hero-content">
       <div class="hero-tag">Defined by Design. Panther Legacy.</div>
@@ -188,6 +190,7 @@
     </div>
   </section>
 
+  <!-- Live Market Rates Ticker (Google Live Rates Synced) -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
@@ -265,14 +268,18 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
+  <!-- ORRA STYLE DUAL ACTION POPUP MODAL -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
       
+      <!-- Left Image Banner -->
       <div class="popup-left-banner"></div>
 
+      <!-- Right Content Area -->
       <div class="popup-right-content">
         
+        <!-- 1. Main Welcome View -->
         <div id="welcomeView" class="auth-form-wrapper active">
           <div class="popup-badge">🎁</div>
           <div class="popup-title">Your first purchase, made more rewarding</div>
@@ -283,6 +290,7 @@
           <button class="btn-login-secondary" onclick="switchView('loginView')">Already A Member? Log In</button>
         </div>
 
+        <!-- 2. Sign Up Form View -->
         <div id="registerView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Create Account</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Register to claim your ₹1,000 welcome voucher.</p>
@@ -305,6 +313,7 @@
           <span class="back-link" onclick="switchView('welcomeView')">← Back</span>
         </div>
 
+        <!-- 3. Login Form View -->
         <div id="loginView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Member Login</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Access your saved vaults and orders.</p>
@@ -326,6 +335,7 @@
           </div>
         </div>
 
+        <!-- 4. Forgot Password View -->
         <div id="forgotView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Password Recovery</div>
           <p class="popup-desc" style="margin-bottom: 15px;">We will send your reset request via WhatsApp.</p>
@@ -358,7 +368,6 @@
       loadGoogleLiveRates();
     });
 
-    // Function to load live rates matching standard bullion retail trackers
     async function loadGoogleLiveRates() {
       try {
         const res = await fetch('https://data-asg.goldprice.org/dbXRates/INR');
