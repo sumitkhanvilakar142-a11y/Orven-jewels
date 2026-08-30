@@ -1,515 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Custom Jewellery | ORVÉN JEWELS</title>
-
-  <meta
-    name="description"
-    content="Create your own ORVÉN jewellery. Choose metal, ring style, diamond shape, setting and ring size."
-  >
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  >
-
-  <link rel="stylesheet" href="customize.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customize Your Ring | ORVÉN JEWELS</title>
+<link rel="stylesheet" href="customize.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header class="custom-header">
+<header class="site-header">
+  <a href="index.html" class="logo">ORVÉN <span>JEWELS</span></a>
+  <a href="index.html" class="back-link">&larr; Back to Home</a>
+</header>
 
-    <a href="index.html" class="brand">
-      ORVÉN
-      <span>JEWELS</span>
-    </a>
+<main class="customizer">
 
-    <div class="header-center">
-      CREATE YOUR OWN
-    </div>
+  <!-- ============ STEP TRACKER ============ -->
+  <div class="step-tracker">
+    <h1>Customize Your Ring</h1>
+    <p class="sub">Design your dream ring in 6 simple steps</p>
+    <ol class="steps" id="stepTracker">
+      <li data-step="1" class="active"><span>1</span>Metal</li>
+      <li data-step="2"><span>2</span>Ring / Band</li>
+      <li data-step="3"><span>3</span>Stone</li>
+      <li data-step="4"><span>4</span>Setting</li>
+      <li data-step="5"><span>5</span>Size</li>
+      <li data-step="6"><span>6</span>Preview & Request</li>
+    </ol>
+  </div>
 
-    <a href="index.html" class="back-link">
-      ← Back to Collection
-    </a>
+  <div class="builder">
 
-  </header>
+    <!-- ============ LEFT PANEL: OPTIONS ============ -->
+    <section class="options-panel">
 
-
-  <!-- MAIN CUSTOMIZER -->
-  <main class="customizer">
-
-    <!-- LEFT CONTROL PANEL -->
-    <aside class="control-panel">
-
-      <div class="panel-heading">
-        <span>PERSONALIZE</span>
-        <h1>Your Signature Ring</h1>
-        <p>Design every detail your way.</p>
+      <div class="option-group" data-group="1">
+        <h2>1. Choose Metal</h2>
+        <div class="swatch-list" id="metalOptions">
+          <button class="swatch metal-silver" data-value="Silver 925" data-color="#C9CCD1" data-hi="#F4F5F7" data-lo="#8C8F94" data-price="0"><span></span>Silver 925</button>
+          <button class="swatch metal-white" data-value="White Gold" data-color="#E4E1D8" data-hi="#FBFAF6" data-lo="#B7B29F" data-price="4500"><span></span>White Gold</button>
+          <button class="swatch metal-rose" data-value="Rose Gold" data-color="#E3B0A0" data-hi="#F6D8CC" data-lo="#B8776A" data-price="5200"><span></span>Rose Gold</button>
+          <button class="swatch metal-yellow" data-value="Yellow Gold" data-color="#E3C567" data-hi="#F7E6AC" data-lo="#B4913A" data-price="5200"><span></span>Yellow Gold</button>
+        </div>
       </div>
 
-
-      <!-- 01 METAL -->
-      <section class="custom-section">
-
-        <div class="section-title">
-          <span>01</span>
-          <div>
-            <h2>Choose Metal</h2>
-            <small id="metalSelected">Silver 925</small>
-          </div>
+      <div class="option-group" data-group="2">
+        <h2>2. Choose Ring / Band</h2>
+        <div class="swatch-list" id="bandOptions">
+          <button class="swatch band-choice" data-value="Classic Plain Band" data-style="plain" data-price="0">Plain</button>
+          <button class="swatch band-choice" data-value="Pavé Band" data-style="pave" data-price="3200">Pavé</button>
+          <button class="swatch band-choice" data-value="Engraved Band" data-style="engraved" data-price="1800">Engraved</button>
         </div>
-
-        <div class="metal-grid">
-
-          <button
-            class="metal-option active"
-            data-metal="Silver 925"
-            data-color="#c9c9c9"
-          >
-            <span class="metal-swatch silver"></span>
-            <span>Silver 925</span>
-          </button>
-
-          <button
-            class="metal-option"
-            data-metal="White Gold"
-            data-color="#e6e6e6"
-          >
-            <span class="metal-swatch white-gold"></span>
-            <span>White Gold</span>
-          </button>
-
-          <button
-            class="metal-option"
-            data-metal="Rose Gold"
-            data-color="#d9a08c"
-          >
-            <span class="metal-swatch rose-gold"></span>
-            <span>Rose Gold</span>
-          </button>
-
-          <button
-            class="metal-option"
-            data-metal="Yellow Gold"
-            data-color="#d4af37"
-          >
-            <span class="metal-swatch yellow-gold"></span>
-            <span>Yellow Gold</span>
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- 02 RING / BAND -->
-      <section class="custom-section">
-
-        <div class="section-title">
-          <span>02</span>
-          <div>
-            <h2>Choose Ring / Band</h2>
-            <small id="ringSelected">Classic Solitaire</small>
-          </div>
-        </div>
-
-        <div class="choice-list">
-
-          <button
-            class="choice-card active"
-            data-ring="Classic Solitaire"
-          >
-            <span class="choice-icon ring-icon classic"></span>
-            <span>
-              <strong>Classic Solitaire</strong>
-              <small>Clean & timeless</small>
-            </span>
-          </button>
-
-          <button
-            class="choice-card"
-            data-ring="Halo Ring"
-          >
-            <span class="choice-icon ring-icon halo"></span>
-            <span>
-              <strong>Halo Ring</strong>
-              <small>Diamond surround</small>
-            </span>
-          </button>
-
-          <button
-            class="choice-card"
-            data-ring="Three Stone"
-          >
-            <span class="choice-icon ring-icon three"></span>
-            <span>
-              <strong>Three Stone</strong>
-              <small>Elegant trilogy</small>
-            </span>
-          </button>
-
-          <button
-            class="choice-card"
-            data-ring="Modern Band"
-          >
-            <span class="choice-icon ring-icon band"></span>
-            <span>
-              <strong>Modern Band</strong>
-              <small>Contemporary profile</small>
-            </span>
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- 03 STONE -->
-      <section class="custom-section">
-
-        <div class="section-title">
-          <span>03</span>
-          <div>
-            <h2>Choose Stone</h2>
-            <small id="stoneSelected">Round</small>
-          </div>
-        </div>
-
-        <div class="shape-grid" id="shapeGrid"></div>
-
-      </section>
-
-
-      <!-- 04 SETTING -->
-      <section class="custom-section">
-
-        <div class="section-title">
-          <span>04</span>
-          <div>
-            <h2>Choose Setting</h2>
-            <small id="settingSelected">Four Prong</small>
-          </div>
-        </div>
-
-        <div class="setting-grid">
-
-          <button
-            class="setting-option active"
-            data-setting="Four Prong"
-          >
-            <span>4</span>
-            Four Prong
-          </button>
-
-          <button
-            class="setting-option"
-            data-setting="Six Prong"
-          >
-            <span>6</span>
-            Six Prong
-          </button>
-
-          <button
-            class="setting-option"
-            data-setting="Bezel"
-          >
-            <span>○</span>
-            Bezel
-          </button>
-
-          <button
-            class="setting-option"
-            data-setting="Halo"
-          >
-            <span>◇</span>
-            Halo
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- 05 SIZE -->
-      <section class="custom-section">
-
-        <div class="section-title">
-          <span>05</span>
-          <div>
-            <h2>Choose Ring Size</h2>
-            <small id="sizeSelected">US 7</small>
-          </div>
-        </div>
-
-
-        <div class="size-switch">
-
-          <button
-            class="size-system active"
-            data-system="US"
-          >
-            US SIZE
-          </button>
-
-          <button
-            class="size-system"
-            data-system="IND"
-          >
-            IND SIZE
-          </button>
-
-        </div>
-
-
-        <div class="size-grid" id="sizeGrid"></div>
-
-        <p class="size-note">
-          Not sure about your size?
-          <button id="sizeGuideBtn">View Size Guide</button>
-        </p>
-
-      </section>
-
-
-      <!-- SUMMARY -->
-      <section class="summary-box">
-
-        <div class="summary-top">
-          <div>
-            <span>YOUR DESIGN</span>
-            <h2>ORVÉN Custom</h2>
-          </div>
-
-          <div class="design-number">
-            #<span id="designNumber">ORV-0001</span>
-          </div>
-        </div>
-
-
-        <div class="summary-row">
-          <span>Metal</span>
-          <strong id="summaryMetal">Silver 925</strong>
-        </div>
-
-        <div class="summary-row">
-          <span>Ring / Band</span>
-          <strong id="summaryRing">Classic Solitaire</strong>
-        </div>
-
-        <div class="summary-row">
-          <span>Stone</span>
-          <strong id="summaryStone">Round</strong>
-        </div>
-
-        <div class="summary-row">
-          <span>Setting</span>
-          <strong id="summarySetting">Four Prong</strong>
-        </div>
-
-        <div class="summary-row">
-          <span>Size</span>
-          <strong id="summarySize">US 7</strong>
-        </div>
-
-        <button id="requestDesign" class="whatsapp-btn">
-          REQUEST THIS DESIGN
-          <span>→</span>
-        </button>
-
-        <p class="summary-note">
-          Your selections will be sent to ORVÉN JEWELS on WhatsApp.
-        </p>
-
-      </section>
-
-    </aside>
-
-
-    <!-- RIGHT PREVIEW -->
-    <section class="preview-area">
-
-      <div class="preview-top">
-
-        <div>
-          <span class="eyebrow">LIVE PREVIEW</span>
-          <h2>Your Jewellery</h2>
-        </div>
-
-        <div class="preview-tools">
-
-          <button id="rotateBtn" title="Rotate">
-            ↻
-          </button>
-
-          <button id="resetBtn" title="Reset">
-            ⟳
-          </button>
-
-        </div>
-
       </div>
 
-
-      <!-- 3D PREVIEW CONTAINER -->
-      <div
-        class="ring-stage"
-        id="ringStage"
-      >
-
-        <div class="stage-glow"></div>
-
-        <!-- Decorative ring preview -->
-        <div
-          class="ring-preview"
-          id="ringPreview"
-        >
-
-          <div
-            class="ring-band"
-            id="ringBand"
-          ></div>
-
-          <div
-            class="ring-setting"
-            id="ringSetting"
-          ></div>
-
-          <div
-            class="diamond"
-            id="diamond"
-          ></div>
-
+      <div class="option-group" data-group="3">
+        <h2>3. Choose Stone Shape</h2>
+        <div class="toggle-pair" id="stoneQuality">
+          <button class="toggle-btn active" data-value="Lab-Grown">Lab-Grown</button>
+          <button class="toggle-btn" data-value="Natural">Natural</button>
         </div>
-
-
-        <div class="preview-message">
-          <span>LIVE 3D PREVIEW</span>
-          <small>
-            Your selections update here instantly.
-          </small>
+        <div class="shape-grid" id="shapeOptions">
+          <button class="shape-btn active" data-value="Round" data-price="0">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14"/></svg>Round</button>
+          <button class="shape-btn" data-value="Oval" data-price="1500">
+            <svg viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="11" ry="15"/></svg>Oval</button>
+          <button class="shape-btn" data-value="Pear" data-price="1500">
+            <svg viewBox="0 0 40 40"><path d="M20 6 C28 16 30 22 24 28 C20 32 16 30 14 26 C10 20 14 10 20 6 Z"/></svg>Pear</button>
+          <button class="shape-btn" data-value="Princess" data-price="1200">
+            <svg viewBox="0 0 40 40"><rect x="8" y="8" width="24" height="24"/></svg>Princess</button>
+          <button class="shape-btn" data-value="Cushion" data-price="1600">
+            <svg viewBox="0 0 40 40"><rect x="7" y="7" width="26" height="26" rx="9"/></svg>Cushion</button>
+          <button class="shape-btn" data-value="Emerald" data-price="1800">
+            <svg viewBox="0 0 40 40"><rect x="9" y="6" width="22" height="28" rx="3"/></svg>Emerald</button>
+          <button class="shape-btn" data-value="Marquise" data-price="1700">
+            <svg viewBox="0 0 40 40"><path d="M20 5 C29 14 29 26 20 35 C11 26 11 14 20 5 Z"/></svg>Marquise</button>
+          <button class="shape-btn" data-value="Heart" data-price="2200">
+            <svg viewBox="0 0 40 40"><path d="M20 33 C6 22 8 10 16 9 C19 9 20 12 20 14 C20 12 21 9 24 9 C32 10 34 22 20 33 Z"/></svg>Heart</button>
         </div>
-
-
-        <div class="stage-controls">
-
-          <button id="zoomOut">−</button>
-
-          <span>360°</span>
-
-          <button id="zoomIn">+</button>
-
-        </div>
-
       </div>
 
-
-      <!-- PREVIEW INFORMATION -->
-      <div class="preview-info">
-
-        <div class="info-item">
-          <span>METAL</span>
-          <strong id="previewMetal">Silver 925</strong>
+      <div class="option-group" data-group="4">
+        <h2>4. Choose Setting</h2>
+        <div class="swatch-list wrap" id="settingOptions">
+          <button class="swatch setting-choice active" data-value="Prong Setting" data-price="0">Prong</button>
+          <button class="swatch setting-choice" data-value="Bezel Setting" data-price="1200">Bezel</button>
+          <button class="swatch setting-choice" data-value="Halo Setting" data-price="3800">Halo</button>
+          <button class="swatch setting-choice" data-value="Tension Setting" data-price="2600">Tension</button>
+          <button class="swatch setting-choice" data-value="Cathedral Setting" data-price="2100">Cathedral</button>
+          <button class="swatch setting-choice" data-value="Solitaire Setting" data-price="900">Solitaire</button>
         </div>
-
-        <div class="info-item">
-          <span>STONE</span>
-          <strong id="previewStone">Round</strong>
-        </div>
-
-        <div class="info-item">
-          <span>SETTING</span>
-          <strong id="previewSetting">Four Prong</strong>
-        </div>
-
-        <div class="info-item">
-          <span>SIZE</span>
-          <strong id="previewSize">US 7</strong>
-        </div>
-
       </div>
 
-
-      <!-- MOBILE REQUEST BUTTON -->
-      <div class="mobile-request">
-
-        <button id="mobileRequestDesign">
-          REQUEST THIS DESIGN
-          <span>→</span>
-        </button>
-
+      <div class="option-group" data-group="5">
+        <h2>5. Ring Size</h2>
+        <div class="toggle-pair" id="sizeSystem">
+          <button class="toggle-btn active" data-value="US">US</button>
+          <button class="toggle-btn" data-value="IND">IND</button>
+        </div>
+        <select id="sizeSelect" class="size-select"></select>
       </div>
 
     </section>
 
-  </main>
-
-
-  <!-- SIZE GUIDE MODAL -->
-  <div
-    class="modal"
-    id="sizeModal"
-    aria-hidden="true"
-  >
-
-    <div class="modal-overlay" id="modalOverlay"></div>
-
-    <div class="modal-card">
-
-      <button
-        class="modal-close"
-        id="modalClose"
-      >
-        ×
-      </button>
-
-      <span class="eyebrow">ORVÉN GUIDE</span>
-
-      <h2>Ring Size Guide</h2>
-
-      <p>
-        Select the sizing system you normally use.
-        For an exact fit, professional measurement is recommended.
-      </p>
-
-      <div class="size-guide-table">
-
-        <div class="guide-head">
-          <strong>US</strong>
-          <strong>IND</strong>
-        </div>
-
-        <div>6</div>
-        <div>13</div>
-
-        <div>7</div>
-        <div>14–15</div>
-
-        <div>8</div>
-        <div>16–17</div>
-
-        <div>9</div>
-        <div>18–19</div>
-
-        <div>10</div>
-        <div>20–21</div>
-
+    <!-- ============ RIGHT PANEL: PREVIEW ============ -->
+    <section class="preview-panel">
+      <div class="preview-toolbar">
+        <button id="rotateBtn" title="Rotate">&#8635; Rotate</button>
+        <button id="zoomBtn" title="Zoom">&#128269; Zoom</button>
       </div>
 
-    </div>
+      <div class="ring-stage" id="ringStage">
+        <canvas id="ringCanvas"></canvas>
+        <div class="stage-hint">Drag to rotate &middot; Scroll to zoom</div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-header">
+          <h3>Your Design Summary</h3>
+        </div>
+        <div class="summary-grid">
+          <div><span class="label">Metal</span><span class="value" id="sumMetal">Silver 925</span></div>
+          <div><span class="label">Band</span><span class="value" id="sumBand">Classic Plain Band</span></div>
+          <div><span class="label">Stone</span><span class="value" id="sumStone">Round</span></div>
+          <div><span class="label">Setting</span><span class="value" id="sumSetting">Prong Setting</span></div>
+          <div><span class="label">Ring Size</span><span class="value" id="sumSize">US - 6</span></div>
+        </div>
+
+        <div class="price-row">
+          <div>
+            <span class="label">Estimated Price</span>
+            <div class="price" id="priceTotal">&#8377;22,450</div>
+            <small>Price may vary based on stone size & weight</small>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <button id="requestDesignBtn" class="btn-dark">Request This Design</button>
+          <a id="whatsappBtn" class="btn-whatsapp" href="#" target="_blank" rel="noopener">Request on WhatsApp</a>
+        </div>
+      </div>
+    </section>
 
   </div>
+</main>
 
-
-  <!-- JAVASCRIPT -->
-  <script src="customize.js"></script>
-
+<script type="module" src="customize.js"></script>
 </body>
 </html>
