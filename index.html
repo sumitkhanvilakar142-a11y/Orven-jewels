@@ -166,7 +166,6 @@
 </head>
 <body>
 
-  <!-- Homepage Background Video Element -->
   <div class="bg-video-container">
     <video autoplay muted loop playsinline preload="auto">
       <source src="orven-bg-video.mp4" type="video/mp4">
@@ -188,7 +187,6 @@
     </button>
   </header>
 
-  <!-- Hero Content Section -->
   <section class="hero-video-container" style="background: transparent;">
     <div class="hero-content">
       <div class="hero-tag">Defined by Design. Panther Legacy.</div>
@@ -200,7 +198,6 @@
     </div>
   </section>
 
-  <!-- Live Market Rates Ticker -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
@@ -234,10 +231,8 @@
     <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
   </div>
 
-  <!-- Stone Slots Section with Gem Stone Options Integrated -->
   <div style="max-width: 750px; margin: 40px auto; background: rgba(11,7,8,0.9); border: 1px solid var(--border, #241a1c); padding: 25px; border-radius: 8px;">
     
-    <!-- Plain Stone Slots Section -->
     <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Stone slots — plain, priced by carat bucket</div>
     <div class="stone-slot-card" style="background: #140d0f; border: 1px solid var(--border, #241a1c); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -257,7 +252,6 @@
     </div>
     <button type="button" class="btn-login-secondary" style="margin-bottom: 25px; width: 100%; font-size: 11px;">+ Add stone slot</button>
 
-    <!-- Fancy Stone Slots Section with Gem Stone Options -->
     <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Fancy stone slots — priced by category rate</div>
     <div class="stone-slot-card" style="background: #140d0f; border: 1px solid var(--border, #241a1c); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -269,6 +263,14 @@
         <label>Type</label>
         <select id="fancyStoneType">
           <option value="">- none -</option>
+          <optgroup label="Precious Diamonds">
+            <option value="natural-diamond">Natural Diamond</option>
+            <option value="lab-grown-diamond">Lab-Grown Diamond (CVD/HPHT)</option>
+          </optgroup>
+          <optgroup label="Alternative Stones">
+            <option value="moissanite">Moissanite</option>
+            <option value="cubic-zirconia">Cubic Zirconia (CZ)</option>
+          </optgroup>
           <optgroup label="Gem Stones">
             <option value="ruby">Ruby (Manik)</option>
             <option value="emerald">Emerald (Panna)</option>
@@ -351,18 +353,14 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
-  <!-- ORRA STYLE DUAL ACTION POPUP MODAL -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
       
-      <!-- Left Image Banner -->
       <div class="popup-left-banner"></div>
 
-      <!-- Right Content Area -->
       <div class="popup-right-content">
         
-        <!-- 1. Main Welcome View -->
         <div id="welcomeView" class="auth-form-wrapper active">
           <div class="popup-badge">🎁</div>
           <div class="popup-title">Your first purchase, made more rewarding</div>
@@ -373,7 +371,6 @@
           <button class="btn-login-secondary" onclick="switchView('loginView')">Already A Member? Log In</button>
         </div>
 
-        <!-- 2. Sign Up Form View -->
         <div id="registerView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Create Account</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Register to claim your ₹1,000 welcome voucher.</p>
@@ -396,7 +393,6 @@
           <span class="back-link" onclick="switchView('welcomeView')">← Back</span>
         </div>
 
-        <!-- 3. Login Form View -->
         <div id="loginView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Member Login</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Access your saved vaults and orders.</p>
@@ -418,7 +414,6 @@
           </div>
         </div>
 
-        <!-- 4. Forgot Password View -->
         <div id="forgotView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Password Recovery</div>
           <p class="popup-desc" style="margin-bottom: 15px;">We will send your reset request via WhatsApp.</p>
