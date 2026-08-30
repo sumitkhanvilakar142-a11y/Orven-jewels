@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Sign Up - ORVÉN JEWELS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    .auth-container { width: 100%; max-width: 400px; background: var(--card-bg, #140d0f); border: 1px solid var(--border, #241a1c); border-radius: 8px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .brand-logo { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: #fff; text-align: center; text-decoration: none; display: block; margin-bottom: 5px; letter-spacing: 2px; }
+    .brand-logo span { color: var(--gold, #d4af37); font-size: 12px; display: block; font-weight: 400; }
+    .auth-subtitle { text-align: center; color: var(--text-muted, #a09a9c); font-size: 12px; margin-bottom: 25px; letter-spacing: 1px; }
+
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 11px; color: var(--text-muted, #a09a9c); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+    .form-group input { width: 100%; background: #1a1214; border: 1px solid var(--border, #241a1c); padding: 12px; color: #fff; font-size: 13px; border-radius: 4px; outline: none; transition: border-color 0.3s; }
+    .form-group input:focus { border-color: var(--gold, #d4af37); }
+
+    .btn-submit { width: 100%; background: var(--gold, #d4af37); color: #000; border: none; padding: 12px; font-weight: 600; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; margin-top: 10px; transition: opacity 0.3s; text-transform: uppercase; }
+    .btn-submit:hover { opacity: 0.9; }
+
+    .back-home { display: block; text-align: center; margin-top: 20px; font-size: 11px; color: var(--text-muted, #a09a9c); text-decoration: none; letter-spacing: 1px; }
+    .back-home:hover { color: var(--gold, #d4af37); }
+
+    .otp-section { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
+    <p class="auth-subtitle" id="subtitleText">Authorized Secure Gateway</p>
+
+    <!-- Step 1: Mobile Input Form -->
+    <form id="mobileForm" onsubmit="sendOTP(event)">
+      <div class="form-group">
+        <label>Mobile Number (with Country Code)</label>
+        <input type="text" id="userMobile" required placeholder="+919876543210" value="+91">
+      </div>
+      <button type="submit" class="btn-submit">Send OTP</button>
+    </form>
+
+    <!-- Step 2: OTP Verification Form -->
+    <form id="otpForm" class="otp-section" onsubmit="verifyOTP(event)">
+      <div class="form-group">
+        <label>Enter 4-Digit OTP (Mock: 1234)</label>
+        <input type="text" id="enteredOtp" required placeholder="1234" maxlength="4">
+      </div>
+      <button type="submit" class="btn-submit">Verify & Proceed</button>
+    </form>
+
+    <a href="index.html" class="back-home">← Back to Homepage</a>
+  </div>
+
+  <script>
+    // Yahan aap apne fix/authorized numbers daal sakte hain
+    const allowedAdminNumbers = ["+919999999999", "+919876543210"];
+    const allowedClientNumbers = ["+918888888888", "+917777777777"];
+
+    let currentMobile = "";
+    const mockOtp = "1234"; // Testing ke liye fix OTP
+
+    function sendOTP(event) {
+      event.preventDefault();
+      currentMobile = document.getElementById('userMobile').value.trim();
+
+      if(currentMobile.length < 10) {
+        alert('Please enter a valid mobile number with country code.');
+        return;
+      }
+
+      // Simulate sending SMS OTP
+      alert(`OTP sent successfully to ${currentMobile}\n(For testing, use OTP: 1234)`);
+
+      document.getElementById('mobileForm').style.display = 'none';
+      document.getElementById('otpForm').style.display = 'block';
+      document.getElementById('subtitleText').innerText = `Verifying ${currentMobile}`;
+    }
+
+    function verifyOTP(event) {
+      event.preventDefault();
+      const code = document.getElementById('enteredOtp').value.trim();
+
+      if(code !== mockOtp) {
+        alert('Incorrect OTP! Please enter 1234.');
+        return;
+      }
+
+      // Check number against fix whitelist
+      if (allowedAdminNumbers.includes(currentMobile)) {
+        alert('Admin Access Granted! Redirecting to Admin Panel...');
+        window.location.href = 'admin.html';
+      } else if (allowedClientNumbers.includes(currentMobile)) {
+        alert('Client Access Granted! Loading Client Dashboard & Offers...');
+        window.location.href = 'dashboardhtml'; // Aapki repository me dashboardhtml file hai
+      } else {
+        alert('This number is not authorized for portal access. Returning to Homepage.');
+        window.location.href = 'index.html';
+      }
+    }
+  </script>
+
+</body>
+</html>
