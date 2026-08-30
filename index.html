@@ -152,8 +152,8 @@
 
     .form-group { margin-bottom: 12px; }
     .form-group label { display: block; font-size: 10px; color: var(--text-muted, #a09a9c); margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase; }
-    .form-group input { width: 100%; background: #1a1214; border: 1px solid var(--border, #241a1c); padding: 10px; color: #fff; font-size: 12px; border-radius: 4px; outline: none; }
-    .form-group input:focus { border-color: var(--gold, #d4af37); }
+    .form-group input, .form-group select { width: 100%; background: #1a1214; border: 1px solid var(--border, #241a1c); padding: 10px; color: #fff; font-size: 12px; border-radius: 4px; outline: none; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold, #d4af37); }
 
     .btn-submit-action { width: 100%; background: var(--gold, #d4af37); color: #000; border: none; padding: 11px; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; margin-top: 5px; text-transform: uppercase; }
     .back-link { display: inline-block; margin-top: 10px; font-size: 11px; color: var(--gold, #d4af37); cursor: pointer; text-decoration: underline; }
@@ -235,7 +235,7 @@
   </div>
 
   <!-- Stone Slots Section with Gem Stone Options Integrated -->
-  <div style="max-width: 750px; margin: 40px auto; background: #0b0708; border: 1px solid var(--border, #241a1c); padding: 25px; border-radius: 8px;">
+  <div style="max-width: 750px; margin: 40px auto; background: rgba(11,7,8,0.9); border: 1px solid var(--border, #241a1c); padding: 25px; border-radius: 8px;">
     
     <!-- Plain Stone Slots Section -->
     <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Stone slots — plain, priced by carat bucket</div>
@@ -267,7 +267,7 @@
 
       <div class="form-group" style="margin-bottom: 12px;">
         <label>Type</label>
-        <select id="fancyStoneType" style="width: 100%; background: #1a1214; border: 1px solid var(--border, #241a1c); padding: 10px; color: #fff; font-size: 12px; border-radius: 4px; outline: none;">
+        <select id="fancyStoneType">
           <option value="">- none -</option>
           <optgroup label="Gem Stones">
             <option value="ruby">Ruby (Manik)</option>
