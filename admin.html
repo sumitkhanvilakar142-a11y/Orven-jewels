@@ -3,157 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Malishka Jewellery — Admin Portal</title>
+  <title>Orven Jewels — Owner Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0b0708;
-      --card-bg: #140d0f;
-      --gold: #d4af37;
-      --text: #ffffff;
-      --text-muted: #a09a9c;
-      --border: #2c2022;
-      --input-bg: #1a1214;
-      --danger: #8b0000;
-    }
+    :root { --bg: #0b0708; --card-bg: #140d0f; --gold: #d4af37; --text: #ffffff; --text-muted: #a09a9c; --border: #2c2022; --input-bg: #1a1214; --danger: #8b0000; }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 90px; }
-
-    /* Top Nav */
-    .admin-topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .admin-brand { font-family: 'Cinzel', serif; color: var(--gold); font-size: 15px; font-weight: 700; letter-spacing: 1px; }
-    .admin-nav-links { display: flex; gap: 15px; font-size: 11px; color: var(--text-muted); align-items: center; }
-    .admin-nav-links a { color: var(--text-muted); text-decoration: none; }
-    .admin-nav-links a:hover { color: var(--gold); }
-
-    .container { max-width: 650px; margin: 0 auto; padding: 15px; }
-
-    /* Header Title */
-    .page-title { font-family: 'Cinzel', serif; font-size: 14px; color: var(--gold); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-    /* Sections */
-    .section-box {
-      background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
-      padding: 15px; margin-bottom: 20px;
-    }
-    .section-title { font-family: 'Cinzel', serif; font-size: 12px; color: var(--gold); margin-bottom: 4px; font-weight: 600; }
-    .section-desc { font-size: 10px; color: var(--text-muted); margin-bottom: 12px; }
-
-    /* Form Fields */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
-    .form-group input, .form-group select {
-      width: 100%; background: var(--input-bg); border: 1px solid var(--border);
-      padding: 9px; color: var(--text); border-radius: 6px; font-size: 11px; outline: none;
-    }
+    body { background: var(--bg); color: var(--text); padding-bottom: 60px; }
+    .topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-family: 'Cinzel', serif; color: var(--gold); font-size: 14px; font-weight: 700; }
+    .container { max-width: 600px; margin: 0 auto; padding: 15px; }
+    .section-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+    .section-title { font-family: 'Cinzel', serif; font-size: 12px; color: var(--gold); margin-bottom: 4px; }
+    .section-desc { font-size: 10px; color: var(--text-muted); margin-bottom: 10px; }
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 3px; text-transform: uppercase; }
+    .form-group input, .form-group select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; color: var(--text); border-radius: 5px; font-size: 11px; outline: none; }
     .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
-
-    /* Checkbox Line */
-    .checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 10px; color: var(--text-muted); margin-top: 6px; cursor: pointer; }
-
-    /* Slots Container */
-    .slots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 12px; }
-    .slot-card {
-      background: #1c1316; border: 1px solid var(--border); border-radius: 8px; padding: 12px; position: relative;
-    }
+    .file-box { border: 1px dashed var(--border); padding: 10px; border-radius: 5px; background: var(--input-bg); font-size: 10px; text-align: center; }
+    .slot-card { background: #1c1316; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; position: relative; }
     .slot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: var(--gold); font-weight: 600; }
     .btn-remove-slot { background: var(--danger); color: #fff; border: none; width: 18px; height: 18px; border-radius: 4px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    
-    .btn-secondary {
-      background: transparent; border: 1px dashed var(--gold); color: var(--gold);
-      padding: 9px; border-radius: 6px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; font-weight: 500;
-    }
-    .btn-secondary:hover { background: rgba(212, 175, 55, 0.05); }
-
-    /* Image Preview Cards */
-    .img-preview-box { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    .img-card { width: 90px; background: #1c1316; border: 1px solid var(--border); border-radius: 6px; padding: 6px; text-align: center; }
-    .img-card img { width: 100%; height: 70px; object-fit: cover; border-radius: 4px; margin-bottom: 4px; }
-    .img-card-actions { display: flex; justify-content: space-between; font-size: 9px; }
-    .img-card-actions button { background: var(--danger); border: none; color: #fff; padding: 2px 5px; border-radius: 3px; cursor: pointer; }
-
-    /* Upload File Input Area */
-    .file-input-box { border: 1px dashed var(--border); padding: 12px; border-radius: 6px; background: var(--input-bg); text-align: center; }
-
-    /* Action Bar */
-    .actions-bar { display: flex; gap: 10px; margin-top: 25px; }
-    .btn-primary { background: var(--gold); color: #000; border: none; padding: 12px; font-weight: 700; font-size: 11px; border-radius: 6px; cursor: pointer; flex: 2; text-transform: uppercase; letter-spacing: 1px; }
-    .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 12px; font-weight: 500; font-size: 11px; border-radius: 6px; cursor: pointer; flex: 1; text-align: center; }
+    .btn-secondary { background: transparent; border: 1px dashed var(--gold); color: var(--gold); padding: 8px; border-radius: 5px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; }
+    .btn-save { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; font-weight: 700; font-size: 11px; border-radius: 5px; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
-  <div class="admin-topbar">
-    <div class="admin-brand">Maany Diam · Admin</div>
-    <div class="admin-nav-links">
-      <a href="vault.html">Vault</a>
-      <a href="admin.html" style="color:var(--gold);">Dashboard</a>
-      <a href="account.html">Account</a>
-      <span style="color:var(--gold);">nayan (staff)</span>
+  <div class="topbar">
+    <div class="brand">Orven Jewels · Owner Portal</div>
+    <div style="font-size: 11px; color: var(--text-muted);">
+      <a href="index.html" style="color: var(--gold); text-decoration: none; margin-right: 15px;">Vault</a>
+      <span style="color: var(--gold);">owner (staff)</span>
     </div>
   </div>
 
   <div class="container">
-    <div class="page-title">RINGS — Edit RG 249</div>
+    <div style="font-family:'Cinzel', serif; font-size: 13px; color: var(--gold); margin-bottom: 12px;">RINGS — Edit / Add Design</div>
 
-    <form id="malishkaAdminForm" onsubmit="saveDesignItem(event)">
-      
-      <!-- Item Specification -->
+    <form onsubmit="saveItem(event)">
       <div class="section-box">
         <div class="form-group">
-          <label>Design number (SKU)</label>
-          <input type="text" id="sku" value="RG 249" required>
+          <label>Design Number (SKU)</label>
+          <input type="text" id="sku" value="ORV 249" required>
         </div>
-
-        <div class="section-title" style="margin-top:10px;">Weight</div>
-        <div class="grid-2">
-          <div class="form-group">
-            <label>Gold weight (g)</label>
-            <input type="number" step="0.001" id="goldWeight" value="4.5">
-          </div>
-          <div class="form-group">
-            <label>Silver weight (g) — only for pure silver designs</label>
-            <input type="number" step="0.001" id="silverWeight" value="0.0">
-            <div style="font-size:9px; color:var(--text-muted); margin-top:2px;">Auto-set to 75% of gold weight — edit if needed</div>
-          </div>
+        <div class="form-group">
+          <label>Gold Weight (g)</label>
+          <input type="number" step="0.001" id="goldWeight" value="4.5">
         </div>
-
-        <label class="checkbox-label">
-          <input type="checkbox" id="hidePurityCheck"> Show only the silver rate in the vault (hide 18kt / 14kt / 10kt prices)
-        </label>
       </div>
 
-      <!-- Plain Stone Slots -->
-      <div class="section-box">
-        <div class="section-title">Stone slots — plain, priced by carat bucket</div>
-        <div class="section-desc">Enter Pieces and Cent (carat size) for plain stone calculation slots.</div>
-        
-        <div class="slots-grid" id="plainSlotsContainer">
-          <div class="slot-card" id="plain-slot-1">
-            <div class="slot-header"><span>Slot 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('plain-slot-1')">✕</button></div>
-            <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="60.0"></div>
-            <div class="form-group" style="margin-bottom:0;"><label>Cent (carat size)</label><input type="number" class="plain-cent" value="1.7"></div>
-          </div>
-        </div>
-        <button type="button" class="btn-secondary" onclick="addPlainSlot()">+ Add stone slot</button>
-      </div>
-
-      <!-- Fancy Stone Slots -->
       <div class="section-box">
         <div class="section-title">Fancy stone slots — priced by category rate</div>
-        <div class="section-desc">Select type, manual rate per carat, pieces, and cent size.</div>
+        <div class="section-desc">Select type, pieces, and cent size.</div>
         
-        <div class="slots-grid" id="fancySlotsContainer">
+        <div id="fancySlotsContainer">
           <div class="slot-card" id="fancy-slot-1">
             <div class="slot-header"><span>Fancy 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('fancy-slot-1')">✕</button></div>
             <div class="form-group">
               <label>Type</label>
               <select class="fancy-type">
-                <option value="Gem Stone">Gem Stone</option>
-                <option value="Diamond">Diamond</option>
-                <option value="Polki">Polki</option>
+                <option value="- none -">- none -</option>
+                <option value="Fancy Shape">Fancy Shape</option>
+                <option value="Fancy Color">Fancy Color</option>
+                <option value="Moissanite">Moissanite</option>
+                <option value="Gem Stone" selected>Gem Stone</option>
               </select>
             </div>
             <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="1.0"></div>
@@ -163,76 +76,20 @@
         <button type="button" class="btn-secondary" onclick="addFancySlot()">+ Add fancy stone</button>
       </div>
 
-      <!-- Gallery — Images & Video -->
-      <div class="section-box">
-        <div class="section-title">Gallery — Images & Video</div>
-        <div class="section-desc">Shown to everyone who can view this design. The cover image is what shows first in the Vault.</div>
-        
-        <div class="img-preview-box">
-          <div class="img-card">
-            <img src="vault-ring.jpg" alt="Cover Preview" id="coverImgPreview">
-            <div class="img-card-actions">
-              <span style="font-size:9px; color:var(--gold);">Cover</span>
-              <button type="button" onclick="this.closest('.img-card').remove()">Delete</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="margin-top:15px;">
-          <label>Add Images / Video</label>
-          <div class="file-input-box">
-            <input type="file" id="galleryFiles" multiple accept="image/*,video/*" style="font-size:10px;">
-          </div>
-          <label class="checkbox-label" style="margin-top:8px;">
-            <input type="checkbox" id="setFirstAsCover"> Set the first image in this batch as the cover
-          </label>
-        </div>
-      </div>
-
-      <!-- CAD Image Section -->
-      <div class="section-box">
-        <div class="section-title">CAD Image</div>
-        <div class="section-desc">JPG / PNG render of the CAD. Staff/admin only — never shown in the Vault.</div>
-        <div class="file-input-box">
-          <input type="file" id="cadImageFile" accept="image/*" style="font-size:10px;">
-        </div>
-      </div>
-
-      <!-- CAD Reference Files -->
       <div class="section-box">
         <div class="section-title">CAD Reference Files</div>
-        <div class="section-desc">.3dm / .stl reference files. Staff/admin only — never shown to viewer logins.</div>
-        <div class="file-input-box">
-          <input type="file" id="cadRefFile" style="font-size:10px;">
+        <div class="section-desc">.3dm / .stl / .jpg / .png reference files. Owner/staff only.</div>
+        <div class="file-box">
+          <input type="file" id="cadRefFile" accept=".3dm,.stl,.jpg,.png,image/jpeg,image/png" style="font-size:10px;">
         </div>
       </div>
 
-      <!-- Bottom Action Buttons -->
-      <div class="actions-bar">
-        <button type="submit" class="btn-primary">Save & recalculate prices</button>
-        <button type="button" class="btn-cancel" onclick="window.location.reload()">Cancel</button>
-      </div>
-
+      <button type="submit" class="btn-save">Save & Recalculate Prices</button>
     </form>
   </div>
 
   <script>
-    let plainCount = 1;
     let fancyCount = 1;
-
-    function addPlainSlot() {
-      plainCount++;
-      const container = document.getElementById('plainSlotsContainer');
-      const div = document.createElement('div');
-      div.className = 'slot-card';
-      div.id = `plain-slot-${plainCount}`;
-      div.innerHTML = `
-        <div class="slot-header"><span>Slot ${plainCount}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('plain-slot-${plainCount}')">✕</button></div>
-        <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="0"></div>
-        <div class="form-group" style="margin-bottom:0;"><label>Cent (carat size)</label><input type="number" class="plain-cent" value="0"></div>
-      `;
-      container.appendChild(div);
-    }
 
     function addFancySlot() {
       fancyCount++;
@@ -245,9 +102,11 @@
         <div class="form-group">
           <label>Type</label>
           <select class="fancy-type">
+            <option value="- none -" selected>- none -</option>
+            <option value="Fancy Shape">Fancy Shape</option>
+            <option value="Fancy Color">Fancy Color</option>
+            <option value="Moissanite">Moissanite</option>
             <option value="Gem Stone">Gem Stone</option>
-            <option value="Diamond">Diamond</option>
-            <option value="Polki">Polki</option>
           </select>
         </div>
         <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="0"></div>
@@ -260,20 +119,19 @@
       document.getElementById(id).remove();
     }
 
-    function saveDesignItem(event) {
-      event.preventDefault();
-      const sku = document.getElementById('sku').value.trim();
-      const goldWt = document.getElementById('goldWeight').value;
+    function saveItem(e) {
+      e.preventDefault();
+      const sku = document.getElementById('sku').value;
+      const goldWeight = document.getElementById('goldWeight').value;
 
-      let catalogItems = JSON.parse(localStorage.getItem('malishka_designs')) || [];
-      catalogItems.push({
-        sku: sku,
-        goldWeight: goldWt,
-        lastUpdatedBy: 'nayan (staff)'
+      fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sku, category: 'RINGS', goldWeight })
+      }).then(() => {
+        alert('Design saved successfully to Orven Jewels!');
+        window.location.href = 'index.html';
       });
-
-      localStorage.setItem('malishka_designs', JSON.stringify(catalogItems));
-      alert(`Design SKU: ${sku} successfully updated and saved!`);
     }
   </script>
 </body>
