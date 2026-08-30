@@ -7,29 +7,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Homepage Background Video Container Styling (Ultra HD & Extra Zoom-out / Contain effect) */
+    /* Homepage Background Video Container Styling (Fit-to-Screen / Responsive Cover for Mobile, PC, Laptop) */
     .bg-video-container {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
       z-index: -1;
       background: #0b0708; 
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
     .bg-video-container video {
-      width: 90%; /* Video ko thoda aur zoom-out kiya taaki poori tarah frame mein fit aaye aur clarity behtar ho */
-      height: 90%;
-      object-fit: contain; 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover; /* Yeh ensure karega ki video kisi bhi device screen par stretch ya fit ho jaye */
       filter: brightness(0.55); 
       -webkit-filter: brightness(0.55);
       image-rendering: -webkit-optimize-contrast;
       backface-visibility: hidden;
-      transform: translateZ(0);
     }
 
     /* Beautiful Header Auth Button Styles */
@@ -164,6 +166,7 @@
 </head>
 <body>
 
+  <!-- Homepage Background Video Element (Fully Responsive Cover for All Screens) -->
   <div class="bg-video-container">
     <video autoplay muted loop playsinline preload="auto">
       <source src="orven-bg-video.mp4" type="video/mp4">
@@ -185,6 +188,7 @@
     </button>
   </header>
 
+  <!-- Hero Content Section -->
   <section class="hero-video-container" style="background: transparent;">
     <div class="hero-content">
       <div class="hero-tag">Defined by Design. Panther Legacy.</div>
@@ -196,6 +200,7 @@
     </div>
   </section>
 
+  <!-- Live Market Rates Ticker -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
@@ -273,14 +278,18 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
+  <!-- ORRA STYLE DUAL ACTION POPUP MODAL -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
       
+      <!-- Left Image Banner -->
       <div class="popup-left-banner"></div>
 
+      <!-- Right Content Area -->
       <div class="popup-right-content">
         
+        <!-- 1. Main Welcome View -->
         <div id="welcomeView" class="auth-form-wrapper active">
           <div class="popup-badge">🎁</div>
           <div class="popup-title">Your first purchase, made more rewarding</div>
@@ -291,6 +300,7 @@
           <button class="btn-login-secondary" onclick="switchView('loginView')">Already A Member? Log In</button>
         </div>
 
+        <!-- 2. Sign Up Form View -->
         <div id="registerView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Create Account</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Register to claim your ₹1,000 welcome voucher.</p>
@@ -313,6 +323,7 @@
           <span class="back-link" onclick="switchView('welcomeView')">← Back</span>
         </div>
 
+        <!-- 3. Login Form View -->
         <div id="loginView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Member Login</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Access your saved vaults and orders.</p>
@@ -334,6 +345,7 @@
           </div>
         </div>
 
+        <!-- 4. Forgot Password View -->
         <div id="forgotView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Password Recovery</div>
           <p class="popup-desc" style="margin-bottom: 15px;">We will send your reset request via WhatsApp.</p>
