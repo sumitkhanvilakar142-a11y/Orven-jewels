@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Homepage Background Video Container Styling (Fully Responsive Cover for All Screens) */
+    /* Homepage Background Video Container Styling */
     .bg-video-container {
       position: fixed;
       top: 0;
@@ -146,7 +146,6 @@
     .btn-login-secondary { width: 100%; background: transparent; color: #fff; border: 1px solid var(--border, #3a2a2e); padding: 12px; font-weight: 600; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; text-transform: uppercase; transition: all 0.3s; }
     .btn-login-secondary:hover { border-color: var(--gold, #d4af37); color: var(--gold, #d4af37); }
 
-    /* Forms Inner Container */
     .auth-form-wrapper { display: none; }
     .auth-form-wrapper.active { display: block; }
 
@@ -229,92 +228,6 @@
     <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
     <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
     <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
-  </div>
-
-  <div style="max-width: 750px; margin: 40px auto; background: rgba(11,7,8,0.9); border: 1px solid var(--border, #241a1c); padding: 25px; border-radius: 8px;">
-    
-    <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Stone slots — plain, priced by carat bucket</div>
-    <div class="stone-slot-card" style="background: #140d0f; border: 1px solid var(--border, #241a1c); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <span style="color: var(--gold, #d4af37); font-weight: 600; font-size: 13px;">Slot 1</span>
-        <button type="button" style="background: transparent; border: none; color: #ff4d4d; cursor: pointer; font-size: 16px;">✕</button>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div class="form-group">
-          <label>Pieces</label>
-          <input type="number" placeholder="e.g. 4">
-        </div>
-        <div class="form-group">
-          <label>Cent (carat size)</label>
-          <input type="number" step="0.01" placeholder="e.g. 25">
-        </div>
-      </div>
-    </div>
-    <button type="button" class="btn-login-secondary" style="margin-bottom: 25px; width: 100%; font-size: 11px;">+ Add stone slot</button>
-
-    <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Fancy stone slots — priced by category rate</div>
-    <div class="stone-slot-card" style="background: #140d0f; border: 1px solid var(--border, #241a1c); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <span style="color: var(--gold, #d4af37); font-weight: 600; font-size: 13px;">Fancy 1</span>
-        <button type="button" style="background: transparent; border: none; color: #ff4d4d; cursor: pointer; font-size: 16px;">✕</button>
-      </div>
-
-      <div class="form-group" style="margin-bottom: 12px; position: relative;">
-        <label>Type</label>
-        <div id="customStoneDropdown" style="width: 100%; background: #1a1214; border: 1px solid var(--border, #241a1c); padding: 10px; color: #fff; font-size: 12px; border-radius: 4px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleStoneOptions(event)">
-          <span id="selectedStoneText">- none -</span>
-          <span style="color: var(--gold, #d4af37);">▼</span>
-        </div>
-        
-        <input type="hidden" id="fancyStoneType" value="">
-
-        <div id="stoneOptionsList" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; max-height: 220px; overflow-y: auto; background: #140d0f; border: 1px solid var(--gold, #d4af37); z-index: 9999; border-radius: 4px; margin-top: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.9);">
-          
-          <div onclick="selectStone('', '- none -')" style="padding: 10px 12px; color: #a09a9c; font-size: 12px; cursor: pointer; border-bottom: 1px solid #241a1c;">- none -</div>
-          
-          <div style="padding: 6px 12px; font-size: 10px; color: var(--gold, #d4af37); text-transform: uppercase; background: #1a1214; font-weight: bold;">Precious Diamonds</div>
-          <div onclick="selectStone('natural-diamond', 'Natural Diamond')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Natural Diamond</div>
-          <div onclick="selectStone('lab-grown-diamond', 'Lab-Grown Diamond (CVD/HPHT)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Lab-Grown Diamond (CVD/HPHT)</div>
-          
-          <div style="padding: 6px 12px; font-size: 10px; color: var(--gold, #d4af37); text-transform: uppercase; background: #1a1214; font-weight: bold;">Alternative Stones</div>
-          <div onclick="selectStone('moissanite', 'Moissanite')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Moissanite</div>
-          <div onclick="selectStone('cubic-zirconia', 'Cubic Zirconia (CZ)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Cubic Zirconia (CZ)</div>
-          
-          <div style="padding: 6px 12px; font-size: 10px; color: var(--gold, #d4af37); text-transform: uppercase; background: #1a1214; font-weight: bold;">Gem Stones</div>
-          <div onclick="selectStone('ruby', 'Ruby (Manik)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Ruby (Manik)</div>
-          <div onclick="selectStone('emerald', 'Emerald (Panna)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Emerald (Panna)</div>
-          <div onclick="selectStone('blue-sapphire', 'Blue Sapphire (Neelam)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Blue Sapphire (Neelam)</div>
-          <div onclick="selectStone('yellow-sapphire', 'Yellow Sapphire (Pukhraj)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Yellow Sapphire (Pukhraj)</div>
-          <div onclick="selectStone('tanzanite', 'Tanzanite')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Tanzanite</div>
-          <div onclick="selectStone('pearl', 'Pearl (Moti)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Pearl (Moti)</div>
-          <div onclick="selectStone('opal', 'Opal')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Opal</div>
-          <div onclick="selectStone('coral', 'Coral (Moonga)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Coral (Moonga)</div>
-          <div onclick="selectStone('hessonite', 'Hessonite (Gomed)')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Hessonite (Gomed)</div>
-          <div onclick="selectStone('cat-eye', `Cat's Eye (Lehsuniya)`)" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Cat's Eye (Lehsuniya)</div>
-          <div onclick="selectStone('tourmaline', 'Tourmaline')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Tourmaline</div>
-          <div onclick="selectStone('morganite', 'Morganite')" style="padding: 10px 12px 10px 20px; color: #fff; font-size: 12px; cursor: pointer;">Morganite</div>
-        </div>
-      </div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div class="form-group">
-          <label>Pieces</label>
-          <input type="number" placeholder="e.g. 2">
-        </div>
-        <div class="form-group">
-          <label>Cent (carat size)</label>
-          <input type="number" step="0.01" placeholder="e.g. 50">
-        </div>
-      </div>
-    </div>
-
-    <button type="button" class="btn-login-secondary" style="margin-bottom: 15px; width: 100%; font-size: 11px;">+ Add fancy stone</button>
-
-    <div style="display: flex; gap: 10px;">
-      <button type="button" class="btn-submit-action" style="flex: 2;">Save & recalculate prices</button>
-      <button type="button" class="btn-login-secondary" style="flex: 1;">Recalculate</button>
-      <button type="button" style="background: transparent; border: 1px solid #3a2a2e; color: #a09a9c; padding: 11px; cursor: pointer; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase;">Cancel</button>
-    </div>
   </div>
 
   <div class="section-title" id="collections">
@@ -451,24 +364,6 @@
       }, 10000); 
       
       loadGoogleLiveRates();
-    });
-
-    // Custom Dropdown Control Scripts for Mobile Compatibility
-    function toggleStoneOptions(e) {
-      e.stopPropagation();
-      const list = document.getElementById('stoneOptionsList');
-      list.style.display = list.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function selectStone(value, text) {
-      document.getElementById('fancyStoneType').value = value;
-      document.getElementById('selectedStoneText').innerText = text;
-      document.getElementById('stoneOptionsList').style.display = 'none';
-    }
-
-    window.addEventListener('click', () => {
-      const list = document.getElementById('stoneOptionsList');
-      if(list) list.style.display = 'none';
     });
 
     async function loadGoogleLiveRates() {
