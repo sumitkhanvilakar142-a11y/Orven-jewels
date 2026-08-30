@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS - Secure Admin Portal</title>
+  <title>ORVÉN JEWELS - Secure Admin Portal & Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -34,15 +34,22 @@
     .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 25px; }
     .brand-logo { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); font-weight: 700; text-decoration: none; }
     
-    .admin-container { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
-    @media(max-width: 900px) { .admin-container { grid-template-columns: 1fr; } }
+    /* Live Ticker Bar Inside Admin */
+    .admin-live-ticker {
+      background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(212,175,55,0.02));
+      border: 1px solid var(--gold); padding: 12px 20px; border-radius: 6px;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; font-size: 13px;
+    }
 
-    .admin-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+    .admin-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    @media(max-width: 1000px) { .admin-container { grid-template-columns: 1fr; } }
+
+    .admin-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 25px; }
     .admin-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; font-size: 18px; }
 
     .form-group { margin-bottom: 15px; }
     .form-group label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 10px; color: var(--text); border-radius: 4px; font-size: 12px; outline: none; }
+    .form-group input, .form-group select { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 10px; color: var(--text); border-radius: 4px; font-size: 12px; outline: none; }
     .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
     
     .checkbox-group { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
@@ -59,6 +66,12 @@
     .btn-delete { background: #5c1d1d; color: #fff; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 10px; }
     .btn-edit:hover { background: var(--gold); color: #000; }
     .btn-delete:hover { background: #ff4d4d; }
+
+    .calc-result-box {
+      background: #1a1214; border: 1px solid var(--gold); padding: 15px; border-radius: 6px; margin-top: 15px; text-align: center;
+    }
+    .calc-result-box h4 { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .calc-result-box .price-output { font-family: 'Cinzel', serif; font-size: 24px; color: var(--gold); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -67,7 +80,7 @@
   <div id="adminAuthOverlay">
     <div class="auth-box">
       <h2>RESTRICTED PORTAL</h2>
-      <p>Enter authorized admin mobile number to manage inventory and homepage control.</p>
+      <p>Enter authorized admin mobile number.</p>
       <form onsubmit="verifyAdminLogin(event)">
         <div class="form-group">
           <input type="text" id="adminMobileInput" required placeholder="Enter Mobile Number" style="text-align:center; font-size:14px; letter-spacing:1px;">
@@ -80,7 +93,7 @@
     </div>
   </div>
 
-  <!-- MAIN ADMIN DASHBOARD -->
+  <!-- MAIN ADMIN DASHBOARD WITH CALCULATOR -->
   <div id="adminDashboard" style="display: none;">
     <div class="admin-header">
       <a href="index.html" class="brand-logo">ORVÉN <span>ADMIN PORTAL</span></a>
@@ -91,95 +104,173 @@
       </div>
     </div>
 
-    <div class="admin-container">
-      <!-- Left Side: Upload / Edit Form -->
-      <div class="admin-card">
-        <h3 id="formTitle">Upload New Jewellery</h3>
-        <form id="productForm" onsubmit="saveProduct(event)">
-          <input type="hidden" id="editIndex" value="">
-          
-          <div class="form-group">
-            <label>Item Name / Title</label>
-            <input type="text" id="prodName" required placeholder="e.g. Panther Diamond Ring">
-          </div>
+    <!-- Live Market Ticker inside Admin -->
+    <div class="admin-live-ticker">
+      <div>🔥 <b>LIVE MARKET RATES:</b></div>
+      <div>24K Gold: <span id="adminRate24k" style="color:var(--gold);">Loading...</span> /g</div>
+      <div>18K Gold: <span id="adminRate18k" style="color:var(--gold);">Loading...</span> /g</div>
+      <div>Silver (925): <span id="adminRateSilver" style="color:var(--gold);">Loading...</span> /g</div>
+    </div>
 
+    <div class="admin-container">
+      
+      <!-- COLUMN 1: Upload & Price Calculator Tools -->
+      <div>
+        <!-- Product Upload Card -->
+        <div class="admin-card">
+          <h3 id="formTitle">Upload New Jewellery</h3>
+          <form id="productForm" onsubmit="saveProduct(event)">
+            <input type="hidden" id="editIndex" value="">
+            
+            <div class="form-group">
+              <label>Item Name / Title</label>
+              <input type="text" id="prodName" required placeholder="e.g. Panther Diamond Ring">
+            </div>
+
+            <div class="form-group">
+              <label>Category</label>
+              <select id="prodCategory" required>
+                <option value="Cocktail-Ring">Cocktail Rings</option>
+                <option value="Diamond-Studs-for-Girls">Diamond Studs</option>
+                <option value="necklaces">Necklaces</option>
+                <option value="rings">Rings</option>
+                <option value="bracelet">Bracelets</option>
+                <option value="mangalsutra">Mangalsutra</option>
+                <option value="tennis-bracelet">Tennis Bracelets</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Image URL or File Name</label>
+              <input type="text" id="prodImage" required placeholder="e.g. IMG-20260812-WA0196.jpg">
+            </div>
+
+            <div class="form-group">
+              <label>Price (₹)</label>
+              <input type="number" id="prodPrice" required placeholder="45000">
+            </div>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="showOnHome">
+              <label for="showOnHome" style="margin-bottom:0; cursor:pointer;">Show this product on Homepage Vaults</label>
+            </div>
+
+            <button type="submit" class="btn-action" style="margin-top: 20px;" id="submitBtn">Publish Product</button>
+          </form>
+        </div>
+
+        <!-- Live Price Calculator Card inside Admin -->
+        <div class="admin-card">
+          <h3>Live Price Calculator</h3>
           <div class="form-group">
-            <label>Category</label>
-            <select id="prodCategory" required>
-              <option value="Cocktail-Ring">Cocktail Rings</option>
-              <option value="Diamond-Studs-for-Girls">Diamond Studs</option>
-              <option value="necklaces">Necklaces</option>
-              <option value="rings">Rings</option>
-              <option value="bracelet">Bracelets</option>
-              <option value="mangalsutra">Mangalsutra</option>
-              <option value="tennis-bracelet">Tennis Bracelets</option>
+            <label>Gold Purity</label>
+            <select id="calcGoldPurity" onchange="calculateItemPrice()">
+              <option value="1.0">24K Gold (100%)</option>
+              <option value="0.75" selected>18K Gold (75%)</option>
+              <option value="0.585">14K Gold (58.5%)</option>
+              <option value="0.375">9K Gold (37.5%)</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label>Image URL or File Name</label>
-            <input type="text" id="prodImage" required placeholder="e.g. IMG-20260812-WA0196.jpg">
+            <label>Gold Weight (Grams)</label>
+            <input type="number" id="calcGoldWeight" step="0.001" placeholder="e.g. 5.5" oninput="calculateItemPrice()" value="0">
           </div>
 
           <div class="form-group">
-            <label>Price (₹)</label>
-            <input type="number" id="prodPrice" required placeholder="45000">
+            <label>Making Charges (₹)</label>
+            <input type="number" id="calcMaking" placeholder="e.g. 1500" oninput="calculateItemPrice()" value="0">
           </div>
 
-          <div class="checkbox-group">
-            <input type="checkbox" id="showOnHome">
-            <label for="showOnHome" style="margin-bottom:0; cursor:pointer;">Show this product on Homepage Vaults</label>
+          <div class="calc-result-box">
+            <h4>Estimated Final Price</h4>
+            <div class="price-output" id="calcFinalPrice">₹0</div>
           </div>
-
-          <button type="submit" class="btn-action" style="margin-top: 20px;" id="submitBtn">Publish Product</button>
-        </form>
-      </div>
-
-      <!-- Right Side: Manage Inventory & Categories -->
-      <div class="admin-card">
-        <h3>Manage Inventory & Categories</h3>
-        <div style="overflow-x: auto;">
-          <table class="product-table">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Home View</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="inventoryList">
-              <!-- Dynamically populated via JS -->
-            </tbody>
-          </table>
         </div>
       </div>
+
+      <!-- COLUMN 2: Manage Existing Products -->
+      <div>
+        <div class="admin-card">
+          <h3>Manage Inventory & Categories</h3>
+          <div style="overflow-x: auto;">
+            <table class="product-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Home View</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryList">
+                <!-- Dynamically populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <script>
     const authorizedAdmins = ["8401715116", "7085658953", "7405393841"];
+    let liveGold24kRate = 15824; // Default live benchmark
 
     document.addEventListener("DOMContentLoaded", () => {
       let currentAdmin = sessionStorage.getItem('orven_active_admin');
       if (currentAdmin && authorizedAdmins.includes(currentAdmin)) {
         grantAdminAccess(currentAdmin);
       }
+      fetchAdminLiveRates();
     });
+
+    async function fetchAdminLiveRates() {
+      try {
+        const res = await fetch('https://data-asg.goldprice.org/dbXRates/INR');
+        const json = await res.json();
+        if (json && json.items && json.items.length > 0) {
+          liveGold24kRate = Math.round(json.items[0].xauPrice / 31.1034768);
+          let silverRate = Math.round(json.items[0].xagPrice / 31.1034768);
+          updateAdminTicker(liveGold24kRate, silverRate);
+          return;
+        }
+        throw new Error();
+      } catch (err) {
+        updateAdminTicker(15824, 237);
+      }
+    }
+
+    function updateAdminTicker(gold24k, silver) {
+      liveGold24kRate = gold24k;
+      document.getElementById('adminRate24k').innerText = '₹' + gold24k.toLocaleString('en-IN');
+      document.getElementById('adminRate18k').innerText = '₹' + Math.round(gold24k * 0.75).toLocaleString('en-IN');
+      document.getElementById('adminRateSilver').innerText = '₹' + silver.toLocaleString('en-IN');
+      calculateItemPrice();
+    }
+
+    function calculateItemPrice() {
+      let purityFactor = parseFloat(document.getElementById('calcGoldPurity').value);
+      let weight = parseFloat(document.getElementById('calcGoldWeight').value) || 0;
+      let making = parseFloat(document.getElementById('calcMaking').value) || 0;
+
+      let goldValue = liveGold24kRate * purityFactor * weight;
+      let finalTotal = Math.round(goldValue + making);
+
+      document.getElementById('calcFinalPrice').innerText = '₹' + finalTotal.toLocaleString('en-IN');
+    }
 
     function verifyAdminLogin(event) {
       event.preventDefault();
-      let inputMobile = document.getElementById('adminMobileInput').value.trim();
-
-      // Clean mobile format if user entered +91
-      inputMobile = inputMobile.replace('+91', '');
+      let inputMobile = document.getElementById('adminMobileInput').value.trim().replace('+91', '');
 
       if (authorizedAdmins.includes(inputMobile)) {
         sessionStorage.setItem('orven_active_admin', inputMobile);
         grantAdminAccess(inputMobile);
       } else {
-        alert("Access Denied! This mobile number is not authorized for admin control.");
+        alert("Access Denied! This mobile number is not authorized.");
       }
     }
 
