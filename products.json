@@ -1,0 +1,6 @@
+[
+  { "sku": "ORV-101", "goldWeight": 3.2, "image": "vault-ring.jpg" },
+  { "sku": "ORV-102", "goldWeight": 2.8, "image": "vault-ring.jpg" },
+  { "sku": "ORV-103", "goldWeight": 4.1, "image": "vault-ring.jpg" },
+  { "sku": "ORV-104", "goldWeight": 3.6, "image": "vault-ring.jpg" }
+]
