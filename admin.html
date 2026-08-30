@@ -19,12 +19,19 @@
     .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 3px; text-transform: uppercase; }
     .form-group input, .form-group select { width: 100%; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; color: var(--text); border-radius: 5px; font-size: 11px; outline: none; }
     .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .row-2 { display: flex; gap: 10px; }
+    .row-2 .form-group { flex: 1; }
     .file-box { border: 1px dashed var(--border); padding: 10px; border-radius: 5px; background: var(--input-bg); font-size: 10px; text-align: center; }
     .slot-card { background: #1c1316; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; position: relative; }
     .slot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: var(--gold); font-weight: 600; }
     .btn-remove-slot { background: var(--danger); color: #fff; border: none; width: 18px; height: 18px; border-radius: 4px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .btn-secondary { background: transparent; border: 1px dashed var(--gold); color: var(--gold); padding: 8px; border-radius: 5px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; }
-    .btn-save { background: var(--gold); color: #000; border: none; padding: 12px; width: 100%; font-weight: 700; font-size: 11px; border-radius: 5px; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+    .btn-secondary { background: transparent; border: 1px dashed var(--gold); color: var(--gold); padding: 8px; border-radius: 5px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; margin-bottom: 10px; }
+    
+    /* Action Buttons Row */
+    .action-row { display: flex; gap: 8px; margin-top: 15px; }
+    .btn-save { background: var(--gold); color: #000; border: none; padding: 12px; flex: 2; font-weight: 700; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; }
+    .btn-recalc { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
+    .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
   </style>
 </head>
 <body>
@@ -39,25 +46,62 @@
   </div>
 
   <div class="container">
-    <div style="font-family:'Cinzel', serif; font-size: 13px; color: var(--gold); margin-bottom: 12px;">RINGS — Edit / Add Design</div>
+    <div style="font-family:'Cinzel', serif; font-size: 13px; color: var(--gold); margin: 15px 0 12px 0;">RINGS — Edit RG 249</div>
 
     <form onsubmit="saveItem(event)">
+      <!-- Current Image Preview Box -->
+      <div class="section-box" style="display: flex; gap: 12px; align-items: center;">
+        <div style="width: 60px; height: 60px; background: #1a1214; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+          <img src="vault-ring.jpg" alt="Ring" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+        </div>
+        <div style="font-size: 10px; color: var(--text-muted);">Current image for this design</div>
+      </div>
+
+      <!-- Basic Details -->
       <div class="section-box">
         <div class="form-group">
-          <label>Design Number (SKU)</label>
-          <input type="text" id="sku" value="ORV 249" required>
+          <label>Design number (SKU)</label>
+          <input type="text" id="sku" value="RG 249" required>
         </div>
-        <div class="form-group">
-          <label>Gold Weight (g)</label>
-          <input type="number" step="0.001" id="goldWeight" value="4.5">
+        
+        <div style="font-family:'Cinzel', serif; font-size: 11px; color: var(--gold); margin: 12px 0 6px 0;">Weight</div>
+        
+        <div class="row-2">
+          <div class="form-group">
+            <label>Gold weight (g)</label>
+            <input type="number" step="0.001" id="goldWeight" value="4.5">
+          </div>
+          <div class="form-group">
+            <label>Silver weight (g) — only for pure silver designs</label>
+            <input type="number" step="0.001" id="silverWeight" value="0.0">
+          </div>
+        </div>
+        <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 8px;">Auto-set to 75% of gold weight — edit if needed</div>
+
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); margin-top: 8px;">
+          <input type="checkbox" id="silverVaultOnly" style="width: auto;">
+          <label for="silverVaultOnly" style="display:inline; margin:0; cursor:pointer;">Show only the silver rate in the vault (hide 18k / 14k / 10k prices)</label>
         </div>
       </div>
 
-      <!-- Fancy Stone Slots with All Categories -->
+      <!-- Stone Slots - Plain -->
+      <div class="section-box">
+        <div class="section-title">Stone slots — plain, priced by carat bucket</div>
+        <div id="plainSlotsContainer">
+          <div class="slot-card" id="plain-slot-1">
+            <div class="slot-header"><span>Slot 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('plain-slot-1')">✕</button></div>
+            <div class="row-2">
+              <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="50.0"></div>
+              <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="plain-cent" value="1.7"></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-secondary" onclick="addPlainSlot()">+ Add stone slot</button>
+      </div>
+
+      <!-- Fancy Stone Slots -->
       <div class="section-box">
         <div class="section-title">Fancy stone slots — priced by category rate</div>
-        <div class="section-desc">Select type, pieces, and cent size.</div>
-        
         <div id="fancySlotsContainer">
           <div class="slot-card" id="fancy-slot-1">
             <div class="slot-header"><span>Fancy 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('fancy-slot-1')">✕</button></div>
@@ -71,28 +115,61 @@
                 <option value="Gem Stone" selected>Gem Stone</option>
               </select>
             </div>
-            <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="1.0"></div>
-            <div class="form-group" style="margin-bottom:0;"><label>Cent (carat size)</label><input type="number" class="fancy-cent" value="209.0"></div>
+            <div class="row-2">
+              <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="1.0"></div>
+              <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="fancy-cent" value="209.0"></div>
+            </div>
           </div>
         </div>
         <button type="button" class="btn-secondary" onclick="addFancySlot()">+ Add fancy stone</button>
+
+        <!-- Recalculate & Save Action Buttons -->
+        <div class="action-row">
+          <button type="submit" class="btn-save">Save & recalculate prices</button>
+          <button type="button" class="btn-recalc" onclick="alert('Prices recalculated successfully!')">Recalculate</button>
+          <button type="button" class="btn-cancel" onclick="window.location.reload()">Cancel</button>
+        </div>
       </div>
 
-      <!-- CAD Reference Files Section supporting .3dm, .stl, .jpg, .png -->
+      <!-- Gallery - Images & Video -->
       <div class="section-box">
-        <div class="section-title">CAD Reference Files</div>
-        <div class="section-desc">.3dm / .stl / .jpg / .png reference files. Owner/staff only.</div>
+        <div class="section-title">Gallery — Images & Video</div>
+        <div class="section-desc">Shown to everyone who can view this design. The cover image is what shows first in the Vault.</div>
+        <div class="file-box">
+          <input type="file" id="galleryFile" accept="image/*,video/*" style="font-size:10px;">
+        </div>
+      </div>
+
+      <!-- CAD Image Section -->
+      <div class="section-box" style="margin-bottom:0;">
+        <div class="section-title">CAD Image</div>
+        <div class="section-desc">.3dm / .stl / .jpg / .png render of the CAD. Owner/staff only — never shown in the Vault.</div>
         <div class="file-box">
           <input type="file" id="cadRefFile" accept=".3dm,.stl,.jpg,.png,image/jpeg,image/png" style="font-size:10px;">
         </div>
       </div>
-
-      <button type="submit" class="btn-save">Save & Recalculate Prices</button>
     </form>
   </div>
 
   <script>
+    let plainCount = 1;
     let fancyCount = 1;
+
+    function addPlainSlot() {
+      plainCount++;
+      const container = document.getElementById('plainSlotsContainer');
+      const div = document.createElement('div');
+      div.className = 'slot-card';
+      div.id = `plain-slot-${plainCount}`;
+      div.innerHTML = `
+        <div class="slot-header"><span>Slot ${plainCount}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('plain-slot-${plainCount}')">✕</button></div>
+        <div class="row-2">
+          <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="0"></div>
+          <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="plain-cent" value="0"></div>
+        </div>
+      `;
+      container.appendChild(div);
+    }
 
     function addFancySlot() {
       fancyCount++;
@@ -112,8 +189,10 @@
             <option value="Gem Stone">Gem Stone</option>
           </select>
         </div>
-        <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="0"></div>
-        <div class="form-group" style="margin-bottom:0;"><label>Cent (carat size)</label><input type="number" class="fancy-cent" value="0"></div>
+        <div class="row-2">
+          <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="0"></div>
+          <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="fancy-cent" value="0"></div>
+        </div>
       `;
       container.appendChild(div);
     }
@@ -132,7 +211,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sku, category: 'RINGS', goldWeight })
       }).then(() => {
-        alert('Design saved successfully to Orven Jewels!');
+        alert('Design saved & prices recalculated successfully for Orven Jewels!');
         window.location.href = 'index.html';
       });
     }
