@@ -37,6 +37,15 @@
     #liveImagePreviewContainer { display: none; margin-top: 10px; padding: 10px; background: #1c1316; border: 1px solid var(--gold); border-radius: 6px; align-items: center; gap: 12px; }
     #liveImagePreviewContainer img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--gold); }
     .logout-btn { background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600; }
+
+    /* Custom Mobile-Friendly Clickable Dropdown Styles */
+    .custom-dropdown-wrapper { position: relative; width: 100%; }
+    .custom-dropdown-toggle { width: 100%; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; color: var(--text); border-radius: 5px; font-size: 11px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+    .custom-dropdown-toggle:hover { border-color: var(--gold); }
+    .custom-dropdown-list { display: none; position: absolute; top: 100%; left: 0; width: 100%; max-height: 220px; overflow-y: auto; background: var(--card-bg); border: 1px solid var(--gold); z-index: 9999; border-radius: 5px; margin-top: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.9); }
+    .custom-dropdown-category { padding: 6px 10px; font-size: 9px; color: var(--gold); text-transform: uppercase; background: var(--input-bg); font-weight: bold; letter-spacing: 0.5px; }
+    .custom-dropdown-item { padding: 8px 12px; color: var(--text); font-size: 11px; cursor: pointer; }
+    .custom-dropdown-item:hover { background: rgba(212, 175, 55, 0.15); color: var(--gold); }
   </style>
 </head>
 <body onbeforeunload="return checkSessionLock(event);">
@@ -92,13 +101,45 @@
         <div id="fancySlotsContainer">
           <div class="slot-card" id="fancy-slot-1">
             <div class="slot-header"><span>Fancy 1</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('fancy-slot-1')">✕</button></div>
+            
+            <!-- Custom Clickable Dropdown for Fancy Type -->
             <div class="form-group">
               <label>Type</label>
-              <select class="fancy-type">
-                <option value="- none -">- none -</option>
-                <option value="Gem Stone" selected>Gem Stone</option>
-              </select>
+              <div class="custom-dropdown-wrapper">
+                <div class="custom-dropdown-toggle" onclick="toggleStoneOptions(event, 'stoneOptionsList-1')">
+                  <span id="selectedStoneText-1">Gem Stone</span>
+                  <span style="color: var(--gold);">▼</span>
+                </div>
+                <input type="hidden" class="fancy-type" id="fancyTypeInput-1" value="Gem Stone">
+                
+                <div class="custom-dropdown-list" id="stoneOptionsList-1">
+                  <div class="custom-dropdown-item" onclick="selectStone('1', '', '- none -')">- none -</div>
+                  
+                  <div class="custom-dropdown-category">Precious Diamonds</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'natural-diamond', 'Natural Diamond')">Natural Diamond</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'lab-grown-diamond', 'Lab-Grown Diamond (CVD/HPHT)')">Lab-Grown Diamond (CVD/HPHT)</div>
+                  
+                  <div class="custom-dropdown-category">Alternative Stones</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'moissanite', 'Moissanite')">Moissanite</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'cubic-zirconia', 'Cubic Zirconia (CZ)')">Cubic Zirconia (CZ)</div>
+                  
+                  <div class="custom-dropdown-category">Gem Stones</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'ruby', 'Ruby (Manik)')">Ruby (Manik)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'emerald', 'Emerald (Panna)')">Emerald (Panna)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'blue-sapphire', 'Blue Sapphire (Neelam)')">Blue Sapphire (Neelam)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'yellow-sapphire', 'Yellow Sapphire (Pukhraj)')">Yellow Sapphire (Pukhraj)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'tanzanite', 'Tanzanite')">Tanzanite</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'pearl', 'Pearl (Moti)')">Pearl (Moti)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'opal', 'Opal')">Opal</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'coral', 'Coral (Moonga)')">Coral (Moonga)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'hessonite', 'Hessonite (Gomed)')">Hessonite (Gomed)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'cat-eye', `Cat's Eye (Lehsuniya)`)">Cat's Eye (Lehsuniya)</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'tourmaline', 'Tourmaline')">Tourmaline</div>
+                  <div class="custom-dropdown-item" onclick="selectStone('1', 'morganite', 'Morganite')">Morganite</div>
+                </div>
+              </div>
             </div>
+
             <div class="row-2">
               <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="1.0"></div>
               <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="fancy-cent" value="209.0"></div>
@@ -124,7 +165,7 @@
             <button type="button" onclick="addNewCategory()" style="background:none; border:none; color: var(--gold); font-size: 10px; cursor:pointer; font-weight:600;">+ Add New Category</button>
           </div>
           <select id="targetWebsiteCategory" style="border-color: var(--gold); font-weight: 600;">
-            </select>
+          </select>
         </div>
 
         <div class="form-group">
@@ -157,11 +198,37 @@
   <script>
     let isLoggedOut = false;
     let websiteCategories = ["Rings", "Pendants", "Earrings", "Necklaces", "Bracelets", "Homepage Vault Featured"];
+    let fancySlotCounter = 1;
 
     // Populate Category Dropdown on Load
     window.addEventListener('DOMContentLoaded', () => {
       renderCategoryDropdown();
     });
+
+    // Close custom dropdowns when clicking anywhere outside
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.custom-dropdown-list').forEach(list => {
+        list.style.display = 'none';
+      });
+    });
+
+    function toggleStoneOptions(e, listId) {
+      e.stopPropagation();
+      // Hide all other open dropdown lists first
+      document.querySelectorAll('.custom-dropdown-list').forEach(list => {
+        if(list.id !== listId) list.style.display = 'none';
+      });
+      const list = document.getElementById(listId);
+      if(list) {
+        list.style.display = list.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+
+    function selectStone(idSuffix, value, text) {
+      document.getElementById(`fancyTypeInput-${idSuffix}`).value = value;
+      document.getElementById(`selectedStoneText-${idSuffix}`).innerText = text;
+      document.getElementById(`stoneOptionsList-${idSuffix}`).style.display = 'none';
+    }
 
     function renderCategoryDropdown(selectedVal = "Rings") {
       const selectDropdown = document.getElementById('targetWebsiteCategory');
@@ -244,20 +311,53 @@
     }
 
     function addFancySlot() {
+      fancySlotCounter++;
+      const uniqueId = fancySlotCounter;
       const container = document.getElementById('fancySlotsContainer');
       const count = container.children.length + 1;
       const div = document.createElement('div');
       div.className = 'slot-card';
-      div.id = `fancy-slot-${count}`;
+      div.id = `fancy-slot-${uniqueId}`;
       div.innerHTML = `
         <div class="slot-header"><span>Fancy ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
+        
         <div class="form-group">
           <label>Type</label>
-          <select class="fancy-type">
-            <option value="- none -" selected>- none -</option>
-            <option value="Gem Stone">Gem Stone</option>
-          </select>
+          <div class="custom-dropdown-wrapper">
+            <div class="custom-dropdown-toggle" onclick="toggleStoneOptions(event, 'stoneOptionsList-${uniqueId}')">
+              <span id="selectedStoneText-${uniqueId}">- none -</span>
+              <span style="color: var(--gold);">▼</span>
+            </div>
+            <input type="hidden" class="fancy-type" id="fancyTypeInput-${uniqueId}" value="">
+            
+            <div class="custom-dropdown-list" id="stoneOptionsList-${uniqueId}">
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', '', '- none -')">- none -</div>
+              
+              <div class="custom-dropdown-category">Precious Diamonds</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'natural-diamond', 'Natural Diamond')">Natural Diamond</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'lab-grown-diamond', 'Lab-Grown Diamond (CVD/HPHT)')">Lab-Grown Diamond (CVD/HPHT)</div>
+              
+              <div class="custom-dropdown-category">Alternative Stones</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'moissanite', 'Moissanite')">Moissanite</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'cubic-zirconia', 'Cubic Zirconia (CZ)')">Cubic Zirconia (CZ)</div>
+              
+              <div class="custom-dropdown-category">Gem Stones</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'ruby', 'Ruby (Manik)')">Ruby (Manik)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'emerald', 'Emerald (Panna)')">Emerald (Panna)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'blue-sapphire', 'Blue Sapphire (Neelam)')">Blue Sapphire (Neelam)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'yellow-sapphire', 'Yellow Sapphire (Pukhraj)')">Yellow Sapphire (Pukhraj)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'tanzanite', 'Tanzanite')">Tanzanite</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'pearl', 'Pearl (Moti)')">Pearl (Moti)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'opal', 'Opal')">Opal</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'coral', 'Coral (Moonga)')">Coral (Moonga)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'hessonite', 'Hessonite (Gomed)')">Hessonite (Gomed)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'cat-eye', `Cat's Eye (Lehsuniya)`)">Cat's Eye (Lehsuniya)</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'tourmaline', 'Tourmaline')">Tourmaline</div>
+              <div class="custom-dropdown-item" onclick="selectStone('${uniqueId}', 'morganite', 'Morganite')">Morganite</div>
+            </div>
+          </div>
         </div>
+
         <div class="row-2">
           <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="0"></div>
           <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="fancy-cent" value="0"></div>
