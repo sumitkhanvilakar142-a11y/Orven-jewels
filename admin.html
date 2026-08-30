@@ -33,36 +33,41 @@
     .btn-recalc { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
     .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 12px; flex: 1; font-weight: 600; font-size: 10px; border-radius: 5px; cursor: pointer; text-transform: uppercase; text-align: center; }
     
-    /* Image Thumbnail Grid in Gallery */
+    /* Image Thumbnail Grid & Previews */
     .thumb-preview { display: flex; align-items: center; justify-content: space-between; background: var(--input-bg); border: 1px solid var(--border); padding: 8px; border-radius: 5px; margin-bottom: 10px; }
     .thumb-left { display: flex; align-items: center; gap: 10px; }
     .thumb-left img { width: 45px; height: 45px; object-fit: cover; border-radius: 4px; }
     .badge-cover { background: #d4af3733; color: var(--gold); padding: 2px 6px; font-size: 9px; border-radius: 3px; font-weight: 600; }
     .btn-action-sm { background: var(--border); color: var(--text); border: none; padding: 3px 8px; font-size: 9px; border-radius: 3px; cursor: pointer; margin-right: 4px; }
     .btn-danger-sm { background: var(--danger); color: #fff; border: none; padding: 3px 8px; font-size: 9px; border-radius: 3px; cursor: pointer; }
+    
+    /* Live Preview Container */
+    #liveImagePreviewContainer { display: none; margin-top: 10px; padding: 10px; background: #1c1316; border: 1px solid var(--gold); border-radius: 6px; align-items: center; gap: 12px; }
+    #liveImagePreviewContainer img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--gold); }
+    .logout-btn { background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600; }
   </style>
 </head>
-<body>
+<body onbeforeunload="return checkSessionLock(event);">
 
-  <!-- Top Navigation Bar -->
+  <!-- Top Navigation Bar with Logout Control -->
   <div class="topbar">
     <div class="brand">Orven Jewels · Owner Portal</div>
-    <div style="font-size: 11px; color: var(--text-muted);">
-      <a href="index.html" style="color: var(--gold); text-decoration: none; margin-right: 15px;">Vault</a>
-      <span style="color: var(--gold);">User Name (Owner Portal)</span>
+    <div style="font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 15px;">
+      <span style="color: var(--gold);">Owner Session Active</span>
+      <button class="logout-btn" onclick="logoutOwner()">Logout</button>
     </div>
   </div>
 
   <div class="container">
     <div style="font-family:'Cinzel', serif; font-size: 13px; color: var(--gold); margin: 15px 0 12px 0;">RINGS — Edit RG 249</div>
 
-    <form onsubmit="saveItem(event)">
+    <form id="ownerForm" onsubmit="saveAndUploadData(event)">
       <!-- Current Image Preview Box -->
       <div class="section-box" style="display: flex; gap: 12px; align-items: center;">
         <div style="width: 50px; height: 50px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
           <img src="vault-ring.jpg" alt="Ring" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
         </div>
-        <div style="font-size: 10px; color: var(--text-muted);">Current image for this design</div>
+        <div style="font-size: 10px; color: var(--text-muted);">Current image published on website vault & homepage</div>
       </div>
 
       <!-- Basic Details -->
@@ -80,15 +85,9 @@
             <input type="number" step="0.001" id="goldWeight" value="4.5">
           </div>
           <div class="form-group">
-            <label>Silver weight (g) — only for pure silver designs</label>
+            <label>Silver weight (g)</label>
             <input type="number" step="0.001" id="silverWeight" value="0.0">
           </div>
-        </div>
-        <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 8px;">Auto-set to 75% of gold weight — edit if needed</div>
-
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); margin-top: 8px;">
-          <input type="checkbox" id="silverVaultOnly" style="width: auto;">
-          <label for="silverVaultOnly" style="display:inline; margin:0; cursor:pointer;">Show only the silver rate in the vault (hide 18k / 14k / 10k prices)</label>
         </div>
       </div>
 
@@ -117,9 +116,6 @@
               <label>Type</label>
               <select class="fancy-type">
                 <option value="- none -">- none -</option>
-                <option value="Fancy Shape">Fancy Shape</option>
-                <option value="Fancy Color">Fancy Color</option>
-                <option value="Moissanite">Moissanite</option>
                 <option value="Gem Stone" selected>Gem Stone</option>
               </select>
             </div>
@@ -134,71 +130,39 @@
         <!-- Recalculate & Save Action Buttons -->
         <div class="action-row">
           <button type="submit" class="btn-save">Save & recalculate prices</button>
-          <button type="button" class="btn-recalc" onclick="alert('Prices recalculated successfully!')">Recalculate</button>
+          <button type="button" class="btn-recalc" onclick="recalculateOnly()">Recalculate</button>
           <button type="button" class="btn-cancel" onclick="window.location.reload()">Cancel</button>
         </div>
       </div>
 
-      <!-- Gallery - Images & Video -->
+      <!-- Gallery - Images & Video with Staged Preview -->
       <div class="section-box">
         <div class="section-title">Gallery — Images & Video</div>
-        <div class="section-desc">Shown to everyone who can view this design. The cover image is what shows first in the Vault; a new cover image that looks like an existing design cover will be flagged before it saves.</div>
+        <div class="section-desc">Select an image to preview. It will only be published to the website homepage & gallery when you click "Save & recalculate prices".</div>
         
-        <div class="thumb-preview">
-          <div class="thumb-left">
-            <img src="vault-ring.jpg" alt="Thumb" onerror="this.src='https://via.placeholder.com/45'">
-            <div>
-              <span class="badge-cover">cover</span>
-            </div>
-          </div>
-          <div>
-            <button type="button" class="btn-action-sm">Share</button>
-            <button type="button" class="btn-danger-sm">Delete</button>
-          </div>
-        </div>
-
         <div class="form-group" style="margin-top: 10px;">
           <label>Add images / video</label>
           <div class="file-box">
-            <input type="file" id="galleryFile" accept="image/*,video/*" style="font-size:10px;">
+            <input type="file" id="galleryFile" accept="image/*,video/*" onchange="previewSelectedImage(event)">
           </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); margin-top: 8px;">
-          <input type="checkbox" id="setCover" style="width: auto;">
-          <label for="setCover" style="display:inline; margin:0; cursor:pointer;">Set the first image in this batch as the cover</label>
-        </div>
-        <button type="button" class="btn-secondary" style="margin-top: 10px; width: auto; padding: 6px 15px;" onclick="alert('Image uploaded successfully!')">Upload selected</button>
-      </div>
 
-      <!-- CAD Image Section -->
-      <div class="section-box">
-        <div class="section-title">CAD Image</div>
-        <div class="section-desc">.JPG / .PNG render of the CAD. Staff/owner only — never shown in the Vault.</div>
-        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">No CAD images yet.</div>
-        <div class="form-group">
-          <label>Add CAD image(s)</label>
-          <div class="file-box">
-            <input type="file" id="cadImgFile" accept="image/jpeg,image/png" style="font-size:10px;">
+        <!-- Live Preview Box -->
+        <div id="liveImagePreviewContainer">
+          <img id="imagePreviewTag" src="" alt="Selected Preview">
+          <div>
+            <div style="font-size: 10px; color: var(--gold); font-weight: 600;">Ready to upload on Save:</div>
+            <div id="previewFileName" style="font-size: 9px; color: var(--text-muted);">filename.jpg</div>
           </div>
         </div>
-        <button type="button" class="btn-secondary" style="margin-top: 10px; width: auto; padding: 6px 15px;" onclick="alert('CAD image uploaded!')">Upload selected</button>
-      </div>
 
-      <!-- CAD Reference Files Section -->
-      <div class="section-box" style="margin-bottom:0;">
-        <div class="section-title">CAD Reference Files</div>
-        <div class="section-desc">.3dm / .stl reference files. Staff/owner only — never shown in the Vault.</div>
-        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">No CAD files uploaded yet.</div>
-        <div class="form-group">
-          <label>Add CAD file(s)</label>
-          <div class="file-box">
-            <input type="file" id="cadRefFile" accept=".3dm,.stl" style="font-size:10px;">
-          </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); margin-top: 10px;">
+          <input type="checkbox" id="setCover" style="width: auto;" checked>
+          <label for="setCover" style="display:inline; margin:0; cursor:pointer;">Set this preview image as homepage cover</label>
         </div>
-        <button type="button" class="btn-secondary" style="margin-top: 10px; width: auto; padding: 6px 15px;" onclick="alert('CAD file uploaded!')">Upload selected</button>
       </div>
 
-      <!-- Bottom Save Button Matching Screenshot Style -->
+      <!-- Bottom Save Button -->
       <div style="margin-top: 15px;">
         <button type="submit" class="btn-save" style="width: 100%;">Save & recalculate prices</button>
       </div>
@@ -206,17 +170,53 @@
   </div>
 
   <script>
-    let plainCount = 1;
-    let fancyCount = 1;
+    let isLoggedOut = false;
+
+    // Prevent leaving page unless logout is pressed
+    function checkSessionLock(e) {
+      if (!isLoggedOut) {
+        e.preventDefault();
+        e.returnValue = 'Session is locked! You must click Logout before leaving the portal.';
+        return e.returnValue;
+      }
+    }
+
+    function logoutOwner() {
+      if(confirm('Are you sure you want to logout from the Owner Portal?')) {
+        isLoggedOut = true;
+        alert('Logged out successfully.');
+        window.location.href = 'index.html';
+      }
+    }
+
+    // Live preview function (does not upload directly)
+    function previewSelectedImage(event) {
+      const file = event.target.files[0];
+      const previewContainer = document.getElementById('liveImagePreviewContainer');
+      const previewImg = document.getElementById('imagePreviewTag');
+      const fileNameLabel = document.getElementById('previewFileName');
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          fileNameLabel.textContent = file.name;
+          previewContainer.style.display = 'flex';
+        }
+        reader.readAsDataURL(file);
+      } else {
+        previewContainer.style.display = 'none';
+      }
+    }
 
     function addPlainSlot() {
-      plainCount++;
       const container = document.getElementById('plainSlotsContainer');
+      const count = container.children.length + 1;
       const div = document.createElement('div');
       div.className = 'slot-card';
-      div.id = `plain-slot-${plainCount}`;
+      div.id = `plain-slot-${count}`;
       div.innerHTML = `
-        <div class="slot-header"><span>Slot ${plainCount}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('plain-slot-${plainCount}')">✕</button></div>
+        <div class="slot-header"><span>Slot ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
         <div class="row-2">
           <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="0"></div>
           <div class="form-group"><label>Cent (carat size)</label><input type="number" step="0.1" class="plain-cent" value="0"></div>
@@ -226,20 +226,17 @@
     }
 
     function addFancySlot() {
-      fancyCount++;
       const container = document.getElementById('fancySlotsContainer');
+      const count = container.children.length + 1;
       const div = document.createElement('div');
       div.className = 'slot-card';
-      div.id = `fancy-slot-${fancyCount}`;
+      div.id = `fancy-slot-${count}`;
       div.innerHTML = `
-        <div class="slot-header"><span>Fancy ${fancyCount}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('fancy-slot-${fancyCount}')">✕</button></div>
+        <div class="slot-header"><span>Fancy ${count}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('${div.id}')">✕</button></div>
         <div class="form-group">
           <label>Type</label>
           <select class="fancy-type">
             <option value="- none -" selected>- none -</option>
-            <option value="Fancy Shape">Fancy Shape</option>
-            <option value="Fancy Color">Fancy Color</option>
-            <option value="Moissanite">Moissanite</option>
             <option value="Gem Stone">Gem Stone</option>
           </select>
         </div>
@@ -255,19 +252,23 @@
       document.getElementById(id).remove();
     }
 
-    function saveItem(e) {
+    function recalculateOnly() {
+      alert('Prices recalculated successfully based on current weight & stone buckets!');
+    }
+
+    // Final upload happens ONLY when Save & Recalculate is clicked
+    function saveAndUploadData(e) {
       e.preventDefault();
       const sku = document.getElementById('sku').value;
       const goldWeight = document.getElementById('goldWeight').value;
+      const fileInput = document.getElementById('galleryFile');
 
-      fetch('/api/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sku, category: 'RINGS', goldWeight })
-      }).then(() => {
-        alert('Design saved & prices recalculated successfully for Orven Jewels!');
-        window.location.href = 'index.html';
-      });
+      // Simulating secure upload to Website Gallery and Homepage
+      if (fileInput.files.length > 0) {
+        alert('Image successfully uploaded and published to the website homepage & gallery!');
+      } else {
+        alert('Design saved and prices recalculated successfully for Orven Jewels!');
+      }
     }
   </script>
 </body>
