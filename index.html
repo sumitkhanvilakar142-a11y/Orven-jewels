@@ -9,18 +9,24 @@
     :root { --bg: #0b0708; --card-bg: #140d0f; --gold: #d4af37; --text: #ffffff; --text-muted: #a09a9c; --border: #2c2022; }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
     body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
-    
+
     /* Header */
     .header { padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); }
     .brand { font-family: 'Cinzel', serif; color: var(--gold); font-size: 16px; font-weight: 700; letter-spacing: 1px; }
-    
+
+    /* Custom jewellery CTA */
+    .custom-cta { display: block; margin: 16px 15px; padding: 14px; text-align: center; border: 1px solid var(--gold); border-radius: 8px; color: var(--gold); text-decoration: none; font-size: 13px; letter-spacing: 0.5px; }
+    .custom-cta:hover { background: var(--gold); color: #0b0708; }
+
     /* Product Grid */
     .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 15px; }
     .product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; }
-    .product-card img { width: 100%; height: 140px; object-fit: cover; }
+    .product-card img { width: 100%; height: 140px; object-fit: cover; display: block; background: #1a1214; }
     .product-info { padding: 10px; }
     .product-title { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
     .product-price { font-size: 13px; color: var(--gold); font-weight: 600; }
+
+    .empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-muted); font-size: 12px; padding: 40px 10px; }
   </style>
 </head>
 <body>
@@ -30,24 +36,40 @@
     <a href="admin.html" style="color: var(--gold); font-size: 11px; text-decoration: none;">Admin Login</a>
   </div>
 
+  <a class="custom-cta" href="customize.html">Create Your Own Jewellery</a>
+
   <div class="catalog-grid" id="productGrid">
-    <!-- Products will load dynamically here -->
+    <div class="empty-state">Loading designs&hellip;</div>
   </div>
 
   <script>
-    fetch('/api/products')
-      .then(res => res.json())
+    // Static hosting (GitHub Pages) can't run a server, so products come
+    // from a plain JSON file in this same repo instead of /api/products.
+    fetch('products.json')
+      .then(res => {
+        if (!res.ok) throw new Error('products.json not found (status ' + res.status + ')');
+        return res.json();
+      })
       .then(products => {
         const grid = document.getElementById('productGrid');
+        if (!products.length) {
+          grid.innerHTML = '<div class="empty-state">No designs yet. Check back soon.</div>';
+          return;
+        }
         grid.innerHTML = products.map(p => `
           <div class="product-card">
-            <img src="${p.image || 'vault-ring.jpg'}" alt="${p.sku}">
+            <img src="${p.image || 'vault-ring.jpg'}" alt="${p.sku}" onerror="this.style.background='#1a1214'; this.src='';">
             <div class="product-info">
               <div class="product-title">Design: ${p.sku}</div>
               <div class="product-price">₹${Math.floor(p.goldWeight * 7200 + 15000).toLocaleString('en-IN')}</div>
             </div>
           </div>
         `).join('');
+      })
+      .catch(err => {
+        console.error('Failed to load products:', err);
+        document.getElementById('productGrid').innerHTML =
+          '<div class="empty-state">Couldn\u2019t load designs (' + err.message + ').</div>';
       });
   </script>
 </body>
