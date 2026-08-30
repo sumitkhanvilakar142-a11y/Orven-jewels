@@ -315,6 +315,20 @@ nav a:hover {
   color: var(--gold);
 }
 
+/* Dropdown Customization for Stone Slots */
+select#fancyStoneType {
+  background-color: #1a1214 !important;
+  color: #ffffff !important;
+  border: 1px solid var(--border);
+}
+
+select#fancyStoneType option,
+select#fancyStoneType optgroup {
+  background-color: #1a1214 !important;
+  color: #ffffff !important;
+  padding: 8px !important;
+}
+
 /* Footer */
 footer {
   text-align: center;
