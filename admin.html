@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS - Admin Upload & Calculator</title>
+  <title>ORVÉN JEWELS - Admin Upload Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -14,9 +14,10 @@
       --text-muted: #a09a9c;
       --border: #2c2022;
       --input-bg: #1a1214;
+      --danger: #8b0000;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 80px; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 90px; }
 
     /* Login Gateway Overlay */
     #adminAuthOverlay {
@@ -33,14 +34,15 @@
     .auth-box p { font-size: 11px; color: var(--text-muted); margin-bottom: 20px; }
 
     /* Main Container */
-    .container { max-width: 600px; margin: 0 auto; padding: 15px; }
+    .container { max-width: 650px; margin: 0 auto; padding: 15px; }
 
     /* Live Rates Bar */
     .live-rates-bar {
       background: #1e1518; border: 1px solid var(--border); padding: 10px 12px;
-      border-radius: 6px; font-size: 11px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      border-radius: 6px; font-size: 10px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; color: var(--text-muted);
     }
-    .live-dot { width: 8px; height: 8px; background: #ff4d4d; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
+    .live-rates-bar b { color: var(--gold); }
+    .live-dot { width: 7px; height: 7px; background: #ff4d4d; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
     /* Sections */
@@ -61,30 +63,30 @@
     }
     .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
 
-    /* Slot Cards Grid */
-    .slots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 12px; }
+    /* Slots Container */
+    .slots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 12px; }
     .slot-card {
-      background: #1c1316; border: 1px solid var(--border); border-radius: 8px; padding: 10px; position: relative;
+      background: #1c1316; border: 1px solid var(--border); border-radius: 8px; padding: 12px; position: relative;
     }
     .slot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; color: var(--gold); font-weight: 600; }
-    .btn-remove-slot { background: #5c1d1d; color: #fff; border: none; width: 18px; height: 18px; border-radius: 4px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .slot-amount { font-size: 10px; color: var(--text-muted); text-align: right; margin-top: 6px; }
+    .btn-remove-slot { background: var(--danger); color: #fff; border: none; width: 20px; height: 20px; border-radius: 4px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .slot-amount { font-size: 10px; color: var(--text-muted); text-align: right; margin-top: 8px; border-top: 1px dashed var(--border); padding-top: 4px; }
 
     .btn-secondary {
       background: transparent; border: 1px dashed var(--gold); color: var(--gold);
-      padding: 8px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; font-weight: 500;
+      padding: 9px; border-radius: 6px; font-size: 11px; cursor: pointer; width: 100%; text-align: center; font-weight: 500;
     }
     .btn-secondary:hover { background: rgba(212, 175, 55, 0.05); }
 
-    /* Calculation Summary */
-    .summary-box { border-top: 1px dashed var(--border); padding-top: 10px; margin-top: 10px; font-size: 11px; }
+    /* Summary Box */
+    .summary-box { border-top: 1px dashed var(--border); padding-top: 12px; margin-top: 10px; font-size: 11px; }
     .summary-row { display: flex; justify-content: space-between; margin-bottom: 6px; color: var(--text-muted); }
-    .summary-row.total { font-size: 13px; color: var(--gold); font-weight: 700; font-family: 'Cinzel', serif; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+    .summary-row.total { font-size: 13px; color: var(--gold); font-weight: 700; font-family: 'Cinzel', serif; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
 
     /* Action Buttons */
     .actions-bar { display: flex; gap: 10px; margin-top: 20px; }
     .btn-primary { background: var(--gold); color: #000; border: none; padding: 12px; font-weight: 700; font-size: 11px; border-radius: 6px; cursor: pointer; flex: 2; text-transform: uppercase; letter-spacing: 1px; }
-    .btn-logout { background: #5c1d1d; color: #fff; border: none; padding: 12px; font-weight: 500; font-size: 11px; border-radius: 6px; cursor: pointer; flex: 1; text-align: center; }
+    .btn-logout { background: var(--danger); color: #fff; border: none; padding: 12px; font-weight: 500; font-size: 11px; border-radius: 6px; cursor: pointer; flex: 1; text-align: center; }
 
     /* Top Bar */
     .admin-topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -96,7 +98,7 @@
   <div id="adminAuthOverlay">
     <div class="auth-box">
       <h2>MERCHANT PORTAL</h2>
-      <p>Enter authorized mobile number to access upload & pricing dashboard.</p>
+      <p>Enter authorized mobile number to access upload & calculation dashboard.</p>
       <form onsubmit="verifyAdminLogin(event)">
         <div class="form-group">
           <input type="text" id="adminMobileInput" required placeholder="Mobile Number" style="text-align:center; font-size:14px;">
@@ -109,11 +111,11 @@
     </div>
   </div>
 
-  <!-- MAIN CALCULATOR & UPLOAD DASHBOARD (OPENS AFTER LOGIN) -->
+  <!-- MAIN DASHBOARD -->
   <div id="adminDashboard" style="display: none;">
     <div class="admin-topbar">
       <div>
-        <div style="font-family:'Cinzel',serif; color:var(--gold); font-size:16px; font-weight:700;">ORVÉN JEWELS</div>
+        <div style="font-family:'Cinzel',serif; color:var(--gold); font-size:15px; font-weight:700;">ORVÉN JEWELS</div>
         <div id="activeAdminDisplay" style="font-size:10px; color:var(--text-muted);">Admin Portal</div>
       </div>
       <button onclick="adminLogout()" style="background:none; border:1px solid var(--border); color:var(--text-muted); padding:5px 10px; border-radius:4px; cursor:pointer; font-size:10px;">Logout</button>
@@ -121,13 +123,15 @@
 
     <div class="container">
       
-      <!-- Live Gold & Silver Rates Header -->
+      <!-- Live Rates Bar -->
       <div class="live-rates-bar">
-        <span style="display:flex; align-items:center; gap:5px; font-weight:600; color:var(--gold);"><span class="live-dot"></span> Live Rates:</span>
-        <span>24K: <b id="rate24k">5800</b></span> |
-        <span>22K: <b id="rate22k">5350</b></span> |
-        <span>18K: <b id="rate18k">4400</b></span> |
-        <span>Silver: <b id="rateSilver">75</b></span>
+        <span style="display:flex; align-items:center; gap:4px; font-weight:600; color:var(--gold);"><span class="live-dot"></span> Live Rates:</span>
+        <span>24K: <b id="r24">6200</b></span> |
+        <span>22K: <b id="r22">5700</b></span> |
+        <span>18K: <b id="r18">4700</b></span> |
+        <span>14K: <b id="r14">3700</b></span> |
+        <span>9K: <b id="r9">2400</b></span> |
+        <span>Silver Fine: <b id="rsilver">85</b></span>
       </div>
 
       <form id="uploadCalcForm" onsubmit="saveItem(event)">
@@ -135,6 +139,7 @@
         <!-- Item Specification -->
         <div class="section-box">
           <div class="section-title">Item Specification</div>
+          
           <div class="form-group" style="margin-top: 10px;">
             <label>Design number (SKU)</label>
             <input type="text" id="sku" required placeholder="e.g. ORV 101">
@@ -147,7 +152,9 @@
                 <option value="0.76">18KT (76.0%)</option>
                 <option value="0.916">22KT (91.6%)</option>
                 <option value="0.999">24KT (99.9%)</option>
-                <option value="0">None / Pure Silver</option>
+                <option value="0.585">14KT (58.5%)</option>
+                <option value="0.375">9KT (37.5%)</option>
+                <option value="0">None</option>
               </select>
             </div>
             <div class="form-group">
@@ -186,7 +193,7 @@
           </div>
         </div>
 
-        <!-- Stone Slots - Plain -->
+        <!-- Plain Stone Slots -->
         <div class="section-box">
           <div class="section-title">Stone slots — plain, priced by carat bucket</div>
           <div class="section-desc">Enter Pieces and Cent (carat size) for plain stone calculation slots.</div>
@@ -241,7 +248,7 @@
 
         <!-- Action Buttons -->
         <div class="actions-bar">
-          <button type="submit" class="btn-primary">Save & publish item</button>
+          <button type="submit" class="btn-primary">Save & recalculate prices</button>
           <button type="button" class="btn-logout" onclick="adminLogout()">Logout</button>
         </div>
 
@@ -295,6 +302,7 @@
         <div class="slot-header"><span>Slot ${plainSlotCount}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('plain-slot-${plainSlotCount}')">✕</button></div>
         <div class="form-group"><label>Pieces</label><input type="number" class="plain-pcs" value="0" oninput="calculateTotal()"></div>
         <div class="form-group" style="margin-bottom:0;"><label>Cent (carat size)</label><input type="number" class="plain-cent" value="0" oninput="calculateTotal()"></div>
+        <div class="slot-amount" id="plain-amt-${plainSlotCount}">Slot Amount: ₹0</div>
       `;
       container.appendChild(div);
     }
@@ -307,10 +315,11 @@
       div.id = `fancy-slot-${fancySlotCount}`;
       div.innerHTML = `
         <div class="slot-header"><span>Fancy ${fancySlotCount}</span> <button type="button" class="btn-remove-slot" onclick="removeSlot('fancy-slot-${fancySlotCount}')">✕</button></div>
-        <div class="form-group"><label>Type</label><select class="fancy-type"><option value="none">- none -</option><option value="diamond">Diamond</option></select></div>
+        <div class="form-group"><label>Type</label><select class="fancy-type"><option value="none">- none -</option><option value="diamond">Diamond</option><option value="polki">Polki</option><option value="gemstone">Gemstone</option></select></div>
         <div class="form-group"><label>Rate (₹ / Carat)</label><input type="number" class="fancy-rate" value="0" oninput="calculateTotal()"></div>
         <div class="form-group"><label>Pieces</label><input type="number" class="fancy-pcs" value="0" oninput="calculateTotal()"></div>
         <div class="form-group" style="margin-bottom:0;"><label>Cent (carat size)</label><input type="number" class="fancy-cent" value="0" oninput="calculateTotal()"></div>
+        <div class="slot-amount" id="fancy-amt-${fancySlotCount}">Slot Amount: ₹0</div>
       `;
       container.appendChild(div);
     }
@@ -321,8 +330,8 @@
     }
 
     function calculateTotal() {
-      const rate18k = parseFloat(document.getElementById('rate18k').innerText) || 4400;
-      const rateSilver = parseFloat(document.getElementById('rateSilver').innerText) || 75;
+      const rate18k = parseFloat(document.getElementById('r18').innerText) || 4700;
+      const rateSilver = parseFloat(document.getElementById('rsilver').innerText) || 85;
 
       const goldWt = parseFloat(document.getElementById('goldWeight').value) || 0;
       const silverWt = parseFloat(document.getElementById('silverWeight').value) || 0;
@@ -333,17 +342,31 @@
       let makingTotal = makingType === 'flat' ? (goldWt * makingVal) : (baseMetalVal * (makingVal / 100));
 
       let totalStonesCost = 0;
+      
+      // Plain slots calculation
       document.querySelectorAll('#plainSlotsContainer .slot-card').forEach((card) => {
+        let idAttr = card.id;
         let pcs = parseFloat(card.querySelector('.plain-pcs').value) || 0;
         let cent = parseFloat(card.querySelector('.plain-cent').value) || 0;
-        totalStonesCost += ((pcs * cent) / 100) * 1500;
+        let carat = (pcs * cent) / 100;
+        let amt = carat * 1500; // standard bucket rate for plain stones
+        totalStonesCost += amt;
+        
+        let amtEl = card.querySelector('.slot-amount');
+        if(amtEl) amtEl.innerText = `Slot Amount: ₹${Math.round(amt)}`;
       });
 
+      // Fancy slots calculation
       document.querySelectorAll('#fancySlotsContainer .slot-card').forEach((card) => {
         let rate = parseFloat(card.querySelector('.fancy-rate').value) || 0;
         let pcs = parseFloat(card.querySelector('.fancy-pcs').value) || 0;
         let cent = parseFloat(card.querySelector('.fancy-cent').value) || 0;
-        totalStonesCost += ((pcs * cent) / 100) * rate;
+        let carat = (pcs * cent) / 100;
+        let amt = carat * rate;
+        totalStonesCost += amt;
+
+        let amtEl = card.querySelector('.slot-amount');
+        if(amtEl) amtEl.innerText = `Slot Amount: ₹${Math.round(amt)}`;
       });
 
       let subtotal = baseMetalVal + makingTotal + totalStonesCost;
@@ -372,7 +395,7 @@
       });
 
       localStorage.setItem('orven_products', JSON.stringify(products));
-      alert("New Jewellery item saved and published successfully!");
+      alert("Jewellery item calculated and published successfully!");
       document.getElementById('uploadCalcForm').reset();
       calculateTotal();
     }
