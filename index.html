@@ -3,74 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orven Jewels — Vault</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg: #0b0708; --card-bg: #140d0f; --gold: #d4af37; --text: #ffffff; --text-muted: #a09a9c; --border: #2c2022; }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
-
-    /* Header */
-    .header { padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); }
-    .brand { font-family: 'Cinzel', serif; color: var(--gold); font-size: 16px; font-weight: 700; letter-spacing: 1px; }
-
-    /* Custom jewellery CTA */
-    .custom-cta { display: block; margin: 16px 15px; padding: 14px; text-align: center; border: 1px solid var(--gold); border-radius: 8px; color: var(--gold); text-decoration: none; font-size: 13px; letter-spacing: 0.5px; }
-    .custom-cta:hover { background: var(--gold); color: #0b0708; }
-
-    /* Product Grid */
-    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 15px; }
-    .product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; }
-    .product-card img { width: 100%; height: 140px; object-fit: cover; display: block; background: #1a1214; }
-    .product-info { padding: 10px; }
-    .product-title { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
-    .product-price { font-size: 13px; color: var(--gold); font-weight: 600; }
-
-    .empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-muted); font-size: 12px; padding: 40px 10px; }
-  </style>
+  <meta name="description" content="ORVÉN JEWELS — Timeless elegance. Distinctly yours.">
+  <title>ORVÉN JEWELS | Timeless Elegance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="ORVÉN JEWELS home">
+      <span>ORVÉN</span><small>JEWELS</small>
+    </a>
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav class="nav" id="nav">
+      <a href="#home">Home</a>
+      <a href="#collection">Collection</a>
+      <a href="#custom">Custom Jewelry</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+      <a href="#contact" aria-label="WhatsApp">◉</a>
+    </div>
+  </header>
 
-  <div class="header">
-    <div class="brand">Orven Jewels</div>
-    <a href="admin.html" style="color: var(--gold); font-size: 11px; text-decoration: none;">Admin Login</a>
-  </div>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">ORVÉN JEWELS</p>
+        <h1>Timeless Elegance.<br><em>Distinctly Yours.</em></h1>
+        <p>Premium jewelry designed for moments that deserve to be remembered.</p>
+        <div class="buttons">
+          <a class="btn gold" href="#collection">Explore Collection</a>
+          <a class="btn outline" href="#contact">Shop on WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Luxury jewelry product image"></div>
+    </section>
 
-  <a class="custom-cta" href="customize.html">Create Your Own Jewellery</a>
+    <section class="collection section" id="collection">
+      <p class="eyebrow">Discover ORVÉN</p>
+      <h2>Our Collection</h2>
+      <div class="category-grid">
+        <a class="category" href="#products"><div class="jewel jewel-ring">◯</div><h3>Men's Rings</h3><span>View Collection</span></a>
+        <a class="category" href="#products"><div class="jewel jewel-ring">◉</div><h3>Women's Rings</h3><span>View Collection</span></a>
+        <a class="category" href="#products"><div class="jewel">✦</div><h3>Earrings</h3><span>View Collection</span></a>
+        <a class="category" href="#products"><div class="jewel">◇</div><h3>Pendants</h3><span>View Collection</span></a>
+        <a class="category" href="#products"><div class="jewel">∞</div><h3>Bracelets</h3><span>View Collection</span></a>
+        <a class="category" href="#custom"><div class="jewel">♢</div><h3>Custom Jewelry</h3><span>View Collection</span></a>
+      </div>
+    </section>
 
-  <div class="catalog-grid" id="productGrid">
-    <div class="empty-state">Loading designs&hellip;</div>
-  </div>
+    <section class="story" id="about">
+      <div class="story-image"></div>
+      <div class="story-copy">
+        <p class="eyebrow">The ORVÉN Story</p>
+        <h2>Crafted for meaningful moments.</h2>
+        <p>ORVÉN JEWELS is built around refined design, timeless elegance and jewelry that feels distinctly personal.</p>
+        <p>Our focus is simple: exceptional-looking pieces, thoughtful design and a premium customer experience.</p>
+        <a class="text-link" href="#contact">Learn more about ORVÉN</a>
+      </div>
+    </section>
 
-  <script>
-    // Static hosting (GitHub Pages) can't run a server, so products come
-    // from a plain JSON file in this same repo instead of /api/products.
-    fetch('products.json')
-      .then(res => {
-        if (!res.ok) throw new Error('products.json not found (status ' + res.status + ')');
-        return res.json();
-      })
-      .then(products => {
-        const grid = document.getElementById('productGrid');
-        if (!products.length) {
-          grid.innerHTML = '<div class="empty-state">No designs yet. Check back soon.</div>';
-          return;
-        }
-        grid.innerHTML = products.map(p => `
-          <div class="product-card">
-            <img src="${p.image || 'vault-ring.jpg'}" alt="${p.sku}" onerror="this.style.background='#1a1214'; this.src='';">
-            <div class="product-info">
-              <div class="product-title">Design: ${p.sku}</div>
-              <div class="product-price">₹${Math.floor(p.goldWeight * 7200 + 15000).toLocaleString('en-IN')}</div>
-            </div>
-          </div>
-        `).join('');
-      })
-      .catch(err => {
-        console.error('Failed to load products:', err);
-        document.getElementById('productGrid').innerHTML =
-          '<div class="empty-state">Couldn\u2019t load designs (' + err.message + ').</div>';
-      });
-  </script>
+    <section class="why section">
+      <p class="eyebrow">Why Choose ORVÉN</p>
+      <div class="features">
+        <article><strong>◇</strong><h3>Refined Designs</h3><p>Thoughtfully designed pieces that stand out.</p></article>
+        <article><strong>♔</strong><h3>Quality-Focused</h3><p>Carefully selected for quality and craftsmanship.</p></article>
+        <article><strong>♙</strong><h3>Personalized Service</h3><p>We help you find or create what’s just right for you.</p></article>
+        <article><strong>♢</strong><h3>Secure Ordering</h3><p>A safe ordering experience you can trust.</p></article>
+        <article><strong>♡</strong><h3>Made for Moments</h3><p>Jewelry for the moments that matter most.</p></article>
+      </div>
+    </section>
+
+    <section class="products section" id="products">
+      <p class="eyebrow">Selected Pieces</p>
+      <h2>Signature Jewelry</h2>
+      <div class="product-grid">
+        <article class="product-card"><div class="product-image p1"></div><h3>Élan Ring</h3><p>From ₹—</p><button data-product="Élan Ring">Enquire on WhatsApp</button></article>
+        <article class="product-card"><div class="product-image p2"></div><h3>Noir Pendant</h3><p>From ₹—</p><button data-product="Noir Pendant">Enquire on WhatsApp</button></article>
+        <article class="product-card"><div class="product-image p3"></div><h3>Auréa Earrings</h3><p>From ₹—</p><button data-product="Auréa Earrings">Enquire on WhatsApp</button></article>
+      </div>
+      <p class="note">Replace the placeholder product images, names and prices with your actual inventory.</p>
+    </section>
+
+    <section class="custom" id="custom">
+      <div>
+        <p class="eyebrow">Made For You</p>
+        <h2>Have a design in mind?</h2>
+        <p>Tell us what you're looking for and we'll help you explore a personalized jewelry option.</p>
+        <a class="btn outline" href="#contact">Request a Custom Design</a>
+      </div>
+      <div class="sketch" aria-hidden="true">◇<br>⌁</div>
+    </section>
+
+    <section class="social section">
+      <div class="social-copy">
+        <p class="eyebrow">Follow ORVÉN</p>
+        <h2>Jewelry. Details. Inspiration.</h2>
+        <p>@ORVENJEWELS</p>
+        <a class="btn dark" href="https://instagram.com/" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+      <div class="social-grid">
+        <div></div><div></div><div></div><div></div><div></div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <p class="eyebrow">ORVÉN JEWELS</p>
+      <h2>Find Your Signature Piece.</h2>
+      <p>Discover jewelry designed to become part of your story.</p>
+      <div class="buttons">
+        <a class="btn gold" href="#collection">Explore Collection</a>
+        <a class="btn outline" href="#contact">Shop on WhatsApp</a>
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <p class="eyebrow">Contact ORVÉN</p>
+      <h2>Let's find your piece.</h2>
+      <form id="contactForm">
+        <input id="name" type="text" placeholder="Your name" required>
+        <input id="phone" type="tel" placeholder="Phone / WhatsApp" required>
+        <select id="interest">
+          <option>I'm interested in a ring</option>
+          <option>I'm interested in earrings</option>
+          <option>I'm interested in a pendant</option>
+          <option>I'm interested in a bracelet</option>
+          <option>I want custom jewelry</option>
+        </select>
+        <textarea id="message" rows="4" placeholder="Tell us what you're looking for"></textarea>
+        <button class="btn gold" type="submit">Send Enquiry</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#home"><span>ORVÉN</span><small>JEWELS</small></a>
+    <div class="footer-links"><a href="#home">Home</a><a href="#collection">Collection</a><a href="#custom">Custom Jewelry</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+    <p>© 2026 ORVÉN JEWELS. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
