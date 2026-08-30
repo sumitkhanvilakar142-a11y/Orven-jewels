@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS - Admin Portal</title>
+  <title>ORVÉN JEWELS - Secure Admin Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -17,6 +17,20 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 20px; }
     
+    /* Security Login Overlay */
+    #adminAuthOverlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(11, 7, 8, 0.95); z-index: 9999;
+      display: flex; justify-content: center; align-items: center; padding: 20px;
+    }
+    .auth-box {
+      background: var(--card-bg); border: 1px solid var(--gold);
+      padding: 30px; border-radius: 8px; width: 100%; max-width: 400px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8); text-align: center;
+    }
+    .auth-box h2 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; font-size: 22px; }
+    .auth-box p { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+
     .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 25px; }
     .brand-logo { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); font-weight: 700; text-decoration: none; }
     
@@ -37,7 +51,6 @@
     .btn-action { width: 100%; background: var(--gold); color: #000; border: none; padding: 12px; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; text-transform: uppercase; transition: opacity 0.3s; }
     .btn-action:hover { opacity: 0.9; }
 
-    /* Product List Table Style */
     .product-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
     .product-table th, .product-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 12px; }
     .product-table th { color: var(--gold); font-family: 'Cinzel', serif; }
@@ -50,80 +63,137 @@
 </head>
 <body>
 
-  <div class="admin-header">
-    <a href="index.html" class="brand-logo">ORVÉN <span>ADMIN PORTAL</span></a>
-    <a href="index.html" style="color: var(--text-muted); font-size: 12px; text-decoration: none;">← Back to Website</a>
+  <!-- ADMIN SECURITY GATEWAY -->
+  <div id="adminAuthOverlay">
+    <div class="auth-box">
+      <h2>RESTRICTED PORTAL</h2>
+      <p>Enter authorized admin mobile number to manage inventory and homepage control.</p>
+      <form onsubmit="verifyAdminLogin(event)">
+        <div class="form-group">
+          <input type="text" id="adminMobileInput" required placeholder="Enter Mobile Number" style="text-align:center; font-size:14px; letter-spacing:1px;">
+        </div>
+        <button type="submit" class="btn-action">Verify Access</button>
+      </form>
+      <div style="margin-top: 15px;">
+        <a href="index.html" style="color: var(--text-muted); font-size: 11px; text-decoration: underline;">← Return to Website</a>
+      </div>
+    </div>
   </div>
 
-  <div class="admin-container">
-    <!-- Left Side: Upload / Edit Form -->
-    <div class="admin-card">
-      <h3 id="formTitle">Upload New Jewellery</h3>
-      <form id="productForm" onsubmit="saveProduct(event)">
-        <input type="hidden" id="editIndex" value="">
-        
-        <div class="form-group">
-          <label>Item Name / Title</label>
-          <input type="text" id="prodName" required placeholder="e.g. Panther Diamond Ring">
-        </div>
-
-        <div class="form-group">
-          <label>Category</label>
-          <select id="prodCategory" required>
-            <option value="Cocktail-Ring">Cocktail Rings</option>
-            <option value="Diamond-Studs-for-Girls">Diamond Studs</option>
-            <option value="necklaces">Necklaces</option>
-            <option value="rings">Rings</option>
-            <option value="bracelet">Bracelets</option>
-            <option value="mangalsutra">Mangalsutra</option>
-            <option value="tennis-bracelet">Tennis Bracelets</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Image URL or File Name</label>
-          <input type="text" id="prodImage" required placeholder="e.g. IMG-20260812-WA0196.jpg">
-        </div>
-
-        <div class="form-group">
-          <label>Price (₹)</label>
-          <input type="number" id="prodPrice" required placeholder="45000">
-        </div>
-
-        <div class="checkbox-group">
-          <input type="checkbox" id="showOnHome">
-          <label for="showOnHome" style="margin-bottom:0; cursor:pointer;">Show this product on Homepage Vaults</label>
-        </div>
-
-        <button type="submit" class="btn-action" style="margin-top: 20px;" id="submitBtn">Publish Product</button>
-      </form>
+  <!-- MAIN ADMIN DASHBOARD -->
+  <div id="adminDashboard" style="display: none;">
+    <div class="admin-header">
+      <a href="index.html" class="brand-logo">ORVÉN <span>ADMIN PORTAL</span></a>
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <span id="activeAdminDisplay" style="font-size: 11px; color: var(--gold);"></span>
+        <button onclick="adminLogout()" style="background:none; border:1px solid var(--border); color:var(--text-muted); padding:5px 10px; border-radius:4px; cursor:pointer; font-size:10px;">Logout</button>
+        <a href="index.html" style="color: var(--text-muted); font-size: 12px; text-decoration: none;">← Website</a>
+      </div>
     </div>
 
-    <!-- Right Side: Manage Existing Products -->
-    <div class="admin-card">
-      <h3>Manage Inventory & Categories</h3>
-      <div style="overflow-x: auto;">
-        <table class="product-table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Home View</th>
-              <th>Actions</th>
-            </tr>
-          Ref</thead>
-          <tbody id="inventoryList">
-            <!-- Dynamically populated via JS -->
-          </tbody>
-        </table>
+    <div class="admin-container">
+      <!-- Left Side: Upload / Edit Form -->
+      <div class="admin-card">
+        <h3 id="formTitle">Upload New Jewellery</h3>
+        <form id="productForm" onsubmit="saveProduct(event)">
+          <input type="hidden" id="editIndex" value="">
+          
+          <div class="form-group">
+            <label>Item Name / Title</label>
+            <input type="text" id="prodName" required placeholder="e.g. Panther Diamond Ring">
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <select id="prodCategory" required>
+              <option value="Cocktail-Ring">Cocktail Rings</option>
+              <option value="Diamond-Studs-for-Girls">Diamond Studs</option>
+              <option value="necklaces">Necklaces</option>
+              <option value="rings">Rings</option>
+              <option value="bracelet">Bracelets</option>
+              <option value="mangalsutra">Mangalsutra</option>
+              <option value="tennis-bracelet">Tennis Bracelets</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Image URL or File Name</label>
+            <input type="text" id="prodImage" required placeholder="e.g. IMG-20260812-WA0196.jpg">
+          </div>
+
+          <div class="form-group">
+            <label>Price (₹)</label>
+            <input type="number" id="prodPrice" required placeholder="45000">
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="showOnHome">
+            <label for="showOnHome" style="margin-bottom:0; cursor:pointer;">Show this product on Homepage Vaults</label>
+          </div>
+
+          <button type="submit" class="btn-action" style="margin-top: 20px;" id="submitBtn">Publish Product</button>
+        </form>
+      </div>
+
+      <!-- Right Side: Manage Inventory & Categories -->
+      <div class="admin-card">
+        <h3>Manage Inventory & Categories</h3>
+        <div style="overflow-x: auto;">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Home View</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryList">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Load products on start
-    document.addEventListener("DOMContentLoaded", renderInventory);
+    const authorizedAdmins = ["8401715116", "7085658953", "7405393841"];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      let currentAdmin = sessionStorage.getItem('orven_active_admin');
+      if (currentAdmin && authorizedAdmins.includes(currentAdmin)) {
+        grantAdminAccess(currentAdmin);
+      }
+    });
+
+    function verifyAdminLogin(event) {
+      event.preventDefault();
+      let inputMobile = document.getElementById('adminMobileInput').value.trim();
+
+      // Clean mobile format if user entered +91
+      inputMobile = inputMobile.replace('+91', '');
+
+      if (authorizedAdmins.includes(inputMobile)) {
+        sessionStorage.setItem('orven_active_admin', inputMobile);
+        grantAdminAccess(inputMobile);
+      } else {
+        alert("Access Denied! This mobile number is not authorized for admin control.");
+      }
+    }
+
+    function grantAdminAccess(mobile) {
+      document.getElementById('adminAuthOverlay').style.display = 'none';
+      document.getElementById('adminDashboard').style.display = 'block';
+      document.getElementById('activeAdminDisplay').innerText = `Admin: +91 ${mobile}`;
+      renderInventory();
+    }
+
+    function adminLogout() {
+      sessionStorage.removeItem('orven_active_admin');
+      location.reload();
+    }
 
     function saveProduct(event) {
       event.preventDefault();
@@ -136,7 +206,6 @@
       const showOnHome = document.getElementById('showOnHome').checked;
 
       let products = JSON.parse(localStorage.getItem('orven_products')) || [];
-
       const productData = { name, category, image, price, showOnHome };
 
       if (editIndex === "") {
