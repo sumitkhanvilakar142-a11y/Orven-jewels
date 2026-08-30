@@ -1,8 +1,8 @@
 /* ==========================================
-   ORVÉN JEWELS - Main JavaScript Engine
-   ================================---------- */
+   ORVÉN JEWELS - Complete Main Script Engine
+   ========================================== */
 
-const allowedAdminNumbers = ["+919999999999", "+919876543210"];
+const authorizedAdminNumbers = ["8401715116", "7085658953", "7405393841"];
 const adminWhatsAppNumber = "919876543210"; 
 
 // Initialize on DOM load
@@ -67,18 +67,20 @@ function switchView(viewId) {
   if (target) target.classList.add('active');
 }
 
-// Authentication & Admin Handlers
+// Authentication & Admin Redirection Handlers
 function handleLogin(event) {
   event.preventDefault();
-  const mobile = document.getElementById('loginMobile').value.trim();
-  const password = document.getElementById('loginPassword').value.trim();
+  let mobile = document.getElementById('loginMobile').value.trim().replace('+91', '');
+  let password = document.getElementById('loginPassword').value.trim();
 
   if(mobile.length < 10) {
     alert('Please enter a valid mobile number.');
     return;
   }
 
-  if (allowedAdminNumbers.includes(mobile)) {
+  // Direct Admin Portal Access for the 3 authorized numbers
+  if (authorizedAdminNumbers.includes(mobile)) {
+    sessionStorage.setItem('orven_active_admin', mobile);
     alert('Admin Access Granted! Redirecting to Admin Portal...');
     window.location.href = 'admin.html';
     return;
@@ -91,18 +93,26 @@ function handleLogin(event) {
     alert(`Welcome back, ${user.name || 'Valued Client'}! Successfully logged in.`);
     closeLoginModal();
   } else {
-    alert('Invalid mobile number or password, or account does not exist. Please register.');
+    alert('Invalid mobile number or password, or account does not exist.');
   }
 }
 
 function handleRegister(event) {
   event.preventDefault();
   const name = document.getElementById('regName').value.trim();
-  const mobile = document.getElementById('regMobile').value.trim();
+  let mobile = document.getElementById('regMobile').value.trim().replace('+91', '');
   const password = document.getElementById('regPassword').value.trim();
 
   if(mobile.length < 10) {
     alert('Please enter a valid mobile number.');
+    return;
+  }
+
+  // Direct Admin Portal Access if any of the 3 numbers registers
+  if (authorizedAdminNumbers.includes(mobile)) {
+    sessionStorage.setItem('orven_active_admin', mobile);
+    alert('Admin Authorized! Welcome to ORVÉN Admin Portal.');
+    window.location.href = 'admin.html';
     return;
   }
 
@@ -120,18 +130,17 @@ function handleRegister(event) {
 
   let whatsappMessage = `Hello Admin, a new customer has registered on ORVÉN JEWELS!%0a%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}%0a🕒 Time: ${new Date().toLocaleString()}`;
   let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
-  
   window.open(whatsappURL, '_blank');
 }
 
 function handleForgot(event) {
   event.preventDefault();
-  const mobile = document.getElementById('forgotMobile').value.trim();
+  let mobile = document.getElementById('forgotMobile').value.trim().replace('+91', '');
 
   let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
   let user = users.find(u => u.mobile === mobile);
 
-  if(user || allowedAdminNumbers.includes(mobile)) {
+  if(user || authorizedAdminNumbers.includes(mobile)) {
     let whatsappMessage = `Hello Admin, password reset requested for account:%0a📱 Mobile: ${mobile}`;
     let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
     
