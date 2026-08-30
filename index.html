@@ -19,10 +19,8 @@
     body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; line-height: 1.6; }
     h1, h2, h3, .brand-logo { font-family: 'Cinzel', serif; letter-spacing: 2px; }
 
-    /* Announcement Bar */
     .announcement-bar { background: #1a1214; color: var(--gold); text-align: center; font-size: 11px; padding: 8px; letter-spacing: 1px; border-bottom: 1px solid var(--border); position: relative; z-index: 1001; }
 
-    /* Header Navigation */
     header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(11,7,8,0.9); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
     .brand-logo { font-size: 20px; font-weight: 700; color: #fff; text-decoration: none; }
     .brand-logo span { color: var(--gold); font-size: 12px; display: block; font-weight: 400; }
@@ -32,7 +30,6 @@
     .auth-btn { border: 1px solid var(--gold); color: var(--gold); padding: 6px 14px; font-size: 11px; border-radius: 4px; text-decoration: none; font-weight: 600; letter-spacing: 1px; transition: 0.3s; }
     .auth-btn:hover { background: var(--gold); color: #000; }
 
-    /* Background Video Hero Section */
     .hero-video-container { position: relative; height: 75vh; min-height: 450px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
     .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 1; }
     .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(11,7,8,0.5) 0%, rgba(11,7,8,0.7) 60%, rgba(11,7,8,0.95) 100%); z-index: 2; }
@@ -42,24 +39,19 @@
     .hero-content p { color: #e0e0e0; font-size: 13px; margin-bottom: 25px; text-shadow: 0 1px 5px rgba(0,0,0,0.8); }
     .hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .btn-gold { background: var(--gold); color: #000; padding: 10px 22px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 1px; }
-    .btn-outline { border: 1px solid #fff; color: #fff; padding: 10px 22px; text-decoration: none; font-size: 11px; letter-spacing: 1px; background: rgba(0,0,0,0.4); }
 
-    /* Live Rates Ticker Section (Accurate Market Pricing) */
     .live-rates-ticker { background: #140d0f; padding: 12px 5%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 12px; }
     .rate-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
     .rate-item span { color: var(--gold); font-weight: 600; }
 
-    /* Section Titles */
     .section-title { text-align: center; margin: 40px 0 20px; padding: 0 15px; }
     .section-title h2 { font-size: 22px; color: var(--text-main); }
     .section-title p { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
 
-    /* All 16 Category Quick Filter Pills */
     .category-pills { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 0 5% 30px; }
     .pill { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 8px 14px; font-size: 11px; text-decoration: none; border-radius: 20px; transition: 0.3s; margin-bottom: 5px; }
     .pill:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* Signature Collections Grid */
     .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 0 5% 50px; }
     .grid-card { background: var(--card-bg); border: 1px solid var(--border); position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 1/1.2; text-decoration: none; color: inherit; display: block; }
     .grid-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.5s; }
@@ -68,11 +60,6 @@
     .card-tag { color: var(--gold); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
     .card-title { font-size: 15px; margin: 4px 0; color: #fff; }
     .card-link { color: var(--text-muted); font-size: 11px; letter-spacing: 1px; display: block; margin-top: 5px; }
-
-    /* Custom Enquiry Section */
-    .custom-section { background: #110a0c; padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; border-top: 1px solid var(--border); }
-    .form-box input, .form-box textarea { width: 100%; background: #1a1214; border: 1px solid var(--border); padding: 12px; color: #fff; margin-bottom: 12px; font-size: 12px; border-radius: 4px; }
-    .form-box button { width: 100%; background: var(--gold); color: #000; border: none; padding: 12px; font-weight: 600; cursor: pointer; letter-spacing: 1px; border-radius: 4px; }
 
     footer { text-align: center; padding: 30px 5%; background: #070405; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); }
   </style>
@@ -85,7 +72,6 @@
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
     <nav>
       <a href="#collections">Collections</a>
-      <a href="#custom">Custom</a>
       <a href="admin.html">Admin Portal</a>
     </nav>
     <a href="login.html" class="auth-btn">LOGIN / SIGNUP 🔒</a>
@@ -102,13 +88,12 @@
       <h1>Timeless Beauty.<br><i>Thoughtfully Crafted.</i></h1>
       <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds. Made for your most meaningful moments.</p>
       <div class="hero-btns">
-        <a href="#collections" class="btn-gold">EXPLORE COLLECTIONS →</a>
-        <a href="#custom" class="btn-outline">CUSTOM JEWELLERY</a>
+        <a href="#collections" class="btn-gold">EXPLORE CATALOG →</a>
       </div>
     </div>
   </section>
 
-  <!-- Live Purity Rates Ticker (Accurate market pricing per gram) -->
+  <!-- Live Market Rates Ticker -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span>₹15,824</span></div>
@@ -120,10 +105,10 @@
 
   <div class="section-title">
     <p>Shop By Expression</p>
-    <h2>Find Your Style (All 16 Categories)</h2>
+    <h2>All 16 Categories (Direct Vaults)</h2>
   </div>
 
-  <!-- Exactly all 16 category folders linked -->
+  <!-- 16 Categories Filter Pills -->
   <div class="category-pills">
     <a href="./Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
     <a href="./Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
@@ -144,8 +129,8 @@
   </div>
 
   <div class="section-title" id="collections">
-    <p>Explore Our World</p>
-    <h2>Signature Collections</h2>
+    <p>Malishka Style E-Commerce</p>
+    <h2>Signature Catalog Grid</h2>
   </div>
 
   <div class="grid-container">
@@ -154,54 +139,37 @@
       <div class="card-overlay">
         <div class="card-tag">Statement Pieces</div>
         <div class="card-title">Cocktail Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
+        <span class="card-link">VIEW VAULT →</span>
       </div>
     </a>
-
     <a href="./Diamond-Studs-for-Girls/index.html" class="grid-card">
       <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" alt="Diamond Studs">
       <div class="card-overlay">
         <div class="card-tag">Brilliant Essentials</div>
         <div class="card-title">Diamond Studs</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
+        <span class="card-link">VIEW VAULT →</span>
       </div>
     </a>
-
     <a href="./necklaces/index.html" class="grid-card">
       <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Necklaces">
       <div class="card-overlay">
         <div class="card-tag">Royal Ornaments</div>
         <div class="card-title">Necklaces</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
+        <span class="card-link">VIEW VAULT →</span>
       </div>
     </a>
-
     <a href="./rings/index.html" class="grid-card">
       <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" alt="Rings">
       <div class="card-overlay">
         <div class="card-tag">Classic & Timeless</div>
         <div class="card-title">Rings</div>
-        <span class="card-link">EXPLORE COLLECTION →</span>
+        <span class="card-link">VIEW VAULT →</span>
       </div>
     </a>
   </div>
 
-  <section class="custom-section" id="custom">
-    <div>
-      <p style="color:var(--gold); font-size:11px; letter-spacing:2px;">MADE FOR YOU</p>
-      <h2 style="font-size:26px; margin-bottom:12px;">Custom Jewellery</h2>
-      <p style="color:var(--text-muted); font-size:12px; margin-bottom:15px;">Tell us what you want to create and our team can discuss your design.</p>
-    </div>
-    <div class="form-box">
-      <input type="text" placeholder="Your Name">
-      <input type="text" placeholder="What do you want? e.g. Ring">
-      <textarea rows="4" placeholder="Describe your requirements"></textarea>
-      <button>SEND CUSTOM ENQUIRY</button>
-    </div>
-  </section>
-
   <footer>
-    <p>© 2026 ORVÉN JEWELS. All rights reserved. | Premium Jewellery • Wholesale • Custom</p>
+    <p>© 2026 ORVÉN JEWELS. All rights reserved. | E-Commerce Workflow Active</p>
   </footer>
 
 </body>
