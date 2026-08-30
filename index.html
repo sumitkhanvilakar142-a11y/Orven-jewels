@@ -7,6 +7,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Homepage Background Video Container Styling */
+    .bg-video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .bg-video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.45); /* Video ko dark & elegant rakhne ke liye taaki text clear dikhe */
+    }
+
     /* Beautiful Header Auth Button Styles */
     .header-auth-btn {
       background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
@@ -139,6 +156,13 @@
 </head>
 <body>
 
+  <div class="bg-video-container">
+    <video autoplay muted loop playsinline>
+      <source src="homepage-video.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+
   <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999</div>
 
   <header>
@@ -153,13 +177,7 @@
     </button>
   </header>
 
-  <!-- Hero Video Section -->
-  <section class="hero-video-container">
-    <video autoplay loop muted playsinline class="bg-video">
-      <source src="hero-video.mp4" type="video/mp4">
-    </video>
-    <div class="video-overlay"></div>
-
+  <section class="hero-video-container" style="background: transparent;">
     <div class="hero-content">
       <div class="hero-tag">Defined by Design. Panther Legacy.</div>
       <h1>Timeless Beauty.<br><i>Thoughtfully Crafted.</i></h1>
@@ -170,7 +188,6 @@
     </div>
   </section>
 
-  <!-- Live Market Rates Ticker (Google Live Rates Synced) -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
@@ -248,18 +265,14 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
-  <!-- ORRA STYLE DUAL ACTION POPUP MODAL -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
       
-      <!-- Left Image Banner -->
       <div class="popup-left-banner"></div>
 
-      <!-- Right Content Area -->
       <div class="popup-right-content">
         
-        <!-- 1. Main Welcome View -->
         <div id="welcomeView" class="auth-form-wrapper active">
           <div class="popup-badge">🎁</div>
           <div class="popup-title">Your first purchase, made more rewarding</div>
@@ -270,7 +283,6 @@
           <button class="btn-login-secondary" onclick="switchView('loginView')">Already A Member? Log In</button>
         </div>
 
-        <!-- 2. Sign Up Form View -->
         <div id="registerView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Create Account</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Register to claim your ₹1,000 welcome voucher.</p>
@@ -293,7 +305,6 @@
           <span class="back-link" onclick="switchView('welcomeView')">← Back</span>
         </div>
 
-        <!-- 3. Login Form View -->
         <div id="loginView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Member Login</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Access your saved vaults and orders.</p>
@@ -315,7 +326,6 @@
           </div>
         </div>
 
-        <!-- 4. Forgot Password View -->
         <div id="forgotView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Password Recovery</div>
           <p class="popup-desc" style="margin-bottom: 15px;">We will send your reset request via WhatsApp.</p>
@@ -351,11 +361,9 @@
     // Function to load live rates matching standard bullion retail trackers
     async function loadGoogleLiveRates() {
       try {
-        // Attempt fetch from public global commodities API
         const res = await fetch('https://data-asg.goldprice.org/dbXRates/INR');
         const json = await res.json();
         if (json && json.items && json.items.length > 0) {
-          // json.items[0].xauPrice is per troy ounce in INR. 1 troy ounce = 31.1034768 grams.
           let ouncePriceINR = json.items[0].xauPrice;
           let gold24k = Math.round(ouncePriceINR / 31.1034768);
           
@@ -364,7 +372,6 @@
         }
         throw new Error("Using fallback market sync");
       } catch (err) {
-        // Fallback synchronized with current live market benchmark per gram (~₹15,824 for 24K)
         updateTickerDOM(15824, 255);
       }
     }
