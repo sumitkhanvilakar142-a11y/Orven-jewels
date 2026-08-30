@@ -1,960 +1,204 @@
-/* =========================================================
-   ORVÉN JEWELS
-   CUSTOM JEWELLERY CONFIGURATOR
-========================================================= */
-
-
-/* =========================================================
-   CONFIGURATION
-========================================================= */
-
-// Replace this with your actual ORVÉN WhatsApp number.
-// Country code +91, without + or spaces.
-const WHATSAPP_NUMBER = "919999999999";
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-const state = {
-
-  metal: "Silver 925",
-
-  metalColor: "#c9c9c9",
-
-  ring: "Classic Solitaire",
-
-  stone: "Round",
-
-  setting: "Four Prong",
-
-  sizeSystem: "US",
-
-  size: "7",
-
-  zoom: 1,
-
-  rotation: 0
-
-};
-
-
-/* =========================================================
-   DIAMOND SHAPES
-========================================================= */
-
-const diamondShapes = [
-
-  ["Round", "round"],
-
-  ["Oval", "oval"],
-
-  ["Pear", "pear"],
-
-  ["Cushion Modified", "cushion"],
-
-  ["Cushion Brilliant", "cushion"],
-
-  ["Emerald", "emerald"],
-
-  ["Radiant", "radiant"],
-
-  ["Princess", "princess"],
-
-  ["Asscher", "asscher"],
-
-  ["Square", "princess"],
-
-  ["Marquise", "marquise"],
-
-  ["Heart", "heart"],
-
-  ["Trilliant", "trilliant"],
-
-  ["Baguette", "baguette"],
-
-  ["Half Moon", "halfmoon"],
-
-  ["Trapezoid", "trapezoid"],
-
-  ["Kite", "kite"],
-
-  ["Shield", "shield"],
-
-  ["Hexagonal", "hexagonal"],
-
-  ["Octagonal", "octagonal"],
-
-  ["Portuguese", "octagonal"],
-
-  ["Star", "star"],
-
-  ["Capsule", "capsule"],
-
-  ["Lozenge", "kite"],
-
-  ["Bullets", "trilliant"],
-
-  ["Flanders", "square"],
-
-  ["Tap Bag", "trapezoid"],
-
-  ["Criss Cut", "radiant"],
-
-  ["Cadillac", "trapezoid"],
-
-  ["Moval Cut", "oval"],
-
-  ["Lily", "pear"],
-
-  ["Oval Step", "oval"],
-
-  ["Pear Step", "pear"],
-
-  ["Calf Head", "shield"],
-
-  ["Dutch Marquise", "marquise"]
-
-];
-
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const shapeGrid =
-  document.getElementById("shapeGrid");
-
-const sizeGrid =
-  document.getElementById("sizeGrid");
-
-const metalSelected =
-  document.getElementById("metalSelected");
-
-const ringSelected =
-  document.getElementById("ringSelected");
-
-const stoneSelected =
-  document.getElementById("stoneSelected");
-
-const settingSelected =
-  document.getElementById("settingSelected");
-
-const sizeSelected =
-  document.getElementById("sizeSelected");
-
-const summaryMetal =
-  document.getElementById("summaryMetal");
-
-const summaryRing =
-  document.getElementById("summaryRing");
-
-const summaryStone =
-  document.getElementById("summaryStone");
-
-const summarySetting =
-  document.getElementById("summarySetting");
-
-const summarySize =
-  document.getElementById("summarySize");
-
-const previewMetal =
-  document.getElementById("previewMetal");
-
-const previewStone =
-  document.getElementById("previewStone");
-
-const previewSetting =
-  document.getElementById("previewSetting");
-
-const previewSize =
-  document.getElementById("previewSize");
-
-const ringBand =
-  document.getElementById("ringBand");
-
-const ringSetting =
-  document.getElementById("ringSetting");
-
-const diamond =
-  document.getElementById("diamond");
-
-const ringPreview =
-  document.getElementById("ringPreview");
-
-const designNumber =
-  document.getElementById("designNumber");
-
-
-/* =========================================================
-   CREATE DIAMOND SHAPE BUTTONS
-========================================================= */
-
-function renderShapes() {
-
-  shapeGrid.innerHTML = "";
-
-  diamondShapes.forEach((shape, index) => {
-
-    const [name, cssClass] = shape;
-
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "shape-option";
-
-    if (index === 0) {
-      button.classList.add("active");
-    }
-
-    button.dataset.shape = name;
-
-    button.dataset.css =
-      cssClass;
-
-    button.innerHTML = `
-      <span class="shape-visual shape-${cssClass}"></span>
-      <span class="shape-name">${name}</span>
-    `;
-
-    button.addEventListener("click", () => {
-
-      document
-        .querySelectorAll(".shape-option")
-        .forEach(item =>
-          item.classList.remove("active")
-        );
-
-      button.classList.add("active");
-
-      state.stone = name;
-
-      diamond.className =
-        "diamond";
-
-      diamond.classList.add(
-        `shape-${cssClass}`
-      );
-
-      updateUI();
-
+/* ORVÉN JEWELS — Ring Customizer logic
+   Handles: option selection, live SVG ring preview, price calc,
+   design summary, and WhatsApp / request handoff. */
+
+(function () {
+  "use strict";
+
+  // ---------- CONFIG ----------
+  const BASE_PRICE = 22450; // base solitaire estimate
+  const WHATSAPP_NUMBER = "917085628953"; // your business WhatsApp number
+
+  const SIZE_LISTS = {
+    US: [6, 7, 8, 9, 10],
+    IND: [13, 14, 15, 16, 17, 18, 19, 20, 21]
+  };
+
+  // ---------- STATE ----------
+  const state = {
+    metal: { value: "Silver 925", color: "#C9CCD1", hi: "#F4F5F7", lo: "#8C8F94", price: 0 },
+    band: { value: "Classic Plain Band", style: "plain", price: 0 },
+    quality: "Lab-Grown",
+    stone: { value: "Round", price: 0 },
+    setting: { value: "Prong Setting", price: 0 },
+    sizeSystem: "US",
+    size: 6
+  };
+
+  // ---------- DOM ----------
+  const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+  const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+
+  const sizeSelect = $("#sizeSelect");
+
+  // ---------- GENERIC SELECTABLE GROUPS ----------
+  function wireGroup(containerId, onSelect) {
+    const container = $("#" + containerId);
+    if (!container) return;
+    $$("button", container).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        $$("button", container).forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        onSelect(btn);
+      });
     });
+  }
 
-    shapeGrid.appendChild(button);
-
+  wireGroup("metalOptions", (btn) => {
+    state.metal = {
+      value: btn.dataset.value,
+      color: btn.dataset.color,
+      hi: btn.dataset.hi,
+      lo: btn.dataset.lo,
+      price: Number(btn.dataset.price)
+    };
+    render();
   });
 
-}
-
-
-/* =========================================================
-   RING SIZES
-========================================================= */
-
-const sizes = {
-
-  US: [
-    "6",
-    "7",
-    "8",
-    "9",
-    "10"
-  ],
-
-  IND: [
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21"
-  ]
-
-};
-
-
-function renderSizes() {
-
-  sizeGrid.innerHTML = "";
-
-  sizes[state.sizeSystem]
-    .forEach((size, index) => {
-
-      const button =
-        document.createElement("button");
-
-      button.className =
-        "size-option";
-
-      if (
-        String(state.size) ===
-        String(size)
-      ) {
-        button.classList.add("active");
-      }
-
-      button.textContent = size;
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          document
-            .querySelectorAll(".size-option")
-            .forEach(item =>
-              item.classList.remove("active")
-            );
-
-          button.classList.add("active");
-
-          state.size = size;
-
-          updateUI();
-
-        }
-      );
-
-      sizeGrid.appendChild(button);
-
-    });
-
-}
-
-
-/* =========================================================
-   METAL SELECTION
-========================================================= */
-
-document
-  .querySelectorAll(".metal-option")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(".metal-option")
-          .forEach(item =>
-            item.classList.remove("active")
-          );
-
-        button.classList.add("active");
-
-        state.metal =
-          button.dataset.metal;
-
-        state.metalColor =
-          button.dataset.color;
-
-        updateMetal();
-
-        updateUI();
-
-      }
-    );
-
+  wireGroup("bandOptions", (btn) => {
+    state.band = { value: btn.dataset.value, style: btn.dataset.style, price: Number(btn.dataset.price) };
+    render();
   });
 
-
-/* =========================================================
-   RING / BAND
-========================================================= */
-
-document
-  .querySelectorAll(".choice-card")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(".choice-card")
-          .forEach(item =>
-            item.classList.remove("active")
-          );
-
-        button.classList.add("active");
-
-        state.ring =
-          button.dataset.ring;
-
-        updateUI();
-
-      }
-    );
-
+  wireGroup("stoneQuality", (btn) => {
+    state.quality = btn.dataset.value;
+    render();
   });
 
-
-/* =========================================================
-   SETTING
-========================================================= */
-
-document
-  .querySelectorAll(".setting-option")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(".setting-option")
-          .forEach(item =>
-            item.classList.remove("active")
-          );
-
-        button.classList.add("active");
-
-        state.setting =
-          button.dataset.setting;
-
-        updateSetting();
-
-        updateUI();
-
-      }
-    );
-
+  wireGroup("shapeOptions", (btn) => {
+    state.stone = { value: btn.dataset.value, price: Number(btn.dataset.price) };
+    render();
   });
 
-
-/* =========================================================
-   SIZE SYSTEM
-========================================================= */
-
-document
-  .querySelectorAll(".size-system")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(".size-system")
-          .forEach(item =>
-            item.classList.remove("active")
-          );
-
-        button.classList.add("active");
-
-        state.sizeSystem =
-          button.dataset.system;
-
-        state.size =
-          sizes[state.sizeSystem][0];
-
-        renderSizes();
-
-        updateUI();
-
-      }
-    );
-
+  wireGroup("settingOptions", (btn) => {
+    state.setting = { value: btn.dataset.value, price: Number(btn.dataset.price) };
+    render();
   });
 
+  wireGroup("sizeSystem", (btn) => {
+    state.sizeSystem = btn.dataset.value;
+    populateSizes();
+    render();
+  });
 
-/* =========================================================
-   UPDATE METAL VISUAL
-========================================================= */
+  function populateSizes() {
+    const list = SIZE_LISTS[state.sizeSystem];
+    sizeSelect.innerHTML = list
+      .map((s) => `<option value="${s}">${state.sizeSystem} - ${s}</option>`)
+      .join("");
+    state.size = list[0];
+  }
+  sizeSelect.addEventListener("change", (e) => {
+    state.size = e.target.value;
+    render();
+  });
 
-function updateMetal() {
+  // ---------- STONE SHAPE PATHS (mirrors the icon SVGs, scaled for the ring) ----------
+  const STONE_PATHS = {
+    Round: '<circle cx="0" cy="0" r="34"/>',
+    Oval: '<ellipse cx="0" cy="0" rx="26" ry="36"/>',
+    Pear: '<path d="M0 -34 C20 -8 24 10 12 24 C2 34 -12 28 -18 16 C-26 -2 -14 -26 0 -34 Z"/>',
+    Princess: '<rect x="-24" y="-24" width="48" height="48"/>',
+    Cushion: '<rect x="-26" y="-26" width="52" height="52" rx="16"/>',
+    Emerald: '<rect x="-20" y="-30" width="40" height="60" rx="6"/>',
+    Marquise: '<path d="M0 -36 C20 -18 20 18 0 36 C-20 18 -20 -18 0 -36 Z"/>',
+    Heart: '<path d="M0 30 C-30 8 -26 -18 -8 -22 C-2 -22 0 -14 0 -10 C0 -14 2 -22 8 -22 C26 -18 30 8 0 30 Z"/>'
+  };
 
-  ringBand.style.borderColor =
-    state.metalColor;
+  // ---------- RENDER ----------
+  const ringSvg = $("#ringSvg");
+  const stoneShape = $("#stoneShape");
+  const prongs = $("#prongs");
+  const gradHi = $("#gradHi");
+  const gradMid = $("#gradMid");
+  const gradLo = $("#gradLo");
 
-  ringSetting.style.borderColor =
-    state.metalColor;
+  function renderRing() {
+    // metal gradient
+    gradHi.setAttribute("stop-color", state.metal.hi);
+    gradMid.setAttribute("stop-color", state.metal.color);
+    gradLo.setAttribute("stop-color", state.metal.lo);
 
-}
+    // stone shape
+    stoneShape.innerHTML = STONE_PATHS[state.stone.value] || STONE_PATHS.Round;
 
-
-/* =========================================================
-   UPDATE SETTING VISUAL
-========================================================= */
-
-function updateSetting() {
-
-  switch (state.setting) {
-
-    case "Four Prong":
-
-      ringSetting.style.width = "95px";
-      ringSetting.style.height = "95px";
-
-      ringSetting.style.borderWidth = "14px";
-
-      break;
-
-
-    case "Six Prong":
-
-      ringSetting.style.width = "105px";
-      ringSetting.style.height = "105px";
-
-      ringSetting.style.borderWidth = "11px";
-
-      break;
-
-
-    case "Bezel":
-
-      ringSetting.style.width = "91px";
-      ringSetting.style.height = "91px";
-
-      ringSetting.style.borderWidth = "8px";
-
-      break;
-
-
-    case "Halo":
-
-      ringSetting.style.width = "110px";
-      ringSetting.style.height = "110px";
-
-      ringSetting.style.borderWidth = "8px";
-
-      break;
-
+    // setting: prongs visible for Prong/Solitaire/Cathedral, halo ring for Halo, bezel outline for Bezel/Tension
+    prongs.innerHTML = "";
+    const s = state.setting.value;
+    if (s.startsWith("Prong") || s.startsWith("Solitaire") || s.startsWith("Cathedral")) {
+      const positions = [[-26, -26], [26, -26], [-26, 26], [26, 26]];
+      prongs.innerHTML = positions
+        .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="5" fill="${state.metal.color}" stroke="#00000022"/>`)
+        .join("");
+    } else if (s.startsWith("Halo")) {
+      prongs.innerHTML = `<circle cx="0" cy="0" r="46" fill="none" stroke="${state.metal.color}" stroke-width="10" stroke-dasharray="4 3"/>`;
+    } else if (s.startsWith("Bezel") || s.startsWith("Tension")) {
+      prongs.innerHTML = `<circle cx="0" cy="0" r="40" fill="none" stroke="${state.metal.color}" stroke-width="6"/>`;
+    }
   }
 
-}
+  function computePrice() {
+    let total = BASE_PRICE + state.metal.price + state.band.price + state.stone.price + state.setting.price;
+    if (state.quality === "Natural") total += 45000; // natural diamonds priced higher
+    return total;
+  }
 
+  function renderSummary() {
+    $("#sumMetal").textContent = state.metal.value;
+    $("#sumBand").textContent = state.band.value;
+    $("#sumStone").textContent = `${state.stone.value} (${state.quality})`;
+    $("#sumSetting").textContent = state.setting.value;
+    $("#sumSize").textContent = `${state.sizeSystem} - ${state.size}`;
 
-/* =========================================================
-   UPDATE UI
-========================================================= */
+    const price = computePrice();
+    $("#priceTotal").textContent = "₹" + price.toLocaleString("en-IN");
+    return price;
+  }
 
-function updateUI() {
+  function renderWhatsappLink(price) {
+    const msg =
+      `Hi ORVÉN JEWELS, I'd like to request this custom ring design:%0A` +
+      `Metal: ${state.metal.value}%0A` +
+      `Band: ${state.band.value}%0A` +
+      `Stone: ${state.stone.value} (${state.quality})%0A` +
+      `Setting: ${state.setting.value}%0A` +
+      `Ring Size: ${state.sizeSystem} - ${state.size}%0A` +
+      `Estimated Price: ₹${price.toLocaleString("en-IN")}`;
+    $("#whatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  }
 
-  metalSelected.textContent =
-    state.metal;
+  function render() {
+    renderRing();
+    const price = renderSummary();
+    renderWhatsappLink(price);
+  }
 
-  ringSelected.textContent =
-    state.ring;
+  // ---------- TOOLBAR ----------
+  $("#rotateBtn").addEventListener("click", () => {
+    ringSvg.classList.remove("spin");
+    void ringSvg.offsetWidth; // restart animation
+    ringSvg.classList.add("spin");
+  });
 
-  stoneSelected.textContent =
-    state.stone;
+  let zoomed = false;
+  $("#zoomBtn").addEventListener("click", () => {
+    zoomed = !zoomed;
+    ringSvg.style.transform = zoomed ? "scale(1.35)" : "scale(1)";
+  });
 
-  settingSelected.textContent =
-    state.setting;
-
-  sizeSelected.textContent =
-    `${state.sizeSystem} ${state.size}`;
-
-
-  summaryMetal.textContent =
-    state.metal;
-
-  summaryRing.textContent =
-    state.ring;
-
-  summaryStone.textContent =
-    state.stone;
-
-  summarySetting.textContent =
-    state.setting;
-
-  summarySize.textContent =
-    `${state.sizeSystem} ${state.size}`;
-
-
-  previewMetal.textContent =
-    state.metal;
-
-  previewStone.textContent =
-    state.stone;
-
-  previewSetting.textContent =
-    state.setting;
-
-  previewSize.textContent =
-    `${state.sizeSystem} ${state.size}`;
-
-
-  updateMetal();
-
-  updateSetting();
-
-}
-
-
-/* =========================================================
-   DESIGN NUMBER
-========================================================= */
-
-function generateDesignNumber() {
-
-  const number =
-    Math.floor(
-      1000 +
-      Math.random() * 9000
+  // ---------- REQUEST BUTTON ----------
+  $("#requestDesignBtn").addEventListener("click", () => {
+    const price = computePrice();
+    alert(
+      `Design request captured!\n\n` +
+      `Metal: ${state.metal.value}\nBand: ${state.band.value}\n` +
+      `Stone: ${state.stone.value} (${state.quality})\nSetting: ${state.setting.value}\n` +
+      `Size: ${state.sizeSystem} - ${state.size}\nEstimated Price: ₹${price.toLocaleString("en-IN")}\n\n` +
+      `Connect this button to your backend/email service to actually send the request.`
     );
-
-  designNumber.textContent =
-    `ORV-${number}`;
-
-}
-
-generateDesignNumber();
-
-
-/* =========================================================
-   ROTATION
-========================================================= */
-
-let rotating = false;
-
-document
-  .getElementById("rotateBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      state.rotation += 45;
-
-      ringPreview.style.transform =
-        `
-        perspective(900px)
-        rotateX(62deg)
-        rotateZ(${state.rotation - 18}deg)
-        scale(${state.zoom})
-        `;
-
-    }
-  );
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-document
-  .getElementById("resetBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      state.rotation = 0;
-
-      state.zoom = 1;
-
-      ringPreview.style.transform =
-        `
-        perspective(900px)
-        rotateX(62deg)
-        rotateZ(-18deg)
-        scale(1)
-        `;
-
-    }
-  );
-
-
-/* =========================================================
-   ZOOM
-========================================================= */
-
-document
-  .getElementById("zoomIn")
-  .addEventListener(
-    "click",
-    () => {
-
-      state.zoom =
-        Math.min(
-          1.25,
-          state.zoom + .1
-        );
-
-      applyZoom();
-
-    }
-  );
-
-
-document
-  .getElementById("zoomOut")
-  .addEventListener(
-    "click",
-    () => {
-
-      state.zoom =
-        Math.max(
-          .65,
-          state.zoom - .1
-        );
-
-      applyZoom();
-
-    }
-  );
-
-
-function applyZoom() {
-
-  ringPreview.style.transform =
-    `
-    perspective(900px)
-    rotateX(62deg)
-    rotateZ(${state.rotation - 18}deg)
-    scale(${state.zoom})
-    `;
-
-}
-
-
-/* =========================================================
-   MOUSE DRAG ROTATION
-========================================================= */
-
-const stage =
-  document.getElementById("ringStage");
-
-let startX = null;
-
-stage.addEventListener(
-  "pointerdown",
-  event => {
-
-    startX = event.clientX;
-
-    stage.setPointerCapture(
-      event.pointerId
-    );
-
-  }
-);
-
-
-stage.addEventListener(
-  "pointermove",
-  event => {
-
-    if (startX === null) return;
-
-    const movement =
-      event.clientX - startX;
-
-    if (Math.abs(movement) < 2) {
-      return;
-    }
-
-    state.rotation +=
-      movement * .4;
-
-    startX =
-      event.clientX;
-
-    applyZoom();
-
-  }
-);
-
-
-stage.addEventListener(
-  "pointerup",
-  () => {
-
-    startX = null;
-
-  }
-);
-
-
-stage.addEventListener(
-  "pointercancel",
-  () => {
-
-    startX = null;
-
-  }
-);
-
-
-/* =========================================================
-   WHATSAPP
-========================================================= */
-
-function requestDesign() {
-
-  const design =
-    designNumber.textContent;
-
-  const message =
-
-`Hello ORVÉN JEWELS,
-
-I would like to request this custom jewellery design.
-
-Design ID: ${design}
-
-Metal: ${state.metal}
-Ring / Band: ${state.ring}
-Diamond Shape: ${state.stone}
-Setting: ${state.setting}
-Ring Size: ${state.sizeSystem} ${state.size}
-
-Please share the quotation and next steps.
-
-Thank you.
-ORVÉN JEWELS`;
-
-  const url =
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
-  window.open(
-    url,
-    "_blank",
-    "noopener,noreferrer"
-  );
-
-}
-
-
-document
-  .getElementById("requestDesign")
-  .addEventListener(
-    "click",
-    requestDesign
-  );
-
-
-document
-  .getElementById("mobileRequestDesign")
-  .addEventListener(
-    "click",
-    requestDesign
-  );
-
-
-/* =========================================================
-   SIZE GUIDE
-========================================================= */
-
-const sizeModal =
-  document.getElementById("sizeModal");
-
-const sizeGuideBtn =
-  document.getElementById("sizeGuideBtn");
-
-const modalClose =
-  document.getElementById("modalClose");
-
-const modalOverlay =
-  document.getElementById("modalOverlay");
-
-
-function openSizeGuide() {
-
-  sizeModal.classList.add("show");
-
-  sizeModal.setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-}
-
-
-function closeSizeGuide() {
-
-  sizeModal.classList.remove("show");
-
-  sizeModal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-}
-
-
-sizeGuideBtn.addEventListener(
-  "click",
-  openSizeGuide
-);
-
-modalClose.addEventListener(
-  "click",
-  closeSizeGuide
-);
-
-modalOverlay.addEventListener(
-  "click",
-  closeSizeGuide
-);
-
-
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      closeSizeGuide();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-renderShapes();
-
-renderSizes();
-
-updateMetal();
-
-updateSetting();
-
-updateUI();
-
-
-/* =========================================================
-   FUTURE 3D MODEL HOOK
-========================================================= */
-
-/*
-   LATER:
-
-   When you have a real .GLB/.GLTF ring model,
-   replace the CSS preview with Three.js.
-
-   Example future structure:
-
-   assets/
-     models/
-       ring.glb
-       round.glb
-       oval.glb
-       pear.glb
-
-   The selected:
-
-   metal
-   ring
-   stone
-   setting
-   size
-
-   can then control the actual 3D model.
-
-*/
+  });
+
+  // ---------- INIT ----------
+  populateSizes();
+  render();
+})();
