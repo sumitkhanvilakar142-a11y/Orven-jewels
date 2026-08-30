@@ -83,6 +83,13 @@
 
     .btn-submit { width: 100%; background: var(--gold, #d4af37); color: #000; border: none; padding: 12px; font-weight: 600; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; margin-top: 10px; text-transform: uppercase; transition: opacity 0.3s; }
     .btn-submit:hover { opacity: 0.9; }
+
+    /* Styling for Auth Tabs */
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--border, #241a1c); margin-bottom: 20px; }
+    .auth-tab-btn { flex: 1; background: none; border: none; padding: 10px; color: var(--text-muted, #a09a9c); font-size: 11px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
+    .auth-tab-btn.active { color: var(--gold, #d4af37); border-bottom: 2px solid var(--gold, #d4af37); }
+    .auth-form-section { display: none; }
+    .auth-form-section.active { display: block; }
   </style>
 </head>
 <body>
@@ -196,39 +203,75 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
-  <!-- ANIMATED LOGIN / SIGNUP POPUP MODAL -->
+  <!-- ANIMATED LOGIN / SIGNUP / FORGOT POPUP MODAL -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
       <div class="popup-brand">ORVÉN <span>JEWELS</span></div>
       <p class="popup-subtitle" id="popupSubtitle">Secure Client & Admin Gateway</p>
 
-      <!-- Mobile & Password Form -->
-      <form id="popupAuthForm" onsubmit="handleAuth(event)">
+      <!-- Tabs for Switching -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" onclick="switchAuthTab('login', event)">Login</button>
+        <button class="auth-tab-btn" onclick="switchAuthTab('register', event)">Register</button>
+        <button class="auth-tab-btn" onclick="switchAuthTab('forgot', event)">Forgot?</button>
+      </div>
+
+      <!-- 1. Login Form -->
+      <form id="loginFormSection" class="auth-form-section active" onsubmit="handleLogin(event)">
         <div class="form-group">
-          <label>Mobile Number (with Country Code)</label>
-          <input type="text" id="popupMobile" required placeholder="+919876543210" value="+91">
+          <label>Mobile Number</label>
+          <input type="text" id="loginMobile" required placeholder="+919876543210" value="+91">
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" id="popupPassword" required placeholder="Enter your password">
+          <input type="password" id="loginPassword" required placeholder="Enter your password">
         </div>
-        <button type="submit" class="btn-submit">Login / Register</button>
+        <button type="submit" class="btn-submit">Login to Store</button>
       </form>
+
+      <!-- 2. Register Form -->
+      <form id="registerFormSection" class="auth-form-section" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="regName" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>Mobile Number (For WhatsApp Alert)</label>
+          <input type="text" id="regMobile" required placeholder="+919876543210" value="+91">
+        </div>
+        <div class="form-group">
+          <label>Create Password</label>
+          <input type="password" id="regPassword" required placeholder="Create a strong password">
+        </div>
+        <button type="submit" class="btn-submit">Create Account</button>
+      </form>
+
+      <!-- 3. Forgot Password Form -->
+      <form id="forgotFormSection" class="auth-form-section" onsubmit="handleForgot(event)">
+        <div class="form-group">
+          <label>Registered Mobile Number</label>
+          <input type="text" id="forgotMobile" required placeholder="+919876543210" value="+91">
+        </div>
+        <p style="font-size: 11px; color: var(--text-muted, #a09a9c); margin-bottom: 15px; line-height: 1.4;">
+          Enter your registered mobile number. A password recovery request will be sent instantly to the admin via WhatsApp.
+        </p>
+        <button type="submit" class="btn-submit">Reset via WhatsApp</button>
+      </form>
+
     </div>
   </div>
 
   <script src="script.js"></script>
   <script>
-    // Hardcoded Admin numbers (Bina code update kiye change nahi honge)
     const allowedAdminNumbers = ["+919999999999", "+919876543210"];
-    const adminWhatsAppNumber = "919876543210"; // Apna WhatsApp number yaha daalein jiss par message aayega
+    const adminWhatsAppNumber = "919876543210"; // Apna WhatsApp number yaha daalein
 
-    // Website khulne ke theek 10 seconds baad popup smooth animation ke sath open hoga
+    // Website khulne ke theek 10 seconds baad popup open hoga
     window.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         openLoginModal();
-      }, 10000); // 10000 milliseconds = 10 seconds
+      }, 10000); 
     });
 
     function openLoginModal() {
@@ -241,47 +284,104 @@
       modal.classList.remove('active');
     }
 
-    function handleAuth(event) {
+    // Switch between Login, Register, and Forgot Tabs
+    function switchAuthTab(tabName, event) {
+      document.querySelectorAll('.auth-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.auth-form-section').forEach(sec => sec.classList.remove('active'));
+
+      event.target.classList.add('active');
+
+      if(tabName === 'login') {
+        document.getElementById('loginFormSection').classList.add('active');
+        document.getElementById('popupSubtitle').innerText = "Secure Client & Admin Gateway";
+      } else if(tabName === 'register') {
+        document.getElementById('registerFormSection').classList.add('active');
+        document.getElementById('popupSubtitle').innerText = "Create New Account";
+      } else if(tabName === 'forgot') {
+        document.getElementById('forgotFormSection').classList.add('active');
+        document.getElementById('popupSubtitle').innerText = "Password Recovery";
+      }
+    }
+
+    // 1. Handle Login Logic
+    function handleLogin(event) {
       event.preventDefault();
-      const mobile = document.getElementById('popupMobile').value.trim();
-      const password = document.getElementById('popupPassword').value.trim();
+      const mobile = document.getElementById('loginMobile').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
 
       if(mobile.length < 10) {
         alert('Please enter a valid mobile number.');
         return;
       }
 
-      // 1. Admin Login Check
+      // Admin Login Check
       if (allowedAdminNumbers.includes(mobile)) {
         alert('Admin Access Granted! Redirecting to Admin Portal...');
         window.location.href = 'admin.html';
         return;
       }
 
-      // 2. Regular Customer Register / Login Logic
+      // Regular User Login Check
       let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
-      let existingUser = users.find(u => u.mobile === mobile);
+      let user = users.find(u => u.mobile === mobile && u.password === password);
 
-      if (existingUser) {
-        if (existingUser.password === password) {
-          alert(`Welcome back! Successfully logged in as ${mobile}`);
-          closeLoginModal();
-        } else {
-          alert('Incorrect password! Please try again.');
-        }
-      } else {
-        // Naya user register karna aur localstorage mein save karna
-        users.push({ mobile: mobile, password: password, date: new Date().toLocaleString() });
-        localStorage.setItem('orven_registered_users', JSON.stringify(users));
-
-        alert(`Registration successful! Welcome to ORVÉN JEWELS.`);
+      if (user) {
+        alert(`Welcome back, ${user.name || 'Valued Client'}! Successfully logged in.`);
         closeLoginModal();
+      } else {
+        alert('Invalid mobile number or password, or account does not exist. Please register.');
+      }
+    }
 
-        // 3. WhatsApp par notification message bhejna
-        let whatsappMessage = `Hello Admin, a new customer has registered on ORVÉN JEWELS!%0a%0a📱 Mobile: ${mobile}%0a🕒 Time: ${new Date().toLocaleString()}`;
+    // 2. Handle New Registration & WhatsApp Notification
+    function handleRegister(event) {
+      event.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const mobile = document.getElementById('regMobile').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+
+      if(mobile.length < 10) {
+        alert('Please enter a valid mobile number.');
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
+      if(users.some(u => u.mobile === mobile)) {
+        alert('This mobile number is already registered! Please login.');
+        return;
+      }
+
+      // Save user to localStorage
+      users.push({ name, mobile, password, date: new Date().toLocaleString() });
+      localStorage.setItem('orven_registered_users', JSON.stringify(users));
+
+      alert('Registration successful! Welcome to ORVÉN JEWELS.');
+      closeLoginModal();
+
+      // Send WhatsApp Notification to Admin
+      let whatsappMessage = `Hello Admin, a new customer has registered on ORVÉN JEWELS!%0a%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}%0a🕒 Time: ${new Date().toLocaleString()}`;
+      let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
+      
+      window.open(whatsappURL, '_blank');
+    }
+
+    // 3. Handle Forgot Password via WhatsApp
+    function handleForgot(event) {
+      event.preventDefault();
+      const mobile = document.getElementById('forgotMobile').value.trim();
+
+      let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
+      let user = users.find(u => u.mobile === mobile);
+
+      if(user || allowedAdminNumbers.includes(mobile)) {
+        let whatsappMessage = `Hello Admin, password reset requested for account:%0a📱 Mobile: ${mobile}`;
         let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
         
         window.open(whatsappURL, '_blank');
+        alert('Password recovery request sent to Admin via WhatsApp.');
+        closeLoginModal();
+      } else {
+        alert('This mobile number is not found in our records.');
       }
     }
   </script>
