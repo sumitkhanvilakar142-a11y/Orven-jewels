@@ -1,157 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customize Your Ring | ORVÉN JEWELS</title>
-<link rel="stylesheet" href="customize.css">
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORVÉN JEWELS | Customize Your Ring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5f2;
+      --card-bg: #ffffff;
+      --gold: #d4af37;
+      --gold-dark: #b89728;
+      --text: #1a1a1a;
+      --text-muted: #757575;
+      --border: #e6e1db;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* Top Nav */
+    header { display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; border-bottom: 1px solid var(--border); background: var(--card-bg); }
+    .brand { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+    .brand small { display: block; font-size: 8px; letter-spacing: 4px; color: var(--gold); }
+    .nav-links { display: flex; gap: 30px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); font-weight: 600; border-bottom: 1px solid var(--text); padding-bottom: 2px; }
+    .nav-icons { display: flex; gap: 20px; font-size: 16px; color: var(--text); }
+
+    /* Layout */
+    .studio-layout { display: flex; flex: 1; height: calc(100vh - 75px); overflow: hidden; }
+
+    /* Left Sidebar */
+    .sidebar { width: 420px; background: var(--card-bg); border-right: 1px solid var(--border); overflow-y: auto; padding: 25px; }
+    .back-link { font-size: 11px; color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px; font-weight: 500; }
+    .back-link:hover { color: var(--text); }
+
+    .accordion-item { border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; }
+    .accordion-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--text); padding: 5px 0; }
+    .accordion-header span { font-size: 10px; color: var(--text-muted); }
+    .accordion-body { display: none; padding-top: 15px; }
+    .accordion-body.active { display: block; }
+
+    /* Option Grids */
+    .metal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .metal-card { border: 1px solid var(--border); border-radius: 6px; padding: 12px; text-align: center; cursor: pointer; font-size: 11px; background: #faf8f5; transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .metal-card.selected { border-color: var(--text); background: #fff; font-weight: 600; }
+    .metal-circle { width: 20px; height: 20px; border-radius: 50%; border: 1px solid #ccc; }
+
+    /* Stone Type Tabs */
+    .stone-type-tabs { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 15px; }
+    .s-tab { flex: 1; padding: 10px; text-align: center; font-size: 10px; font-weight: 600; background: #f0ece6; cursor: pointer; letter-spacing: 1px; }
+    .s-tab.active { background: var(--text); color: #fff; }
+
+    /* Shapes Grid (Massive list as per image) */
+    .shapes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-height: 300px; overflow-y: auto; padding-right: 5px; }
+    .shape-card { border: 1px solid var(--border); border-radius: 4px; padding: 10px 4px; text-align: center; font-size: 9px; cursor: pointer; background: #faf8f5; color: var(--text-muted); transition: 0.2s; }
+    .shape-card:hover, .shape-card.selected { border-color: var(--text); color: var(--text); background: #fff; font-weight: 600; }
+
+    /* Right Preview Stage */
+    .preview-stage { flex: 1; display: flex; flex-direction: column; padding: 30px; overflow-y: auto; background: var(--bg); position: relative; }
+    
+    .top-steps { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: 0 auto 20px auto; width: 100%; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+    .step-item { text-align: center; }
+    .step-num { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto; background: #fff; font-weight: 600; }
+    .step-item.active .step-num { border-color: var(--text); background: var(--text); color: #fff; }
+
+    .stage-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .stage-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; letter-spacing: 1px; }
+    .stage-title p { font-size: 11px; color: var(--text-muted); }
+    .save-btn { border: 1px solid var(--border); background: #fff; padding: 8px 16px; border-radius: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+    /* Viewer Area */
+    .viewer-container { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; min-height: 320px; }
+    .viewer-container img { max-width: 420px; width: 100%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.08)); }
+    
+    .view-360-badge { position: absolute; top: 10px; left: 10px; border: 1px solid var(--border); background: #fff; padding: 6px 12px; border-radius: 20px; font-size: 10px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+    .viewer-tools { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; }
+    .tool-icon { width: 36px; height: 36px; background: #fff; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+    /* Design Summary Card */
+    .summary-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+    .summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; font-size: 11px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+    .sum-item span { color: var(--text-muted); display: block; font-size: 9px; text-transform: uppercase; margin-bottom: 2px; }
+    .sum-item strong { font-weight: 600; }
+
+    /* Price & Action */
+    .price-action-row { display: flex; justify-content: space-between; align-items: center; }
+    .price-box .lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .price-box .val { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--text); }
+    .price-box .note { font-size: 9px; color: var(--text-muted); }
+
+    .action-btns { display: flex; gap: 12px; }
+    .btn-req { background: #1a1a1a; color: #fff; border: none; padding: 12px 24px; font-size: 11px; font-weight: 600; letter-spacing: 1px; border-radius: 4px; cursor: pointer; text-transform: uppercase; }
+    .btn-wa { background: #25d366; color: #fff; border: none; padding: 12px 24px; font-size: 11px; font-weight: 700; letter-spacing: 1px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 6px; text-transform: uppercase; }
+
+    @media(max-width: 900px) {
+      .studio-layout { flex-direction: column; overflow-y: auto; height: auto; }
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body>
 
-<header class="site-header">
-  <a href="index.html" class="logo">ORVÉN <span>JEWELS</span></a>
-  <a href="index.html" class="back-link">&larr; Back to Home</a>
-</header>
+  <header>
+    <a href="index.html" class="brand">ORVÉN<small>JEWELS</small></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#collections">Collections</a>
+      <a href="customize.html" class="active">Custom Jewellery</a>
+      <a href="index.html#about">About Us</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-icons">🔍 🤍 🛒</div>
+  </header>
 
-<main class="customizer">
+  <div class="studio-layout">
+    <!-- Left Configuration Sidebar -->
+    <div class="sidebar">
+      <a href="index.html" class="back-link">← BACK TO HOME</a>
 
-  <!-- ============ STEP TRACKER ============ -->
-  <div class="step-tracker">
-    <h1>Customize Your Ring</h1>
-    <p class="sub">Design your dream ring in 6 simple steps</p>
-    <ol class="steps" id="stepTracker">
-      <li data-step="1" class="active"><span>1</span>Metal</li>
-      <li data-step="2"><span>2</span>Ring / Band</li>
-      <li data-step="3"><span>3</span>Stone</li>
-      <li data-step="4"><span>4</span>Setting</li>
-      <li data-step="5"><span>5</span>Size</li>
-      <li data-step="6"><span>6</span>Preview & Request</li>
-    </ol>
-  </div>
-
-  <div class="builder">
-
-    <!-- ============ LEFT PANEL: OPTIONS ============ -->
-    <section class="options-panel">
-
-      <div class="option-group" data-group="1">
-        <h2>1. Choose Metal</h2>
-        <div class="swatch-list" id="metalOptions">
-          <button class="swatch metal-silver" data-value="Silver 925" data-color="#C9CCD1" data-hi="#F4F5F7" data-lo="#8C8F94" data-price="0"><span></span>Silver 925</button>
-          <button class="swatch metal-white" data-value="White Gold" data-color="#E4E1D8" data-hi="#FBFAF6" data-lo="#B7B29F" data-price="4500"><span></span>White Gold</button>
-          <button class="swatch metal-rose" data-value="Rose Gold" data-color="#E3B0A0" data-hi="#F6D8CC" data-lo="#B8776A" data-price="5200"><span></span>Rose Gold</button>
-          <button class="swatch metal-yellow" data-value="Yellow Gold" data-color="#E3C567" data-hi="#F7E6AC" data-lo="#B4913A" data-price="5200"><span></span>Yellow Gold</button>
+      <!-- Step 1: Metal -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc('metalBody')">1. CHOOSE METAL <span>▼</span></div>
+        <div class="accordion-body active" id="metalBody">
+          <div class="metal-grid">
+            <div class="metal-card selected" onclick="selectMetal('Silver 925', '#e0e0e0', this)">
+              <div class="metal-circle" style="background:#e0e0e0;"></div> Silver 925
+            </div>
+            <div class="metal-card" onclick="selectMetal('White Gold', '#f0f0f0', this)">
+              <div class="metal-circle" style="background:#f0f0f0;"></div> White Gold
+            </div>
+            <div class="metal-card" onclick="selectMetal('Rose Gold', '#b76e79', this)">
+              <div class="metal-circle" style="background:#b76e79;"></div> Rose Gold
+            </div>
+            <div class="metal-card" onclick="selectMetal('Yellow Gold', '#d4af37', this)">
+              <div class="metal-circle" style="background:#d4af37;"></div> Yellow Gold
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="option-group" data-group="2">
-        <h2>2. Choose Ring / Band</h2>
-        <div class="swatch-list" id="bandOptions">
-          <button class="swatch band-choice" data-value="Classic Plain Band" data-style="plain" data-price="0">Plain</button>
-          <button class="swatch band-choice" data-value="Pavé Band" data-style="pave" data-price="3200">Pavé</button>
-          <button class="swatch band-choice" data-value="Engraved Band" data-style="engraved" data-price="1800">Engraved</button>
+      <!-- Step 2: Band -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc('bandBody')">2. CHOOSE RING / BAND <span>▶</span></div>
+        <div class="accordion-body" id="bandBody">
+          <div class="metal-grid">
+            <div class="metal-card selected" onclick="selectBand('Classic Plain Band', this)">Classic Plain</div>
+            <div class="metal-card" onclick="selectBand('Pavé Band', this)">Pavé Band</div>
+            <div class="metal-card" onclick="selectBand('Half Eternity', this)">Half Eternity</div>
+            <div class="metal-card" onclick="selectBand('Split Shank', this)">Split Shank</div>
+          </div>
         </div>
       </div>
 
-      <div class="option-group" data-group="3">
-        <h2>3. Choose Stone Shape</h2>
-        <div class="toggle-pair" id="stoneQuality">
-          <button class="toggle-btn active" data-value="Lab-Grown">Lab-Grown</button>
-          <button class="toggle-btn" data-value="Natural">Natural</button>
-        </div>
-        <div class="shape-grid" id="shapeOptions">
-          <button class="shape-btn active" data-value="Round" data-price="0">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14"/></svg>Round</button>
-          <button class="shape-btn" data-value="Oval" data-price="1500">
-            <svg viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="11" ry="15"/></svg>Oval</button>
-          <button class="shape-btn" data-value="Pear" data-price="1500">
-            <svg viewBox="0 0 40 40"><path d="M20 6 C28 16 30 22 24 28 C20 32 16 30 14 26 C10 20 14 10 20 6 Z"/></svg>Pear</button>
-          <button class="shape-btn" data-value="Princess" data-price="1200">
-            <svg viewBox="0 0 40 40"><rect x="8" y="8" width="24" height="24"/></svg>Princess</button>
-          <button class="shape-btn" data-value="Cushion" data-price="1600">
-            <svg viewBox="0 0 40 40"><rect x="7" y="7" width="26" height="26" rx="9"/></svg>Cushion</button>
-          <button class="shape-btn" data-value="Emerald" data-price="1800">
-            <svg viewBox="0 0 40 40"><rect x="9" y="6" width="22" height="28" rx="3"/></svg>Emerald</button>
-          <button class="shape-btn" data-value="Marquise" data-price="1700">
-            <svg viewBox="0 0 40 40"><path d="M20 5 C29 14 29 26 20 35 C11 26 11 14 20 5 Z"/></svg>Marquise</button>
-          <button class="shape-btn" data-value="Heart" data-price="2200">
-            <svg viewBox="0 0 40 40"><path d="M20 33 C6 22 8 10 16 9 C19 9 20 12 20 14 C20 12 21 9 24 9 C32 10 34 22 20 33 Z"/></svg>Heart</button>
-        </div>
-      </div>
-
-      <div class="option-group" data-group="4">
-        <h2>4. Choose Setting</h2>
-        <div class="swatch-list wrap" id="settingOptions">
-          <button class="swatch setting-choice active" data-value="Prong Setting" data-price="0">Prong</button>
-          <button class="swatch setting-choice" data-value="Bezel Setting" data-price="1200">Bezel</button>
-          <button class="swatch setting-choice" data-value="Halo Setting" data-price="3800">Halo</button>
-          <button class="swatch setting-choice" data-value="Tension Setting" data-price="2600">Tension</button>
-          <button class="swatch setting-choice" data-value="Cathedral Setting" data-price="2100">Cathedral</button>
-          <button class="swatch setting-choice" data-value="Solitaire Setting" data-price="900">Solitaire</button>
+      <!-- Step 3: Stone -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc('stoneBody')">3. CHOOSE STONE <span>▶</span></div>
+        <div class="accordion-body" id="stoneBody">
+          <div class="stone-type-tabs">
+            <div class="s-tab active" onclick="switchStoneQuality('Lab-Grown', this)">LAB-GROWN</div>
+            <div class="s-tab" onclick="switchStoneQuality('Natural', this)">NATURAL</div>
+          </div>
+          <div class="shapes-grid" id="shapesGrid">
+            <div class="shape-card selected" onclick="selectShape('Round', this)">Round</div>
+            <div class="shape-card" onclick="selectShape('Oval', this)">Oval</div>
+            <div class="shape-card" onclick="selectShape('Pear', this)">Pear</div>
+            <div class="shape-card" onclick="selectShape('Cushion', this)">Cushion</div>
+            <div class="shape-card" onclick="selectShape('Emerald', this)">Emerald</div>
+            <div class="shape-card" onclick="selectShape('Radiant', this)">Radiant</div>
+            <div class="shape-card" onclick="selectShape('Princess', this)">Princess</div>
+            <div class="shape-card" onclick="selectShape('Asscher', this)">Asscher</div>
+            <div class="shape-card" onclick="selectShape('Marquise', this)">Marquise</div>
+            <div class="shape-card" onclick="selectShape('Heart', this)">Heart</div>
+            <div class="shape-card" onclick="selectShape('Trilliant', this)">Trilliant</div>
+            <div class="shape-card" onclick="selectShape('Baguette', this)">Baguette</div>
+            <div class="shape-card" onclick="selectShape('Half Moon', this)">Half Moon</div>
+            <div class="shape-card" onclick="selectShape('Star', this)">Star</div>
+            <div class="shape-card" onclick="selectShape('Kite', this)">Kite</div>
+            <div class="shape-card" onclick="selectShape('Shield', this)">Shield</div>
+          </div>
         </div>
       </div>
 
-      <div class="option-group" data-group="5">
-        <h2>5. Ring Size</h2>
-        <div class="toggle-pair" id="sizeSystem">
-          <button class="toggle-btn active" data-value="US">US</button>
-          <button class="toggle-btn" data-value="IND">IND</button>
+      <!-- Step 4: Setting -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc('settingBody')">4. CHOOSE SETTING <span>▶</span></div>
+        <div class="accordion-body" id="settingBody">
+          <div class="metal-grid">
+            <div class="metal-card selected" onclick="selectSetting('Prong Setting', this)">Prong Setting</div>
+            <div class="metal-card" onclick="selectSetting('Bezel Setting', this)">Bezel Setting</div>
+            <div class="metal-card" onclick="selectSetting('Halo Setting', this)">Halo Setting</div>
+            <div class="metal-card" onclick="selectSetting('Tension Setting', this)">Tension</div>
+          </div>
         </div>
-        <select id="sizeSelect" class="size-select"></select>
+      </div>
+    </div>
+
+    <!-- Right Preview Stage -->
+    <div class="preview-stage">
+      <div class="top-steps">
+        <div class="step-item active"><div class="step-num">1</div>Metal</div>
+        <div class="step-item"><div class="step-num">2</div>Band</div>
+        <div class="step-item"><div class="step-num">3</div>Stone</div>
+        <div class="step-item"><div class="step-num">4</div>Setting</div>
+        <div class="step-item"><div class="step-num">5</div>Preview</div>
+        <div class="step-item"><div class="step-num">6</div>Request</div>
       </div>
 
-    </section>
-
-    <!-- ============ RIGHT PANEL: PREVIEW ============ -->
-    <section class="preview-panel">
-      <div class="preview-toolbar">
-        <button id="rotateBtn" title="Rotate">&#8635; Rotate</button>
-        <button id="zoomBtn" title="Zoom">&#128269; Zoom</button>
+      <div class="stage-top-row">
+        <div class="stage-title">
+          <h1>CUSTOMIZE YOUR RING</h1>
+          <p>Design your dream ring in 6 simple steps</p>
+        </div>
+        <button class="save-btn" onclick="saveDesign()">♡ SAVE DESIGN</button>
       </div>
 
-      <div class="ring-stage" id="ringStage">
-        <canvas id="ringCanvas"></canvas>
-        <div class="stage-hint">Drag to rotate &middot; Scroll to zoom</div>
+      <div class="viewer-container">
+        <div class="view-360-badge">🔄 VIEW IN 360°</div>
+        <img id="ringImg" src="IMG-20260812-WA0197.jpg" alt="Custom Ring">
+        <div class="viewer-tools">
+          <div class="tool-icon" title="Rotate" onclick="alert('Rotating view...')">↻</div>
+          <div class="tool-icon" title="Zoom" onclick="zoomIn()">＋</div>
+          <div class="tool-icon" title="Top View">⊙</div>
+        </div>
       </div>
 
+      <!-- Summary Card -->
       <div class="summary-card">
         <div class="summary-header">
-          <h3>Your Design Summary</h3>
+          <span>YOUR DESIGN SUMMARY</span>
+          <span style="color:var(--gold); cursor:pointer;" onclick="alert('Edit mode active')">✎ EDIT</span>
         </div>
         <div class="summary-grid">
-          <div><span class="label">Metal</span><span class="value" id="sumMetal">Silver 925</span></div>
-          <div><span class="label">Band</span><span class="value" id="sumBand">Classic Plain Band</span></div>
-          <div><span class="label">Stone</span><span class="value" id="sumStone">Round</span></div>
-          <div><span class="label">Setting</span><span class="value" id="sumSetting">Prong Setting</span></div>
-          <div><span class="label">Ring Size</span><span class="value" id="sumSize">US - 6</span></div>
-        </div>
-
-        <div class="price-row">
-          <div>
-            <span class="label">Estimated Price</span>
-            <div class="price" id="priceTotal">&#8377;22,450</div>
-            <small>Price may vary based on stone size & weight</small>
+          <div class="sum-item">
+            <span>Metal</span>
+            <strong id="sumMetal">Silver 925</strong>
+          </div>
+          <div class="sum-item">
+            <span>Band</span>
+            <strong id="sumBand">Classic Plain Band</strong>
+          </div>
+          <div class="sum-item">
+            <span>Stone</span>
+            <strong id="sumStone">Round (Lab-Grown, 1.00 CT)</strong>
+          </div>
+          <div class="sum-item">
+            <span>Setting</span>
+            <strong id="sumSetting">Prong Setting</strong>
           </div>
         </div>
 
-        <div class="cta-row">
-          <button id="requestDesignBtn" class="btn-dark">Request This Design</button>
-          <a id="whatsappBtn" class="btn-whatsapp" href="#" target="_blank" rel="noopener">Request on WhatsApp</a>
+        <div class="price-action-row">
+          <div class="price-box">
+            <div class="lbl">Estimated Price</div>
+            <div class="val" id="estPrice">₹22,450</div>
+            <div class="note">*Price may vary based on stone size & weight</div>
+          </div>
+          <div class="action-btns">
+            <button class="btn-req" onclick="submitRequest()">REQUEST THIS DESIGN</button>
+            <button class="btn-wa" onclick="sendWhatsApp()">🟢 REQUEST ON WHATSAPP</button>
+          </div>
         </div>
       </div>
-    </section>
-
+    </div>
   </div>
-</main>
 
-<script type="module" src="customize.js"></script>
+  <script>
+    let config = {
+      metal: "Silver 925",
+      band: "Classic Plain Band",
+      stoneType: "Lab-Grown",
+      shape: "Round",
+      setting: "Prong Setting",
+      price: 22450
+    };
+
+    function toggleAcc(id) {
+      const body = document.getElementById(id);
+      const isOpen = body.classList.contains('active');
+      document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('active'));
+      if(!isOpen) body.classList.add('active');
+    }
+
+    function selectMetal(name, color, el) {
+      config.metal = name;
+      document.getElementById('sumMetal').innerText = name;
+      setActiveCard(el);
+      updatePrice();
+    }
+
+    function selectBand(name, el) {
+      config.band = name;
+      document.getElementById('sumBand').innerText = name;
+      setActiveCard(el);
+      updatePrice();
+    }
+
+    function switchStoneQuality(type, el) {
+      config.stoneType = type;
+      document.querySelectorAll('.s-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      updateStoneSummary();
+      updatePrice();
+    }
+
+    function selectShape(name, el) {
+      config.shape = name;
+      document.querySelectorAll('.shape-card').forEach(s => s.classList.remove('selected'));
+      el.classList.add('selected');
+      updateStoneSummary();
+      updatePrice();
+    }
+
+    function selectSetting(name, el) {
+      config.setting = name;
+      document.getElementById('sumSetting').innerText = name;
+      setActiveCard(el);
+    }
+
+    function setActiveCard(el) {
+      const parent = el.parentElement;
+      parent.querySelectorAll('.metal-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function updateStoneSummary() {
+      document.getElementById('sumStone').innerText = `${config.shape} (${config.stoneType}, 1.00 CT)`;
+    }
+
+    function updatePrice() {
+      let base = 15000;
+      if(config.metal.includes('Gold')) base += 35000;
+      if(config.stoneType === 'Natural') base += 25000;
+      if(config.band.includes('Pavé')) base += 5000;
+      config.price = base;
+      document.getElementById('estPrice').innerText = '₹' + base.toLocaleString('en-IN');
+    }
+
+    let zoomLevel = 1;
+    function zoomIn() {
+      zoomLevel = zoomLevel === 1 ? 1.2 : 1;
+      document.getElementById('ringImg').style.transform = `scale(${zoomLevel})`;
+    }
+
+    function saveDesign() {
+      let vault = JSON.parse(localStorage.getItem('orven_custom_vaults')) || [];
+      vault.push({ ...config, date: new Date().toLocaleString() });
+      localStorage.setItem('orven_custom_vaults', JSON.stringify(vault));
+      alert('Design successfully saved to your Client Portal Vault!');
+    }
+
+    function submitRequest() {
+      alert(`Thank you! Your custom configuration (${config.metal}, ${config.shape} stone, ${config.setting}) has been sent to our master jewelers.`);
+    }
+
+    function sendWhatsApp() {
+      const adminWhatsApp = "919876543210";
+      const text = `Hello ORVÉN JEWELS! I want to order this custom ring design:%0a%0a💍 Metal: ${config.metal}%0a🔗 Band: ${config.band}%0a💎 Stone: ${config.shape} (${config.stoneType}, 1.00 CT)%0a⚙️ Setting: ${config.setting}%0a💰 Estimated Price: ₹${config.price.toLocaleString('en-IN')}`;
+      window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
+    }
+  </script>
 </body>
 </html>
