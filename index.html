@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- Homepage Background Video Container -->
   <div class="bg-video-container">
     <video autoplay muted loop playsinline preload="auto">
       <source src="orven-bg-video.mp4" type="video/mp4">
@@ -19,7 +18,6 @@
 
   <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999</div>
 
-  <!-- Perfectly Centered Navbar -->
   <header class="navbar">
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
     <nav class="nav-links">
@@ -34,7 +32,6 @@
     </button>
   </header>
 
-  <!-- Perfectly Centered Hero Section -->
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-tag">Defined by Design. Panther Legacy.</div>
@@ -47,7 +44,6 @@
     </div>
   </section>
 
-  <!-- Live Rates Ticker Bar -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
@@ -57,7 +53,6 @@
     <div class="rate-item">Silver (925): <span id="rateSilver">Loading...</span></div>
   </div>
 
-  <!-- Shop By Expression -->
   <div class="section-title">
     <p>Shop By Expression</p>
     <h2>All 16 Categories</h2>
@@ -82,7 +77,6 @@
     <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
   </div>
 
-  <!-- Signature Collections -->
   <div class="section-title" id="collections">
     <p>Exclusive Vaults</p>
     <h2>Signature Collections</h2>
@@ -127,7 +121,6 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
-  <!-- Auth Modal Overlay -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
@@ -201,7 +194,6 @@
 
   <script src="script.js"></script>
   <script>
-    const allowedAdminNumbers = ["+919999999999", "+919876543210"];
     const adminWhatsAppNumber = "919876543210"; 
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -244,16 +236,20 @@
       event.preventDefault();
       const mobile = document.getElementById('loginMobile').value.trim();
       const password = document.getElementById('loginPassword').value.trim();
-      if (allowedAdminNumbers.includes(mobile)) {
-        alert('Admin Access Granted!');
-        window.location.href = 'admin.html';
-        return;
-      }
+      
       let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
       let user = users.find(u => u.mobile === mobile && u.password === password);
+      
       if (user) {
-        alert(`Welcome back, ${user.name || 'Valued Client'}!`);
-        closeLoginModal();
+        if (user.role === 'admin') {
+          alert(`Welcome Admin, ${user.name || 'Owner'}! Redirecting to Admin Portal...`);
+          localStorage.setItem('orven_current_admin', JSON.stringify(user));
+          window.location.href = 'admin.html';
+        } else {
+          alert(`Welcome back, ${user.name || 'Valued Client'}!`);
+          localStorage.setItem('orven_current_user', JSON.stringify(user));
+          closeLoginModal();
+        }
       } else {
         alert('Invalid mobile number or password.');
       }
@@ -265,14 +261,20 @@
       const mobile = document.getElementById('regMobile').value.trim();
       const password = document.getElementById('regPassword').value.trim();
       let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
+      
       if(users.some(u => u.mobile === mobile)) {
         alert('Number already registered!');
         return;
       }
-      users.push({ name, mobile, password, date: new Date().toLocaleString() });
+      
+      // Agar pehla user hai toh automatically admin bana sakte hain ya default 'user' role de sakte hain
+      const role = (users.length === 0 || mobile === "+919876543210") ? 'admin' : 'user';
+
+      users.push({ name, mobile, password, role, date: new Date().toLocaleString() });
       localStorage.setItem('orven_registered_users', JSON.stringify(users));
       alert('Registration successful!');
       closeLoginModal();
+      
       let whatsappMessage = `Hello Admin, new customer registered:%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}`;
       window.open(`https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`, '_blank');
     }
