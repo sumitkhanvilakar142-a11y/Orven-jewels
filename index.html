@@ -19,7 +19,7 @@
 
   <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999 | WELCOME OFFER: FLAT ₹1,000 OFF ON FIRST PURCHASE</div>
 
-  <!-- Navbar -->
+  <!-- Navbar (Admin Link Completely Removed from Front-End Header) -->
   <header class="navbar">
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
     <nav class="nav-links">
@@ -27,7 +27,6 @@
       <a href="calculator.html">Price Calculator</a>
       <a href="customize.html" style="color: var(--gold, #d4af37); font-weight: 600;">Custom Jewellery</a>
       <a href="#collections">Collections</a>
-      <a href="admin.html" id="navAdminLink" style="display:none; color: #ff4d4d; font-weight:600;">⚡ Admin Panel</a>
     </nav>
     <div style="display: flex; gap: 15px; align-items: center;">
       <!-- Cart Icon & Counter -->
@@ -140,8 +139,8 @@
       <div class="popup-right-content" style="width: 100%;">
         <div class="auth-form-wrapper active">
           <div class="popup-badge">🛡️</div>
-          <div class="popup-title" style="font-size:20px;">Authorized Member Login</div>
-          <p class="popup-desc" style="margin-bottom: 20px;">Sign in using your pre-approved mobile credentials to access special privileges.</p>
+          <div class="popup-title" style="font-size:20px;">Secure Mobile Login</div>
+          <p class="popup-desc" style="margin-bottom: 20px;">Enter your pre-approved mobile number to sign in. Admins will be routed automatically.</p>
           
           <form onsubmit="handleAuthorizedLogin(event)">
             <div class="form-group">
@@ -160,7 +159,7 @@
   </div>
 
   <script>
-    // PRE-APPROVED WHITELISTED NUMBERS (Aap yahan apne numbers manage kar sakte hain)
+    // PRE-APPROVED WHITELISTED NUMBERS
     const whitelistedUsers = [
       { mobile: "+919876543210", pin: "1234", role: "admin", name: "Sumit (Owner)" },
       { mobile: "+919999999999", pin: "5678", role: "admin", name: "Co-Admin" },
@@ -213,6 +212,7 @@
         closeLoginModal();
         checkActiveSession();
 
+        // If admin, instantly redirect to admin panel behind the scenes
         if (foundUser.role === 'admin') {
           window.location.href = 'admin.html';
         }
@@ -225,8 +225,10 @@
       let activeUser = JSON.parse(localStorage.getItem('orven_active_user'));
       if (activeUser) {
         document.getElementById('authButtonText').innerHTML = `<span>👤</span> ${activeUser.name} (<a href="#" onclick="logoutUser()" style="color:#d4af37">Logout</a>)`;
+        
+        // Auto-redirect admin if they reload index page while session is active
         if (activeUser.role === 'admin') {
-          document.getElementById('navAdminLink').style.display = 'inline-block';
+          window.location.href = 'admin.html';
         }
       }
     }
