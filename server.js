@@ -1,7 +1,7 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -10,84 +10,72 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname));
 
-const readDB = () => {
-  if (!fs.existsSync('db.json')) {
-    const initialData = {
-      products: [
-        {
-          id: 249,
-          sku: "ORV 249",
-          category: "RINGS",
-          goldWeight: 4.5,
-          silverWeight: 0.0,
-          stoneSlots: [{ pieces: 60, cent: 1.7 }],
-          fancySlots: [{ type: "Gem Stone", pieces: 1, cent: 209 }],
-          image: "vault-ring.jpg",
-          lastUpdatedBy: "nayan (staff)"
-        }
-      ],
-      categories: [
-        { name: "RINGS", count: 244 },
-        { name: "EARINGS", count: 102 },
-        { name: "PENDANTS", count: 57 },
-        { name: "BRACLETS", count: 20 },
-        { name: "MANGALSUTRA", count: 4 },
-        { name: "GENTS RING", count: 14 },
-        { name: "ORVEN JEWELS", count: 31 },
-        { name: "ETERNITY BAND", count: 7 },
-        { name: "NECKLACE", count: 15 }
-      ],
-      diamondTypes: ["CVD - default", "CV - VVS"],
-      users: [],
-      admin: { username: "admin", password: "password123" }
-    };
-    fs.writeFileSync('db.json', JSON.stringify(initialData, null, 2));
-  }
-  return JSON.parse(fs.readFileSync('db.json', 'utf8'));
-};
+// MongoDB Connection
+const uri = "mongodb+srv://sumitkhanvilakar142_db_user:cBn06W4K0nh6YZqi@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
+const client = new MongoClient(uri);
+let db;
 
-const writeDB = (data) => {
-  fs.writeFileSync('db.json', JSON.stringify(data, null, 2));
-};
+async function connectDB() {
+    try {
+        await client.connect();
+        db = client.db('orvenjewels'); // Database ka naam
+        console.log("MongoDB Connected Successfully!");
+        
+        // Agar pehli baar hai, toh default data daalna (Optional)
+        const count = await db.collection('products').countDocuments();
+        if (count === 0) {
+            await db.collection('products').insertOne({
+                id: 249,
+                sku: "ORV 249",
+                category: "RINGS",
+                goldWeight: 4.5,
+                silverWeight: 0,
+                stoneSlots: [{ pieces: 60, cent: 1.7 }],
+                fancySlots: [{ type: "Gem Stone", pieces: 1, cent: 209 }],
+                image: "vault-ring.jpg",
+                lastUpdatedBy: "nayan (staff)"
+            });
+        }
+    } catch (err) {
+        console.error("MongoDB connection error:", err);
+    }
+}
+connectDB();
 
 // Get Dashboard Stats & Categories
-app.get('/api/admin/dashboard', (req, res) => {
-  const db = readDB();
-  const totalDesigns = db.products.length;
-  const totalCategories = db.categories.length;
-  const totalDiamondTypes = db.diamondTypes.length;
-
+app.get('/api/admin/dashboard', async (req, res) => {
+  const products = await db.collection('products').find({}).toArray();
+  const categories = await db.collection('categories').find({}).toArray();
+  const diamondTypes = await db.collection('diamondTypes').find({}).toArray();
+  
   res.json({
-    totalDesigns,
-    totalCategories,
-    totalDiamondTypes,
-    categories: db.categories,
-    diamondTypes: db.diamondTypes
+    totalDesigns: products.length,
+    totalCategories: categories.length,
+    totalDiamondTypes: diamondTypes.length,
+    categories: categories,
+    diamondTypes: diamondTypes
   });
 });
 
 // Get Products by Category
-app.get('/api/products/:category', (req, res) => {
-  const db = readDB();
+app.get('/api/products/:category', async (req, res) => {
   const cat = req.params.category.toUpperCase();
-  const filtered = db.products.filter(p => p.category.toUpperCase() === cat);
+  const filtered = await db.collection('products').find({ category: cat }).toArray();
   res.json(filtered);
 });
 
 // Get all products
-app.get('/api/products', (req, res) => {
-  const db = readDB();
-  res.json(db.products || []);
+app.get('/api/products', async (req, res) => {
+  const products = await db.collection('products').find({}).toArray();
+  res.json(products);
 });
 
 // Add or Update Design (SKU)
-app.post('/api/products', (req, res) => {
-  const db = readDB();
+app.post('/api/products', async (req, res) => {
   const { sku, category, goldWeight, silverWeight, stoneSlots, fancySlots, image, updatedBy } = req.body;
   
-  const existingIndex = db.products.findIndex(p => p.sku === sku);
   const productData = {
-    id: existingIndex >= 0 ? db.products[existingIndex].id : Date.now(),
+    id: Date.now(),
     sku,
     category: category || "RINGS",
     goldWeight: Number(goldWeight) || 0,
@@ -98,46 +86,41 @@ app.post('/api/products', (req, res) => {
     lastUpdatedBy: updatedBy || "nayan (staff)"
   };
 
-  if (existingIndex >= 0) {
-    db.products[existingIndex] = productData;
+  // Check if SKU exists
+  const existing = await db.collection('products').findOne({ sku: sku });
+  if (existing) {
+    await db.collection('products').updateOne({ sku: sku }, { $set: productData });
   } else {
-    db.products.push(productData);
+    await db.collection('products').insertOne(productData);
   }
-
-  writeDB(db);
+  
   res.json({ status: 'success', product: productData });
 });
 
 // Delete Product
-app.delete('/api/product/:id', (req, res) => {
-  const db = readDB();
+app.delete('/api/product/:id', async (req, res) => {
   const id = Number(req.params.id);
-  db.products = db.products.filter(p => p.id !== id);
-  writeDB(db);
+  await db.collection('products').deleteOne({ id: id });
   res.json({ status: 'success', message: 'Product deleted' });
 });
 
 // User Signup
-app.post('/api/signup', (req, res) => {
+app.post('/api/signup', async (req, res) => {
   const { email, password } = req.body;
-  const db = readDB();
-  if (!db.users) db.users = [];
-
-  const existingUser = db.users.find(u => u.email === email);
+  
+  const existingUser = await db.collection('users').findOne({ email: email });
   if (existingUser) {
     return res.status(400).json({ status: 'error', message: 'User already exists!' });
   }
 
-  db.users.push({ email, password });
-  writeDB(db);
+  await db.collection('users').insertOne({ email, password });
   res.json({ status: 'success', message: 'Signup successful!' });
 });
 
 // User Login
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
-  const db = readDB();
-  const user = (db.users || []).find(u => u.email === email && u.password === password);
+  const user = await db.collection('users').findOne({ email: email, password: password });
 
   if (user) {
     res.json({ status: 'success', message: 'Login successful' });
@@ -147,19 +130,18 @@ app.post('/api/login', (req, res) => {
 });
 
 // Admin Login
-app.post('/api/admin-login', (req, res) => {
+app.post('/api/admin-login', async (req, res) => {
   const { username, password } = req.body;
-  const db = readDB();
-  const admin = db.admin || { username: "admin", password: "password123" };
+  const admin = await db.collection('admin').findOne({ username: username, password: password });
 
-  if (username === admin.username && password === admin.password) {
+  if (admin) {
     res.json({ status: 'success', message: 'Admin login successful' });
   } else {
     res.status(401).json({ status: 'error', message: 'Invalid Admin Credentials' });
   }
 });
 
-// Live Rates API
+// Live Rates API (Abhi hardcoded, baad mein API se fetch karenge)
 app.get('/api/live-rates', (req, res) => {
   res.json({
     success: true,
