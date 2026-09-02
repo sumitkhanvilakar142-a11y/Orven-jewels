@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS - Timeless Beauty & Fine Jewellery</title>
+  <title>ORVÉN JEWELS — Timeless Beauty & Fine Jewellery</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Homepage Background Video Container -->
   <div class="bg-video-container">
     <video autoplay muted loop playsinline preload="auto">
       <source src="orven-bg-video.mp4" type="video/mp4">
@@ -16,8 +17,9 @@
     </video>
   </div>
 
-  <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999</div>
+  <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999 | WELCOME OFFER: FLAT ₹1,000 OFF ON FIRST PURCHASE</div>
 
+  <!-- Navbar -->
   <header class="navbar">
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
     <nav class="nav-links">
@@ -25,25 +27,33 @@
       <a href="calculator.html">Price Calculator</a>
       <a href="customize.html" style="color: var(--gold, #d4af37); font-weight: 600;">Custom Jewellery</a>
       <a href="#collections">Collections</a>
-      <a href="admin.html">Admin Portal</a>
+      <a href="admin.html" id="navAdminLink" style="display:none; color: #ff4d4d; font-weight:600;">⚡ Admin Panel</a>
     </nav>
-    <button onclick="openLoginModal()" class="header-auth-btn">
-      <span>🔒</span> LOGIN / SIGN UP
-    </button>
+    <div style="display: flex; gap: 15px; align-items: center;">
+      <!-- Cart Icon & Counter -->
+      <a href="cart.html" class="cart-icon-btn" style="color: #fff; text-decoration: none; position: relative; font-size: 18px;">
+        🛒 <span id="cartCount" style="background: var(--gold, #d4af37); color: #000; font-size: 11px; padding: 2px 6px; border-radius: 50%; position: absolute; top: -8px; right: -10px; font-weight: bold;">0</span>
+      </a>
+      <button onclick="openLoginModal()" class="header-auth-btn" id="authButtonText">
+        <span>🔒</span> LOGIN
+      </button>
+    </div>
   </header>
 
+  <!-- Hero Section with Offers & Banners -->
   <section class="hero-section">
     <div class="hero-content">
-      <div class="hero-tag">Defined by Design. Panther Legacy.</div>
+      <div class="hero-tag">🎁 Special Welcome Offer: Flat ₹1,000 Off</div>
       <h1>Timeless Beauty.<br><i>Thoughtfully Crafted.</i></h1>
-      <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds. Made for your most meaningful moments.</p>
+      <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds. Explore our curated vaults and exclusive catalogues.</p>
       <div class="hero-btns">
-        <a href="customize.html" class="btn-gold" style="margin-right: 10px;">CUSTOMISE RING →</a>
-        <a href="#collections" class="btn-gold" style="background: transparent; border: 1px solid var(--gold, #d4af37); color: var(--gold, #d4af37);">EXPLORE CATALOG</a>
+        <a href="#collections" class="btn-gold" style="margin-right: 10px;">EXPLORE PRODUCTS →</a>
+        <a href="customize.html" class="btn-gold" style="background: transparent; border: 1px solid var(--gold, #d4af37); color: var(--gold, #d4af37);">CUSTOMISE RING</a>
       </div>
     </div>
   </section>
 
+  <!-- Live Rates Ticker Bar -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
@@ -53,6 +63,7 @@
     <div class="rate-item">Silver (925): <span id="rateSilver">Loading...</span></div>
   </div>
 
+  <!-- Shop By Expression / Categories -->
   <div class="section-title">
     <p>Shop By Expression</p>
     <h2>All 16 Categories</h2>
@@ -77,8 +88,9 @@
     <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
   </div>
 
+  <!-- Signature Collections & Products Showcase -->
   <div class="section-title" id="collections">
-    <p>Exclusive Vaults</p>
+    <p>Exclusive Vaults & Products</p>
     <h2>Signature Collections</h2>
   </div>
 
@@ -88,7 +100,7 @@
       <div class="card-overlay">
         <div class="card-tag">Statement Pieces</div>
         <div class="card-title">Cocktail Rings</div>
-        <span class="card-link">VIEW VAULT →</span>
+        <span class="card-link">VIEW PRODUCTS →</span>
       </div>
     </a>
     <a href="Diamond-Studs-for-Girls/index.html" class="grid-card">
@@ -96,7 +108,7 @@
       <div class="card-overlay">
         <div class="card-tag">Brilliant Essentials</div>
         <div class="card-title">Diamond Studs</div>
-        <span class="card-link">VIEW VAULT →</span>
+        <span class="card-link">VIEW PRODUCTS →</span>
       </div>
     </a>
     <a href="necklaces/index.html" class="grid-card">
@@ -104,7 +116,7 @@
       <div class="card-overlay">
         <div class="card-tag">Royal Ornaments</div>
         <div class="card-title">Necklaces</div>
-        <span class="card-link">VIEW VAULT →</span>
+        <span class="card-link">VIEW PRODUCTS →</span>
       </div>
     </a>
     <a href="rings/index.html" class="grid-card">
@@ -112,93 +124,53 @@
       <div class="card-overlay">
         <div class="card-tag">Classic & Timeless</div>
         <div class="card-title">Rings</div>
-        <span class="card-link">VIEW VAULT →</span>
+        <span class="card-link">VIEW PRODUCTS →</span>
       </div>
     </a>
   </div>
 
   <footer>
-    <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
+    <p>© 2026 ORVÉN JEWELS. All rights reserved. | Luxury E-Commerce Portal</p>
   </footer>
 
+  <!-- Secure Whitelist Login Modal -->
   <div class="modal-overlay" id="loginModal">
-    <div class="auth-popup-container">
+    <div class="auth-popup-container" style="max-width: 420px; padding: 30px;">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
-      <div class="popup-left-banner"></div>
-      <div class="popup-right-content">
-        <div id="welcomeView" class="auth-form-wrapper active">
-          <div class="popup-badge">🎁</div>
-          <div class="popup-title">Your first purchase, made more rewarding</div>
-          <p class="popup-desc">Sign up now and unlock an additional discount of ₹1,000 on your first jewellery purchase.</p>
-          <button class="btn-signup-primary" onclick="switchView('registerView')">Sign Up</button>
-          <div class="auth-divider">or</div>
-          <button class="btn-login-secondary" onclick="switchView('loginView')">Already A Member? Log In</button>
-        </div>
-
-        <div id="registerView" class="auth-form-wrapper">
-          <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Create Account</div>
-          <p class="popup-desc" style="margin-bottom: 15px;">Register to claim your ₹1,000 welcome voucher.</p>
-          <form onsubmit="handleRegister(event)">
+      <div class="popup-right-content" style="width: 100%;">
+        <div class="auth-form-wrapper active">
+          <div class="popup-badge">🛡️</div>
+          <div class="popup-title" style="font-size:20px;">Authorized Member Login</div>
+          <p class="popup-desc" style="margin-bottom: 20px;">Sign in using your pre-approved mobile credentials to access special privileges.</p>
+          
+          <form onsubmit="handleAuthorizedLogin(event)">
             <div class="form-group">
-              <label>Full Name</label>
-              <input type="text" id="regName" required placeholder="Enter your name">
+              <label>Authorized Mobile Number</label>
+              <input type="text" id="authMobile" required placeholder="+919876543210" value="+91">
             </div>
             <div class="form-group">
-              <label>Mobile Number (WhatsApp Alert)</label>
-              <input type="text" id="regMobile" required placeholder="+919876543210" value="+91">
+              <label>Security PIN / Password</label>
+              <input type="password" id="authPassword" required placeholder="Enter your PIN">
             </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="regPassword" required placeholder="Create password">
-            </div>
-            <button type="submit" class="btn-submit-action">Register Now</button>
+            <button type="submit" class="btn-submit-action" style="background: var(--gold, #d4af37); color: #000; font-weight:600; margin-top:10px;">Login</button>
           </form>
-          <span class="back-link" onclick="switchView('welcomeView')">← Back</span>
-        </div>
-
-        <div id="loginView" class="auth-form-wrapper">
-          <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Member Login</div>
-          <p class="popup-desc" style="margin-bottom: 15px;">Access your saved vaults and orders.</p>
-          <form onsubmit="handleLogin(event)">
-            <div class="form-group">
-              <label>Mobile Number</label>
-              <input type="text" id="loginMobile" required placeholder="+919876543210" value="+91">
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="loginPassword" required placeholder="Enter password">
-            </div>
-            <button type="submit" class="btn-submit-action">Login</button>
-          </form>
-          <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-            <span class="back-link" onclick="switchView('welcomeView')">← Back</span>
-            <span class="back-link" onclick="switchView('forgotView')">Forgot Password?</span>
-          </div>
-        </div>
-
-        <div id="forgotView" class="auth-form-wrapper">
-          <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Password Recovery</div>
-          <p class="popup-desc" style="margin-bottom: 15px;">We will send your reset request via WhatsApp.</p>
-          <form onsubmit="handleForgot(event)">
-            <div class="form-group">
-              <label>Registered Mobile</label>
-              <input type="text" id="forgotMobile" required placeholder="+919876543210" value="+91">
-            </div>
-            <button type="submit" class="btn-submit-action">Send via WhatsApp</button>
-          </form>
-          <span class="back-link" onclick="switchView('loginView')">← Back to Login</span>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
   <script>
-    const adminWhatsAppNumber = "919876543210"; 
+    // PRE-APPROVED WHITELISTED NUMBERS (Aap yahan apne numbers manage kar sakte hain)
+    const whitelistedUsers = [
+      { mobile: "+919876543210", pin: "1234", role: "admin", name: "Sumit (Owner)" },
+      { mobile: "+919999999999", pin: "5678", role: "admin", name: "Co-Admin" },
+      { mobile: "+918888888888", pin: "1111", role: "client", name: "VIP Member" }
+    ];
 
     window.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => { openLoginModal(); }, 10000); 
+      checkActiveSession();
       loadGoogleLiveRates();
+      updateCartCount();
     });
 
     async function loadGoogleLiveRates() {
@@ -227,65 +199,46 @@
 
     function openLoginModal() { document.getElementById('loginModal').classList.add('active'); }
     function closeLoginModal() { document.getElementById('loginModal').classList.remove('active'); }
-    function switchView(viewId) {
-      document.querySelectorAll('.auth-form-wrapper').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(viewId).classList.add('active');
-    }
 
-    function handleLogin(event) {
+    function handleAuthorizedLogin(event) {
       event.preventDefault();
-      const mobile = document.getElementById('loginMobile').value.trim();
-      const password = document.getElementById('loginPassword').value.trim();
-      
-      let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
-      let user = users.find(u => u.mobile === mobile && u.password === password);
-      
-      if (user) {
-        if (user.role === 'admin') {
-          alert(`Welcome Admin, ${user.name || 'Owner'}! Redirecting to Admin Portal...`);
-          localStorage.setItem('orven_current_admin', JSON.stringify(user));
+      const mobile = document.getElementById('authMobile').value.trim();
+      const pin = document.getElementById('authPassword').value.trim();
+
+      let foundUser = whitelistedUsers.find(u => u.mobile === mobile && u.pin === pin);
+
+      if (foundUser) {
+        localStorage.setItem('orven_active_user', JSON.stringify(foundUser));
+        alert(`Welcome back, ${foundUser.name}!`);
+        closeLoginModal();
+        checkActiveSession();
+
+        if (foundUser.role === 'admin') {
           window.location.href = 'admin.html';
-        } else {
-          alert(`Welcome back, ${user.name || 'Valued Client'}!`);
-          localStorage.setItem('orven_current_user', JSON.stringify(user));
-          closeLoginModal();
         }
       } else {
-        alert('Invalid mobile number or password.');
+        alert('Access Denied: This mobile number is not authorized or incorrect PIN.');
       }
     }
 
-    function handleRegister(event) {
-      event.preventDefault();
-      const name = document.getElementById('regName').value.trim();
-      const mobile = document.getElementById('regMobile').value.trim();
-      const password = document.getElementById('regPassword').value.trim();
-      let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
-      
-      if(users.some(u => u.mobile === mobile)) {
-        alert('Number already registered!');
-        return;
+    function checkActiveSession() {
+      let activeUser = JSON.parse(localStorage.getItem('orven_active_user'));
+      if (activeUser) {
+        document.getElementById('authButtonText').innerHTML = `<span>👤</span> ${activeUser.name} (<a href="#" onclick="logoutUser()" style="color:#d4af37">Logout</a>)`;
+        if (activeUser.role === 'admin') {
+          document.getElementById('navAdminLink').style.display = 'inline-block';
+        }
       }
-      
-      // Agar pehla user hai toh automatically admin bana sakte hain ya default 'user' role de sakte hain
-      const role = (users.length === 0 || mobile === "+919876543210") ? 'admin' : 'user';
-
-      users.push({ name, mobile, password, role, date: new Date().toLocaleString() });
-      localStorage.setItem('orven_registered_users', JSON.stringify(users));
-      alert('Registration successful!');
-      closeLoginModal();
-      
-      let whatsappMessage = `Hello Admin, new customer registered:%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}`;
-      window.open(`https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`, '_blank');
     }
 
-    function handleForgot(event) {
-      event.preventDefault();
-      const mobile = document.getElementById('forgotMobile').value.trim();
-      let whatsappMessage = `Hello Admin, password reset requested for:%0a📱 Mobile: ${mobile}`;
-      window.open(`https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`, '_blank');
-      alert('Recovery request sent via WhatsApp.');
-      closeLoginModal();
+    function logoutUser() {
+      localStorage.removeItem('orven_active_user');
+      window.location.reload();
+    }
+
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem('orven_cart')) || [];
+      document.getElementById('cartCount').innerText = cart.length;
     }
   </script>
 </body>
