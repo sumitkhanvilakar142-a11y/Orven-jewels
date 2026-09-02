@@ -26,12 +26,12 @@
     .preview-panel { padding: 30px; display: flex; flex-direction: column; gap: 25px; }
     .top-nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 15px; }
     
-    .preview-stage { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 25px; text-align: center; position: relative; }
-    .preview-stage img { max-width: 100%; height: 400px; object-fit: contain; border-radius: 8px; transition: opacity 0.3s ease; }
+    .preview-stage { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 30px; text-align: center; position: relative; min-height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .preview-stage img { max-width: 100%; height: 360px; object-fit: contain; border-radius: 8px; transition: opacity 0.3s ease; }
     
     /* Thumbnail Selector Strip */
     .thumb-strip { display: flex; gap: 12px; justify-content: center; margin-top: 20px; overflow-x: auto; }
-    .thumb-item { width: 70px; height: 70px; border-radius: 8px; border: 1px solid #333; cursor: pointer; object-fit: cover; background: #1a1a1a; transition: 0.2s; }
+    .thumb-item { width: 65px; height: 65px; border-radius: 8px; border: 1px solid #333; cursor: pointer; object-fit: cover; background: #1a1a1a; transition: 0.2s; }
     .thumb-item:hover { border-color: #777; }
     .thumb-item.active { border-color: #d4af37; box-shadow: 0 0 6px rgba(212, 175, 55, 0.4); }
 
@@ -48,15 +48,14 @@
 <body>
 
   <div class="customizer-wrapper">
-    <!-- LEFT PANEL: Step-by-Step Options Control -->
+    <!-- LEFT PANEL: Options -->
     <div class="options-panel">
       <h2 style="font-family:'Cinzel', serif; color:#d4af37; font-size:16px; margin-top:0; letter-spacing: 1px;">CUSTOMIZE YOUR PIECE</h2>
       <p style="font-size: 11px; color: #888; margin-bottom: 25px;">Design your dream jewellery in a few simple steps.</p>
 
-      <!-- Step 1: Choose Stone Shape -->
       <div class="step-group">
         <div class="step-title">1. Choose Stone Shape</div>
-        <div class="options-grid" id="shapeGroup">
+        <div class="options-grid">
           <button class="option-btn active" onclick="selectOption('shape', 'Round', this)">Round</button>
           <button class="option-btn" onclick="selectOption('shape', 'Princess', this)">Princess</button>
           <button class="option-btn" onclick="selectOption('shape', 'Oval', this)">Oval</button>
@@ -64,20 +63,18 @@
         </div>
       </div>
 
-      <!-- Step 2: Choose Stone Type -->
       <div class="step-group">
         <div class="step-title">2. Choose Stone Type</div>
-        <div class="options-grid" id="stoneGroup" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="options-grid" style="grid-template-columns: repeat(3, 1fr);">
           <button class="option-btn active" onclick="selectOption('stone', 'Lab Diamond', this)">Lab Diamond</button>
           <button class="option-btn" onclick="selectOption('stone', 'Natural', this)">Natural</button>
           <button class="option-btn" onclick="selectOption('stone', 'Moissanite', this)">Moissanite</button>
         </div>
       </div>
 
-      <!-- Step 3: Choose Metal -->
       <div class="step-group">
         <div class="step-title">3. Choose Metal</div>
-        <div class="options-grid" id="metalGroup" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="options-grid" style="grid-template-columns: repeat(4, 1fr);">
           <button class="option-btn active" onclick="selectOption('metal', 'Yellow Gold', this)">Yellow</button>
           <button class="option-btn" onclick="selectOption('metal', 'White Gold', this)">White</button>
           <button class="option-btn" onclick="selectOption('metal', 'Rose Gold', this)">Rose</button>
@@ -85,10 +82,9 @@
         </div>
       </div>
 
-      <!-- Step 4: Size / Carat -->
       <div class="step-group">
         <div class="step-title">4. Size / Carat</div>
-        <div class="options-grid" id="sizeGroup">
+        <div class="options-grid">
           <button class="option-btn" onclick="selectOption('size', '0.50 CT', this)">0.50 CT</button>
           <button class="option-btn active" onclick="selectOption('size', '1.00 CT', this)">1.00 CT</button>
           <button class="option-btn" onclick="selectOption('size', '1.50 CT', this)">1.50 CT</button>
@@ -97,26 +93,24 @@
       </div>
     </div>
 
-    <!-- RIGHT PANEL: Live Preview Stage & Summary -->
+    <!-- RIGHT PANEL: Preview Stage -->
     <div class="preview-panel">
       <div class="top-nav-bar">
         <a href="index.html" style="color: #888; text-decoration: none; font-size: 13px;">← Back to Home</a>
         <span style="font-size: 13px; color: #d4af37; font-weight: 600; letter-spacing: 1px;">ORVÉN BESPOKE STUDIO</span>
       </div>
 
-      <!-- Main Visual Mockup Stage -->
       <div class="preview-stage">
-        <img id="mainPreviewImg" src="IMG-20260812-WA0196.jpg" alt="Custom Design Preview">
+        <!-- Clean isolated ring display -->
+        <img id="mainPreviewImg" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800" alt="Clean Ring Preview">
         
-        <!-- Thumbnail Selector Strip -->
         <div class="thumb-strip">
-          <img src="IMG-20260812-WA0196.jpg" class="thumb-item active" onclick="switchView(this, 'IMG-20260812-WA0196.jpg')">
-          <img src="IMG-20260812-WA0197.jpg" class="thumb-item" onclick="switchView(this, 'IMG-20260812-WA0197.jpg')">
-          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800" class="thumb-item" onclick="switchView(this, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=200" class="thumb-item active" onclick="switchView(this, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800')">
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=200" class="thumb-item" onclick="switchView(this, 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=200" class="thumb-item" onclick="switchView(this, 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=800')">
         </div>
       </div>
 
-      <!-- Live Specification Summary -->
       <div style="background: #141414; border: 1px solid #222; border-radius: 12px; padding: 20px;">
         <h3 style="font-family:'Cinzel', serif; color:#d4af37; margin-top:0; font-size: 15px;">Your Design Specification</h3>
         <p style="font-size: 13px; color: #aaa; margin: 0;">
@@ -127,7 +121,6 @@
         </p>
       </div>
 
-      <!-- Estimated Price & Checkout Actions -->
       <div class="summary-box">
         <div>
           <div style="font-size: 11px; color: #888; text-transform: uppercase;">Estimated Bespoke Price</div>
@@ -150,26 +143,19 @@
       price: 78950
     };
 
-    // Generic option selector with class toggling for active states
     function selectOption(category, value, element) {
-      // 1. Remove active class from sibling buttons in the same group
       const parentGroup = element.parentElement;
       parentGroup.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
-      
-      // 2. Add active class to clicked button
       element.classList.add('active');
 
-      // 3. Update configuration state
       currentConfig[category] = value;
 
-      // 4. Update preview text labels dynamically
       if(category === 'shape') document.getElementById('lblShape').innerText = value;
       if(category === 'stone') document.getElementById('lblStone').innerText = value;
       if(category === 'metal') document.getElementById('lblMetal').innerText = value;
       
       if(category === 'size') {
         document.getElementById('lblSize').innerText = value;
-        // Base price adjustment depending on carat size selection
         if(value === '0.50 CT') currentConfig.price = 52000;
         else if(value === '1.00 CT') currentConfig.price = 78950;
         else if(value === '1.50 CT') currentConfig.price = 115000;
@@ -179,7 +165,6 @@
       }
     }
 
-    // Thumbnail switching function
     function switchView(element, imgUrl) {
       document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
       element.classList.add('active');
@@ -192,13 +177,11 @@
       }, 150);
     }
 
-    // Save configuration to local storage
     function saveCustomDesign() {
       localStorage.setItem('orven_saved_custom', JSON.stringify(currentConfig));
       alert('Success! Your custom jewellery configuration has been saved successfully.');
     }
 
-    // Add custom design to cart / send order request
     function requestCustomOrder() {
       let cart = JSON.parse(localStorage.getItem('orven_cart')) || [];
       cart.push({
