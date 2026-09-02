@@ -6,165 +6,10 @@
   <title>ORVÉN JEWELS - Timeless Beauty & Fine Jewellery</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Homepage Background Video Container Styling */
-    .bg-video-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      z-index: -1;
-      background: #0b0708; 
-    }
-    .bg-video-container video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: cover;
-      filter: brightness(0.55); 
-      -webkit-filter: brightness(0.55);
-      image-rendering: -webkit-optimize-contrast;
-      backface-visibility: hidden;
-    }
-
-    /* Beautiful Header Auth Button Styles */
-    .header-auth-btn {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
-      border: 1px solid var(--gold, #d4af37);
-      color: var(--gold, #d4af37);
-      padding: 8px 18px;
-      font-size: 11px;
-      border-radius: 30px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-    }
-    .header-auth-btn:hover {
-      background: var(--gold, #d4af37);
-      color: #000;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-      transform: translateY(-1px);
-    }
-
-    /* ORRA Style Dual-Action Popup Modal Styles */
-    .modal-overlay { 
-      display: none; 
-      position: fixed; 
-      top: 0; left: 0; 
-      width: 100%; height: 100%; 
-      background: rgba(11,7,8,0.85); 
-      backdrop-filter: blur(5px); 
-      z-index: 2000; 
-      justify-content: center; 
-      align-items: center; 
-      padding: 20px; 
-      opacity: 0; 
-      transition: opacity 0.5s ease-in-out; 
-    }
-    
-    .auth-popup-container { 
-      width: 100%; 
-      max-width: 750px; 
-      background: var(--card-bg, #140d0f); 
-      border: 1px solid var(--gold, #d4af37); 
-      border-radius: 8px; 
-      display: flex;
-      overflow: hidden;
-      position: relative; 
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-      transform: translateY(-30px);
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .modal-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .modal-overlay.active .auth-popup-container {
-      transform: translateY(0);
-    }
-
-    .close-modal { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 22px; cursor: pointer; background: rgba(0,0,0,0.5); border: none; z-index: 10; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .close-modal:hover { color: var(--gold, #d4af37); background: rgba(0,0,0,0.8); }
-    
-    .popup-left-banner {
-      flex: 1;
-      background: url('IMG-20260812-WA0197.jpg') center/cover no-repeat;
-      position: relative;
-      min-height: 420px;
-    }
-    .popup-left-banner::after {
-      content: '';
-      position: absolute;
-      top:0; left:0; width:100%; height:100%;
-      background: linear-gradient(to top, rgba(11,7,8,0.9), transparent);
-    }
-
-    .popup-right-content {
-      flex: 1;
-      padding: 35px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: #140d0f;
-    }
-
-    .popup-badge {
-      width: 50px; height: 50px;
-      background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05));
-      border: 1px solid var(--gold, #d4af37);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
-      margin-bottom: 15px;
-    }
-
-    .popup-title { font-family: 'Cinzel', serif; font-size: 20px; color: #fff; font-weight: 700; line-height: 1.3; margin-bottom: 10px; }
-    .popup-desc { font-size: 12px; color: var(--text-muted, #a09a9c); line-height: 1.5; margin-bottom: 25px; }
-
-    .btn-signup-primary { width: 100%; background: #fff; color: #000; border: none; padding: 12px; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; text-transform: uppercase; margin-bottom: 15px; transition: all 0.3s; }
-    .btn-signup-primary:hover { background: var(--gold, #d4af37); }
-
-    .auth-divider { text-align: center; position: relative; margin-bottom: 15px; font-size: 11px; color: var(--text-muted, #a09a9c); text-transform: uppercase; letter-spacing: 1px; }
-    .auth-divider::before, .auth-divider::after { content: ''; position: absolute; top: 50%; width: 38%; height: 1px; background: var(--border, #241a1c); }
-    .auth-divider::before { left: 0; }
-    .auth-divider::after { right: 0; }
-
-    .btn-login-secondary { width: 100%; background: transparent; color: #fff; border: 1px solid var(--border, #3a2a2e); padding: 12px; font-weight: 600; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; text-transform: uppercase; transition: all 0.3s; }
-    .btn-login-secondary:hover { border-color: var(--gold, #d4af37); color: var(--gold, #d4af37); }
-
-    .auth-form-wrapper { display: none; }
-    .auth-form-wrapper.active { display: block; }
-
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 10px; color: var(--text-muted, #a09a9c); margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase; }
-    .form-group input, .form-group select { width: 100%; background: #1a1214; border: 1px solid var(--border, #241a1c); padding: 10px; color: #fff; font-size: 12px; border-radius: 4px; outline: none; }
-    .form-group input:focus, .form-group select:focus { border-color: var(--gold, #d4af37); }
-
-    .btn-submit-action { width: 100%; background: var(--gold, #d4af37); color: #000; border: none; padding: 11px; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; cursor: pointer; border-radius: 4px; margin-top: 5px; text-transform: uppercase; }
-    .back-link { display: inline-block; margin-top: 10px; font-size: 11px; color: var(--gold, #d4af37); cursor: pointer; text-decoration: underline; }
-
-    @media(max-width: 768px) {
-      .auth-popup-container { flex-direction: column; max-width: 400px; }
-      .popup-left-banner { min-height: 180px; }
-    }
-  </style>
 </head>
 <body>
 
+  <!-- Homepage Background Video Container -->
   <div class="bg-video-container">
     <video autoplay muted loop playsinline preload="auto">
       <source src="orven-bg-video.mp4" type="video/mp4">
@@ -174,9 +19,10 @@
 
   <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999</div>
 
-  <header>
+  <!-- Perfectly Centered Navbar -->
+  <header class="navbar">
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
-    <nav>
+    <nav class="nav-links">
       <a href="gallery.html">Gallery</a>
       <a href="calculator.html">Price Calculator</a>
       <a href="customize.html" style="color: var(--gold, #d4af37); font-weight: 600;">Custom Jewellery</a>
@@ -188,7 +34,8 @@
     </button>
   </header>
 
-  <section class="hero-video-container" style="background: transparent;">
+  <!-- Perfectly Centered Hero Section -->
+  <section class="hero-section">
     <div class="hero-content">
       <div class="hero-tag">Defined by Design. Panther Legacy.</div>
       <h1>Timeless Beauty.<br><i>Thoughtfully Crafted.</i></h1>
@@ -200,6 +47,7 @@
     </div>
   </section>
 
+  <!-- Live Rates Ticker Bar -->
   <div class="live-rates-ticker">
     <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
     <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
@@ -209,6 +57,7 @@
     <div class="rate-item">Silver (925): <span id="rateSilver">Loading...</span></div>
   </div>
 
+  <!-- Shop By Expression -->
   <div class="section-title">
     <p>Shop By Expression</p>
     <h2>All 16 Categories</h2>
@@ -233,6 +82,7 @@
     <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
   </div>
 
+  <!-- Signature Collections -->
   <div class="section-title" id="collections">
     <p>Exclusive Vaults</p>
     <h2>Signature Collections</h2>
@@ -277,19 +127,16 @@
     <p>© 2026 ORVÉN JEWELS. All rights reserved. | Panther Lifestyle Homepage</p>
   </footer>
 
+  <!-- Auth Modal Overlay -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <button class="close-modal" onclick="closeLoginModal()">&times;</button>
-      
       <div class="popup-left-banner"></div>
-
       <div class="popup-right-content">
-        
         <div id="welcomeView" class="auth-form-wrapper active">
           <div class="popup-badge">🎁</div>
           <div class="popup-title">Your first purchase, made more rewarding</div>
           <p class="popup-desc">Sign up now and unlock an additional discount of ₹1,000 on your first jewellery purchase.</p>
-          
           <button class="btn-signup-primary" onclick="switchView('registerView')">Sign Up</button>
           <div class="auth-divider">or</div>
           <button class="btn-login-secondary" onclick="switchView('loginView')">Already A Member? Log In</button>
@@ -298,7 +145,6 @@
         <div id="registerView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Create Account</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Register to claim your ₹1,000 welcome voucher.</p>
-          
           <form onsubmit="handleRegister(event)">
             <div class="form-group">
               <label>Full Name</label>
@@ -320,7 +166,6 @@
         <div id="loginView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Member Login</div>
           <p class="popup-desc" style="margin-bottom: 15px;">Access your saved vaults and orders.</p>
-          
           <form onsubmit="handleLogin(event)">
             <div class="form-group">
               <label>Mobile Number</label>
@@ -341,7 +186,6 @@
         <div id="forgotView" class="auth-form-wrapper">
           <div class="popup-title" style="font-size:18px; margin-bottom: 5px;">Password Recovery</div>
           <p class="popup-desc" style="margin-bottom: 15px;">We will send your reset request via WhatsApp.</p>
-          
           <form onsubmit="handleForgot(event)">
             <div class="form-group">
               <label>Registered Mobile</label>
@@ -351,7 +195,6 @@
           </form>
           <span class="back-link" onclick="switchView('loginView')">← Back to Login</span>
         </div>
-
       </div>
     </div>
   </div>
@@ -362,10 +205,7 @@
     const adminWhatsAppNumber = "919876543210"; 
 
     window.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        openLoginModal();
-      }, 10000); 
-      
+      setTimeout(() => { openLoginModal(); }, 10000); 
       loadGoogleLiveRates();
     });
 
@@ -376,11 +216,10 @@
         if (json && json.items && json.items.length > 0) {
           let ouncePriceINR = json.items[0].xauPrice;
           let gold24k = Math.round(ouncePriceINR / 31.1034768);
-          
           updateTickerDOM(gold24k, Math.round(json.items[0].xagPrice / 31.1034768));
           return;
         }
-        throw new Error("Using fallback market sync");
+        throw new Error("Using fallback");
       } catch (err) {
         updateTickerDOM(15824, 255);
       }
@@ -394,16 +233,10 @@
       document.getElementById('rateSilver').innerText = '₹' + Math.round(silverPerGram).toLocaleString('en-IN');
     }
 
-    function openLoginModal() {
-      document.getElementById('loginModal').classList.add('active');
-    }
-
-    function closeLoginModal() {
-      document.getElementById('loginModal').classList.remove('active');
-    }
-
+    function openLoginModal() { document.getElementById('loginModal').classList.add('active'); }
+    function closeLoginModal() { document.getElementById('loginModal').classList.remove('active'); }
     function switchView(viewId) {
-      document.querySelectorAll('.auth-file-wrapper, .auth-form-wrapper').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.auth-form-wrapper').forEach(sec => sec.classList.remove('active'));
       document.getElementById(viewId).classList.add('active');
     }
 
@@ -411,26 +244,18 @@
       event.preventDefault();
       const mobile = document.getElementById('loginMobile').value.trim();
       const password = document.getElementById('loginPassword').value.trim();
-
-      if(mobile.length < 10) {
-        alert('Please enter a valid mobile number.');
-        return;
-      }
-
       if (allowedAdminNumbers.includes(mobile)) {
-        alert('Admin Access Granted! Redirecting to Admin Portal...');
+        alert('Admin Access Granted!');
         window.location.href = 'admin.html';
         return;
       }
-
       let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
       let user = users.find(u => u.mobile === mobile && u.password === password);
-
       if (user) {
-        alert(`Welcome back, ${user.name || 'Valued Client'}! Successfully logged in.`);
+        alert(`Welcome back, ${user.name || 'Valued Client'}!`);
         closeLoginModal();
       } else {
-        alert('Invalid mobile number or password, or account does not exist. Please register.');
+        alert('Invalid mobile number or password.');
       }
     }
 
@@ -439,47 +264,26 @@
       const name = document.getElementById('regName').value.trim();
       const mobile = document.getElementById('regMobile').value.trim();
       const password = document.getElementById('regPassword').value.trim();
-
-      if(mobile.length < 10) {
-        alert('Please enter a valid mobile number.');
-        return;
-      }
-
       let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
       if(users.some(u => u.mobile === mobile)) {
-        alert('This mobile number is already registered! Please login.');
+        alert('Number already registered!');
         return;
       }
-
       users.push({ name, mobile, password, date: new Date().toLocaleString() });
       localStorage.setItem('orven_registered_users', JSON.stringify(users));
-
-      alert('Registration successful! Welcome voucher unlocked.');
+      alert('Registration successful!');
       closeLoginModal();
-
-      let whatsappMessage = `Hello Admin, a new customer has registered on ORVÉN JEWELS!%0a%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}%0a🕒 Time: ${new Date().toLocaleString()}`;
-      let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
-      
-      window.open(whatsappURL, '_blank');
+      let whatsappMessage = `Hello Admin, new customer registered:%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}`;
+      window.open(`https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`, '_blank');
     }
 
     function handleForgot(event) {
       event.preventDefault();
       const mobile = document.getElementById('forgotMobile').value.trim();
-
-      let users = JSON.parse(localStorage.getItem('orven_registered_users')) || [];
-      let user = users.find(u => u.mobile === mobile);
-
-      if(user || allowedAdminNumbers.includes(mobile)) {
-        let whatsappMessage = `Hello Admin, password reset requested for account:%0a📱 Mobile: ${mobile}`;
-        let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
-        
-        window.open(whatsappURL, '_blank');
-        alert('Password recovery request sent to Admin via WhatsApp.');
-        closeLoginModal();
-      } else {
-        alert('This mobile number is not found in our records.');
-      }
+      let whatsappMessage = `Hello Admin, password reset requested for:%0a📱 Mobile: ${mobile}`;
+      window.open(`https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`, '_blank');
+      alert('Recovery request sent via WhatsApp.');
+      closeLoginModal();
     }
   </script>
 </body>
