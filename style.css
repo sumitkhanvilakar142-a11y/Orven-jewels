@@ -1,0 +1,380 @@
+/* =========================================
+   1. CSS RESET & ROOT VARIABLES
+   ========================================= */
+:root {
+  --bg-dark: #0b0708;
+  --card-bg: #140d0f;
+  --gold: #d4af37;
+  --gold-light: #f3e5ab;
+  --text-main: #ffffff;
+  --text-muted: #a09a9c;
+  --border: #241a1c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   2. ANNOUNCEMENT & FIXED HEADER
+   ========================================= */
+.announcement-bar {
+  background: linear-gradient(90deg, #140d0f, #241a1c, #140d0f);
+  color: var(--gold);
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 8px 0;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  position: relative;
+  z-index: 1001;
+}
+
+header {
+  position: fixed;
+  top: 29px;
+  left: 0;
+  width: 100%;
+  padding: 15px 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(11, 7, 8, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.brand-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+.brand-logo span { 
+  color: var(--gold); 
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(11, 7, 8, 0.65);
+  padding: 10px 26px;
+  border-radius: 30px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+header nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+header nav a:hover {
+  color: var(--gold);
+}
+
+.header-auth-btn {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 9px 20px;
+  font-size: 11px;
+  border-radius: 30px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+  backdrop-filter: blur(4px);
+}
+.header-auth-btn:hover {
+  background: var(--gold);
+  color: #000;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   3. HERO SECTION & BACKGROUND VIDEO
+   ========================================= */
+.bg-video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  background: var(--bg-dark);
+}
+.bg-video-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  filter: brightness(0.55);
+}
+
+.hero-video-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 2;
+  background: transparent;
+  padding: 100px 20px 0 20px;
+}
+
+.hero-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.hero-video-container h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 45px;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.hero-video-container h1 i {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+
+.hero-video-container p {
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 550px;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: #000;
+  padding: 12px 28px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 4px;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+.btn-gold:hover {
+  background: #fff;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* =========================================
+   4. LIVE RATES TICKER
+   ========================================= */
+.live-rates-ticker {
+  background: rgba(14, 9, 11, 0.9);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 5;
+  backdrop-filter: blur(10px);
+}
+
+.rate-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+}
+.rate-item span {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* =========================================
+   5. CATEGORIES & COLLECTIONS SECTION (Transparent)
+   ========================================= */
+.section-title {
+  text-align: center;
+  padding: 60px 20px 25px 20px;
+  background: transparent; /* Transparent kiya taaki video dikhe */
+}
+.section-title p {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.section-title h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 1100px;
+  margin: 0 auto 50px auto;
+  padding: 0 20px;
+  background: transparent; /* Transparent kiya */
+}
+
+.pill {
+  background: rgba(20, 13, 15, 0.65); /* Semi-transparent pill background */
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 11px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+.pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto 80px auto;
+  padding: 0 30px;
+  background: transparent; /* Transparent kiya */
+}
+
+.grid-card {
+  position: relative;
+  height: 380px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.grid-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+}
+
+.grid-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.grid-card:hover img {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  padding: 30px 20px;
+  background: linear-gradient(to top, rgba(11,7,8,0.95), transparent);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-tag {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.card-link {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.grid-card:hover .card-link {
+  color: var(--gold);
+}
+
+/* =========================================
+   6. FOOTER
+   ========================================= */
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #070405;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
