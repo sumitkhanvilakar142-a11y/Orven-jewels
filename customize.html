@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS — Custom Jewellery Studio</title>
+  <title>ORVÉN JEWELS — Bespoke 3D Customizer Studio</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     :root {
-      --bg-dark: #0c0c0c;
-      --panel-bg: #141414;
-      --border-color: #262626;
+      --bg-dark: #0a0a0a;
+      --panel-bg: #121212;
+      --border-color: #222;
       --gold-primary: #d4af37;
       --gold-light: #e6c55c;
       --text-main: #f4f4f4;
@@ -46,6 +46,7 @@
       grid-template-columns: 440px 1fr;
       min-height: calc(100vh - 70px);
     }
+    @media(max-width: 950px) { .studio-container { grid-template-columns: 1fr; } }
 
     /* Left Sidebar Options Panel */
     .options-sidebar {
@@ -68,9 +69,9 @@
     .studio-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 25px; }
 
     .step-section {
-      margin-bottom: 25px;
+      margin-bottom: 22px;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 20px;
+      padding-bottom: 18px;
     }
     .step-heading {
       font-size: 12px;
@@ -79,9 +80,6 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
     .options-grid {
@@ -127,17 +125,16 @@
     .back-btn { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
     .back-btn:hover { color: var(--text-main); }
     
-    .main-heading { font-family: 'Cinzel', serif; font-size: 28px; text-align: center; letter-spacing: 1px; margin: 0; }
+    .main-heading { font-family: 'Cinzel', serif; font-size: 26px; text-align: center; letter-spacing: 1px; margin: 0; }
     .sub-heading { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 5px; }
 
     /* Progress Steps Bar */
     .steps-progress-bar {
       display: flex;
       justify-content: space-between;
-      max-width: 700px;
-      margin: 0 auto 10px auto;
+      max-width: 650px;
+      margin: 0 auto;
       width: 100%;
-      position: relative;
     }
     .step-node {
       display: flex;
@@ -150,8 +147,8 @@
       letter-spacing: 1px;
     }
     .step-circle {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: #1a1a1a;
       border: 1px solid #444;
@@ -159,7 +156,7 @@
       align-items: center;
       justify-content: center;
       font-weight: 600;
-      font-size: 12px;
+      font-size: 11px;
       color: #aaa;
     }
     .step-node.active .step-circle {
@@ -175,7 +172,7 @@
       background: var(--panel-bg);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      height: 480px;
+      height: 440px;
       position: relative;
       display: flex;
       align-items: center;
@@ -200,34 +197,7 @@
       border-radius: 20px;
       font-size: 11px;
       letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
-
-    .floating-tools {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .tool-btn {
-      background: rgba(20,20,20,0.85);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 14px;
-    }
-    .tool-btn:hover { border-color: var(--gold-primary); color: var(--gold-primary); }
 
     /* Thumbnails Row */
     .thumbnails-row {
@@ -235,14 +205,13 @@
       gap: 12px;
       justify-content: center;
       overflow-x: auto;
-      padding-bottom: 5px;
     }
     .thumb-card {
       background: var(--panel-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      width: 80px;
-      height: 70px;
+      width: 75px;
+      height: 65px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -261,16 +230,13 @@
       background: var(--panel-bg);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 24px;
+      padding: 20px;
       display: grid;
-      grid-template-columns: 1fr 1fr 120px;
-      gap: 20px;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
     }
-    @media(max-width: 900px) { .summary-card { grid-template-columns: 1fr; } }
-
-    .summary-title { font-family: 'Cinzel', serif; font-size: 16px; color: var(--gold-primary); margin-bottom: 12px; }
-    .spec-list { font-size: 13px; color: var(--text-muted); display: flex; flex-direction: column; gap: 6px; }
+    .summary-title { font-family: 'Cinzel', serif; font-size: 15px; color: var(--gold-primary); margin-bottom: 10px; }
+    .spec-list { font-size: 12px; color: var(--text-muted); display: flex; flex-direction: column; gap: 5px; }
     .spec-list b { color: var(--text-main); }
 
     /* Bottom Pricing Bar */
@@ -285,12 +251,12 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .price-amount { font-family: 'Cinzel', serif; font-size: 30px; color: var(--gold-primary); font-weight: 700; }
-    .action-group { display: flex; gap: 15px; }
+    .price-amount { font-family: 'Cinzel', serif; font-size: 28px; color: var(--gold-primary); font-weight: 700; }
+    .action-group { display: flex; gap: 12px; }
     
-    .btn-gold { background: var(--gold-primary); color: #000; border: none; padding: 14px 28px; font-weight: 600; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+    .btn-gold { background: var(--gold-primary); color: #000; border: none; padding: 12px 24px; font-weight: 600; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
     .btn-gold:hover { background: var(--gold-light); }
-    .btn-outline { background: transparent; border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 14px 28px; font-weight: 600; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+    .btn-outline { background: transparent; border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 12px 24px; font-weight: 600; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
     .btn-outline:hover { background: rgba(212,175,55,0.1); }
   </style>
 </head>
@@ -302,7 +268,7 @@
       <a href="index.html">Home</a>
       <a href="collections.html">Collections</a>
       <a href="customize.html" class="active">Custom Jewellery</a>
-      <a href="about.html">About Us</a>
+      <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
@@ -310,8 +276,8 @@
   <div class="studio-container">
     
     <aside class="options-sidebar">
-      <div class="studio-title">BBSPOKE 3D STUDIO</div>
-      <div class="studio-subtitle">Design your perfect piece in simple steps</div>
+      <div class="studio-title">BESPOKE STUDIO</div>
+      <div class="studio-subtitle">Customise your dream piece step-by-step</div>
 
       <div class="step-section">
         <div class="step-heading">1. Choose Stone Shape</div>
@@ -335,15 +301,15 @@
       <div class="step-section">
         <div class="step-heading">3. Choose Metal</div>
         <div class="options-grid cols-2">
-          <div class="opt-card active" onclick="updateConfig('metal', 'Yellow Gold', this)"><div class="title">18K Yellow</div></div>
-          <div class="opt-card" onclick="updateConfig('metal', 'White Gold', this)"><div class="title">18K White</div></div>
-          <div class="opt-card" onclick="updateConfig('metal', 'Rose Gold', this)"><div class="title">18K Rose</div></div>
-          <div class="opt-card" onclick="updateConfig('metal', 'Platinum', this)"><div class="title">950 Platinum</div></div>
+          <div class="opt-card active" onclick="updateConfig('metal', '18K Yellow Gold', this)"><div class="title">18K Yellow</div></div>
+          <div class="opt-card" onclick="updateConfig('metal', '18K White Gold', this)"><div class="title">18K White</div></div>
+          <div class="opt-card" onclick="updateConfig('metal', '18K Rose Gold', this)"><div class="title">18K Rose</div></div>
+          <div class="opt-card" onclick="updateConfig('metal', '950 Platinum', this)"><div class="title">Platinum</div></div>
         </div>
       </div>
 
       <div class="step-section">
-        <div class="step-heading">4. Carat / Size</div>
+        <div class="step-heading">4. Carat Size</div>
         <div class="options-grid">
           <div class="opt-card" onclick="updateConfig('size', '0.50 CT', this, 52000)"><div class="title">0.50 CT</div></div>
           <div class="opt-card active" onclick="updateConfig('size', '1.00 CT', this, 78950)"><div class="title">1.00 CT</div></div>
@@ -356,25 +322,24 @@
     <main class="preview-area">
       <div class="studio-top-bar">
         <a href="index.html" class="back-btn">← Back to Home</a>
-        <button class="btn-outline" style="padding: 8px 16px; font-size: 11px;" onclick="saveDesign()">Save Design</button>
+        <button class="btn-outline" style="padding: 6px 14px; font-size: 11px;" onclick="saveDesign()">Save Design</button>
       </div>
 
       <div>
-        <h1 class="main-heading">CUSTOMIZE YOUR SOLITAIRE RING</h1>
-        <div class="sub-heading">Designed by you. Crafted by Orvén.</div>
+        <h1 class="main-heading">DESIGN YOUR LUXURY RING</h1>
+        <div class="sub-heading">Real-time 360° Interactive Bespoke Studio</div>
       </div>
 
       <div class="steps-progress-bar">
         <div class="step-node active"><div class="step-circle">1</div>Stone</div>
-        <div class="step-node active"><div class="step-circle">2</div>Style</div>
+        <div class="step-node active"><div class="step-circle">2</div>Type</div>
         <div class="step-node active"><div class="step-circle">3</div>Metal</div>
         <div class="step-node active"><div class="step-circle">4</div>Size</div>
-        <div class="step-node"><div class="step-circle">5</div>Ring Size</div>
-        <div class="step-node"><div class="step-circle">6</div>Preview</div>
+        <div class="step-node"><div class="step-circle">5</div>Review</div>
       </div>
 
       <div class="stage-wrapper">
-        <div class="badge-360">🔄 360° Interactive 3D</div>
+        <div class="badge-360">🔄 360° 3D Interactive</div>
         <model-viewer 
           src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
           alt="3D Ring Model" 
@@ -382,50 +347,44 @@
           camera-controls 
           shadow-intensity="1">
         </model-viewer>
-        
-        <div class="floating-tools">
-          <div class="tool-btn" title="Rotate">🔄</div>
-          <div class="tool-btn" title="Zoom In/Out">🔍</div>
-          <div class="tool-btn" title="Top View">⬆️</div>
-        </div>
       </div>
 
       <div class="thumbnails-row">
-        <div class="thumb-card active"><span>💍</span><b>Front View</b></div>
-        <div class="thumb-card"><span>📐</span><b>Side View</b></div>
-        <div class="thumb-card"><span>🔍</span><b>Top View</b></div>
+        <div class="thumb-card active"><span>💍</span><b>Front</b></div>
+        <div class="thumb-card"><span>📐</span><b>Side</b></div>
+        <div class="thumb-card"><span>🔍</span><b>Top</b></div>
         <div class="thumb-card"><span>✋</span><b>On Hand</b></div>
-        <div class="thumb-card"><span>✨</span><b>360° View</b></div>
+        <div class="thumb-card"><span>✨</span><b>360°</b></div>
       </div>
 
       <div class="summary-card">
         <div>
-          <div class="summary-title">YOUR DESIGN SUMMARY</div>
+          <div class="summary-title">SPECIFICATIONS</div>
           <div class="spec-list">
             <div>Shape: <b id="sumShape">Round</b></div>
-            <div>Stone Type: <b id="sumStone">Lab Diamond</b></div>
+            <div>Stone: <b id="sumStone">Lab Diamond</b></div>
             <div>Metal: <b id="sumMetal">18K Yellow Gold</b></div>
-            <div>Carat Size: <b id="sumSize">1.00 CT</b></div>
+            <div>Carat: <b id="sumSize">1.00 CT</b></div>
           </div>
         </div>
-        <div class="spec-list" style="justify-content: center;">
-          <div>Gold Weight (Est.): <b>2.35 grams</b></div>
-          <div>Certification: <b>100% IGI Certified</b></div>
-          <div>Warranty: <b>Lifetime Guarantee</b></div>
-        </div>
-        <div style="text-align: right; display: flex; align-items: center; justify-content: flex-end;">
-          <button class="btn-outline" style="padding: 10px 16px; font-size: 11px;" onclick="alert('Specifications unlocked for editing!')">Edit Specs</button>
+        <div>
+          <div class="summary-title">DETAILS</div>
+          <div class="spec-list">
+            <div>Gold Wt: <b>2.35 grams</b></div>
+            <div>Certification: <b>IGI Certified</b></div>
+            <div>Warranty: <b>Lifetime Guarantee</b></div>
+          </div>
         </div>
       </div>
 
       <div class="pricing-action-bar">
         <div>
-          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Estimated Bespoke Price</div>
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Estimated Price</div>
           <div class="price-amount" id="priceDisplay">₹ 78,950</div>
         </div>
         <div class="action-group">
-          <button class="btn-outline" onclick="saveDesign()">Save Design</button>
-          <button class="btn-gold" onclick="requestOrder()">Request This Design</button>
+          <button class="btn-outline" onclick="saveDesign()">Save</button>
+          <button class="btn-gold" onclick="requestOrder()">Request Design</button>
         </div>
       </div>
     </main>
@@ -439,3 +398,42 @@
       metal: '18K Yellow Gold',
       size: '1.00 CT',
       price: 78950
+    };
+
+    function updateConfig(category, value, element, priceVal) {
+      const parent = element.parentElement;
+      parent.querySelectorAll('.opt-card').forEach(c => c.classList.remove('active'));
+      element.classList.add('active');
+
+      currentConfig[category] = value;
+
+      if(category === 'shape') document.getElementById('sumShape').innerText = value;
+      if(category === 'stone') document.getElementById('sumStone').innerText = value;
+      if(category === 'metal') document.getElementById('sumMetal').innerText = value;
+      
+      if(category === 'size') {
+        document.getElementById('sumSize').innerText = value;
+        currentConfig.price = priceVal;
+        document.getElementById('priceDisplay').innerText = '₹ ' + priceVal.toLocaleString('en-IN');
+      }
+    }
+
+    function saveDesign() {
+      localStorage.setItem('orven_saved_design', JSON.stringify(currentConfig));
+      alert('Success! Your custom jewellery design has been saved.');
+    }
+
+    function requestOrder() {
+      let cart = JSON.parse(localStorage.getItem('orven_cart')) || [];
+      cart.push({
+        name: `Bespoke ${currentConfig.shape} Ring (${currentConfig.metal}, ${currentConfig.stone}, ${currentConfig.size})`,
+        price: currentConfig.price,
+        specs: currentConfig
+      });
+      localStorage.setItem('orven_cart', JSON.stringify(cart));
+      alert('Bespoke request added to your cart successfully!');
+      window.location.href = 'cart.html';
+    }
+  </script>
+</body>
+</html>
