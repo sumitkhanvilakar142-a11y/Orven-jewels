@@ -197,7 +197,7 @@ body {
   background: rgba(212, 175, 55, 0.05);
 }
 
-/* --- MODAL STYLES --- */
+/* --- MODAL STYLES (THEME MATCHED) --- */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -211,11 +211,60 @@ body {
 .auth-popup-container {
   width: 100%;
   max-width: 420px;
-  padding: 30px;
-  background: #0f0f0f;
+  padding: 35px;
+  background: var(--card-bg);
   border: 1px solid var(--gold);
   border-radius: 8px;
   position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+.auth-popup-container h3, 
+.auth-popup-container p {
+  color: #fff;
+}
+.auth-popup-container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  background: var(--dark-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+.auth-popup-container input:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+.auth-popup-container button[type="submit"], 
+.auth-popup-container .btn-gold {
+  width: 100%;
+  background: var(--gold);
+  color: #000;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.auth-popup-container button[type="submit"]:hover {
+  opacity: 0.9;
+}
+.auth-popup-container .close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.auth-popup-container .close-modal:hover {
+  color: var(--gold);
 }
 
 /* --- FOOTER --- */
