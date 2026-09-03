@@ -25,6 +25,12 @@
     .admin-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #141414; }
     .admin-table th, .admin-table td { padding: 12px; border: 1px solid #222; text-align: left; font-size: 14px; }
     .admin-table th { background: #1f1f1f; color: #d4af37; }
+    .admin-table tr { cursor: pointer; transition: background 0.2s; }
+    .admin-table tr:hover { background: #1a1a1a; }
+    .btn-action { background: none; border: 1px solid #d4af37; color: #d4af37; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500; margin-right: 5px; }
+    .btn-action:hover { background: #d4af37; color: #000; }
+    .btn-delete { border-color: #ff4d4d; color: #ff4d4d; }
+    .btn-delete:hover { background: #ff4d4d; color: #fff; }
   </style>
 </head>
 <body>
@@ -62,8 +68,8 @@
   <!-- TAB 2: PRODUCTS MANAGEMENT -->
   <div id="tab-products" class="tab-content">
     <h2 style="font-family:'Cinzel', serif; color:#d4af37;">Inventory Products</h2>
-    <p style="color: #aaa; font-size: 13px;">Control your active stock items across all categories.</p>
-    <button onclick="alert('Open Add Product Modal')" style="background: #d4af37; color: #000; border: none; padding: 10px 15px; font-weight: 600; border-radius: 5px; cursor: pointer; margin-top: 10px;">+ Add New Product</button>
+    <p style="color: #aaa; font-size: 13px;">Control your active stock items across all categories. Click any row to view details.</p>
+    <button onclick="addNewProduct()" style="background: #d4af37; color: #000; border: none; padding: 10px 15px; font-weight: 600; border-radius: 5px; cursor: pointer; margin-top: 10px;">+ Add New Product</button>
     
     <table class="admin-table">
       <thead>
@@ -71,22 +77,11 @@
           <th>Item Name</th>
           <th>Category</th>
           <th>Price</th>
-          <th>Action</th>
+          <th>Action Control</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Diamond Solitaire Ring</td>
-          <td>Rings</td>
-          <td>₹45,000</td>
-          <td><button style="background:none; border:1px solid #d4af37; color:#d4af37; padding:4px 8px; cursor:pointer;">Edit</button></td>
-        </tr>
-        <tr>
-          <td>Classic Tennis Bracelet</td>
-          <td>Bracelets</td>
-          <td>₹82,000</td>
-          <td><button style="background:none; border:1px solid #d4af37; color:#d4af37; padding:4px 8px; cursor:pointer;">Edit</button></td>
-        </tr>
+      <tbody id="inventoryTableBody">
+        <!-- Dynamically injected products -->
       </tbody>
     </table>
   </div>
@@ -152,6 +147,12 @@
   </nav>
 
   <script>
+    // Default initial products if storage is empty
+    const defaultProducts = [
+      { id: 1, name: "Diamond Solitaire Ring", category: "Rings", price: "₹45,000" },
+      { id: 2, name: "Classic Tennis Bracelet", category: "Bracelets", price: "₹82,000" }
+    ];
+
     window.addEventListener("DOMContentLoaded", () => {
       let activeUser = JSON.parse(localStorage.getItem('orven_active_user'));
       if (!activeUser || activeUser.role !== 'admin') {
@@ -160,7 +161,86 @@
       } else {
         document.getElementById('adminNameDisplay').innerText = `Logged in as: ${activeUser.name}`;
       }
+      loadAdminInventory();
     });
+
+    function loadAdminInventory() {
+      let products = JSON.parse(localStorage.getItem('orven_admin_products'));
+      if (!products) {
+        products = defaultProducts;
+        localStorage.setItem('orven_admin_products', JSON.stringify(products));
+      }
+
+      const tbody = document.getElementById('inventoryTableBody');
+      tbody.innerHTML = '';
+
+      products.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${p.name}</strong></td>
+          <td>${p.category}</td>
+          <td>${p.price}</td>
+          <td>
+            <button class="btn-action" onclick="editProduct(event, ${p.id})">Edit</button>
+            <button class="btn-action btn-delete" onclick="deleteProduct(event, ${p.id})">Remove</button>
+          </td>
+        `;
+        // Make entire row clickable to view details
+        tr.onclick = () => alert(`Product Details:\nName: ${p.name}\nCategory: ${p.category}\nPrice: ${p.price}`);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function addNewProduct() {
+      let name = prompt("Enter product name (e.g., Gold Polki Necklace):");
+      if (!name) return;
+      let category = prompt("Enter category (e.g., Necklaces, Rings, Bracelets):");
+      if (!category) return;
+      let priceVal = prompt("Enter price in numbers or with symbol (e.g., ₹55,000):");
+      if (!priceVal) return;
+
+      let formattedPrice = priceVal.startsWith('₹') ? priceVal : '₹' + priceVal;
+
+      let products = JSON.parse(localStorage.getItem('orven_admin_products')) || defaultProducts;
+      let newId = Date.now();
+      products.push({ id: newId, name: name, category: category, price: formattedPrice });
+      
+      localStorage.setItem('orven_admin_products', JSON.stringify(products));
+      loadAdminInventory();
+      alert('Product added successfully!');
+    }
+
+    function editProduct(event, id) {
+      event.stopPropagation(); // Prevent row click trigger
+      let products = JSON.parse(localStorage.getItem('orven_admin_products')) || defaultProducts;
+      let prod = products.find(p => p.id === id);
+      if (!prod) return;
+
+      let newName = prompt("Edit product name:", prod.name);
+      if (newName === null) return;
+      let newCat = prompt("Edit category:", prod.category);
+      if (newCat === null) return;
+      let newPrice = prompt("Edit price:", prod.price);
+      if (newPrice === null) return;
+
+      prod.name = newName || prod.name;
+      prod.category = newCat || prod.category;
+      prod.price = newPrice || prod.price;
+
+      localStorage.setItem('orven_admin_products', JSON.stringify(products));
+      loadAdminInventory();
+      alert('Product updated successfully!');
+    }
+
+    function deleteProduct(event, id) {
+      event.stopPropagation(); // Prevent row click trigger
+      if (confirm("Are you sure you want to remove this product from inventory?")) {
+        let products = JSON.parse(localStorage.getItem('orven_admin_products')) || defaultProducts;
+        products = products.filter(p => p.id !== id);
+        localStorage.setItem('orven_admin_products', JSON.stringify(products));
+        loadAdminInventory();
+      }
+    }
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
