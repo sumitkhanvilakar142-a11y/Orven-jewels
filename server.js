@@ -10,8 +10,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname));
 
-// MongoDB Connection (Render par password ka special character secure rakhne ke liye MONGO_URI environment variable use karein)
-const uri = process.env.MONGO_URI || "mongodb+srv://sumitkhanvilakar142_db_user:db_Sumit%401996@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
+// MongoDB Connection with updated password (Sumit1996)
+const uri = process.env.MONGO_URI || "mongodb+srv://sumitkhanvilakar142_db_user:Sumit1996@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
 const client = new MongoClient(uri);
 let db;
 
