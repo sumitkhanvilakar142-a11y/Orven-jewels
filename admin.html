@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORVÉN JEWELS — Admin Control Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background-color: #0d0d0d; color: #f4f4f4; font-family: 'Montserrat', sans-serif; margin: 0; padding-bottom: 80px; }
+    .admin-header { background: #141414; padding: 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+    .admin-header h1 { font-family: 'Cinzel', serif; font-size: 20px; color: #d4af37; margin: 0; }
+    .tab-content { display: none; padding: 20px; max-width: 900px; margin: 0 auto; }
+    .tab-content.active { display: block; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+    .action-card { background: #1a1a1a; border: 1px solid #333; padding: 20px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; }
+    .action-card:hover { border-color: #d4af37; background: #222; }
+    .action-card h3 { color: #d4af37; margin-bottom: 5px; font-size: 16px; }
+    .action-card p { font-size: 12px; color: #aaa; margin: 0; }
+    /* Bottom Navigation Bar */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #141414; border-top: 1px solid #252525; display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+    .nav-item { background: none; border: none; color: #888; font-size: 12px; display: flex; flex-direction: column; align-items: center; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+    .nav-item span { font-size: 18px; margin-bottom: 3px; }
+    .nav-item.active { color: #d4af37; font-weight: 600; }
+    .admin-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #141414; }
+    .admin-table th, .admin-table td { padding: 12px; border: 1px solid #222; text-align: left; font-size: 14px; }
+    .admin-table th { background: #1f1f1f; color: #d4af37; }
+  </style>
+</head>
+<body>
+
+  <div class="admin-header">
+    <h1>ORVÉN ADMIN PORTAL</h1>
+    <span id="adminNameDisplay" style="font-size: 13px; color: #d4af37;">Loading...</span>
+  </div>
+
+  <!-- TAB 1: HOME / DASHBOARD -->
+  <div id="tab-home" class="tab-content active">
+    <h2 style="font-family:'Cinzel', serif; color:#d4af37;">Store Overview</h2>
+    <p style="color: #aaa; font-size: 13px;">Quick management tools and shortcuts for your active store inventory.</p>
+    
+    <div class="dashboard-grid">
+      <div class="action-card" onclick="switchTab('products')">
+        <h3>📦 Products</h3>
+        <p>Manage inventory & catalog items</p>
+      </div>
+      <div class="action-card" onclick="switchTab('orders')">
+        <h3>🛍️ Orders</h3>
+        <p>View client purchases & status</p>
+      </div>
+      <div class="action-card" onclick="switchTab('insights')">
+        <h3>📊 Insights</h3>
+        <p>Traffic, revenue & Meta analytics</p>
+      </div>
+      <div class="action-card" onclick="switchTab('settings')">
+        <h3>⚙️ Settings</h3>
+        <p>Whitelisted numbers & store PINs</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: PRODUCTS MANAGEMENT -->
+  <div id="tab-products" class="tab-content">
+    <h2 style="font-family:'Cinzel', serif; color:#d4af37;">Inventory Products</h2>
+    <p style="color: #aaa; font-size: 13px;">Control your active stock items across all categories.</p>
+    <button onclick="alert('Open Add Product Modal')" style="background: #d4af37; color: #000; border: none; padding: 10px 15px; font-weight: 600; border-radius: 5px; cursor: pointer; margin-top: 10px;">+ Add New Product</button>
+    
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Diamond Solitaire Ring</td>
+          <td>Rings</td>
+          <td>₹45,000</td>
+          <td><button style="background:none; border:1px solid #d4af37; color:#d4af37; padding:4px 8px; cursor:pointer;">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Classic Tennis Bracelet</td>
+          <td>Bracelets</td>
+          <td>₹82,000</td>
+          <td><button style="background:none; border:1px solid #d4af37; color:#d4af37; padding:4px 8px; cursor:pointer;">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TAB 3: INSIGHTS -->
+  <div id="tab-insights" class="tab-content">
+    <h2 style="font-family:'Cinzel', serif; color:#d4af37;">Insights & Analytics</h2>
+    <p style="color: #aaa; font-size: 13px;">Monitor store engagement, views, and promotional performance.</p>
+    <div style="background: #1a1a1a; padding: 20px; border-radius: 8px; margin-top: 15px; border: 1px solid #333;">
+      <p style="margin: 0; color: #888;">Total Store Visits (This Month)</p>
+      <h3 style="color: #d4af37; font-size: 28px; margin: 5px 0 0 0;">1,428</h3>
+    </div>
+  </div>
+
+  <!-- TAB 4: ORDERS -->
+  <div id="tab-orders" class="tab-content">
+    <h2 style="font-family:'Cinzel', serif; color:#d4af37;">Customer Orders</h2>
+    <p style="color: #aaa; font-size: 13px;">Review incoming custom requests and checkouts.</p>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Client</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#ORD-9021</td>
+          <td>VIP Client</td>
+          <td>₹12,500</td>
+          <td style="color: #4bb543;">Confirmed</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TAB 5: SETTINGS -->
+  <div id="tab-settings" class="tab-content">
+    <h2 style="font-family:'Cinzel', serif; color:#d4af37;">Portal Settings</h2>
+    <p style="color: #aaa; font-size: 13px;">Manage administrative security and authorized numbers.</p>
+    <button onclick="logoutAdmin()" style="background: #ff4d4d; color: #fff; border: none; padding: 10px 15px; font-weight: 600; border-radius: 5px; cursor: pointer; margin-top: 15px;">Log Out Admin Session</button>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('home')" id="nav-home">
+      <span>🏠</span> Home
+    </button>
+    <button class="nav-item" onclick="switchTab('products')" id="nav-products">
+      <span>📦</span> Products
+    </button>
+    <button class="nav-item" onclick="switchTab('insights')" id="nav-insights">
+      <span>📊</span> Insights
+    </button>
+    <button class="nav-item" onclick="switchTab('orders')" id="nav-orders">
+      <span>🛍️</span> Orders
+    </button>
+    <button class="nav-item" onclick="switchTab('settings')" id="nav-settings">
+      <span>⚙️</span> Settings
+    </button>
+  </nav>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      let activeUser = JSON.parse(localStorage.getItem('orven_active_user'));
+      if (!activeUser || activeUser.role !== 'admin') {
+        alert('Unauthorized access! Please login with admin credentials first.');
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('adminNameDisplay').innerText = `Logged in as: ${activeUser.name}`;
+      }
+    });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+      document.getElementById('tab-' + tabId).classList.add('active');
+      document.getElementById('nav-' + tabId).classList.add('active');
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem('orven_active_user');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

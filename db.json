@@ -1,0 +1,73 @@
+{
+  "products": [
+    {
+      "id": 249,
+      "sku": "ORV 249",
+      "category": "RINGS",
+      "goldWeight": 4.5,
+      "silverWeight": 0,
+      "stoneSlots": [
+        {
+          "pieces": 60,
+          "cent": 1.7
+        }
+      ],
+      "fancySlots": [
+        {
+          "type": "Gem Stone",
+          "pieces": 1,
+          "cent": 209
+        }
+      ],
+      "image": "vault-ring.jpg",
+      "lastUpdatedBy": "nayan (staff)"
+    }
+  ],
+  "categories": [
+    {
+      "name": "RINGS",
+      "count": 244
+    },
+    {
+      "name": "EARINGS",
+      "count": 102
+    },
+    {
+      "name": "PENDANTS",
+      "count": 57
+    },
+    {
+      "name": "BRACLETS",
+      "count": 20
+    },
+    {
+      "name": "MANGALSUTRA",
+      "count": 4
+    },
+    {
+      "name": "GENTS RING",
+      "count": 14
+    },
+    {
+      "name": "ORVEN JEWELS",
+      "count": 31
+    },
+    {
+      "name": "ETERNITY BAND",
+      "count": 7
+    },
+    {
+      "name": "NECKLACE",
+      "count": 15
+    }
+  ],
+  "diamondTypes": [
+    "CVD - default",
+    "CV - VVS"
+  ],
+  "users": [],
+  "admin": {
+    "username": "admin",
+    "password": "password123"
+  }
+}

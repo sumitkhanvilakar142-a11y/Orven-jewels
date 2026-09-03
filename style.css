@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* =========================================
    1. CSS RESET & ROOT VARIABLES
    ========================================= */
@@ -56,12 +57,68 @@ header {
   border-bottom: 1px solid rgba(212, 175, 55, 0.15);
 }
 
+=======
+/* Global Reset & Base Styles */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: #0b0708;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Background Video Container */
+.bg-video-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  background: #0b0708; 
+}
+.bg-video-container video {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%; min-height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55); 
+}
+
+/* Announcement Bar */
+.announcement-bar {
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--gold, #d4af37);
+  text-align: center;
+  font-size: 10px;
+  padding: 8px;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  position: relative;
+  z-index: 10;
+}
+
+/* Navbar - Absolute Top Centered */
+.navbar {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
 .brand-logo {
   font-family: 'Cinzel', serif;
   font-size: 20px;
   color: #fff;
   text-decoration: none;
   font-weight: 700;
+<<<<<<< HEAD
   letter-spacing: 2.5px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
@@ -99,6 +156,32 @@ header nav a:hover {
   border: 1px solid var(--gold);
   color: var(--gold);
   padding: 9px 20px;
+=======
+  letter-spacing: 2px;
+}
+.brand-logo span { color: var(--gold, #d4af37); }
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold, #d4af37); }
+
+/* Header Auth Button */
+.header-auth-btn {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+  border: 1px solid var(--gold, #d4af37);
+  color: var(--gold, #d4af37);
+  padding: 8px 18px;
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
   font-size: 11px;
   border-radius: 30px;
   font-weight: 600;
@@ -107,6 +190,7 @@ header nav a:hover {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+<<<<<<< HEAD
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
   backdrop-filter: blur(4px);
@@ -145,6 +229,17 @@ header nav a:hover {
 }
 
 .hero-video-container {
+=======
+  transition: all 0.3s ease;
+}
+.header-auth-btn:hover {
+  background: var(--gold, #d4af37);
+  color: #000;
+}
+
+/* Hero Section - Strict Center Alignment over Video */
+.hero-section {
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -153,6 +248,7 @@ header nav a:hover {
   justify-content: center;
   align-items: center;
   text-align: center;
+<<<<<<< HEAD
   z-index: 2;
   background: transparent;
   padding: 100px 20px 0 20px;
@@ -170,11 +266,34 @@ header nav a:hover {
 .hero-video-container h1 {
   font-family: 'Cinzel', serif;
   font-size: 45px;
+=======
+  padding-top: 60px;
+  z-index: 2;
+}
+.hero-content {
+  max-width: 800px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-tag {
+  font-size: 10px;
+  color: var(--gold, #d4af37);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+.hero-content h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 42px;
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
   color: #fff;
   line-height: 1.2;
   margin-bottom: 15px;
   font-weight: 700;
 }
+<<<<<<< HEAD
 
 .hero-video-container h1 i {
   font-family: 'Cinzel', serif;
@@ -191,10 +310,20 @@ header nav a:hover {
   line-height: 1.6;
 }
 
+=======
+.hero-content p {
+  font-size: 13px;
+  color: #d4d0c8;
+  max-width: 550px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
 .hero-btns {
   display: flex;
   gap: 15px;
 }
+<<<<<<< HEAD
 
 .btn-gold {
   background: var(--gold);
@@ -220,11 +349,34 @@ header nav a:hover {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   padding: 12px 30px;
+=======
+.btn-gold {
+  background: var(--gold, #d4af37);
+  color: #000;
+  padding: 12px 24px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: opacity 0.3s;
+}
+.btn-gold:hover { opacity: 0.9; }
+
+/* Live Rates Ticker Bar */
+.live-rates-ticker {
+  background: rgba(15, 11, 12, 0.95);
+  border-top: 1px solid #241a1c;
+  border-bottom: 1px solid #241a1c;
+  padding: 12px 5%;
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
+<<<<<<< HEAD
   font-size: 12px;
   letter-spacing: 1px;
   position: relative;
@@ -265,6 +417,20 @@ header nav a:hover {
   color: #fff;
   letter-spacing: 1px;
 }
+=======
+  font-size: 11px;
+  letter-spacing: 1px;
+  z-index: 10;
+  position: relative;
+}
+.rate-item { display: flex; align-items: center; gap: 5px; color: #d4d0c8; }
+.rate-item span { color: var(--gold, #d4af37); font-weight: 600; }
+
+/* Shop By Expression - Category Pills */
+.section-title { text-align: center; padding: 50px 20px 20px; }
+.section-title p { color: var(--gold, #d4af37); font-size: 10px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; }
+.section-title h2 { font-family: 'Cinzel', serif; font-size: 28px; color: #fff; font-weight: 700; }
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
 
 .category-pills {
   display: flex;
@@ -272,6 +438,7 @@ header nav a:hover {
   justify-content: center;
   gap: 10px;
   max-width: 1100px;
+<<<<<<< HEAD
   margin: 0 auto 50px auto;
   padding: 0 20px;
   background: transparent; /* Transparent kiya */
@@ -305,11 +472,43 @@ header nav a:hover {
   background: transparent; /* Transparent kiya */
 }
 
+=======
+  margin: 0 auto 50px;
+  padding: 0 20px;
+}
+.category-pills .pill {
+  background: rgba(20, 13, 15, 0.8);
+  border: 1px solid #3a2a2e;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.category-pills .pill:hover {
+  border-color: var(--gold, #d4af37);
+  color: var(--gold, #d4af37);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* Signature Collections Grid */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
 .grid-card {
   position: relative;
   height: 380px;
   border-radius: 6px;
   overflow: hidden;
+<<<<<<< HEAD
   border: 1px solid var(--border);
   text-decoration: none;
   display: block;
@@ -329,15 +528,31 @@ header nav a:hover {
   transform: scale(1.05);
 }
 
+=======
+  border: 1px solid #241a1c;
+  display: block;
+}
+.grid-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.grid-card:hover img { transform: scale(1.05); }
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
 .card-overlay {
   position: absolute;
   bottom: 0; left: 0;
   width: 100%;
+<<<<<<< HEAD
   padding: 30px 20px;
+=======
+  padding: 25px 20px;
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
   background: linear-gradient(to top, rgba(11,7,8,0.95), transparent);
   display: flex;
   flex-direction: column;
 }
+<<<<<<< HEAD
 
 .card-tag {
   font-size: 9px;
@@ -378,3 +593,44 @@ footer {
   font-size: 11px;
   letter-spacing: 1px;
 }
+=======
+.card-tag { font-size: 9px; color: var(--gold, #d4af37); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+.card-title { font-family: 'Cinzel', serif; font-size: 16px; color: #fff; font-weight: 600; margin-bottom: 8px; }
+.card-link { font-size: 10px; color: #fff; letter-spacing: 1.5px; text-transform: uppercase; }
+
+footer { text-align: center; padding: 30px; font-size: 11px; color: #7f7578; border-top: 1px solid #1c1315; }
+
+/* Modal Styles */
+.modal-overlay { 
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+  background: rgba(11,7,8,0.85); backdrop-filter: blur(5px); z-index: 2000; 
+  justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s; 
+}
+.modal-overlay.active { display: flex; opacity: 1; }
+.auth-popup-container { 
+  width: 100%; max-width: 750px; background: #140d0f; border: 1px solid var(--gold, #d4af37); 
+  border-radius: 8px; display: flex; overflow: hidden; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
+}
+.close-modal { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 22px; cursor: pointer; background: rgba(0,0,0,0.5); border: none; z-index: 10; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.popup-left-banner { flex: 1; background: url('IMG-20260812-WA0197.jpg') center/cover no-repeat; min-height: 420px; }
+.popup-right-content { flex: 1; padding: 35px 30px; display: flex; flex-direction: column; justify-content: center; background: #140d0f; }
+.popup-badge { width: 50px; height: 50px; background: rgba(212,175,55,0.1); border: 1px solid var(--gold, #d4af37); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 15px; }
+.popup-title { font-family: 'Cinzel', serif; font-size: 20px; color: #fff; font-weight: 700; margin-bottom: 10px; }
+.popup-desc { font-size: 12px; color: #a09a9c; line-height: 1.5; margin-bottom: 25px; }
+.btn-signup-primary { width: 100%; background: #fff; color: #000; border: none; padding: 12px; font-weight: 700; font-size: 12px; cursor: pointer; border-radius: 4px; text-transform: uppercase; margin-bottom: 15px; }
+.auth-divider { text-align: center; position: relative; margin-bottom: 15px; font-size: 11px; color: #a09a9c; text-transform: uppercase; }
+.btn-login-secondary { width: 100%; background: transparent; color: #fff; border: 1px solid #3a2a2e; padding: 12px; font-weight: 600; font-size: 12px; cursor: pointer; border-radius: 4px; text-transform: uppercase; }
+.auth-form-wrapper { display: none; }
+.auth-form-wrapper.active { display: block; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 10px; color: #a09a9c; margin-bottom: 4px; text-transform: uppercase; }
+.form-group input { width: 100%; background: #1a1214; border: 1px solid #241a1c; padding: 10px; color: #fff; font-size: 12px; border-radius: 4px; outline: none; }
+.btn-submit-action { width: 100%; background: var(--gold, #d4af37); color: #000; border: none; padding: 11px; font-weight: 700; font-size: 12px; cursor: pointer; border-radius: 4px; margin-top: 5px; text-transform: uppercase; }
+.back-link { display: inline-block; margin-top: 10px; font-size: 11px; color: var(--gold, #d4af37); cursor: pointer; text-decoration: underline; }
+
+@media(max-width: 768px) {
+  .grid-container { grid-template-columns: repeat(2, 1fr); }
+  .auth-popup-container { flex-direction: column; max-width: 400px; }
+  .popup-left-banner { min-height: 180px; }
+}
+>>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd

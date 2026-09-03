@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORVÉN JEWELS — Timeless Beauty & Fine Jewellery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Homepage Background Video Container -->
+  <div class="bg-video-container">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="orven-bg-video.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+
+  <div class="announcement-bar">✦ FREE INSURED SHIPPING ON ALL ORDERS ABOVE ₹2,999 | WELCOME OFFER: FLAT ₹1,000 OFF ON FIRST PURCHASE</div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
+    <nav class="nav-links nav">
+      <a href="gallery.html">Gallery</a>
+      <a href="calculator.html">Price Calculator</a>
+      <a href="customize.html" style="color: var(--gold, #d4af37); font-weight: 600;">Custom Jewellery</a>
+      <a href="#collections">Collections</a>
+    </nav>
+    <div style="display: flex; gap: 15px; align-items: center;">
+      <a href="cart.html" class="cart-icon-btn" style="color: #fff; text-decoration: none; position: relative; font-size: 18px;">
+        🛒 <span id="cartCount" style="background: var(--gold, #d4af37); color: #000; font-size: 11px; padding: 2px 6px; border-radius: 50%; position: absolute; top: -8px; right: -10px; font-weight: bold;">0</span>
+      </a>
+      <button onclick="openLoginModal()" class="header-auth-btn" id="authButtonText">
+        <span>🔒</span> LOGIN / SIGNUP
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-tag">🎁 Special Welcome Offer: Flat ₹1,000 Off</div>
+      <h1>Timeless Beauty.<br><i>Thoughtfully Crafted.</i></h1>
+      <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds. Explore our curated vaults and exclusive catalogues.</p>
+      <div class="hero-btns">
+        <a href="#collections" class="btn-gold" style="margin-right: 10px;">EXPLORE PRODUCTS →</a>
+        <a href="customize.html" class="btn-gold" style="background: transparent; border: 1px solid var(--gold, #d4af37); color: var(--gold, #d4af37);">CUSTOMISE RING</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Rates Ticker Bar -->
+  <div class="live-rates-ticker">
+    <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
+    <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
+    <div class="rate-item">18K Gold: <span id="rate18k">Loading...</span></div>
+    <div class="rate-item">14K Gold: <span id="rate14k">Loading...</span></div>
+    <div class="rate-item">9K Gold: <span id="rate9k">Loading...</span></div>
+    <div class="rate-item">Silver (925): <span id="rateSilver">Loading...</span></div>
+  </div>
+
+  <!-- Categories -->
+  <div class="section-title">
+    <p>Shop By Expression</p>
+    <h2>All 16 Categories</h2>
+  </div>
+
+  <div class="category-pills">
+    <a href="Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
+    <a href="Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
+    <a href="Light-Weight-Earrings/index.html" class="pill">Light Weight Earrings</a>
+    <a href="Light-Weight-Ring/index.html" class="pill">Light Weight Rings</a>
+    <a href="Mens-Ring/index.html" class="pill">Men's Rings</a>
+    <a href="Mens-diamonds-ring/index.html" class="pill">Men's Diamond Rings</a>
+    <a href="Teeth-Grillz/index.html" class="pill">Teeth Grillz</a>
+    <a href="bracelet/index.html" class="pill">Bracelets</a>
+    <a href="fancy-shape-band-ring/index.html" class="pill">Fancy Band Rings</a>
+    <a href="mangalsutra/index.html" class="pill">Mangalsutra</a>
+    <a href="necklaces/index.html" class="pill">Necklaces</a>
+    <a href="nosepin/index.html" class="pill">Nosepins</a>
+    <a href="rings/index.html" class="pill">Rings</a>
+    <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
+    <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
+    <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
+  </div>
+
+  <footer>
+    <p>© 2026 ORVÉN JEWELS. All rights reserved. | Luxury E-Commerce Portal</p>
+  </footer>
+
+  <!-- Secure Login & Signup Modal -->
+  <div class="modal-overlay" id="loginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="auth-popup-container" style="max-width: 420px; width: 90%; padding: 30px; background: #0f0f0f; border: 1px solid #d4af37; border-radius: 8px; position: relative;">
+      <button class="close-modal" onclick="closeLoginModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;">&times;</button>
+      
+      <!-- Tabs to Switch -->
+      <div class="auth-tabs" style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+        <button type="button" id="tabLoginBtn" onclick="switchTab('login')" style="background: none; border: none; color: var(--gold, #d4af37); font-weight: bold; font-size: 16px; cursor: pointer; padding-bottom: 5px; border-bottom: 2px solid var(--gold, #d4af37);">Login</button>
+        <button type="button" id="tabSignupBtn" onclick="switchTab('signup')" style="background: none; border: none; color: #888; font-weight: bold; font-size: 16px; cursor: pointer; padding-bottom: 5px;">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginFormWrapper">
+        <div style="font-size:20px; color:#fff; font-weight:600; margin-bottom: 5px;">Secure Mobile Login</div>
+        <p style="margin-bottom: 20px; font-size: 13px; color: #aaa;">Enter your mobile number to sign in. Admins will route automatically.</p>
+        
+        <form onsubmit="handleAuthorizedLogin(event)">
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Mobile Number</label>
+            <input type="text" id="authMobile" required value="+918401715116" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Security PIN / Password</label>
+            <input type="password" id="authPassword" required placeholder="Enter PIN" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+          </div>
+          <button type="submit" style="width: 100%; padding: 12px; background: var(--gold, #d4af37); color: #000; font-weight:600; border: none; cursor: pointer; border-radius: 4px;">Login</button>
+        </form>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signupFormWrapper" style="display: none;">
+        <div style="font-size:20px; color:#fff; font-weight:600; margin-bottom: 5px;">Create New Account</div>
+        <p style="margin-bottom: 20px; font-size: 13px; color: #aaa;">Register your details to join ORVÉN JEWELS.</p>
+        
+        <form onsubmit="handleCustomerSignup(event)">
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Full Name</label>
+            <input type="text" id="signupName" required placeholder="Enter your name" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Mobile Number</label>
+            <input type="text" id="signupMobile" required value="+91" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Create Security PIN</label>
+            <input type="password" id="signupPassword" required placeholder="Set a PIN" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+          </div>
+          <button type="submit" style="width: 100%; padding: 12px; background: var(--gold, #d4af37); color: #000; font-weight:600; border: none; cursor: pointer; border-radius: 4px;">Sign Up</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Link External JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>

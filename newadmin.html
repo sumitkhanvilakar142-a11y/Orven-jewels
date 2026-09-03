@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Family Haven - Admin & Store Manager</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        /* Form Windows / Steps */
+        .admin-step-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-step-card h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Live Preview Section */
+        .preview-section {
+            margin-top: 40px;
+            border-top: 3px dashed var(--primary);
+            padding-top: 30px;
+        }
+
+        .preview-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .phone-preview-frame {
+            background: #fff;
+            border: 12px solid #1e293b;
+            border-radius: 36px;
+            padding: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .store-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .store-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .store-tagline {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .product-card-preview {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .preview-img-box {
+            width: 100%;
+            height: 180px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .preview-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .p-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .badge-hsn {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .price-box {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>The Family Haven - Admin Management</h1>
+
+    <!-- Window 1: Store & Basic Info -->
+    <div class="admin-step-card">
+        <h3>1. Store & Owner Identity</h3>
+        <div class="form-group">
+            <label>Store Name</label>
+            <input type="text" id="inputStoreName" value="The Family Haven" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+            <label>Owner / Curator Name</label>
+            <input type="text" id="inputOwnerName" value="By James Imchen" oninput="updatePreview()">
+        </div>
+    </div>
+
+    <!-- Window 2: Product Categorization -->
+    <div class="admin-step-card">
+        <h3>2. Product Categorization</h3>
+        <div class="row">
+            <div class="form-group">
+                <label>Main Category</label>
+                <select id="inputCategory" onchange="updatePreview()">
+                    <option value="Sarees">Sarees</option>
+                    <option value="Kurtis">Kurtis</option>
+                    <option value="Dresses">Dresses</option>
+                    <option value="Jewelry">Jewelry</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>HSN Code</label>
+                <input type="text" id="inputHsn" value="5208" oninput="updatePreview()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Window 3: Product Description & Title -->
+    <div class="admin-step-card">
+        <h3>3. Product Details</h3>
+        <div class="form-group">
+            <label>Product Title</label>
+            <input type="text" id="inputTitle" value="Baby Pink Kota Doria Cotton-Silk Saree with Block-Printed Florals" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+            <label>Upload Image</label>
+            <input type="file" id="inputImage" accept="image/*" onchange="previewImage(event)">
+        </div>
+    </div>
+
+    <!-- Window 4: Pricing & Margins -->
+    <div class="admin-step-card">
+        <h3>4. Pricing & Margins Setup</h3>
+        <div class="row">
+            <div class="form-group">
+                <label>MRP (₹)</label>
+                <input type="number" id="inputMrp" value="850" oninput="updatePreview()">
+            </div>
+            <div class="form-group">
+                <label>B2B Price (₹)</label>
+                <input type="number" id="inputB2b" value="680" oninput="updatePreview()">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label>Margin (%)</label>
+                <input type="text" id="inputMargin" value="20%" oninput="updatePreview()">
+            </div>
+            <div class="form-group">
+                <label>Margin Amount (₹)</label>
+                <input type="text" id="inputMarginAmt" value="₹170.00" oninput="updatePreview()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Window 5: Store Policies & Meta -->
+    <div class="admin-step-card">
+        <h3>5. Store Badges & Highlights</h3>
+        <div class="form-group">
+            <label>Trust Badges Text</label>
+            <input type="text" id="inputBadge" value="Exclusive on Wcommerce" oninput="updatePreview()">
+        </div>
+    </div>
+
+    <!-- Window 6 & Live Preview Section -->
+    <div class="preview-section">
+        <div class="preview-title">📱 Live Storefront Preview (Customer View)</div>
+        
+        <div class="phone-preview-frame">
+            <div class="store-header">
+                <div>
+                    <div class="store-name" id="prevStoreName">The Family Haven</div>
+                    <div class="store-tagline" id="prevOwnerName">By James Imchen</div>
+                </div>
+            </div>
+
+            <div class="product-card-preview">
+                <div class="preview-img-box" id="imagePreviewBox">
+                    <span style="color: #94a3b8; font-size: 12px;">Product Image</span>
+                </div>
+                <div class="badge-hsn">HSN Code: <span id="prevHsn">5208</span></div>
+                <div class="p-title" id="prevTitle">Baby Pink Kota Doria Cotton-Silk Saree with Block-Printed Florals</div>
+                
+                <div style="font-size: 11px; color: var(--primary); font-weight: 600; margin-bottom: 6px;" id="prevBadge">★ Exclusive on Wcommerce</div>
+                
+                <div class="price-box">
+                    <span>MRP: ₹<span id="prevMrp">850.00</span></span>
+                    <span style="color: #16a34a;">B2B: ₹<span id="prevB2b">680.00</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function updatePreview() {
+        document.getElementById('prevStoreName').innerText = document.getElementById('inputStoreName').value;
+        document.getElementById('prevOwnerName').innerText = document.getElementById('inputOwnerName').value;
+        document.getElementById('prevHsn').innerText = document.getElementById('inputHsn').value;
+        document.getElementById('prevTitle').innerText = document.getElementById('inputTitle').value;
+        document.getElementById('prevMrp').innerText = document.getElementById('inputMrp').value + '.00';
+        document.getElementById('prevB2b').innerText = document.getElementById('inputB2b').value + '.00';
+        document.getElementById('prevBadge').innerText = '★ ' + document.getElementById('inputBadge').value;
+    }
+
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const box = document.getElementById('imagePreviewBox');
+                box.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+</body>
+</html>

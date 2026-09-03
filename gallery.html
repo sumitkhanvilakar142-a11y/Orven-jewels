@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Vault - ORVÉN JEWELS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .product-detail-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    @media(max-width: 768px) {
+      .product-detail-container { grid-template-columns: 1fr; }
+    }
+    .product-image-box img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .product-info-box h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+    .hsn-badge {
+      display: inline-block;
+      background: #1a1214;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      font-size: 11px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .price-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+    .price-row.main {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .price-row span.val { color: var(--gold); }
+    .whatsapp-order-btn {
+      display: block;
+      width: 100%;
+      background: #25D366;
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      border-radius: 4px;
+      text-transform: uppercase;
+      transition: opacity 0.3s;
+    }
+    .whatsapp-order-btn:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar">✦ 100% SECURE PAYMENTS & INSURED SHIPPING</div>
+
+  <header>
+    <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="calculator.html">Price Calculator</a>
+    </nav>
+  </header>
+
+  <div class="product-detail-container">
+    <div class="product-image-box">
+      <img src="IMG-20260812-WA0196.jpg" alt="Luxury Jewellery">
+    </div>
+    <div class="product-info-box">
+      <div class="card-tag">Handcrafted Masterpiece</div>
+      <h1>Royal Diamond Studded Cocktail Ring</h1>
+      <div class="hsn-badge">HSN Code: 7113</div>
+
+      <div class="price-box">
+        <div class="price-row main">
+          <span>Selling Price</span>
+          <span class="val">₹18,500.00</span>
+        </div>
+        <div class="price-row">
+          <span>MRP:</span>
+          <span>₹22,000.00</span>
+        </div>
+        <div class="price-row">
+          <span>Wholesale / B2B Price:</span>
+          <span style="color:#fff;">₹15,200.00</span>
+        </div>
+        <div class="price-row">
+          <span>Margin Support:</span>
+          <span>15%</span>
+        </div>
+      </div>
+
+      <a href="https://wa.me/919876543210?text=Hello,%20I%20want%20to%20enquire%20about%20Royal%20Diamond%20Studded%20Cocktail%20Ring" target="_blank" class="whatsapp-order-btn">
+        💬 Order / Enquire on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 ORVÉN JEWELS. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
