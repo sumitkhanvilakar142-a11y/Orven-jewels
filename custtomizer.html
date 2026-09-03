@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORVÉN JEWELS — Bespoke Ring Customizer Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Three.js and Addons via Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <style>
+    :root{
+      --ivory:#F6F3EC;
+      --panel:#FFFFFF;
+      --ink:#1C1A17;
+      --ink-soft:#6B655C;
+      --line:#E5E0D5;
+      --gold:#A5824A;
+      --gold-soft:#EFE4CC;
+      --whatsapp:#25D366;
+      --radius:2px;
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--ivory);
+      color:var(--ink);
+      font-family:'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* ---------- HEADER ---------- */
+    .site-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:22px 40px;
+      border-bottom:1px solid var(--line);
+      background:var(--panel);
+    }
+    .logo{
+      font-family:'Cinzel', 'Georgia', serif;
+      font-size:22px;
+      letter-spacing:3px;
+      color:var(--ink);
+      text-decoration:none;
+      font-weight: 700;
+    }
+    .logo span{ color:var(--gold); font-weight:400; }
+    .back-link{
+      color:var(--ink-soft);
+      text-decoration:none;
+      font-size:13px;
+      letter-spacing:0.5px;
+    }
+    .back-link:hover{ color:var(--ink); }
+
+    /* ---------- STEP TRACKER ---------- */
+    .customizer{ max-width:1280px; margin:0 auto; padding:36px 40px 80px; }
+    .step-tracker h1{
+      font-family:'Cinzel', 'Georgia', serif;
+      font-size:32px;
+      letter-spacing:1px;
+      margin:0 0 4px;
+    }
+    .step-tracker .sub{ color:var(--ink-soft); margin:0 0 28px; font-size:14px; }
+
+    .steps{
+      display:flex;
+      list-style:none;
+      padding:0;
+      margin:0 0 40px;
+      gap:6px;
+    }
+    .steps li{
+      flex:1;
+      text-align:center;
+      font-size:11px;
+      letter-spacing:0.5px;
+      color:var(--ink-soft);
+      position:relative;
+      padding-top:36px;
+    }
+    .steps li span{
+      position:absolute;
+      top:0; left:50%;
+      transform:translateX(-50%);
+      width:26px; height:26px;
+      border-radius:50%;
+      border:1px solid var(--ink-soft);
+      display:flex; align-items:center; justify-content:center;
+      font-size:12px;
+      background:var(--panel);
+    }
+    .steps li.active{ color:var(--ink); font-weight:600; }
+    .steps li.active span{ background:var(--ink); color:#fff; border-color:var(--ink); }
+    .steps li:not(:last-child)::after{
+      content:'';
+      position:absolute;
+      top:13px; left:calc(50% + 20px);
+      width:calc(100% - 26px);
+      height:1px;
+      background:var(--line);
+    }
+
+    /* ---------- BUILDER LAYOUT ---------- */
+    .builder{
+      display:grid;
+      grid-template-columns:340px 1fr;
+      gap:32px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .builder{ grid-template-columns:1fr; }
+    }
+
+    /* ---------- OPTIONS PANEL ---------- */
+    .options-panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:24px;
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+    }
+    .option-group{ margin-bottom:28px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+    .option-group:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+    .option-group h2{
+      font-size:13px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      margin:0 0 14px;
+      color:var(--ink);
+      font-weight:600;
+    }
+
+    .swatch-list{ display:flex; gap:10px; }
+    .swatch-list.wrap{ flex-wrap:wrap; }
+
+    .swatch{
+      flex:1;
+      min-width:70px;
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      padding:10px 6px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      cursor:pointer;
+      font-size:11px;
+      color:var(--ink-soft);
+      border-radius:var(--radius);
+      transition:all .15s ease;
+    }
+    .swatch span{
+      width:28px; height:28px;
+      border-radius:50%;
+      display:block;
+      border:1px solid #00000022;
+    }
+    .metal-silver span{ background:linear-gradient(160deg,#F4F5F7,#8C8F94); }
+    .metal-white span{ background:linear-gradient(160deg,#FBFAF6,#B7B29F); }
+    .metal-rose span{ background:linear-gradient(160deg,#F6D8CC,#B8776A); }
+    .metal-yellow span{ background:linear-gradient(160deg,#F7E6AC,#B4913A); }
+
+    .swatch.active, .swatch:hover{ border-color:var(--ink); color:var(--ink); }
+    .swatch.active{ box-shadow:inset 0 0 0 1px var(--ink); }
+
+    .toggle-pair{ display:flex; border:1px solid var(--line); border-radius:20px; overflow:hidden; margin-bottom:14px; width:fit-content; }
+    .toggle-btn{
+      border:none; background:var(--panel); padding:8px 18px; font-size:12px;
+      cursor:pointer; color:var(--ink-soft);
+    }
+    .toggle-btn.active{ background:var(--ink); color:#fff; }
+
+    .shape-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .shape-btn{
+      display:flex; flex-direction:column; align-items:center; gap:4px;
+      padding:8px 4px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      cursor:pointer;
+      font-size:10px;
+      color:var(--ink-soft);
+      border-radius:var(--radius);
+    }
+    .shape-btn svg{ width:24px; height:24px; fill:none; stroke:var(--ink-soft); stroke-width:2; }
+    .shape-btn.active{ border-color:var(--ink); color:var(--ink); }
+    .shape-btn.active svg{ stroke:var(--ink); fill:var(--gold-soft); }
+
+    .size-select{
+      width:100%;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      font-size:13px;
+      color:var(--ink);
+      border-radius:var(--radius);
+    }
+
+    /* ---------- PREVIEW PANEL ---------- */
+    .preview-panel{ display:flex; flex-direction:column; gap:20px; }
+
+    .preview-toolbar{ display:flex; gap:10px; justify-content:flex-end; }
+    .preview-toolbar button{
+      border:1px solid var(--line);
+      background:var(--panel);
+      padding:8px 14px;
+      font-size:12px;
+      color:var(--ink-soft);
+      cursor:pointer;
+      border-radius:20px;
+    }
+    .preview-toolbar button:hover{ border-color:var(--ink); color:var(--ink); }
+
+    .ring-stage{
+      position:relative;
+      background:radial-gradient(circle at 50% 35%, #FFFFFF, #EDE8DC);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      height:460px;
+      overflow:hidden;
+    }
+    #ringCanvas{
+      width:100%;
+      height:100%;
+      display:block;
+      cursor:grab;
+    }
+    #ringCanvas:active{ cursor:grabbing; }
+    .stage-hint{
+      position:absolute;
+      bottom:12px; left:50%;
+      transform:translateX(-50%);
+      font-size:11px;
+      letter-spacing:0.5px;
+      color:var(--ink-soft);
+      background:rgba(255,255,255,0.7);
+      padding:4px 12px;
+      border-radius:20px;
+      pointer-events:none;
+    }
+    @media (max-width: 600px){
+      .ring-stage{ height:340px; }
+    }
+
+    .summary-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:24px;
+    }
+    .summary-header h3{ margin:0 0 16px; font-size:15px; letter-spacing:0.5px; font-family:'Cinzel', serif; }
+    .summary-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px 20px;
+      padding-bottom:18px;
+      border-bottom:1px solid var(--line);
+      margin-bottom:18px;
+    }
+    .summary-grid .label{ display:block; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.5px; }
+    .summary-grid .value{ display:block; font-size:14px; margin-top:2px; font-weight: 500; }
+
+    .price-row{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px; }
+    .price-row .label{ font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.5px; }
+    .price{ font-family:'Cinzel', 'Georgia', serif; font-size:28px; margin:4px 0; color: var(--gold); }
+    .price-row small{ color:var(--ink-soft); font-size:11px; }
+
+    .cta-row{ display:flex; flex-direction:column; gap:10px; }
+    .btn-dark{
+      background:var(--ink); color:#fff; border:none; padding:14px;
+      font-size:13px; letter-spacing:0.5px; cursor:pointer; border-radius:var(--radius); text-transform: uppercase; font-weight: 600;
+    }
+    .btn-dark:hover{ background:#000; }
+    .btn-whatsapp{
+      background:var(--whatsapp); color:#fff; text-align:center; text-decoration:none;
+      padding:14px; font-size:13px; letter-spacing:0.5px; border-radius:var(--radius); text-transform: uppercase; font-weight: 600;
+    }
+    .btn-whatsapp:hover{ filter:brightness(0.95); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="index.html" class="logo">ORVÉN <span>JEWELS</span></a>
+    <a href="index.html" class="back-link">← Back to Collections</a>
+  </header>
+
+  <!-- CUSTOMIZER CONTAINER -->
+  <div class="customizer">
+    <div class="step-tracker">
+      <h1>Bespoke Studio</h1>
+      <p class="sub">Craft your custom fine jewellery piece with real-time 3D preview.</p>
+
+      <ul class="steps">
+        <li class="active"><span>1</span>Metal</li>
+        <li class="active"><span>2</span>Band</li>
+        <li class="active"><span>3</span>Stone Quality</li>
+        <li class="active"><span>4</span>Shape</li>
+        <li class="active"><span>5</span>Setting</li>
+        <li class="active"><span>6</span>Size & Review</li>
+      </ul>
+    </div>
+
+    <div class="builder">
+      <!-- OPTIONS SIDEBAR -->
+      <aside class="options-panel">
+        
+        <!-- Metal Selection -->
+        <div class="option-group">
+          <h2>1. Select Metal</h2>
+          <div class="swatch-list" id="metalOptions">
+            <button class="swatch metal-silver active" data-value="Silver 925" data-color="#C9CCD1" data-price="0"><span></span>Silver 925</button>
+            <button class="swatch metal-white" data-value="18K White Gold" data-color="#E2E2E5" data-price="18000"><span></span>18K White</button>
+            <button class="swatch metal-yellow" data-value="18K Yellow Gold" data-color="#F3D27E" data-price="18000"><span></span>18K Yellow</button>
+            <button class="swatch metal-rose" data-value="18K Rose Gold" data-color="#EAA695" data-price="18000"><span></span>18K Rose</button>
+          </div>
+        </div>
+
+        <!-- Band Style -->
+        <div class="option-group">
+          <h2>2. Band Style</h2>
+          <div class="swatch-list wrap" id="bandOptions">
+            <button class="swatch active" data-value="Classic Plain Band" data-style="plain" data-price="0"><span>💍</span>Plain</button>
+            <button class="swatch" data-value="Pavé Accent Band" data-style="pave" data-price="12000"><span>✨</span>Pavé</button>
+            <button class="swatch" data-value="Engraved Groove Band" data-style="engraved" data-price="4000"><span>✒️</span>Groove</button>
+          </div>
+        </div>
+
+        <!-- Stone Quality -->
+        <div class="option-group">
+          <h2>3. Stone Origin</h2>
+          <div class="toggle-pair" id="stoneQuality">
+            <button class="toggle-btn active" data-value="Lab-Grown">Lab-Grown Diamond</button>
+            <button class="toggle-btn" data-value="Natural">Natural Diamond (+₹45k)</button>
+          </div>
+        </div>
+
+        <!-- Stone Shape -->
+        <div class="option-group">
+          <h2>4. Gemstone Shape</h2>
+          <div class="shape-grid" id="shapeOptions">
+            <button class="shape-btn active" data-value="Round" data-price="0">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>Round
+            </button>
+            <button class="shape-btn" data-value="Oval" data-price="3000">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="7" ry="10"/></svg>Oval
+            </button>
+            <button class="shape-btn" data-value="Pear" data-price="4500">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8 8 6 11 6 15a6 6 0 0 0 12 0c0-4-2-7-6-13z"/></svg>Pear
+            </button>
+            <button class="shape-btn" data-value="Marquise" data-price="5000">
+              <svg viewBox="0 0 24 24"><path d="M12 2C16 8 19 11 19 12S16 16 12 22C8 16 5 13 5 12S8 6 12 2z"/></svg>Marquise
+            </button>
+            <button class="shape-btn" data-value="Heart" data-price="6000">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-8.5a5.5 5.5 0 0 1 8-7.5l1.5 1.5L13.5 5a5.5 5.5 0 0 1 8 7.5C19 16.5 12 21 12 21z"/></svg>Heart
+            </button>
+            <button class="shape-btn" data-value="Princess" data-price="2000">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg>Princess
+            </button>
+            <button class="shape-btn" data-value="Cushion" data-price="3500">
+              <svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="4"/></svg>Cushion
+            </button>
+            <button class="shape-btn" data-value="Emerald" data-price="4000">
+              <svg viewBox="0 0 24 24"><path d="M7 3h10l4 4v10l-4 4H7l-4-4V7z"/></svg>Emerald
+            </button>
+          </div>
+        </div>
+
+        <!-- Setting Style -->
+        <div class="option-group">
+          <h2>5. Setting Style</h2>
+          <div class="shape-grid" style="grid-template-columns: repeat(2, 1fr);" id="settingOptions">
+            <button class="shape-btn active" data-value="Prong Setting" data-price="0">Classic 4-Prong</button>
+            <button class="shape-btn" data-value="Halo Setting" data-price="14000">Pavé Halo</button>
+            <button class="shape-btn" data-value="Bezel Setting" data-price="6000">Modern Bezel</button>
+            <button class="shape-btn" data-value="Cathedral Setting" data-price="8000">Cathedral Arch</button>
+          </div>
+        </div>
+
+        <!-- Size Selection -->
+        <div class="option-group">
+          <h2>6. Ring Size</h2>
+          <div class="toggle-pair" id="sizeSystem" style="margin-bottom: 8px;">
+            <button class="toggle-btn active" data-value="US">US Ring Size</button>
+            <button class="toggle-btn" data-value="IND">Indian Size</button>
+          </div>
+          <select id="sizeSelect" class="size-select"></select>
+        </div>
+
+      </aside>
+
+      <!-- PREVIEW PANEL -->
+      <main class="preview-panel">
+        
+        <div class="preview-toolbar">
+          <button id="rotateBtn">Auto Rotate</button>
+          <button id="zoomBtn">Toggle Zoom</button>
+        </div>
+
+        <div class="ring-stage" id="ringStage">
+          <canvas id="ringCanvas"></canvas>
+          <div class="stage-hint">Drag to rotate • Scroll to zoom</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-header">
+            <h3>Custom Configuration Summary</h3>
+          </div>
+          <div class="summary-grid">
+            <div><span class="label">Metal</span><span class="value" id="sumMetal">-</span></div>
+            <div><span class="label">Band</span><span class="value" id="sumBand">-</span></div>
+            <div><span class="label">Gemstone</span><span class="value" id="sumStone">-</span></div>
+            <div><span class="label">Setting</span><span class="value" id="sumSetting">-</span></div>
+            <div><span class="label">Ring Size</span><span class="value" id="sumSize">-</span></div>
+          </div>
+
+          <div class="price-row">
+            <div>
+              <span class="label">Estimated Total Price</span>
+              <div class="price" id="priceTotal">₹0</div>
+              <small>Inclusive of all making charges & GST</small>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <button class="btn-dark" id="requestDesignBtn">Submit Design Request</button>
+            <a class="btn-whatsapp" id="whatsappBtn" href="#" target="_blank">Chat & Order via WhatsApp</a>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- EMBEDDED THREE.JS APPLICATION SCRIPT -->
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+    (function () {
+      "use strict";
+
+      const BASE_PRICE = 22450; 
+      const WHATSAPP_NUMBER = "917085628953"; 
+
+      const SIZE_LISTS = {
+        US: [6, 7, 8, 9, 10],
+        IND: [13, 14, 15, 16, 17, 18, 19, 20, 21]
+      };
+
+      const state = {
+        metal: { value: "Silver 925", color: "#C9CCD1", price: 0 },
+        band: { value: "Classic Plain Band", style: "plain", price: 0 },
+        quality: "Lab-Grown",
+        stone: { value: "Round", price: 0 },
+        setting: { value: "Prong Setting", price: 0 },
+        sizeSystem: "US",
+        size: 6
+      };
+
+      const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+      const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+      const sizeSelect = $("#sizeSelect");
+
+      function wireGroup(containerId, onSelect) {
+        const container = $("#" + containerId);
+        if (!container) return;
+        $$("button", container).forEach((btn) => {
+          btn.addEventListener("click", () => {
+            $$("button", container).forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            onSelect(btn);
+          });
+        });
+      }
+
+      wireGroup("metalOptions", (btn) => {
+        state.metal = { value: btn.dataset.value, color: btn.dataset.color, price: Number(btn.dataset.price) };
+        updateMetalMaterial();
+        render();
+      });
+
+      wireGroup("bandOptions", (btn) => {
+        state.band = { value: btn.dataset.value, style: btn.dataset.style, price: Number(btn.dataset.price) };
+        updateBandStyle();
+        render();
+      });
+
+      wireGroup("stoneQuality", (btn) => {
+        state.quality = btn.dataset.value;
+        render();
+      });
+
+      wireGroup("shapeOptions", (btn) => {
+        state.stone = { value: btn.dataset.value, price: Number(btn.dataset.price) };
+        updateGemShape();
+        render();
+      });
+
+      wireGroup("settingOptions", (btn) => {
+        state.setting = { value: btn.dataset.value, price: Number(btn.dataset.price) };
+        updateSettingStyle();
+        render();
+      });
+
+      wireGroup("sizeSystem", (btn) => {
+        state.sizeSystem = btn.dataset.value;
+        populateSizes();
+        render();
+      });
+
+      function populateSizes() {
+        const list = SIZE_LISTS[state.sizeSystem];
+        sizeSelect.innerHTML = list.map((s) => `<option value="${s}">${state.sizeSystem} - ${s}</option>`).join("");
+        state.size = list[0];
+      }
+      sizeSelect.addEventListener("change", (e) => {
+        state.size = e.target.value;
+        render();
+      });
+
+      // 3D SCENE SETUP
+      const stage = $("#ringStage");
+      const canvas = $("#ringCanvas");
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+      camera.position.set(0, 1.1, 4.2);
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.6);
+      keyLight.position.set(3, 5, 4);
+      scene.add(keyLight);
+      const fillLight = new THREE.DirectionalLight(0xffffff, 0.6);
+      fillLight.position.set(-4, 2, -2);
+      scene.add(fillLight);
+      const rimLight = new THREE.PointLight(0xffffff, 0.8);
+      rimLight.position.set(0, -2, -3);
+      scene.add(rimLight);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.minDistance = 2.4;
+      controls.maxDistance = 6.5;
+      controls.enablePan = false;
+      controls.target.set(0, 0.15, 0);
+      controls.maxPolarAngle = Math.PI * 0.85;
+      controls.minPolarAngle = Math.PI * 0.15;
+
+      const ringGroup = new THREE.Group();
+      ringGroup.rotation.x = -0.15;
+      scene.add(ringGroup);
+
+      const metalMaterial = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(state.metal.color),
+        metalness: 1,
+        roughness: 0.22,
+        envMapIntensity: 1.3
+      });
+
+      const bandGeometry = new THREE.TorusGeometry(1, 0.14, 48, 160);
+      const bandMesh = new THREE.Mesh(bandGeometry, metalMaterial);
+      bandMesh.rotation.x = Math.PI / 2;
+      ringGroup.add(bandMesh);
+
+      const paveGeometry = new THREE.TorusGeometry(1, 0.045, 16, 160);
+      const paveMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff, metalness: 0, roughness: 0.05, transmission: 1, thickness: 0.3, ior: 2.2, envMapIntensity: 1.4
+      });
+      const paveMesh = new THREE.Mesh(paveGeometry, paveMaterial);
+      paveMesh.rotation.x = Math.PI / 2;
+      paveMesh.position.y = 0.16;
+      paveMesh.visible = false;
+      ringGroup.add(paveMesh);
+
+      const engraveGeometry = new THREE.TorusGeometry(1, 0.02, 8, 160);
+      const engraveMaterial = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, metalness: 0.6, roughness: 0.5 });
+      const engraveMesh = new THREE.Mesh(engraveGeometry, engraveMaterial);
+      engraveMesh.rotation.x = Math.PI / 2;
+      engraveMesh.position.y = -0.03;
+      engraveMesh.visible = false;
+      ringGroup.add(engraveMesh);
+
+      function updateBandStyle() {
+        paveMesh.visible = state.band.style === "pave";
+        engraveMesh.visible = state.band.style === "engraved";
+      }
+
+      const gemMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xfefeff,
+        metalness: 0,
+        roughness: 0.02,
+        transmission: 1,
+        thickness: 0.6,
+        ior: 2.42,
+        envMapIntensity: 1.6,
+        clearcoat: 1,
+        clearcoatRoughness: 0.03
+      });
+
+      const brilliantGeometry = new THREE.OctahedronGeometry(0.42, 0);
+      const stepGeometry = new THREE.BoxGeometry(0.55, 0.55, 0.4);
+
+      const gemMesh = new THREE.Mesh(brilliantGeometry, gemMaterial);
+      gemMesh.position.set(0, 1.02, 0.02);
+      ringGroup.add(gemMesh);
+
+      const SHAPE_CONFIG = {
+        Round: { geo: brilliantGeometry, scale: [1, 1, 1] },
+        Oval: { geo: brilliantGeometry, scale: [0.8, 1.3, 0.8] },
+        Pear: { geo: brilliantGeometry, scale: [0.75, 1.35, 0.75] },
+        Marquise: { geo: brilliantGeometry, scale: [0.55, 1.5, 0.55] },
+        Heart: { geo: brilliantGeometry, scale: [0.95, 1.05, 0.85] },
+        Princess: { geo: stepGeometry, scale: [1, 1, 1] },
+        Cushion: { geo: stepGeometry, scale: [1, 1, 0.9] },
+        Emerald: { geo: stepGeometry, scale: [0.85, 1.25, 0.85] }
+      };
+
+      function updateGemShape() {
+        const cfg = SHAPE_CONFIG[state.stone.value] || SHAPE_CONFIG.Round;
+        gemMesh.geometry = cfg.geo;
+        gemMesh.scale.set(cfg.scale[0], cfg.scale[1], cfg.scale[2]);
+      }
+
+      const prongGroup = new THREE.Group();
+      const prongGeo = new THREE.ConeGeometry(0.045, 0.22, 8);
+      const prongPositions = [
+        [0.32, 0.9, 0.28], [-0.32, 0.9, 0.28], [0.32, 0.9, -0.24], [-0.32, 0.9, -0.24]
+      ];
+      prongPositions.forEach((p) => {
+        const prong = new THREE.Mesh(prongGeo, metalMaterial);
+        prong.position.set(p[0], p[1], p[2]);
+        prongGroup.add(prong);
+      });
+      ringGroup.add(prongGroup);
+
+      const haloGeometry = new THREE.TorusGeometry(0.55, 0.05, 16, 64);
+      const haloMesh = new THREE.Mesh(haloGeometry, metalMaterial);
+      haloMesh.position.set(0, 1.0, 0.02);
+      haloMesh.visible = false;
+      ringGroup.add(haloMesh);
+
+      const bezelGeometry = new THREE.TorusGeometry(0.46, 0.06, 16, 64);
+      const bezelMesh = new THREE.Mesh(bezelGeometry, metalMaterial);
+      bezelMesh.position.set(0, 1.0, 0.02);
+      bezelMesh.visible = false;
+      ringGroup.add(bezelMesh);
+
+      function updateSettingStyle() {
+        const s = state.setting.value;
+        prongGroup.visible = s.startsWith("Prong") || s.startsWith("Solitaire") || s.startsWith("Cathedral");
+        haloMesh.visible = s.startsWith("Halo");
+        bezelMesh.visible = s.startsWith("Bezel") || s.startsWith("Tension");
+      }
+
+      function updateMetalMaterial() {
+        metalMaterial.color.set(state.metal.color);
+      }
+
+      function resizeRenderer() {
+        const w = stage.clientWidth;
+        const h = stage.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h, false);
+      }
+      window.addEventListener("resize", resizeRenderer);
+      if (window.ResizeObserver) {
+        new ResizeObserver(resizeRenderer).observe(stage);
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      $("#rotateBtn").addEventListener("click", () => {
+        controls.autoRotate = !controls.autoRotate;
+        controls.autoRotateSpeed = 6;
+      });
+
+      let zoomed = false;
+      $("#zoomBtn").addEventListener("click", () => {
+        zoomed = !zoomed;
+        const targetDistance = zoomed ? 2.6 : 4.2;
+        const dir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
+        camera.position.copy(controls.target).addScaledVector(dir, targetDistance);
+      });
+
+      function computePrice() {
+        let total = BASE_PRICE + state.metal.price + state.band.price + state.stone.price + state.setting.price;
+        if (state.quality === "Natural") total += 45000;
+        return total;
+      }
+
+      function renderSummary() {
+        $("#sumMetal").textContent = state.metal.value;
+        $("#sumBand").textContent = state.band.value;
+        $("#sumStone").textContent = `${state.stone.value} (${state.quality})`;
+        $("#sumSetting").textContent = state.setting.value;
+        $("#sumSize").textContent = `${state.sizeSystem} - ${state.size}`;
+
+        const price = computePrice();
+        $("#priceTotal").textContent = "₹" + price.toLocaleString("en-IN");
+        return price;
+      }
+
+      function renderWhatsappLink(price) {
+        const msg = 
+          `Hi ORVÉN JEWELS, I'd like to request this custom ring design:%0A` +
+          `Metal: ${state.metal.value}%0A` +
+          `Band: ${state.band.value}%0A` +
+          `Stone: ${state.stone.value} (${state.quality})%0A` +
+          `Setting: ${state.setting.value}%0A` +
+          `Ring Size: ${state.sizeSystem} - ${state.size}%0A` +
+          `Estimated Price: ₹${price.toLocaleString("en-IN")}`;
+        $("#whatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      }
+
+      function render() {
+        const price = renderSummary();
+        renderWhatsappLink(price);
+      }
+
+      $("#requestDesignBtn").addEventListener("click", () => {
+        const price = computePrice();
+        alert(
+          `Design request captured successfully!\n\n` +
+          `Metal: ${state.metal.value}\nBand: ${state.band.value}\n` +
+          `Stone: ${state.stone.value} (${state.quality})\nSetting: ${state.setting.value}\n` +
+          `Size: ${state.sizeSystem} - ${state.size}\nEstimated Price: ₹${price.toLocaleString("en-IN")}`
+        );
+      });
+
+      populateSizes();
+      updateMetalMaterial();
+      updateBandStyle();
+      updateGemShape();
+      updateSettingStyle();
+      render();
+      resizeRenderer();
+      animate();
+    })();
+  </script>
+</body>
+</html>
