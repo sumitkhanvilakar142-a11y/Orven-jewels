@@ -155,7 +155,7 @@
       overflow: hidden;
     }
     model-viewer { width: 100%; height: 100%; background: var(--panel-bg); }
-    .view-badge { position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.6); border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 5px 12px; border-radius: 15px; font-size: 10px; letter-spacing: 1px; }
+    .view-badge { position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.6); border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 5px 12px; border-radius: 15px; font-size: 10px; letter-spacing: 1px; z-index: 10; }
 
     /* Thumbnails Selector */
     .thumbs-row { display: flex; gap: 10px; justify-content: center; }
@@ -199,7 +199,6 @@
 </head>
 <body>
 
-  <!-- Top Navigation -->
   <header class="top-header">
     <a href="index.html" class="brand-logo">ORVÉN JEWELS</a>
     <nav class="nav-links">
@@ -213,12 +212,10 @@
 
   <div class="studio-container">
     
-    <!-- LEFT SIDEBAR -->
     <aside class="options-sidebar">
       <div class="sidebar-title">BESPOKE STUDIO</div>
       <div class="sidebar-sub">Design your perfect piece in 6 simple steps</div>
 
-      <!-- Step 1 -->
       <div class="step-box">
         <div class="step-label">1. Choose Style</div>
         <div class="options-grid cols-4">
@@ -229,18 +226,16 @@
         </div>
       </div>
 
-      <!-- Step 2 -->
       <div class="step-box">
         <div class="step-label">2. Choose Metal</div>
         <div class="options-grid cols-4">
-          <div class="opt-card active" onclick="updateConfig('metal', '18K Yellow Gold', this)"><div class="title">18K Yellow</div></div>
-          <div class="opt-card" onclick="updateConfig('metal', '18K White Gold', this)"><div class="title">18K White</div></div>
-          <div class="opt-card" onclick="updateConfig('metal', '18K Rose Gold', this)"><div class="title">18K Rose</div></div>
-          <div class="opt-card" onclick="updateConfig('metal', '950 Platinum', this)"><div class="title">Platinum</div></div>
+          <div class="opt-card active" onclick="updateConfig('metal', '18K Yellow Gold', this); updateMetalColor('yellow')"><div class="title">18K Yellow</div></div>
+          <div class="opt-card" onclick="updateConfig('metal', '18K White Gold', this); updateMetalColor('white')"><div class="title">18K White</div></div>
+          <div class="opt-card" onclick="updateConfig('metal', '18K Rose Gold', this); updateMetalColor('rose')"><div class="title">18K Rose</div></div>
+          <div class="opt-card" onclick="updateConfig('metal', '950 Platinum', this); updateMetalColor('platinum')"><div class="title">Platinum</div></div>
         </div>
       </div>
 
-      <!-- Step 3 -->
       <div class="step-box">
         <div class="step-label">3. Diamond / Stone</div>
         <div class="options-grid cols-2">
@@ -249,7 +244,6 @@
         </div>
       </div>
 
-      <!-- Step 4 -->
       <div class="step-box">
         <div class="step-label">4. Width</div>
         <div class="options-grid cols-5">
@@ -261,7 +255,6 @@
         </div>
       </div>
 
-      <!-- Step 5 -->
       <div class="step-box">
         <div class="step-label">5. Length & Clasp</div>
         <div class="options-grid cols-2">
@@ -270,14 +263,12 @@
         </div>
       </div>
 
-      <!-- Step 6 -->
       <div class="step-box" style="border:none;">
         <div class="step-label">6. Engraving (Optional)</div>
         <input type="text" class="text-input" id="engravingInput" placeholder="Enter text for engraving" oninput="updateEngraving(this.value)">
       </div>
     </aside>
 
-    <!-- RIGHT PREVIEW -->
     <main class="preview-area">
       <div class="top-action-bar">
         <a href="index.html" class="back-btn">← BACK TO HOME</a>
@@ -289,7 +280,6 @@
         <div class="sub-heading">Design your perfect piece in 6 simple steps</div>
       </div>
 
-      <!-- Steps Progress Tracker -->
       <div class="steps-progress">
         <div class="step-node active"><div class="step-circle">1</div>Style</div>
         <div class="step-node active"><div class="step-circle">2</div>Metal</div>
@@ -299,19 +289,18 @@
         <div class="step-node active"><div class="step-circle">6</div>Preview</div>
       </div>
 
-      <!-- 3D Stage Viewer -->
       <div class="stage-box">
-        <div class="view-badge">🔄 360° VIEW</div>
+        <div class="view-badge">🔄 360° LIVE VIEW</div>
         <model-viewer 
+          id="ringViewer"
           src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-          alt="3D Custom Model" 
+          alt="Bespoke 3D Ring Model" 
           auto-rotate 
           camera-controls 
           shadow-intensity="1">
         </model-viewer>
       </div>
 
-      <!-- Thumbnails -->
       <div class="thumbs-row">
         <div class="thumb-btn active"><span>💍</span><b>Front View</b></div>
         <div class="thumb-btn"><span>📐</span><b>Side View</b></div>
@@ -320,7 +309,6 @@
         <div class="thumb-btn"><span>✨</span><b>360° View</b></div>
       </div>
 
-      <!-- Summary -->
       <div class="summary-box">
         <div>
           <div class="summary-title">YOUR DESIGN SUMMARY</div>
@@ -341,7 +329,6 @@
         </div>
       </div>
 
-      <!-- Pricing Bar -->
       <div class="pricing-bar">
         <div>
           <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Estimated Price</div>
@@ -384,6 +371,26 @@
       if(priceVal) {
         currentConfig.price = priceVal;
         document.getElementById('priceDisplay').innerText = '₹ ' + priceVal.toLocaleString('en-IN');
+      }
+    }
+
+    // Dynamic 3D Metal Color Changer Function
+    function updateMetalColor(type) {
+      const viewer = document.getElementById('ringViewer');
+      if (!viewer.model) return;
+
+      const material = viewer.model.materials[0];
+      if (!material) return;
+
+      // Setting realistic color tones for different metals
+      if (type === 'yellow') {
+        material.pbrMetallicRoughness.setBaseColorFactor([0.95, 0.82, 0.25, 1.0]); // Gold
+      } else if (type === 'white') {
+        material.pbrMetallicRoughness.setBaseColorFactor([0.90, 0.90, 0.92, 1.0]); // White Gold
+      } else if (type === 'rose') {
+        material.pbrMetallicRoughness.setBaseColorFactor([0.92, 0.70, 0.65, 1.0]); // Rose Gold
+      } else if (type === 'platinum') {
+        material.pbrMetallicRoughness.setBaseColorFactor([0.80, 0.82, 0.85, 1.0]); // Platinum
       }
     }
 
