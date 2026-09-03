@@ -258,7 +258,7 @@
   <!-- Navbar -->
   <header class="navbar">
     <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
-    <nav class="nav-links">
+    <nav class="nav-links nav">
       <a href="gallery.html">Gallery</a>
       <a href="calculator.html">Price Calculator</a>
       <a href="customize.html" style="color: var(--gold); font-weight: 600;">Custom Jewellery</a>
@@ -282,7 +282,7 @@
       <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds. Explore our curated vaults and exclusive catalogues.</p>
       <div class="hero-btns">
         <a href="#collections" class="btn-gold">EXPLORE PRODUCTS →</a>
-        <a href="customize.html" class="btn-gold" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);">CUSTOMISE RING</a>
+        <a href="customize.html" class="btn-gold" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);" data-product="Custom Ring">CUSTOMISE RING</a>
       </div>
     </div>
   </section>
@@ -304,22 +304,22 @@
   </div>
 
   <div class="category-pills">
-    <a href="Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
-    <a href="Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
-    <a href="Light-Weight-Earrings/index.html" class="pill">Light Weight Earrings</a>
-    <a href="Light-Weight-Ring/index.html" class="pill">Light Weight Rings</a>
-    <a href="Mens-Ring/index.html" class="pill">Men's Rings</a>
-    <a href="Mens-diamonds-ring/index.html" class="pill">Men's Diamond Rings</a>
-    <a href="Teeth-Grillz/index.html" class="pill">Teeth Grillz</a>
-    <a href="bracelet/index.html" class="pill">Bracelets</a>
-    <a href="fancy-shape-band-ring/index.html" class="pill">Fancy Band Rings</a>
-    <a href="mangalsutra/index.html" class="pill">Mangalsutra</a>
-    <a href="necklaces/index.html" class="pill">Necklaces</a>
-    <a href="nosepin/index.html" class="pill">Nosepins</a>
-    <a href="rings/index.html" class="pill">Rings</a>
-    <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
-    <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
-    <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
+    <a href="Cocktail-Ring/index.html" class="pill" data-product="Cocktail Rings">Cocktail Rings</a>
+    <a href="Diamond-Studs-for-Girls/index.html" class="pill" data-product="Diamond Studs">Diamond Studs</a>
+    <a href="Light-Weight-Earrings/index.html" class="pill" data-product="Light Weight Earrings">Light Weight Earrings</a>
+    <a href="Light-Weight-Ring/index.html" class="pill" data-product="Light Weight Rings">Light Weight Rings</a>
+    <a href="Mens-Ring/index.html" class="pill" data-product="Men's Rings">Men's Rings</a>
+    <a href="Mens-diamonds-ring/index.html" class="pill" data-product="Men's Diamond Rings">Men's Diamond Rings</a>
+    <a href="Teeth-Grillz/index.html" class="pill" data-product="Teeth Grillz">Teeth Grillz</a>
+    <a href="bracelet/index.html" class="pill" data-product="Bracelets">Bracelets</a>
+    <a href="fancy-shape-band-ring/index.html" class="pill" data-product="Fancy Band Rings">Fancy Band Rings</a>
+    <a href="mangalsutra/index.html" class="pill" data-product="Mangalsutra">Mangalsutra</a>
+    <a href="necklaces/index.html" class="pill" data-product="Necklaces">Necklaces</a>
+    <a href="nosepin/index.html" class="pill" data-product="Nosepins">Nosepins</a>
+    <a href="rings/index.html" class="pill" data-product="Rings">Rings</a>
+    <a href="solitaire-diamond-ring/index.html" class="pill" data-product="Solitaire Diamond Rings">Solitaire Diamond Rings</a>
+    <a href="solitaire-rings/index.html" class="pill" data-product="Solitaire Rings">Solitaire Rings</a>
+    <a href="tennis-bracelet/index.html" class="pill" data-product="Tennis Bracelets">Tennis Bracelets</a>
   </div>
 
   <footer>
@@ -345,7 +345,15 @@
         <form onsubmit="handleAuthorizedLogin(event)">
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Mobile Number</label>
-            <input type="text" id="authMobile" required placeholder="+918401715116" value="+91" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+            <div style="display: flex; gap: 8px;">
+              <select id="authCountryCode" style="padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                <option value="+91">+91 (IN)</option>
+                <option value="+1">+1 (US)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+971">+971 (UAE)</option>
+              </select>
+              <input type="text" id="authMobile" required placeholder="8401715116" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+            </div>
           </div>
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Security PIN / Password</label>
@@ -367,7 +375,15 @@
           </div>
           <div style="margin-bottom: 12px;">
             <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Mobile Number</label>
-            <input type="text" id="signupMobile" required placeholder="+918401715116" value="+91" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+            <div style="display: flex; gap: 8px;">
+              <select id="signupCountryCode" style="padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                <option value="+91">+91 (IN)</option>
+                <option value="+1">+1 (US)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+971">+971 (UAE)</option>
+              </select>
+              <input type="text" id="signupMobile" required placeholder="8401715116" style="width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 4px;">
+            </div>
           </div>
           <div style="margin-bottom: 12px;">
             <label style="display: block; margin-bottom: 5px; font-size: 12px; color: #aaa;">Create Security PIN</label>
@@ -381,7 +397,23 @@
   </div>
 
   <script>
-    // WHITELISTED & ADMIN USERS
+    // --- WHATSAPP INTEGRATION ---
+    const WHATSAPP_NUMBER = "918401715116";
+
+    function openWhatsApp(product = "") {
+      const text = product
+        ? `Hello ORVÉN JEWELS, I'm interested in the ${product}. Please share the details.`
+        : `Hello ORVÉN JEWELS, I'd like to explore your jewelry collection.`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+      if (!WHATSAPP_NUMBER.includes("X")) window.open(url, "_blank", "noopener");
+      else alert("Please add ORVÉN's WhatsApp number first.");
+    }
+
+    document.querySelectorAll("[data-product]").forEach(button => {
+      button.addEventListener("click", () => openWhatsApp(button.dataset.product));
+    });
+
+    // --- WHITELISTED & ADMIN USERS ---
     const whitelistedUsers = [
       { mobile: "+918401715116", pin: "1234", role: "admin", name: "Sumit (Owner)" },
       { mobile: "+917085658953", pin: "1234", role: "admin", name: "Admin Two" },
@@ -431,11 +463,13 @@
       }
     }
 
-    // Signup Handler
+    // Customer Signup Handler
     function handleCustomerSignup(event) {
       event.preventDefault();
       const name = document.getElementById('signupName').value.trim();
-      const mobile = document.getElementById('signupMobile').value.trim();
+      const countryCode = document.getElementById('signupCountryCode').value;
+      const rawMobile = document.getElementById('signupMobile').value.trim();
+      const mobile = countryCode + rawMobile;
       const pin = document.getElementById('signupPassword').value.trim();
 
       let customUsers = JSON.parse(localStorage.getItem('orven_custom_users')) || [];
@@ -455,10 +489,12 @@
       switchTab('login');
     }
 
-    // Login Handler
+    // Authorized Login Handler
     function handleAuthorizedLogin(event) {
       event.preventDefault();
-      const mobile = document.getElementById('authMobile').value.trim();
+      const countryCode = document.getElementById('authCountryCode').value;
+      const rawMobile = document.getElementById('authMobile').value.trim();
+      const mobile = countryCode + rawMobile;
       const pin = document.getElementById('authPassword').value.trim();
 
       let customUsers = JSON.parse(localStorage.getItem('orven_custom_users')) || [];
@@ -497,6 +533,7 @@
       window.location.reload();
     }
 
+    // --- LIVE RATES FETCH ---
     async function loadGoogleLiveRates() {
       try {
         const res = await fetch('https://data-asg.goldprice.org/dbXRates/INR');
@@ -514,11 +551,17 @@
     }
 
     function updateTickerDOM(gold24k, silverPerGram) {
-      document.getElementById('rate24k').innerText = '₹' + gold24k.toLocaleString('en-IN');
-      document.getElementById('rate18k').innerText = '₹' + Math.round(gold24k * 0.75).toLocaleString('en-IN');
-      document.getElementById('rate14k').innerText = '₹' + Math.round(gold24k * 0.585).toLocaleString('en-IN');
-      document.getElementById('rate9k').innerText = '₹' + Math.round(gold24k * 0.375).toLocaleString('en-IN');
-      document.getElementById('rateSilver').innerText = '₹' + Math.round(silverPerGram).toLocaleString('en-IN');
+      const r24 = document.getElementById('rate24k');
+      const r18 = document.getElementById('rate18k');
+      const r14 = document.getElementById('rate14k');
+      const r9 = document.getElementById('rate9k');
+      const rSilver = document.getElementById('rateSilver');
+
+      if (r24) r24.innerText = '₹' + gold24k.toLocaleString('en-IN');
+      if (r18) r18.innerText = '₹' + Math.round(gold24k * 0.75).toLocaleString('en-IN');
+      if (r14) r14.innerText = '₹' + Math.round(gold24k * 0.585).toLocaleString('en-IN');
+      if (r9) r9.innerText = '₹' + Math.round(gold24k * 0.375).toLocaleString('en-IN');
+      if (rSilver) rSilver.innerText = '₹' + Math.round(silverPerGram).toLocaleString('en-IN');
     }
 
     function openLoginModal() { 
