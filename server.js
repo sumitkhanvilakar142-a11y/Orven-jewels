@@ -10,8 +10,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname));
 
-// MongoDB Connection with updated credentials (myadmin / sumit1996)
-const uri = process.env.MONGO_URI || "mongodb+srv://myadmin:sumit1996@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
+// MongoDB Connection with correct credentials (myadmin / Sumit1996)
+const uri = process.env.MONGO_URI || "mongodb+srv://myadmin:Sumit1996@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
 const client = new MongoClient(uri);
 let db;
 
