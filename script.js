@@ -1,16 +1,3 @@
-// --- MOBILE MENU TOGGLE ---
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav");
-
-menuToggle?.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", open);
-});
-
-document.querySelectorAll(".nav a").forEach(link => {
-  link.addEventListener("click", () => nav.classList.remove("open"));
-});
-
 // --- WHATSAPP INTEGRATION ---
 const WHATSAPP_NUMBER = "918401715116";
 
@@ -20,33 +7,11 @@ function openWhatsApp(product = "") {
     : `Hello ORVÉN JEWELS, I'd like to explore your jewelry collection.`;
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
   if (!WHATSAPP_NUMBER.includes("X")) window.open(url, "_blank", "noopener");
-  else alert("Please add ORVÉN's WhatsApp number in script.js first.");
+  else alert("Please add ORVÉN's WhatsApp number first.");
 }
 
 document.querySelectorAll("[data-product]").forEach(button => {
   button.addEventListener("click", () => openWhatsApp(button.dataset.product));
-});
-
-document.getElementById("contactForm")?.addEventListener("submit", event => {
-  event.preventDefault();
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const interest = document.getElementById("interest").value;
-  const message = document.getElementById("message").value.trim();
-
-  if (WHATSAPP_NUMBER.includes("X")) {
-    alert("Please add ORVÉN's WhatsApp number in script.js first.");
-    return;
-  }
-
-  const text = `Hello ORVÉN JEWELS,
-
-Name: ${name}
-Phone: ${phone}
-Interest: ${interest}
-Message: ${message || "I'd like to know more."}`;
-
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
 });
 
 // --- WHITELISTED & ADMIN USERS ---
@@ -85,15 +50,15 @@ function switchTab(mode) {
   if (mode === 'login') {
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
-    tabLoginBtn.style.color = 'var(--gold, #d4af37)';
-    tabLoginBtn.style.borderBottom = '2px solid var(--gold, #d4af37)';
+    tabLoginBtn.style.color = 'var(--gold)';
+    tabLoginBtn.style.borderBottom = '2px solid var(--gold)';
     tabSignupBtn.style.color = '#888';
     tabSignupBtn.style.borderBottom = 'none';
   } else {
     loginForm.style.display = 'none';
     signupForm.style.display = 'block';
-    tabSignupBtn.style.color = 'var(--gold, #d4af37)';
-    tabSignupBtn.style.borderBottom = '2px solid var(--gold, #d4af37)';
+    tabSignupBtn.style.color = 'var(--gold)';
+    tabSignupBtn.style.borderBottom = '2px solid var(--gold)';
     tabLoginBtn.style.color = '#888';
     tabLoginBtn.style.borderBottom = 'none';
   }
@@ -122,7 +87,7 @@ function handleCustomerSignup(event) {
   localStorage.setItem('orven_custom_users', JSON.stringify(customUsers));
 
   alert('Registration successful! Please login with your credentials.');
-  switchTab('login');
+    switchTab('login');
 }
 
 // Authorized Login Handler
@@ -156,7 +121,7 @@ function checkActiveSession() {
   if (activeUser) {
     const authBtn = document.getElementById('authButtonText');
     if (authBtn) {
-      authBtn.innerHTML = `<span>👤</span> ${activeUser.name} (<a href="#" onclick="logoutUser()" style="color:#d4af37">Logout</a>)`;
+      authBtn.innerHTML = `<span>👤</span> ${activeUser.name} (<a href="#" onclick="logoutUser()" style="color:var(--gold)">Logout</a>)`;
     }
     if (activeUser.role === 'admin' && window.location.pathname.includes('index.html')) {
       window.location.href = 'admin.html';
