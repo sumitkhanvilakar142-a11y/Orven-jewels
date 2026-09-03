@@ -21,6 +21,7 @@ async function connectDB() {
         db = client.db('orvenjewels');
         console.log("MongoDB Connected Successfully!");
         
+        // Default product seed check
         const count = await db.collection('products').countDocuments();
         if (count === 0) {
             await db.collection('products').insertOne({
@@ -43,99 +44,156 @@ connectDB();
 
 // Get Dashboard Stats & Categories
 app.get('/api/admin/dashboard', async (req, res) => {
-  const products = await db.collection('products').find({}).toArray();
-  const categories = await db.collection('categories').find({}).toArray();
-  const diamondTypes = await db.collection('diamondTypes').find({}).toArray();
-  
-  res.json({
-    totalDesigns: products.length,
-    totalCategories: categories.length,
-    totalDiamondTypes: diamondTypes.length,
-    categories: categories,
-    diamondTypes: diamondTypes
-  });
+  try {
+    const products = await db.collection('products').find({}).toArray();
+    const categories = await db.collection('categories').find({}).toArray();
+    const diamondTypes = await db.collection('diamondTypes').find({}).toArray();
+    
+    res.json({
+      totalDesigns: products.length,
+      totalCategories: categories.length,
+      totalDiamondTypes: diamondTypes.length,
+      categories: categories,
+      diamondTypes: diamondTypes
+    });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
 // Get Products by Category
 app.get('/api/products/:category', async (req, res) => {
-  const cat = req.params.category.toUpperCase();
-  const filtered = await db.collection('products').find({ category: cat }).toArray();
-  res.json(filtered);
+  try {
+    const cat = req.params.category.toUpperCase();
+    const filtered = await db.collection('products').find({ category: cat }).toArray();
+    res.json(filtered);
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
 // Get all products
 app.get('/api/products', async (req, res) => {
-  const products = await db.collection('products').find({}).toArray();
-  res.json(products);
+  try {
+    const products = await db.collection('products').find({}).toArray();
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
 // Add or Update Design (SKU)
 app.post('/api/products', async (req, res) => {
-  const { sku, category, goldWeight, silverWeight, stoneSlots, fancySlots, image, updatedBy } = req.body;
-  
-  const productData = {
-    id: Date.now(),
-    sku,
-    category: category || "RINGS",
-    goldWeight: Number(goldWeight) || 0,
-    silverWeight: Number(silverWeight) || 0,
-    stoneSlots: stoneSlots || [],
-    fancySlots: fancySlots || [],
-    image: image || "vault-ring.jpg",
-    lastUpdatedBy: updatedBy || "nayan (staff)"
-  };
+  try {
+    const { sku, category, goldWeight, silverWeight, stoneSlots, fancySlots, image, updatedBy } = req.body;
+    
+    const productData = {
+      id: Date.now(),
+      sku,
+      category: category || "RINGS",
+      goldWeight: Number(goldWeight) || 0,
+      silverWeight: Number(silverWeight) || 0,
+      stoneSlots: stoneSlots || [],
+      fancySlots: fancySlots || [],
+      image: image || "vault-ring.jpg",
+      lastUpdatedBy: updatedBy || "nayan (staff)"
+    };
 
-  const existing = await db.collection('products').findOne({ sku: sku });
-  if (existing) {
-    await db.collection('products').updateOne({ sku: sku }, { $set: productData });
-  } else {
-    await db.collection('products').insertOne(productData);
+    const existing = await db.collection('products').findOne({ sku: sku });
+    if (existing) {
+      await db.collection('products').updateOne({ sku: sku }, { $set: productData });
+    } else {
+      await db.collection('products').insertOne(productData);
+    }
+    
+    res.json({ status: 'success', product: productData });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
   }
-  
-  res.json({ status: 'success', product: productData });
 });
 
 // Delete Product
 app.delete('/api/product/:id', async (req, res) => {
-  const id = Number(req.params.id);
-  await db.collection('products').deleteOne({ id: id });
-  res.json({ status: 'success', message: 'Product deleted' });
+  try {
+    const id = Number(req.params.id);
+    await db.collection('products').deleteOne({ id: id });
+    res.json({ status: 'success', message: 'Product deleted' });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
+});
+
+// Save Customizer Design Request (New Feature for Bespoke Studio)
+app.post('/api/custom-requests', async (req, res) => {
+  try {
+    const { metal, band, quality, stone, setting, sizeSystem, size, estimatedPrice } = req.body;
+    
+    const customOrder = {
+      id: Date.now(),
+      metal,
+      band,
+      quality,
+      stone,
+      setting,
+      sizeSystem,
+      size,
+      estimatedPrice,
+      createdAt: new Date()
+    };
+
+    await db.collection('customRequests').insertOne(customOrder);
+    res.json({ status: 'success', message: 'Custom design request saved successfully!', orderId: customOrder.id });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
 // User Signup
 app.post('/api/signup', async (req, res) => {
-  const { email, password } = req.body;
-  
-  const existingUser = await db.collection('users').findOne({ email: email });
-  if (existingUser) {
-    return res.status(400).json({ status: 'error', message: 'User already exists!' });
-  }
+  try {
+    const { email, password } = req.body;
+    
+    const existingUser = await db.collection('users').findOne({ email: email });
+    if (existingUser) {
+      return res.status(400).json({ status: 'error', message: 'User already exists!' });
+    }
 
-  await db.collection('users').insertOne({ email, password });
-  res.json({ status: 'success', message: 'Signup successful!' });
+    await db.collection('users').insertOne({ email, password, createdAt: new Date() });
+    res.json({ status: 'success', message: 'Signup successful!' });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
 // User Login
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await db.collection('users').findOne({ email: email, password: password });
+  try {
+    const { email, password } = req.body;
+    const user = await db.collection('users').findOne({ email: email, password: password });
 
-  if (user) {
-    res.json({ status: 'success', message: 'Login successful' });
-  } else {
-    res.status(401).json({ status: 'error', message: 'Invalid email or password' });
+    if (user) {
+      res.json({ status: 'success', message: 'Login successful' });
+    } else {
+      res.status(401).json({ status: 'error', message: 'Invalid email or password' });
+    }
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
   }
 });
 
 // Admin Login
 app.post('/api/admin-login', async (req, res) => {
-  const { username, password } = req.body;
-  const admin = await db.collection('admin').findOne({ username: username, password: password });
+  try {
+    const { username, password } = req.body;
+    const admin = await db.collection('admin').findOne({ username: username, password: password });
 
-  if (admin) {
-    res.json({ status: 'success', message: 'Admin login successful' });
-  } else {
-    res.status(401).json({ status: 'error', message: 'Invalid Admin Credentials' });
+    if (admin) {
+      res.json({ status: 'success', message: 'Admin login successful' });
+    } else {
+      res.status(401).json({ status: 'error', message: 'Invalid Admin Credentials' });
+    }
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
   }
 });
 
