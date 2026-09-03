@@ -42,6 +42,11 @@ async function connectDB() {
 }
 connectDB();
 
+// Handle legacy/alternate customizer links
+app.get('/customize.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'customizer.html'));
+});
+
 // Get Dashboard Stats & Categories
 app.get('/api/admin/dashboard', async (req, res) => {
   try {
