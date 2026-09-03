@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-{
-  "name": "orven-jewels-server",
-  "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2"
-  }
-}
-=======
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
@@ -24,18 +10,17 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname));
 
-// MongoDB Connection
-const uri = "mongodb+srv://sumitkhanvilakar142_db_user:cBn06W4K0nh6YZqi@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
+// MongoDB Connection (Render par password ka special character secure rakhne ke liye MONGO_URI environment variable use karein)
+const uri = process.env.MONGO_URI || "mongodb+srv://sumitkhanvilakar142_db_user:db_Sumit%401996@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
 const client = new MongoClient(uri);
 let db;
 
 async function connectDB() {
     try {
         await client.connect();
-        db = client.db('orvenjewels'); // Database ka naam
+        db = client.db('orvenjewels');
         console.log("MongoDB Connected Successfully!");
         
-        // Agar pehli baar hai, toh default data daalna (Optional)
         const count = await db.collection('products').countDocuments();
         if (count === 0) {
             await db.collection('products').insertOne({
@@ -100,7 +85,6 @@ app.post('/api/products', async (req, res) => {
     lastUpdatedBy: updatedBy || "nayan (staff)"
   };
 
-  // Check if SKU exists
   const existing = await db.collection('products').findOne({ sku: sku });
   if (existing) {
     await db.collection('products').updateOne({ sku: sku }, { $set: productData });
@@ -155,7 +139,7 @@ app.post('/api/admin-login', async (req, res) => {
   }
 });
 
-// Live Rates API (Abhi hardcoded, baad mein API se fetch karenge)
+// Live Rates API
 app.get('/api/live-rates', (req, res) => {
   res.json({
     success: true,
@@ -165,6 +149,5 @@ app.get('/api/live-rates', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
->>>>>>> ddfadfe47ae85bcab191ea953290df14a3dcd4bd
