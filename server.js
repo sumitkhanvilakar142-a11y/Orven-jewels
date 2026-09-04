@@ -10,7 +10,6 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname));
 
-// MongoDB Connection with correct credentials (myadmin / Sumit1996)
 const uri = process.env.MONGO_URI || "mongodb+srv://myadmin:Sumit1996@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
 const client = new MongoClient(uri);
 let db;
@@ -21,7 +20,6 @@ async function connectDB() {
         db = client.db('orvenjewels');
         console.log("MongoDB Connected Successfully!");
         
-        // Default product seed check
         const count = await db.collection('products').countDocuments();
         if (count === 0) {
             await db.collection('products').insertOne({
@@ -42,12 +40,10 @@ async function connectDB() {
 }
 connectDB();
 
-// Handle legacy/alternate customizer links
 app.get('/customize.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'customizer.html'));
 });
 
-// Get Dashboard Stats & Categories
 app.get('/api/admin/dashboard', async (req, res) => {
   try {
     const products = await db.collection('products').find({}).toArray();
@@ -66,7 +62,6 @@ app.get('/api/admin/dashboard', async (req, res) => {
   }
 });
 
-// Get Products by Category
 app.get('/api/products/:category', async (req, res) => {
   try {
     const cat = req.params.category.toUpperCase();
@@ -77,7 +72,6 @@ app.get('/api/products/:category', async (req, res) => {
   }
 });
 
-// Get all products
 app.get('/api/products', async (req, res) => {
   try {
     const products = await db.collection('products').find({}).toArray();
@@ -87,7 +81,6 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// Add or Update Design (SKU)
 app.post('/api/products', async (req, res) => {
   try {
     const { sku, category, goldWeight, silverWeight, stoneSlots, fancySlots, image, updatedBy } = req.body;
@@ -117,7 +110,6 @@ app.post('/api/products', async (req, res) => {
   }
 });
 
-// Delete Product
 app.delete('/api/product/:id', async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -128,7 +120,6 @@ app.delete('/api/product/:id', async (req, res) => {
   }
 });
 
-// Save Customizer Design Request (New Feature for Bespoke Studio)
 app.post('/api/custom-requests', async (req, res) => {
   try {
     const { metal, band, quality, stone, setting, sizeSystem, size, estimatedPrice } = req.body;
@@ -153,7 +144,6 @@ app.post('/api/custom-requests', async (req, res) => {
   }
 });
 
-// User Signup
 app.post('/api/signup', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -170,7 +160,6 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-// User Login
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -186,7 +175,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Admin Login
 app.post('/api/admin-login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -202,7 +190,6 @@ app.post('/api/admin-login', async (req, res) => {
   }
 });
 
-// Live Rates API
 app.get('/api/live-rates', (req, res) => {
   res.json({
     success: true,
