@@ -8,7 +8,9 @@
         :root {
             --bg-color: #0b0b0b;
             --panel-bg: #141414;
+            --card-bg: #1a1a1a;
             --gold-accent: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
             --border-color: #262626;
@@ -35,20 +37,23 @@
             padding: 15px 40px;
             border-bottom: 1px solid var(--border-color);
             background: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
-            font-size: 20px;
-            letter-spacing: 3px;
+            font-size: 22px;
+            letter-spacing: 4px;
             font-weight: bold;
             color: var(--text-main);
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
-            font-size: 13px;
-            letter-spacing: 1px;
+            gap: 35px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
@@ -62,11 +67,63 @@
             color: var(--gold-accent);
         }
 
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        /* Step Progress Bar */
+        .steps-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            background: #0f0f0f;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .step-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 11px;
+            background: var(--panel-bg);
+        }
+
+        .step-item.active .step-circle {
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .step-item.active {
+            color: var(--gold-accent);
+        }
+
         /* Main Workspace Layout */
         .customizer-container {
             display: grid;
-            grid-template-columns: 320px 1fr;
-            height: calc(100vh - 60px);
+            grid-template-columns: 340px 1fr;
+            height: calc(100vh - 135px);
         }
 
         /* Left Sidebar - Options */
@@ -77,17 +134,28 @@
             padding: 20px;
         }
 
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
         .accordion-item {
             border-bottom: 1px solid var(--border-color);
             padding: 15px 0;
         }
 
         .accordion-title {
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .option-grid {
@@ -97,20 +165,25 @@
         }
 
         .option-btn {
-            background: #1f1f1f;
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 10px 5px;
+            border-radius: 6px;
+            padding: 10px 4px;
             color: var(--text-main);
-            font-size: 11px;
+            font-size: 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
         }
 
         .option-btn:hover, .option-btn.selected {
             border-color: var(--gold-accent);
             color: var(--gold-accent);
+            background: rgba(212, 175, 55, 0.05);
         }
 
         /* Center Stage - 3D Viewer & Summary */
@@ -123,20 +196,21 @@
 
         .title-section {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .title-section h1 {
-            font-size: 24px;
+            font-size: 22px;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 300;
         }
 
         .title-section p {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
-            margin-top: 5px;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
         }
 
         /* 3D Viewer Screen */
@@ -144,23 +218,66 @@
             background: radial-gradient(circle, #1a1a1a 0%, #0d0d0d 100%);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            height: 420px;
+            height: 400px;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .viewer-box img {
-            max-height: 80%;
-            max-width: 80%;
-            object-fit: contain;
+        #ringCanvas {
+            width: 100%;
+            height: 100%;
+            outline: none;
+        }
+
+        .view-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: var(--gold-accent);
+        }
+
+        /* Floating Controls on Right of Viewer */
+        .floating-controls {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-icon-btn {
+            background: rgba(20, 20, 20, 0.85);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .control-icon-btn:hover {
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
         }
 
         /* View Thumbnails Row */
         .thumbnails-row {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             margin-top: 15px;
             justify-content: center;
         }
@@ -169,17 +286,18 @@
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            width: 90px;
-            height: 60px;
+            width: 85px;
+            height: 55px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-muted);
+            transition: all 0.2s;
         }
 
-        .thumb-card.active {
+        .thumb-card.active, .thumb-card:hover {
             border-color: var(--gold-accent);
             color: var(--gold-accent);
         }
@@ -192,7 +310,7 @@
             margin-top: 20px;
             padding: 20px;
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr 1fr 220px;
             gap: 20px;
             align-items: center;
         }
@@ -200,39 +318,68 @@
         .specs-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            font-size: 13px;
+            gap: 12px;
+            font-size: 12px;
         }
 
         .specs-list div span {
             color: var(--text-muted);
             display: block;
-            font-size: 11px;
+            font-size: 10px;
+            margin-bottom: 2px;
         }
 
         .action-box {
             text-align: right;
+            border-left: 1px solid var(--border-color);
+            padding-left: 20px;
         }
 
         .price-tag {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--gold-accent);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: bold;
         }
 
         .cta-btn {
-            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            background: var(--gold-gradient);
             color: #000;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 20px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 1px;
             text-transform: uppercase;
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            transition: opacity 0.2s;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Trust Badges Footer */
+        .trust-footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 40px;
+            background: #0f0f0f;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 25px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
     </style>
 </head>
@@ -246,73 +393,150 @@
             <a href="#" class="active">Custom Jewellery</a>
             <a href="#">About Us</a>
         </div>
+        <div class="header-actions">
+            <span>🔍 Search</span>
+            <span>❤️ Wishlist</span>
+            <span>🛒 Cart (0)</span>
+        </div>
     </header>
+
+    <div class="steps-bar">
+        <div class="step-item active">
+            <div class="step-circle">1</div>
+            <span>Design</span>
+        </div>
+        <div class="step-item">
+            <div class="step-circle">2</div>
+            <span>Metal</span>
+        </div>
+        <div class="step-item">
+            <div class="step-circle">3</div>
+            <span>Finish</span>
+        </div>
+        <div class="step-item">
+            <div class="step-circle">4</div>
+            <span>Band Width</span>
+        </div>
+        <div class="step-item">
+            <div class="step-circle">5</div>
+            <span>Ring Size</span>
+        </div>
+        <div class="step-item">
+            <div class="step-circle">6</div>
+            <span>Preview</span>
+        </div>
+    </div>
 
     <div class="customizer-container">
         
+        <!-- Left Sidebar Options -->
         <div class="sidebar">
             <div class="accordion-item">
-                <div class="accordion-title">1. Choose Style</div>
-                <div class="option-grid">
-                    <button class="option-btn selected">Solitaire</button>
-                    <button class="option-btn">Cluster</button>
-                    <button class="option-btn">Band</button>
-                    <button class="option-btn">Custom</button>
+                <div class="accordion-title">1. Choose Ring Design <span>▲</span></div>
+                <div class="option-grid" id="bandOptions" style="grid-template-columns: repeat(2, 1fr);">
+                    <button class="option-btn selected" data-value="Classic Plain Band" data-style="plain" data-price="0">Classic</button>
+                    <button class="option-btn" data-value="Pavé Diamond Band" data-style="pave" data-price="12000">Pavé</button>
+                    <button class="option-btn" data-value="Grooved Edge Band" data-style="engraved" data-price="8000">Grooved</button>
+                    <button class="option-btn" data-value="Modern Beveled Band" data-style="plain" data-price="6000">Beveled</button>
                 </div>
             </div>
 
             <div class="accordion-item">
-                <div class="accordion-title">2. Choose Metal</div>
-                <div class="option-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    <button class="option-btn selected">18K Yellow</button>
-                    <button class="option-btn">18K White</button>
-                    <button class="option-btn">Platinum</button>
+                <div class="accordion-title">2. Choose Metal <span>▲</span></div>
+                <div class="option-grid" id="metalOptions" style="grid-template-columns: repeat(2, 1fr);">
+                    <button class="option-btn selected" data-value="18K Yellow Gold" data-color="#e6ca65" data-price="0">18K Yellow</button>
+                    <button class="option-btn" data-value="18K White Gold" data-color="#e0e4e8" data-price="1500">18K White</button>
+                    <button class="option-btn" data-value="18K Rose Gold" data-color="#b76e79" data-price="1500">18K Rose</button>
+                    <button class="option-btn" data-value="950 Platinum" data-color="#d1d5db" data-price="8500">Platinum</button>
                 </div>
             </div>
 
             <div class="accordion-item">
-                <div class="accordion-title">3. Diamond Shape</div>
-                <div class="option-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    <button class="option-btn selected">Round</button>
-                    <button class="option-btn">Oval</button>
-                    <button class="option-btn">Baguette</button>
+                <div class="accordion-title">3. Stone Quality & Shape <span>▲</span></div>
+                <div class="option-grid" id="stoneQuality" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 8px;">
+                    <button class="option-btn selected" data-value="Lab-Grown">Lab-Grown</button>
+                    <button class="option-btn" data-value="Natural">Natural (+₹45k)</button>
                 </div>
+                <div class="option-grid" id="shapeOptions">
+                    <button class="option-btn selected" data-value="Round" data-price="0">Round</button>
+                    <button class="option-btn" data-value="Oval" data-price="2500">Oval</button>
+                    <button class="option-btn" data-value="Princess" data-price="3500">Princess</button>
+                    <button class="option-btn" data-value="Emerald" data-price="5000">Emerald</button>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-title">4. Setting Style <span>▲</span></div>
+                <div class="option-grid" id="settingOptions" style="grid-template-columns: repeat(2, 1fr);">
+                    <button class="option-btn selected" data-value="Prong Setting" data-price="0">Prong</button>
+                    <button class="option-btn" data-value="Bezel Setting" data-price="4000">Bezel</button>
+                    <button class="option-btn" data-value="Halo Setting" data-price="9000">Halo</button>
+                    <button class="option-btn" data-value="Cathedral Arch" data-price="5500">Cathedral</button>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-title">5. Ring Size <span>▲</span></div>
+                <div style="display: flex; gap: 8px; margin-bottom: 8px;" id="sizeSystem">
+                    <button class="option-btn selected" data-value="US" style="flex:1;">US Size</button>
+                    <button class="option-btn" data-value="IND" style="flex:1;">Indian Size</button>
+                </div>
+                <select id="sizeSelect" style="width: 100%; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 8px; border-radius: 4px; font-size: 11px;">
+                    <!-- Dynamically populated -->
+                </select>
             </div>
         </div>
 
-        <div class="stage-area">
+        <!-- Center Stage - 3D Viewer & Summary -->
+        <div class="stage-area" id="ringStage">
             <div class="title-section">
-                <h1>Customize Your Ring</h1>
-                <p>Design your perfect luxury piece in real-time</p>
+                <h1>Customize Your Luxury Piece</h1>
+                <p>Design your perfect ring in real-time with 360° interactive preview</p>
             </div>
 
             <div class="viewer-box">
-                <div style="color: var(--gold-accent); letter-spacing: 2px;">[ 360° INTERACTIVE RENDER STAGE ]</div>
+                <div class="view-badge">360° VIEW</div>
+                <div class="floating-controls">
+                    <button class="control-icon-btn" id="rotateBtn" title="Auto Rotate">🔄</button>
+                    <button class="control-icon-btn" id="zoomBtn" title="Zoom">🔍</button>
+                </div>
+                <canvas id="ringCanvas"></canvas>
             </div>
 
             <div class="thumbnails-row">
                 <div class="thumb-card active">Front View</div>
                 <div class="thumb-card">Side View</div>
                 <div class="thumb-card">Top View</div>
-                <div class="thumb-card">On Model</div>
+                <div class="thumb-card">On Hand</div>
                 <div class="thumb-card">360° View</div>
             </div>
 
             <div class="summary-panel">
                 <div class="specs-list">
-                    <div><span>Selected Style</span> Solitaire Classic</div>
-                    <div><span>Metal & Weight</span> 18K Yellow Gold (3.6 GM)</div>
-                    <div><span>Stone Spec</span> Oval Diamond (1.00 CT)</div>
-                    <div><span>Dimensions</span> 4.75 US / 3.75 MM Band</div>
+                    <div><span>Selected Style</span> <strong id="sumBand">Classic Plain Band</strong></div>
+                    <div><span>Metal Specs</span> <strong id="sumMetal">18K Yellow Gold</strong></div>
+                    <div><span>Stone Spec</span> <strong id="sumStone">Round (Lab-Grown)</strong></div>
+                    <div><span>Ring Size</span> <strong id="sumSize">US - 6</strong></div>
+                </div>
+                <div class="specs-list">
+                    <div><span>Setting Type</span> <strong id="sumSetting">Prong Setting</strong></div>
+                    <div><span>Estimated Weight</span> <strong>3.6 GM</strong></div>
                 </div>
                 <div class="action-box">
-                    <div class="price-tag">₹ 1,24,800</div>
-                    <button class="cta-btn">Request This Design</button>
+                    <div class="price-tag" id="priceTotal">₹ 22,450</div>
+                    <a id="whatsappBtn" class="cta-btn" href="#" target="_blank">Chat & Order via WhatsApp</a>
                 </div>
             </div>
 
         </div>
 
+    </div>
+
+    <div class="trust-footer">
+        <div class="trust-item">🛡️ 100% Certified Hallmarked Gold</div>
+        <div class="trust-item">📜 Lifetime Warranty & Certificate</div>
+        <div class="trust-item">🔒 Secure Insured Shipping</div>
+        <div class="trust-item">💎 Easy Returns & Exchange</div>
     </div>
 
 </body>
