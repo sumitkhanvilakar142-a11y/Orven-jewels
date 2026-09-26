@@ -1,54 +1,504 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="zxx">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orven Jewels — Vault</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg: #0b0708; --card-bg: #140d0f; --gold: #d4af37; --text: #ffffff; --text-muted: #a09a9c; --border: #2c2022; }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Chyris | Luxury Fine Jewelry & Bespoke Studio</title>
+    <meta name="description" content="Handcrafted Luxury Jewelry and Custom 3D Studio">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     
-    /* Header */
-    .header { padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); }
-    .brand { font-family: 'Cinzel', serif; color: var(--gold); font-size: 16px; font-weight: 700; letter-spacing: 1px; }
-    
-    /* Product Grid */
-    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 15px; }
-    .product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; }
-    .product-card img { width: 100%; height: 140px; object-fit: cover; }
-    .product-info { padding: 10px; }
-    .product-title { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
-    .product-price { font-size: 13px; color: var(--gold); font-weight: 600; }
-  </style>
+    <style>
+        .hero__img img {
+            max-width: 440px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        .single-new-pro .product-img img,
+        .single-popular-items .popular-img img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .brand-text-logo {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #141517;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .btn-customizer-highlight {
+            background: #d4af37 !important;
+            color: #ffffff !important;
+            padding: 8px 18px !important;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        .btn-customizer-highlight:hover {
+            background: #b59226 !important;
+        }
+    </style>
 </head>
+
 <body>
-
-  <div class="header">
-    <div class="brand">Orven Jewels</div>
-    <a href="admin.html" style="color: var(--gold); font-size: 11px; text-decoration: none;">Admin Login</a>
-  </div>
-
-  <div class="catalog-grid" id="productGrid">
-    <!-- Products will load dynamically here -->
-  </div>
-
-  <script>
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(products => {
-        const grid = document.getElementById('productGrid');
-        grid.innerHTML = products.map(p => `
-          <div class="product-card">
-            <img src="${p.image || 'vault-ring.jpg'}" alt="${p.sku}">
-            <div class="product-info">
-              <div class="product-title">Design: ${p.sku}</div>
-              <div class="product-price">₹${Math.floor(p.goldWeight * 7200 + 15000).toLocaleString('en-IN')}</div>
+    <!--? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <span style="font-weight: bold; font-size: 20px; letter-spacing: 2px;">CHYRIS</span>
+                </div>
             </div>
-          </div>
-        `).join('');
-      });
-  </script>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html" class="brand-text-logo">CHYRIS</a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul id="navigation">  
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="shop.html">Collection</a></li>
+                                    <li><a href="about.html">Our Craft</a></li>
+                                    <li class="hot"><a href="#">Exclusive</a>
+                                        <ul class="submenu">
+                                            <li><a href="shop.html">Rings Catalog</a></li>
+                                            <li><a href="product_details.html">Signature Piece</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="customizer.html" class="btn-customizer-highlight">3D Studio</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                <li>
+                                    <div class="nav-search search-switch">
+                                        <span class="flaticon-search"></span>
+                                    </div>
+                                </li>
+                                <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
+                                <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    <main>
+        <!--? slider Area Start -->
+        <div class="slider-area ">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height d-flex align-items-center slide-bg">
+                    <div class="container">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                <div class="hero__caption">
+                                    <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Timeless Brilliance, Individually Crafted</h1>
+                                    <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Explore certified handcrafted diamonds, fine platinum, and yellow gold pieces engineered for eternal perfection.</p>
+                                    <!-- Hero-btn -->
+                                    <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                                        <a href="customizer.html" class="btn hero-btn mr-3">Launch 3D Studio</a>
+                                        <a href="shop.html" class="btn hero-btn" style="background:#222;">Explore Catalog</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 d-none d-sm-block">
+                                <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
+                                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=700&q=80" alt="Chyris Diamond Ring">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Slider 2 -->
+                <div class="single-slider slider-height d-flex align-items-center slide-bg">
+                    <div class="container">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                <div class="hero__caption">
+                                    <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Craft Your Dream Ring in 3D</h1>
+                                    <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Configure ring carats, inspect prong designs 360°, and toggle metal finishes prior to bespoke production.</p>
+                                    <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms">
+                                        <a href="customizer.html" class="btn hero-btn">Open Customizer</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 d-none d-sm-block">
+                                <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
+                                    <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=700&q=80" alt="Bespoke Gold Solitaire">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- slider Area End-->
+
+        <!-- ? New Product Start -->
+        <section class="new-product-area section-padding30">
+            <div class="container">
+                <!-- Section tittle -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="section-tittle mb-70">
+                            <h2>Signature Arrivals</h2>
+                            <p>Hand-selected stones set by master jewelers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-pro mb-30 text-center">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" alt="Royal Oval Solitaire">
+                            </div>
+                            <div class="product-caption">
+                                <h3><a href="product_details.html">Royal Oval Diamond Solitaire</a></h3>
+                                <span>₹ 1,45,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-pro mb-30 text-center">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80" alt="Eternity Pendant Necklace">
+                            </div>
+                            <div class="product-caption">
+                                <h3><a href="product_details.html">18K Yellow Gold Pendant</a></h3>
+                                <span>₹ 84,500</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-pro mb-30 text-center">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1611591475168-1815e9a4f4ef?auto=format&fit=crop&w=600&q=80" alt="Diamond Tennis Bracelet">
+                            </div>
+                            <div class="product-caption">
+                                <h3><a href="product_details.html">Classic Diamond Tennis Bracelet</a></h3>
+                                <span>₹ 2,10,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- New Product End -->
+
+        <!--? Gallery Area Start -->
+        <div class="gallery-area">
+            <div class="container-fluid p-0 fix">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-gallery mb-30">
+                            <div class="gallery-img big-img" style="background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=80');"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-gallery mb-30">
+                            <div class="gallery-img big-img" style="background-image: url('https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80');"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-12">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                                <div class="single-gallery mb-30">
+                                    <div class="gallery-img small-img" style="background-image: url('https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&w=600&q=80');"></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                                <div class="single-gallery mb-30">
+                                    <div class="gallery-img small-img" style="background-image: url('https://images.unsplash.com/photo-1611591475168-1815e9a4f4ef?auto=format&fit=crop&w=600&q=80');"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Gallery Area End -->
+
+        <!--? Popular Items Start -->
+        <div class="popular-items section-padding30">
+            <div class="container">
+                <!-- Section tittle -->
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8 col-md-10">
+                        <div class="section-tittle mb-70 text-center">
+                            <h2>Curated Collections</h2>
+                            <p>Certified diamonds and precious metals, designed to commemorate life's most cherished milestones.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Item 1 -->
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-popular-items mb-50 text-center">
+                            <div class="popular-img">
+                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" alt="Solitaire Band">
+                                <div class="img-cap">
+                                    <a href="customizer.html" style="color:#fff;"><span>Customize 3D</span></a>
+                                </div>
+                                <div class="favorit-items">
+                                    <span class="flaticon-heart"></span>
+                                </div>
+                            </div>
+                            <div class="popular-caption">
+                                <h3><a href="product_details.html">Princess Cut Solitaire Band</a></h3>
+                                <span>₹ 1,12,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-popular-items mb-50 text-center">
+                            <div class="popular-img">
+                                <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80" alt="Rose Gold Ring">
+                                <div class="img-cap">
+                                    <a href="customizer.html" style="color:#fff;"><span>Customize 3D</span></a>
+                                </div>
+                                <div class="favorit-items">
+                                    <span class="flaticon-heart"></span>
+                                </div>
+                            </div>
+                            <div class="popular-caption">
+                                <h3><a href="product_details.html">Rose Gold Halo Ring</a></h3>
+                                <span>₹ 96,500</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-popular-items mb-50 text-center">
+                            <div class="popular-img">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80" alt="Diamond Drop Pendant">
+                                <div class="img-cap">
+                                    <a href="shop.html" style="color:#fff;"><span>Add to cart</span></a>
+                                </div>
+                                <div class="favorit-items">
+                                    <span class="flaticon-heart"></span>
+                                </div>
+                            </div>
+                            <div class="popular-caption">
+                                <h3><a href="product_details.html">Diamond Drop Pendant</a></h3>
+                                <span>₹ 72,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Button -->
+                <div class="row justify-content-center">
+                    <div class="room-btn pt-70">
+                        <a href="shop.html" class="btn view-btn1">View All Jewels</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Popular Items End -->
+
+        <!--? Choice Highlight Start-->
+        <div class="watch-area section-padding30">
+            <div class="container">
+                <div class="row align-items-center justify-content-between padding-130">
+                    <div class="col-lg-5 col-md-6">
+                        <div class="watch-details mb-40">
+                            <h2>Bespoke Customizer</h2>
+                            <p>Looking for a one-of-a-kind ring? Switch band metals between 18K Yellow, White, and Rose Gold, swap gemstone cuts, and watch your changes render in interactive realtime 3D.</p>
+                            <a href="customizer.html" class="btn">Launch 3D Customizer</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-10">
+                        <div class="choice-watch-img mb-40">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80" alt="Bespoke Design Showcase" style="border-radius:12px; max-width:100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Choice Highlight End-->
+
+        <!--? Shop Method Start-->
+        <div class="shop-method-area">
+            <div class="container">
+                <div class="method-wrapper">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="single-method mb-40">
+                                <i class="ti-package"></i>
+                                <h6>Insured Doorstep Delivery</h6>
+                                <p>Tamper-proof insured express logistics directly to your hands.</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="single-method mb-40">
+                                <i class="ti-unlock"></i>
+                                <h6>Certified Authenticity</h6>
+                                <p>100% BIS hallmarked gold and certified conflict-free diamonds.</p>
+                            </div>
+                        </div> 
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="single-method mb-40">
+                                <i class="ti-reload"></i>
+                                <h6>Lifetime Buyback & Polish</h6>
+                                <p>Complimentary annual ultrasonic cleaning and exchange guarantee.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Shop Method End-->
+    </main>
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <div class="footer-logo mb-3">
+                                    <a href="index.html" class="brand-text-logo" style="color:#fff;">CHYRIS</a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>Crafting timeless fine jewelry and bespoke heirloom creations with precision and passion.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="shop.html">Collections</a></li>
+                                    <li><a href="customizer.html">3D Studio</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Categories</h4>
+                                <ul>
+                                    <li><a href="shop.html">Solitaire Rings</a></li>
+                                    <li><a href="shop.html">Diamond Necklaces</a></li>
+                                    <li><a href="shop.html">Tennis Bracelets</a></li>
+                                    <li><a href="shop.html">Custom Bands</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Support</h4>
+                                <ul>
+                                    <li><a href="#">Jewelry Care Guide</a></li>
+                                    <li><a href="#">Certification & Hallmarking</a></li>
+                                    <li><a href="#">Shipping & Insurance</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer bottom -->
+                <div class="row align-items-center">
+                    <div class="col-xl-7 col-lg-8 col-md-7">
+                        <div class="footer-copy-right">
+                            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <strong>CHYRIS Fine Jewelries</strong></p>                  
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-4 col-md-5">
+                        <div class="footer-copy-right f-right">
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search rings, pendants, diamonds...">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+
+    <!-- JS here -->
+    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/jquery.slicknav.min.js"></script>
+    <script src="./assets/js/owl.carousel.min.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/animated.headline.js"></script>
+    <script src="./assets/js/jquery.magnific-popup.js"></script>
+    <script src="./assets/js/jquery.scrollUp.min.js"></script>
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/jquery.sticky.js"></script>
+    <script src="./assets/js/contact.js"></script>
+    <script src="./assets/js/jquery.form.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
+    <script src="./assets/js/mail-script.js"></script>
+    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/main.js"></script>
 </body>
 </html>

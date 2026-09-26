@@ -1,5 +1,5 @@
 /* ==========================================
-   ORVÉN JEWELS - Complete Main Script Engine
+   Chyris JEWELS - Complete Main Script Engine
    ========================================== */
 
 const authorizedAdminNumbers = ["8401715116", "7085658953", "7405393841"];
@@ -80,13 +80,13 @@ function handleLogin(event) {
 
   // Direct Admin Portal Access for the 3 authorized numbers
   if (authorizedAdminNumbers.includes(mobile)) {
-    sessionStorage.setItem('CHYRIS_active_admin', mobile);
+    sessionStorage.setItem('chyris_active_admin', mobile);
     alert('Admin Access Granted! Redirecting to Admin Portal...');
     window.location.href = 'admin.html';
     return;
   }
 
-  let users = JSON.parse(localStorage.getItem('CHYRIS_registered_users')) || [];
+  let users = JSON.parse(localStorage.getItem('chyris_registered_users')) || [];
   let user = users.find(u => u.mobile === mobile && u.password === password);
 
   if (user) {
@@ -110,25 +110,25 @@ function handleRegister(event) {
 
   // Direct Admin Portal Access if any of the 3 numbers registers
   if (authorizedAdminNumbers.includes(mobile)) {
-    sessionStorage.setItem('CHYRIS_active_admin', mobile);
-    alert('Admin Authorized! Welcome to ORVÉN Admin Portal.');
+    sessionStorage.setItem('chyris_active_admin', mobile);
+    alert('Admin Authorized! Welcome to Chyris Admin Portal.');
     window.location.href = 'admin.html';
     return;
   }
 
-  let users = JSON.parse(localStorage.getItem('CHYRIS_registered_users')) || [];
+  let users = JSON.parse(localStorage.getItem('chyris_registered_users')) || [];
   if(users.some(u => u.mobile === mobile)) {
     alert('This mobile number is already registered! Please login.');
     return;
   }
 
   users.push({ name, mobile, password, date: new Date().toLocaleString() });
-  localStorage.setItem('CHYRIS_registered_users', JSON.stringify(users));
+  localStorage.setItem('chyris_registered_users', JSON.stringify(users));
 
   alert('Registration successful! Welcome voucher unlocked.');
   closeLoginModal();
 
-  let whatsappMessage = `Hello Admin, a new customer has registered on ORVÉN JEWELS!%0a%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}%0a🕒 Time: ${new Date().toLocaleString()}`;
+  let whatsappMessage = `Hello Admin, a new customer has registered on Chyris JEWELS!%0a%0a👤 Name: ${name}%0a📱 Mobile: ${mobile}%0a🕒 Time: ${new Date().toLocaleString()}`;
   let whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${whatsappMessage}`;
   window.open(whatsappURL, '_blank');
 }
@@ -137,7 +137,7 @@ function handleForgot(event) {
   event.preventDefault();
   let mobile = document.getElementById('forgotMobile').value.trim().replace('+91', '');
 
-  let users = JSON.parse(localStorage.getItem('CHYRIS_registered_users')) || [];
+  let users = JSON.parse(localStorage.getItem('chyris_registered_users')) || [];
   let user = users.find(u => u.mobile === mobile);
 
   if(user || authorizedAdminNumbers.includes(mobile)) {

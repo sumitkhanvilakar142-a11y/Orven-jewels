@@ -1,1 +1,1 @@
-# CHYRIS-jewels
+# chyris-jewels

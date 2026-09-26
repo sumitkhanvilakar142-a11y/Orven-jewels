@@ -1,4 +1,4 @@
-# Orven Jewels — Product Listing Template
+# chyris Jewels — Product Listing Template
 ### (925 Silver / 916 Gold — Amazon & Meesho)
 
 ---
@@ -10,16 +10,16 @@
 [Brand] [Material] [Plating if any] [Product Type] [Style/Design] for [Gender/Occasion] | [Key Feature]
 ```
 Example (Silver):
-`Orven Jewels 925 Sterling Silver Cuban Chain for Men, Waterproof & Tarnish-Free, Everyday Wear Jewelry`
+`chyris Jewels 925 Sterling Silver Cuban Chain for Men, Waterproof & Tarnish-Free, Everyday Wear Jewelry`
 
 Example (Gold):
-`Orven Jewels 916 Gold Plated Mangalsutra Chain for Women, Anti-Tarnish, Daily Wear Traditional Jewelry`
+`chyris Jewels 916 Gold Plated Mangalsutra Chain for Women, Anti-Tarnish, Daily Wear Traditional Jewelry`
 
 **Meesho Title Structure (shorter, simple language, buyer search terms first):**
 ```
 [Product Type] [Material] [Style] [Gender] - [Brand]
 ```
-Example: `Silver Bracelet 925 Stylish Chain Bracelet for Men - Orven Jewels`
+Example: `Silver Bracelet 925 Stylish Chain Bracelet for Men - chyris Jewels`
 
 ---
 
@@ -36,7 +36,7 @@ Example: `Silver Bracelet 925 Stylish Chain Bracelet for Men - Orven Jewels`
 ## 3. DESCRIPTION TEMPLATE
 
 ```
-Orven Jewels brings you the [Product Name], crafted from [material] to give you a piece
+chyris Jewels brings you the [Product Name], crafted from [material] to give you a piece
 that's stylish, durable, and perfect for everyday wear.
 
 ✔ Material: [925 Sterling Silver / 916 Gold Plated]
@@ -48,7 +48,7 @@ that's stylish, durable, and perfect for everyday wear.
 Care Instructions: Avoid contact with perfume, water for long periods, and store in
 the provided pouch/box when not in use.
 
-Each piece comes packed in Orven Jewels' signature eco-friendly packaging —
+Each piece comes packed in chyris Jewels' signature eco-friendly packaging —
 making it gift-ready right out of the box.
 ```
 

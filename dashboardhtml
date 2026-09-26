@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login / Sign Up - ORVÉN JEWELS</title>
+  <title>Login / Sign Up - Chyris JEWELS</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -30,7 +30,7 @@
 <body>
 
   <div class="auth-container">
-    <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
+    <a href="index.html" class="brand-logo">Chyris <span>JEWELS</span></a>
     <p class="auth-subtitle" id="subtitleText">Authorized Secure Gateway</p>
 
     <!-- Step 1: Mobile Input Form -->

@@ -33,7 +33,7 @@ const readDB = () => {
         { name: "BRACLETS", count: 20 },
         { name: "MANGALSUTRA", count: 4 },
         { name: "GENTS RING", count: 14 },
-        { name: "CHYRIS JEWELS", count: 31 },
+        { name: "chyris JEWELS", count: 31 },
         { name: "ETERNITY BAND", count: 7 },
         { name: "NECKLACE", count: 15 }
       ],
